@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/icon-library"
 
 import { TextAnimate } from "@/components/animate-ui/components/text/text-animate"
+import { OrbitMark } from "@/components/branding/orbit-mark"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import {
@@ -81,9 +82,7 @@ export function Topbar({
     <header className="topbar">
       <div className="topbar-title-group">
         <div className="mobile-brand-mark" aria-hidden="true">
-          <span />
-          <span />
-          <span />
+          <OrbitMark />
         </div>
         <div>
           <div className="topbar-eyebrow">

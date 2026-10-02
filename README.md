@@ -1,5 +1,7 @@
 <div align="center">
-  <img src="./design/signalboard-implementation-desktop.png" alt="Orbit dashboard with a live panel composer and operational charts" width="100%" />
+  <img src="./public/brand/orbit-logo-horizontal-color.svg" alt="Orbit" width="280" />
+
+  <img src="./design/orbit-dashboard-desktop.png" alt="Orbit dashboard with a live panel composer and operational charts" width="100%" />
 
   <h1>Orbit</h1>
   <p><strong>An expressive dashboard studio for operational signals.</strong></p>
@@ -20,6 +22,10 @@
 </div>
 
 ## Highlights
+
+The [Orbit icon pack](./design/brand/orbit-icon-pack.zip) includes SVG masters,
+outlined wordmarks, light/dark app icons, PNG sizes, favicons, and web-app assets.
+See the [identity guide](./design/brand/README.md) for usage and regeneration.
 
 - **Build panels in context.** Choose a data source, dataset, metric, aggregation, and grouping; configure the visualization and see a live preview before adding it.
 - **Arrange dashboards your way.** Switch between isolated Grid and Floating workspaces. Drag, resize, group, tab, dock, and hide panels without coupling the two layout models.
