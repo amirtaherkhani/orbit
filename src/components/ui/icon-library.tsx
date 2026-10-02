@@ -50,6 +50,7 @@ export { DotsSixVerticalIcon as GripVerticalIcon } from "@phosphor-icons/react/d
 export { HeartIcon } from "@phosphor-icons/react/dist/csr/Heart"
 export { HeartbeatIcon as HeartPulseIcon } from "@phosphor-icons/react/dist/csr/Heartbeat"
 export { InfoIcon } from "@phosphor-icons/react/dist/csr/Info"
+export { MagnifyingGlassIcon } from "@phosphor-icons/react/dist/csr/MagnifyingGlass"
 export { SquaresFourIcon as LayoutDashboardIcon } from "@phosphor-icons/react/dist/csr/SquaresFour"
 export { CircleNotchIcon as Loader2Icon } from "@phosphor-icons/react/dist/csr/CircleNotch"
 export { ArrowsInSimpleIcon as Minimize2Icon } from "@phosphor-icons/react/dist/csr/ArrowsInSimple"

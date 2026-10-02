@@ -32,7 +32,7 @@ function DropdownMenuContent({
       align={align}
       sideOffset={sideOffset}
       className={cn(
-        "max-h-(--radix-dropdown-menu-content-available-height) w-(--radix-dropdown-menu-trigger-width) min-w-32 origin-(--radix-dropdown-menu-content-transform-origin) overflow-x-hidden overflow-y-auto rounded-lg bg-popover p-1 text-popover-foreground shadow-md ring-1 ring-foreground/10",
+        "max-h-(--radix-dropdown-menu-content-available-height) w-(--radix-dropdown-menu-trigger-width) max-w-[calc(100vw-1rem)] min-w-[14.5rem] origin-(--radix-dropdown-menu-content-transform-origin) overflow-x-hidden overflow-y-auto rounded-[14px] bg-popover p-1.5 text-popover-foreground shadow-md ring-1 ring-foreground/10",
         className
       )}
       {...props}
@@ -46,7 +46,7 @@ function DropdownMenuSubContent({ className, ...props }: DropdownMenuSubContentP
   return (
     <AnimatedDropdownMenuSubContent
       className={cn(
-        "min-w-24 origin-(--radix-dropdown-menu-content-transform-origin) overflow-hidden rounded-lg bg-popover p-1 text-popover-foreground shadow-lg ring-1 ring-foreground/10",
+        "max-w-[calc(100vw-1rem)] min-w-24 origin-(--radix-dropdown-menu-content-transform-origin) overflow-hidden rounded-[14px] bg-popover p-1.5 text-popover-foreground shadow-lg ring-1 ring-foreground/10",
         className
       )}
       {...props}
