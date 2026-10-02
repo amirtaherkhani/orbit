@@ -15,6 +15,7 @@ import {
   PanelCard,
   type PanelNudgeAction,
 } from "@/components/dashboard/panel-card"
+import type { PanelColorChange } from "@/components/dashboard/panel-action-toolbar"
 import { DashboardAnnouncementBar } from "@/components/dashboard/dashboard-announcement-bar"
 import { TextFlip } from "@/components/animate-ui/components/text/text-flip"
 import { MOTION_TOKENS } from "@/components/animate-ui/animation-tokens"
@@ -136,6 +137,7 @@ type DashboardCanvasProps = {
   onDuplicatePanel: (id: string) => void
   onRemovePanel: (id: string) => void
   onNudgePanel: (id: string, action: PanelNudgeAction) => void
+  onChartColorsChange: (id: string, changes: PanelColorChange) => void
   onLayoutChange: (layout: Layout) => void
   onInteractionStart: () => void
   onOpenBuilder: () => void
@@ -192,6 +194,7 @@ export function DashboardCanvas({
   onDuplicatePanel,
   onRemovePanel,
   onNudgePanel,
+  onChartColorsChange,
   onLayoutChange,
   onInteractionStart,
   onOpenBuilder,
@@ -241,6 +244,7 @@ export function DashboardCanvas({
       onDuplicate={onDuplicatePanel}
       onRemove={onRemovePanel}
       onNudge={onNudgePanel}
+      onChartColorsChange={onChartColorsChange}
       metricAnimationDelay={Math.max(0, panels.findIndex((item) => item.id === panel.id)) * MOTION_TOKENS.metricCardStaggerMs}
     />
   )
@@ -349,6 +353,7 @@ export function DashboardCanvas({
             onDuplicatePanel={onDuplicatePanel}
             onOpenBuilder={onOpenBuilder}
             onRemovePanel={onRemovePanel}
+            onChartColorsChange={onChartColorsChange}
           />
         </React.Suspense>
       ) : (

@@ -43,6 +43,9 @@ import { ColorPicker } from "@/components/stepwise/color-picker"
 import {
   chartGradientPresets,
   DEFAULT_CHART_GRADIENT_PRESET,
+  neonChartPalette,
+  resolveChartColorStyle,
+  supportsChartColors,
 } from "@/core/conditions/chart-palettes"
 import { thresholdToneColors } from "@/core/conditions/thresholds"
 import { Badge } from "@/components/ui/badge"
@@ -83,8 +86,8 @@ import {
 import { dashboardPlugins } from "@/plugins/builtins"
 import type {
   BuilderDraft,
+  ChartColorStyle,
   ChartType,
-  ChartGradientPreset,
   ClockColor,
   ClockDateFormat,
   ClockStyle,
@@ -506,37 +509,6 @@ const textColorPresets = [
   { label: "Rose", value: "#fb7185" },
 ]
 
-const chartColorTypes = new Set<ChartType>([
-  "line",
-  "bar",
-  "area",
-  "donut",
-  "pie",
-  "gauge",
-  "bar-gauge",
-  "stat",
-  "uptime",
-  "date-time",
-  "countdown",
-  "state-timeline",
-  "heatmap",
-  "status-history",
-  "histogram",
-  "humidity-wheel",
-  "progress-ticks",
-  "sleep-dial",
-  "pull-refresh",
-  "streamgraph",
-  "brush-chart",
-  "waffle-chart",
-  "ridgeline",
-  "sankey-flow",
-  "funnel-chart",
-  "radar-chart",
-  "realtime-stream",
-  "race-bar-chart",
-])
-
 const conditionalColorTypes = new Set<ChartType>([
   "line",
   "bar",
@@ -621,7 +593,8 @@ export function VisualizationBuilder({
   const metric = getMetric(draft.dataSourceId, draft.datasetId, draft.metricId)
   const sourcePlugin = dashboardPlugins.getDataSource(source.pluginId)
   const hasThresholds = Boolean(metric.thresholds?.length)
-  const supportsChartColors = chartColorTypes.has(draft.chartType)
+  const hasChartColors = supportsChartColors(draft.chartType)
+  const chartColorStyle = resolveChartColorStyle(draft.chartColorStyle, draft.gradientPreset)
   const supportsConditionalColors = conditionalColorTypes.has(draft.chartType)
   const activeSection = isDataIndependent && openSection === "data"
     ? "visual"
@@ -1679,73 +1652,104 @@ export function VisualizationBuilder({
             </>
           )}
 
-          {supportsChartColors && (
+          {hasChartColors && (
             <Field>
-              <FieldLabel htmlFor="chart-gradient-palette">Color palette</FieldLabel>
+              <FieldLabel htmlFor="chart-color-style">Chart color style</FieldLabel>
               <ToggleGroup
-                id="chart-gradient-palette"
+                id="chart-color-style"
                 type="single"
-                value={draft.gradientPreset ?? DEFAULT_CHART_GRADIENT_PRESET}
+                value={chartColorStyle}
                 variant="outline"
-                className="chart-gradient-grid"
-                onValueChange={(gradientPreset) => {
-                  if (gradientPreset) {
-                    onDraftChange({
-                      ...draft,
-                      gradientPreset: gradientPreset as ChartGradientPreset,
-                      customChartColor: undefined,
-                    })
-                  }
+                className="chart-color-style-grid"
+                onValueChange={(value) => {
+                  if (value) onDraftChange({ ...draft, chartColorStyle: value as ChartColorStyle })
                 }}
               >
-                {chartGradientPresets.map(({ value, label, colors }) => (
+                {([
+                  { value: "pastel", label: "Pastel", colors: chartGradientPresets[0].colors },
+                  { value: "neon", label: "Neon", colors: neonChartPalette.colors },
+                  { value: "custom", label: "Custom", colors: [draft.customChartColor ?? "#91D9C3"] },
+                ] as const).map(({ value, label, colors }) => (
                   <ToggleGroupItem
                     key={value}
                     value={value}
-                    aria-label={`${label} color palette`}
-                    className="chart-gradient-option"
+                    aria-label={`${label} chart colors`}
+                    className="chart-color-style-option"
                   >
                     <i
                       aria-hidden="true"
                       style={{
-                        "--palette-swatch": `linear-gradient(90deg, ${colors[0]}, ${colors[2]}, ${colors[4]})`,
+                        "--palette-swatch": value === "custom"
+                          ? colors[0]
+                          : `linear-gradient(90deg, ${colors[0]}, ${colors[2]}, ${colors[4]})`,
                       } as React.CSSProperties}
                     />
                     <span>{label}</span>
                   </ToggleGroupItem>
                 ))}
               </ToggleGroup>
-              <div
-                className="chart-gradient-custom"
-                data-active={draft.gradientPreset === "custom"}
-              >
-                <div className="chart-gradient-custom-copy">
-                  <span>Custom color</span>
-                  <code>
-                    {draft.gradientPreset === "custom"
-                      ? draft.customChartColor?.toUpperCase() ?? "Choose a color"
-                      : "Build a coordinated palette"}
-                  </code>
+              {chartColorStyle === "pastel" && (
+                <>
+                  <span className="field-hint">Gradient pastel palette</span>
+                  <ToggleGroup
+                    type="single"
+                    aria-label="Pastel palette"
+                    value={draft.gradientPreset === "custom"
+                      ? DEFAULT_CHART_GRADIENT_PRESET
+                      : draft.gradientPreset ?? DEFAULT_CHART_GRADIENT_PRESET}
+                    variant="outline"
+                    className="chart-gradient-grid"
+                    onValueChange={(gradientPreset) => {
+                      if (gradientPreset) onDraftChange({
+                        ...draft,
+                        chartColorStyle: "pastel",
+                        gradientPreset: gradientPreset as BuilderDraft["gradientPreset"],
+                      })
+                    }}
+                  >
+                    {chartGradientPresets.map(({ value, label, colors }) => (
+                      <ToggleGroupItem
+                        key={value}
+                        value={value}
+                        aria-label={`${label} color palette`}
+                        className="chart-gradient-option"
+                      >
+                        <i
+                          aria-hidden="true"
+                          style={{
+                            "--palette-swatch": `linear-gradient(90deg, ${colors[0]}, ${colors[2]}, ${colors[4]})`,
+                          } as React.CSSProperties}
+                        />
+                        <span>{label}</span>
+                      </ToggleGroupItem>
+                    ))}
+                  </ToggleGroup>
+                </>
+              )}
+              {chartColorStyle === "custom" && (
+                <div className="chart-gradient-custom" data-active="true">
+                  <div className="chart-gradient-custom-copy">
+                    <span>Custom color</span>
+                    <code>{draft.customChartColor?.toUpperCase() ?? "Choose a color"}</code>
+                  </div>
+                  <ColorPicker
+                    className="chart-gradient-color-picker"
+                    size="sm"
+                    showPresets
+                    value={draft.customChartColor ?? chartGradientPresets[0].colors[0]}
+                    onChange={(customChartColor) =>
+                      onDraftChange({
+                        ...draft,
+                        chartColorStyle: "custom",
+                        customChartColor,
+                      })
+                    }
+                  />
                 </div>
-                <ColorPicker
-                  className="chart-gradient-color-picker"
-                  size="sm"
-                  showPresets
-                  value={
-                    draft.customChartColor ?? chartGradientPresets[0].colors[0]
-                  }
-                  onChange={(customChartColor) =>
-                    onDraftChange({
-                      ...draft,
-                      gradientPreset: "custom",
-                      customChartColor,
-                    })
-                  }
-                />
-              </div>
-              <span className="field-hint">
-                Custom colors create a coordinated pastel palette across chart types.
-              </span>
+              )}
+              {chartColorStyle === "custom" && (
+                <span className="field-hint">Your color builds a coordinated five-color palette.</span>
+              )}
             </Field>
           )}
             </FieldGroup>

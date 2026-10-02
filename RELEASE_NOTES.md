@@ -1,3 +1,12 @@
+# v0.4.0
+
+## Highlights
+- Charts can switch between gradient pastel, neon, and custom color styles.
+
+## Added
+- Choose a chart style while composing a panel or directly from an existing Grid or Floating tile.
+- Keep the selected style and custom color when saving and reopening a dashboard.
+
 # v0.3.0
 
 ## Highlights

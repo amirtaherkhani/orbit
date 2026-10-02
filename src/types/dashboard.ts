@@ -45,6 +45,7 @@ export type ChartGradientPreset =
   | "violet"
   | "ember"
   | "custom"
+export type ChartColorStyle = "pastel" | "neon" | "custom"
 export type UptimeStyle =
   | "service-cards"
   | "status-pills"
@@ -142,6 +143,7 @@ export type PanelConfig = {
   groupBy: string
   showLegend: boolean
   colorMode?: "series" | "threshold"
+  chartColorStyle?: ChartColorStyle
   gradientPreset?: ChartGradientPreset
   customChartColor?: string
   statLayout?: StatLayout

@@ -1,6 +1,7 @@
 import { LazyChartRenderer } from "@/components/dashboard/lazy-chart-renderer"
 import {
   PanelActionToolbar,
+  type PanelColorChange,
   type PanelNudgeAction,
 } from "@/components/dashboard/panel-action-toolbar"
 import {
@@ -28,6 +29,7 @@ type PanelCardProps = {
   onDuplicate: (id: string) => void
   onRemove: (id: string) => void
   onNudge: (id: string, action: PanelNudgeAction) => void
+  onChartColorsChange: (id: string, changes: PanelColorChange) => void
 }
 
 export function PanelCard({
@@ -41,6 +43,7 @@ export function PanelCard({
   onDuplicate,
   onRemove,
   onNudge,
+  onChartColorsChange,
 }: PanelCardProps) {
   const dataset = getDataset(panel.dataSourceId, panel.datasetId)
   const metric = getMetric(panel.dataSourceId, panel.datasetId, panel.metricId)
@@ -55,11 +58,13 @@ export function PanelCard({
       <PanelActionToolbar
         panelId={panel.id}
         panelTitle={panel.title}
+        panel={panel}
         showDragHandle={editMode}
         onEditTitles={onEditTitles}
         onDuplicate={onDuplicate}
         onRemove={onRemove}
         onNudge={onNudge}
+        onChartColorsChange={onChartColorsChange}
       />
       <CardHeader className="dashboard-card-header">
         <div className="panel-title-line">

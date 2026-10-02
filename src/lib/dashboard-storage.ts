@@ -1,4 +1,4 @@
-import { DEFAULT_CHART_GRADIENT_PRESET } from "@/core/conditions/chart-palettes"
+import { DEFAULT_CHART_GRADIENT_PRESET, supportsChartColors } from "@/core/conditions/chart-palettes"
 import { dashboardPlugins } from "@/plugins/builtins"
 import type {
   ChartType,
@@ -10,37 +10,6 @@ import type {
 const STORAGE_KEY = "signalboard-dashboard-v1"
 const DASHBOARD_SCHEMA_VERSION = 1
 const DASHBOARD_ID = "operations-overview"
-const gradientChartTypes = new Set<ChartType>([
-  "line",
-  "bar",
-  "area",
-  "donut",
-  "pie",
-  "gauge",
-  "bar-gauge",
-  "stat",
-  "state-timeline",
-  "heatmap",
-  "status-history",
-  "histogram",
-  "uptime",
-  "date-time",
-  "countdown",
-  "humidity-wheel",
-  "progress-ticks",
-  "sleep-dial",
-  "pull-refresh",
-  "streamgraph",
-  "brush-chart",
-  "waffle-chart",
-  "ridgeline",
-  "sankey-flow",
-  "funnel-chart",
-  "radar-chart",
-  "realtime-stream",
-  "race-bar-chart",
-])
-
 const chartTypes = new Set<ChartType>([
   "line",
   "bar",
@@ -90,6 +59,7 @@ const panelFields = new Set([
   "groupBy",
   "showLegend",
   "colorMode",
+  "chartColorStyle",
   "gradientPreset",
   "customChartColor",
   "statLayout",
@@ -239,7 +209,7 @@ function applyDefaultChartGradients(snapshot: DashboardSnapshot) {
   let changed = false
   const panels = snapshot.panels.map((panel) => {
     if (
-      !gradientChartTypes.has(panel.chartType) ||
+      !supportsChartColors(panel.chartType) ||
       panel.gradientPreset !== undefined
     ) {
       return panel

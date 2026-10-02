@@ -1,10 +1,12 @@
 import type { ReactNode } from "react"
+import { Popover } from "radix-ui"
 import {
   ArrowDownIcon,
   ArrowLeftIcon,
   ArrowRightIcon,
   ArrowUpIcon,
   CopyIcon,
+  DropletsIcon,
   EllipsisIcon,
   ExpandIcon,
   GripVerticalIcon,
@@ -23,6 +25,18 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import {
+  chartGradientPresets,
+  neonChartPalette,
+  resolveChartColorStyle,
+  supportsChartColors,
+} from "@/core/conditions/chart-palettes"
+import type { ChartColorStyle, PanelConfig } from "@/types/dashboard"
+
+export type PanelColorChange = Partial<Pick<
+  PanelConfig,
+  "chartColorStyle" | "gradientPreset" | "customChartColor"
+>>
 
 export type PanelNudgeAction =
   | "left"
@@ -37,6 +51,7 @@ export type PanelNudgeAction =
 type PanelActionToolbarProps = {
   panelId: string
   panelTitle: string
+  panel?: PanelConfig
   model?: "grid" | "floating"
   showMore?: boolean
   showDragHandle?: boolean
@@ -45,11 +60,13 @@ type PanelActionToolbarProps = {
   onDuplicate: (id: string) => void
   onRemove: (id: string) => void
   onNudge?: (id: string, action: PanelNudgeAction) => void
+  onChartColorsChange?: (id: string, changes: PanelColorChange) => void
 }
 
 export function PanelActionToolbar({
   panelId,
   panelTitle,
+  panel,
   model = "grid",
   showMore = true,
   showDragHandle = false,
@@ -58,7 +75,10 @@ export function PanelActionToolbar({
   onDuplicate,
   onRemove,
   onNudge,
+  onChartColorsChange,
 }: PanelActionToolbarProps) {
+  const colorStyle = resolveChartColorStyle(panel?.chartColorStyle, panel?.gradientPreset)
+
   return (
     <div
       className="dashboard-panel-toolbar"
@@ -78,6 +98,85 @@ export function PanelActionToolbar({
         >
           <GripVerticalIcon />
         </Button>
+      )}
+      {panel && supportsChartColors(panel.chartType) && onChartColorsChange && (
+        <Popover.Root>
+          <Popover.Trigger asChild>
+            <Button
+              type="button"
+              variant="ghost"
+              size="icon-sm"
+              aria-label={`Change ${panelTitle} chart colors`}
+              title="Chart colors"
+            >
+              <DropletsIcon />
+            </Button>
+          </Popover.Trigger>
+          <Popover.Portal>
+            <Popover.Content
+              className="panel-color-popover"
+              align="start"
+              sideOffset={8}
+              aria-label={`${panelTitle} chart colors`}
+            >
+              <strong>Chart colors</strong>
+              <div className="panel-color-style-options" role="group" aria-label="Color style">
+                {([
+                  { value: "pastel", label: "Pastel", colors: chartGradientPresets[0].colors },
+                  { value: "neon", label: "Neon", colors: neonChartPalette.colors },
+                  { value: "custom", label: "Custom", colors: [panel.customChartColor ?? "#91D9C3"] },
+                ] as const).map(({ value, label, colors }) => (
+                  <button
+                    key={value}
+                    type="button"
+                    className="panel-color-style-option"
+                    aria-pressed={colorStyle === value}
+                    onClick={() => onChartColorsChange(panelId, { chartColorStyle: value as ChartColorStyle })}
+                  >
+                    <i
+                      aria-hidden="true"
+                      style={{ background: value === "custom"
+                        ? colors[0]
+                        : `linear-gradient(90deg, ${colors[0]}, ${colors[2]}, ${colors[4]})` }}
+                    />
+                    {label}
+                  </button>
+                ))}
+              </div>
+              {colorStyle === "pastel" && (
+                <div className="panel-pastel-options" role="group" aria-label="Pastel palette">
+                  {chartGradientPresets.map(({ value, label, colors }) => (
+                    <button
+                      key={value}
+                      type="button"
+                      aria-label={`${label} palette`}
+                      title={label}
+                      aria-pressed={(panel.gradientPreset === "custom" ? "aurora" : panel.gradientPreset ?? "aurora") === value}
+                      onClick={() => onChartColorsChange(panelId, {
+                        chartColorStyle: "pastel",
+                        gradientPreset: value,
+                      })}
+                      style={{ background: `linear-gradient(90deg, ${colors[0]}, ${colors[2]}, ${colors[4]})` }}
+                    />
+                  ))}
+                </div>
+              )}
+              {colorStyle === "custom" && (
+                <label className="panel-custom-color">
+                  Custom color
+                  <input
+                    type="color"
+                    value={(panel.customChartColor ?? "#91D9C3").slice(0, 7)}
+                    onChange={(event) => onChartColorsChange(panelId, {
+                      chartColorStyle: "custom",
+                      customChartColor: event.target.value,
+                    })}
+                  />
+                </label>
+              )}
+            </Popover.Content>
+          </Popover.Portal>
+        </Popover.Root>
       )}
       <Button
         type="button"

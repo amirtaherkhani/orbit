@@ -5,6 +5,7 @@ import { toast } from "sonner"
 import { AppRail } from "@/components/dashboard/app-rail"
 import { DashboardCanvas } from "@/components/dashboard/dashboard-canvas"
 import type { PanelNudgeAction } from "@/components/dashboard/panel-card"
+import type { PanelColorChange } from "@/components/dashboard/panel-action-toolbar"
 import { Topbar } from "@/components/dashboard/topbar"
 import { VisualizationBuilder } from "@/components/dashboard/visualization-builder"
 import { Button } from "@/components/ui/button"
@@ -173,6 +174,21 @@ export default function App() {
     setLayout(nextSnapshot.layout)
     setSelectedPanelId(nextId)
     toast.success("Panel duplicated")
+  }
+
+  const handleChartColorsChange = (id: string, changes: PanelColorChange) => {
+    const current = stateRef.current
+    const target = current.panels.find((panel) => panel.id === id)
+    if (!target || Object.entries(changes).every(([key, value]) =>
+      target[key as keyof PanelConfig] === value
+    )) return
+    checkpoint()
+    const nextPanels = current.panels.map((panel) =>
+      panel.id === id ? { ...panel, ...changes } : panel
+    )
+    stateRef.current = { ...current, panels: nextPanels }
+    setPanels(nextPanels)
+    setSelectedPanelId(id)
   }
 
   const handleRemovePanel = (id: string) => {
@@ -408,6 +424,7 @@ export default function App() {
             onDuplicatePanel={handleDuplicatePanel}
             onRemovePanel={handleRemovePanel}
             onNudgePanel={handleNudgePanel}
+            onChartColorsChange={handleChartColorsChange}
             onLayoutChange={handleLayoutChange}
             onInteractionStart={checkpoint}
             onOpenBuilder={openBuilder}

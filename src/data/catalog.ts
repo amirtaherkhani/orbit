@@ -481,6 +481,7 @@ export const defaultDraft: BuilderDraft = {
   groupBy: "service",
   showLegend: true,
   colorMode: "series",
+  chartColorStyle: "pastel",
   gradientPreset: DEFAULT_CHART_GRADIENT_PRESET,
   uptimeStyle: "service-cards",
 }
