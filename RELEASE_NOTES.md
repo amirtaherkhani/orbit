@@ -1,3 +1,8 @@
+# v0.8.3
+
+## Fixed
+- Restore the Panel Composer heading's liquid-glass translucency in light and dark mode.
+
 # v0.8.2
 
 ## Changed
