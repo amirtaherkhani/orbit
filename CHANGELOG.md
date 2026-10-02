@@ -12,6 +12,7 @@
 - Add a reusable searchable multi-select with removable chips, keyboard listbox navigation, and clear-selection controls.
 
 ### Changed
+- Make only the bottom border of Grid and Floating tile title bars transparent in both themes.
 - Give dark-mode shell, composer, cards, preview, and controls a layered slate gradient.
 - Match the Panel Composer heading background to the top navigation bar in both themes.
 - Match the dashboard composer footer surface to its sidebar in both themes.

@@ -1,3 +1,8 @@
+# v0.7.9
+
+## Changed
+- Remove the visible bottom border color from Grid and Floating tile title bars in both themes.
+
 # v0.7.8
 
 ## Changed
