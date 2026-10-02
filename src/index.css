@@ -66,7 +66,7 @@
     rgba(255, 255, 255, 0.42),
     rgba(255, 252, 243, 0.2)
   );
-  --glass-panel-heading-fill: linear-gradient(90deg, rgba(255, 255, 255, 0.48), rgba(255, 249, 236, 0.12));
+  --glass-panel-heading-fill: linear-gradient(180deg, rgba(255, 255, 255, 0.48), rgba(255, 249, 236, 0.12));
   --glass-panel-heading-border: rgba(184, 196, 204, 0.25);
   --glass-panel-shadow:
     0 22px 70px rgba(91, 101, 108, 0.12),
@@ -256,7 +256,7 @@
     #1f242d 68%,
     #171d24 100%
   );
-  --glass-panel-heading-fill: linear-gradient(90deg, rgba(48, 57, 66, 0.74), rgba(31, 36, 45, 0.18));
+  --glass-panel-heading-fill: linear-gradient(180deg, rgba(48, 57, 66, 0.74), rgba(31, 36, 45, 0.18));
   --glass-panel-heading-border: rgba(231, 237, 226, 0.11);
   --glass-panel-shadow:
     0 22px 70px rgba(0, 0, 0, 0.3),
