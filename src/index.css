@@ -1902,6 +1902,8 @@
 }
 
 .dashboard-grid-shell {
+  position: relative;
+  isolation: isolate;
   min-height: calc(100% - 78px);
   background-color: color-mix(in oklch, var(--background) 96%, black);
   background-image: radial-gradient(
@@ -1911,6 +1913,44 @@
   );
   background-position: 4px 4px;
   background-size: 18px 18px;
+}
+
+.dashboard-grid-shell::before {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  background-image: radial-gradient(
+    circle,
+    color-mix(in oklch, var(--muted-foreground) 48%, transparent) 1.15px,
+    transparent 1.15px
+  );
+  background-position: 4px 4px;
+  background-size: 18px 18px;
+  content: "";
+  opacity: 0;
+  pointer-events: none;
+  -webkit-mask-image: radial-gradient(
+    400px circle at var(--dashboard-spotlight-x, -1000px)
+      var(--dashboard-spotlight-y, -1000px),
+    black 20%,
+    transparent 100%
+  );
+  mask-image: radial-gradient(
+    400px circle at var(--dashboard-spotlight-x, -1000px)
+      var(--dashboard-spotlight-y, -1000px),
+    black 20%,
+    transparent 100%
+  );
+  transition: opacity 180ms ease;
+}
+
+.dashboard-grid-shell[data-spotlight-active="true"]::before {
+  opacity: 0.8;
+}
+
+.dashboard-grid-shell > * {
+  position: relative;
+  z-index: 1;
 }
 
 .dashboard-grid {
@@ -7030,6 +7070,10 @@ body {
 @media (prefers-reduced-motion: reduce) {
   #root::before {
     animation: none !important;
+  }
+
+  .dashboard-grid-shell::before {
+    transition-duration: 0ms !important;
   }
 
   .dashboard-announcement-copy {

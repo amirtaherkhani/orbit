@@ -349,6 +349,26 @@ export function DashboardCanvas({
           ref={containerRef}
           data-editing={editMode}
           data-layout-style={gridPresentation}
+          onPointerMove={(event) => {
+            if (event.pointerType === "touch") {
+              delete event.currentTarget.dataset.spotlightActive
+              return
+            }
+
+            const bounds = event.currentTarget.getBoundingClientRect()
+            event.currentTarget.style.setProperty(
+              "--dashboard-spotlight-x",
+              `${event.clientX - bounds.left}px`
+            )
+            event.currentTarget.style.setProperty(
+              "--dashboard-spotlight-y",
+              `${event.clientY - bounds.top}px`
+            )
+            event.currentTarget.dataset.spotlightActive = "true"
+          }}
+          onPointerLeave={(event) => {
+            delete event.currentTarget.dataset.spotlightActive
+          }}
         >
           {panels.length === 0 ? (
             <div className="empty-dashboard">
