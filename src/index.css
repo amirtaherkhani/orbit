@@ -7051,9 +7051,14 @@ body {
 
 .trellis-dashboard-workspace .trellis [data-trellis-part="tabbar"]:not([data-single])
   [data-trellis-part="tab"][data-selected] {
-  background: color-mix(in oklch, var(--foreground) 11%, transparent);
+  background: transparent;
   color: var(--foreground);
-  box-shadow: none;
+  box-shadow: inset 0 2px 0 var(--primary);
+}
+
+.trellis-dashboard-workspace .trellis [data-trellis-part="tabbar"]:not([data-single])
+  [data-trellis-part="tab"][data-selected] [data-trellis-part="tab-title"] {
+  font-weight: 600;
 }
 
 .dashboard-model-switch button:focus-visible,
