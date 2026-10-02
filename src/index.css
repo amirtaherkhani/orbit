@@ -1762,6 +1762,11 @@
   font-size: 11px;
 }
 
+.canvas-layout-help {
+  padding: 0 22px 18px;
+  line-height: 1.5;
+}
+
 .canvas-hint svg {
   width: 14px;
   height: 14px;
@@ -6394,6 +6399,18 @@ body {
     inset 0 1px 0 rgba(255, 255, 255, 0.76);
   -webkit-backdrop-filter: blur(var(--glass-blur-control)) saturate(var(--glass-saturation-control));
   backdrop-filter: blur(var(--glass-blur-control)) saturate(var(--glass-saturation-control));
+}
+
+.dark .live-badge,
+.dark .draft-badge {
+  border-color: transparent;
+  box-shadow: none;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+
+.dark .live-badge .live-dot {
+  box-shadow: none;
 }
 
 :where(

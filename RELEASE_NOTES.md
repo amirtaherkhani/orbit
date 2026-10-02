@@ -1,3 +1,13 @@
+# v0.6.3
+
+## Changed
+- Move Grid and Floating layout hints from the heading into a footer below the tiles.
+
+# v0.6.2
+
+## Changed
+- Use flat tinted Live and Draft badges in dark mode.
+
 # v0.6.1
 
 ## Changed

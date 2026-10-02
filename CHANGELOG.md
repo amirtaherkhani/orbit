@@ -10,6 +10,8 @@
 - Add a reusable searchable multi-select with removable chips, keyboard listbox navigation, and clear-selection controls.
 
 ### Changed
+- Move layout instructions below the dashboard tiles to free space beside the layout controls.
+- Flatten dark-mode Live and Draft badges by removing raised highlights, borders, blur, and dot halos.
 - Show Orbit and the package version in the app header and remove dashboard/composer section dividers.
 - Modernize grouped Floating tiles with a compact segmented tab strip, raised active pill, accent indicator, and keyboard focus styling.
 - Convert saved Waffle panels to Donut when loading or importing dashboards.
