@@ -319,19 +319,6 @@ export function DashboardCanvas({
               </ToggleGroup>
             </div>
           )}
-          {model === "floating" && !isMobile ? (
-            <div className="canvas-hint">
-              <MousePointer2Icon />
-              Drag a chart onto another chart’s title bar to group as tabs
-            </div>
-          ) : model === "grid" && editMode && !isMobile ? (
-            <div className="canvas-hint">
-              <MousePointer2Icon />
-              {gridPresentation === "custom"
-                ? "Drag handles to arrange · pull any edge to resize"
-                : "Preset layout · switch to Custom to drag or resize"}
-            </div>
-          ) : null}
         </div>
       </div>
 
@@ -423,6 +410,19 @@ export function DashboardCanvas({
           )}
         </div>
       )}
+      {model === "floating" && !isMobile ? (
+        <footer className="canvas-hint canvas-layout-help">
+          <MousePointer2Icon aria-hidden="true" />
+          Drag a chart onto another chart’s title bar to group as tabs
+        </footer>
+      ) : model === "grid" && editMode && !isMobile ? (
+        <footer className="canvas-hint canvas-layout-help">
+          <MousePointer2Icon aria-hidden="true" />
+          {gridPresentation === "custom"
+            ? "Drag handles to arrange · pull any edge to resize"
+            : "Preset layout · switch to Custom to drag or resize"}
+        </footer>
+      ) : null}
     </main>
   )
 }
