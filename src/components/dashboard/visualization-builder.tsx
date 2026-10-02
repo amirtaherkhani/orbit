@@ -1805,7 +1805,7 @@ export function VisualizationBuilder({
           onClick={onAddPanel}
           disabled={!draft.title.trim()}
         >
-          <PlusIcon data-icon="inline-start" />
+          <PlusIcon className="text-primary-foreground" data-icon="inline-start" />
           Add to dashboard
         </Button>
         <span>Drag and resize after adding</span>
