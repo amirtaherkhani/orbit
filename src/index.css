@@ -6360,6 +6360,18 @@ body {
   backdrop-filter: blur(var(--glass-blur-control)) saturate(var(--glass-saturation-control));
 }
 
+.dark .live-badge,
+.dark .draft-badge {
+  border-color: transparent;
+  box-shadow: none;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+
+.dark .live-badge .live-dot {
+  box-shadow: none;
+}
+
 :where(
   [data-slot="dropdown-menu-content"],
   [data-slot="dropdown-menu-sub-content"],
