@@ -1,3 +1,8 @@
+# v0.5.1
+
+## Fixed
+- Match Floating tile surfaces to Grid cards while preserving docking, tabs, and resizing.
+
 # v0.5.0
 
 ## Highlights
