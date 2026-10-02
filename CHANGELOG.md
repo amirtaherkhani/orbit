@@ -16,6 +16,7 @@
 - Give the native Floating tile action menu a translucent, blurred glass surface in both themes.
 - Render the italic word in the Service health heading with a light font weight.
 - Mark the active tab in grouped tiles with a minimal primary-color top edge and no filled background.
+- Animate grouped Floating tab changes with spring-driven panel transitions and a smoothly moving selected state.
 - Use flat attached tabs on grouped Floating tiles and remove Grid and Floating tile title-bar bottom borders in both themes.
 - Let composer controls scroll behind a sticky glass heading and increase its blur in both themes.
 - Remove the notification banner's animated interior glow while preserving its severity border and warning/error colors.

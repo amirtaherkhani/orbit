@@ -1813,6 +1813,14 @@
   overflow: hidden;
 }
 
+.trellis-panel-tab-content {
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
+  transform-origin: center;
+}
+
 .trellis-panel-body {
   display: flex;
   width: 100%;
@@ -6216,8 +6224,9 @@ body {
   color: var(--muted-foreground);
   cursor: grab;
   transition:
-    background-color var(--motion-duration-fast) var(--motion-ease-standard),
-    color var(--motion-duration-fast) var(--motion-ease-standard);
+    background-color 240ms cubic-bezier(0.2, 0.8, 0.2, 1),
+    color 240ms cubic-bezier(0.2, 0.8, 0.2, 1),
+    transform 240ms cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
 .trellis-dashboard-workspace .trellis [data-trellis-part="tabbar"]:not([data-single])
@@ -7069,6 +7078,7 @@ body {
   background: transparent;
   color: var(--foreground);
   box-shadow: inset 0 2px 0 var(--primary);
+  transform: translateY(-1px);
 }
 
 .trellis-dashboard-workspace .trellis [data-trellis-part="tabbar"]:not([data-single])
