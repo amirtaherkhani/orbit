@@ -20,6 +20,7 @@
 - Align select popups to their triggers and refine dropdown surfaces for compact, viewport-aware warm glass menus.
 
 ### Fixed
+- Align the Grid style label inside its segmented control with consistent padding and responsive spacing.
 - Give Floating tiles the same glass fill, border, blur, shadow, and header finish as Grid cards, including dark mode and opaque fallback.
 
 ### Removed

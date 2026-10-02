@@ -1,3 +1,8 @@
+# v0.6.4
+
+## Fixed
+- Correct Grid style label padding and alignment beside the layout switch.
+
 # v0.6.3
 
 ## Changed
