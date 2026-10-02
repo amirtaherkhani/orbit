@@ -9,6 +9,7 @@
 - Add a reusable searchable multi-select with removable chips, keyboard listbox navigation, and clear-selection controls.
 
 ### Changed
+- Modernize grouped Floating tiles with a compact segmented tab strip, raised active pill, accent indicator, and keyboard focus styling.
 - Replace the desktop, mobile, browser, and README branding with the approved inward-curved Orbital O.
 - Slide banner items horizontally with directional transitions and honor reduced-motion preferences.
 - Align select popups to their triggers and refine dropdown surfaces for compact, viewport-aware warm glass menus.

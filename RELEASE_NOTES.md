@@ -1,3 +1,8 @@
+# v0.5.2
+
+## Changed
+- Replace classic Floating tile tabs with compact segmented tabs, a raised active state, and clear keyboard focus.
+
 # v0.5.1
 
 ## Fixed

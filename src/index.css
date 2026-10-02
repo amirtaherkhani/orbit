@@ -6169,48 +6169,106 @@ body {
   backdrop-filter: none;
 }
 
+/* Grouped tiles use a floating segmented strip; single tiles keep their heading. */
+.trellis-dashboard-workspace .trellis [data-trellis-part="panel"]:has([data-trellis-part="tabbar"]:not([data-single])) {
+  --trellis-tabbar-height: 48px;
+}
+
+.trellis-dashboard-workspace .trellis [data-trellis-part="tabbar"]:not([data-single]) {
+  align-items: center;
+  gap: 8px;
+  padding-inline: 10px;
+  border-bottom: 0;
+  box-shadow: none;
+}
+
 .trellis-dashboard-workspace .trellis [data-trellis-part="tabbar"]:not([data-single])
   [data-trellis-part="tabs"] {
-  gap: 6px;
-  padding-inline: 7px;
+  align-items: center;
+  gap: 4px;
+  height: 36px;
+  padding: 3px;
+  border-radius: 12px;
+  background: color-mix(in oklch, var(--foreground) 5%, transparent);
 }
 
 .trellis-dashboard-workspace .trellis [data-trellis-part="tabbar"]:not([data-single])
   [data-trellis-part="tab"] {
-  min-width: 88px;
-  margin-block: 4px;
+  flex: 0 1 auto;
+  min-width: 100px;
+  max-width: 220px;
+  height: 30px;
+  margin: 0;
   padding-inline: 12px;
-  border: 1px solid color-mix(in oklch, var(--border) 88%, var(--muted-foreground));
-  border-radius: 8px;
-  background: color-mix(in oklch, var(--muted) 30%, transparent);
+  gap: 7px;
+  border: 0;
+  border-radius: 9px;
+  background: transparent;
+  box-shadow: none;
   color: var(--muted-foreground);
-  cursor: pointer;
+  cursor: grab;
   transition:
     background-color var(--motion-duration-fast) var(--motion-ease-standard),
-    border-color var(--motion-duration-fast) var(--motion-ease-standard),
+    box-shadow var(--motion-duration-fast) var(--motion-ease-standard),
     color var(--motion-duration-fast) var(--motion-ease-standard);
 }
 
 .trellis-dashboard-workspace .trellis [data-trellis-part="tabbar"]:not([data-single])
+  [data-trellis-part="tab-title"] {
+  font-family: var(--font-ui);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  line-height: 1.2;
+}
+
+.trellis-dashboard-workspace .trellis [data-trellis-part="tabbar"]:not([data-single])
   [data-trellis-part="tab"]:hover {
-  border-color: color-mix(in oklch, var(--primary) 35%, var(--border));
-  background: color-mix(in oklch, var(--primary) 8%, var(--muted));
+  background: color-mix(in oklch, var(--card) 65%, transparent);
   color: var(--foreground);
 }
 
 .trellis-dashboard-workspace .trellis [data-trellis-part="tabbar"]:not([data-single])
   [data-trellis-part="tab"][data-selected] {
-  border-color: color-mix(in oklch, var(--primary) 52%, var(--border));
-  background: color-mix(in oklch, var(--primary) 14%, var(--card));
+  background: var(--card);
   color: var(--foreground);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.58);
+  box-shadow: 0 2px 6px color-mix(in oklch, var(--foreground) 9%, transparent),
+    inset 0 0 0 1px var(--glass-panel-border);
 }
 
 .trellis-dashboard-workspace .trellis [data-trellis-part="tabbar"]:not([data-single])
-  [data-trellis-part="tab"][data-selected]::before,
+  [data-trellis-part="tab"]::before {
+  content: "";
+  position: static;
+  flex: none;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: currentColor;
+  opacity: 0.35;
+}
+
 .trellis-dashboard-workspace .trellis [data-trellis-part="tabbar"]:not([data-single])
-  [data-trellis-part="tab"][data-selected]::after {
+  [data-trellis-part="tab"][data-selected]::before {
+  background: var(--primary);
+  opacity: 1;
+}
+
+.trellis-dashboard-workspace .trellis [data-trellis-part="tabbar"]:not([data-single])
+  [data-trellis-part="tab"]::after {
   display: none;
+}
+
+.trellis-dashboard-workspace .trellis [data-trellis-part="tabbar"]:not([data-single])
+  [data-trellis-part="tab"]:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: -2px;
+}
+
+.trellis-dashboard-workspace .trellis [data-trellis-part="tabbar"]:not([data-single])
+  [data-trellis-part="tab"][data-dragging] {
+  cursor: grabbing;
+  transition: none;
 }
 
 .trellis-panel-footer {
@@ -6981,6 +7039,7 @@ body {
     animation: none !important;
   }
 
+  .trellis-dashboard-workspace .trellis [data-trellis-part="tab"],
   .topbar .topbar-actions [data-slot="button"],
   .trellis-dashboard-workspace .trellis [data-trellis-part="panel"],
   .dashboard-card,
