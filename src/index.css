@@ -655,12 +655,16 @@
 }
 
 .builder-heading {
+  position: sticky;
+  z-index: 2;
+  top: 0;
   display: flex;
   min-height: 76px;
   align-items: center;
   justify-content: space-between;
   gap: 12px;
   border: 0;
+  margin: 0 -18px 18px;
   padding: 14px 18px;
 }
 
@@ -686,7 +690,7 @@
   overflow-x: hidden;
   overflow-y: auto;
   overscroll-behavior-y: contain;
-  padding: 18px;
+  padding: 0 18px 18px;
   scrollbar-gutter: stable;
   scrollbar-color: var(--border) transparent;
   scrollbar-width: thin;
@@ -6023,8 +6027,8 @@ body {
   border-color: color-mix(in srgb, var(--glass-panel-border) 74%, transparent);
   background: var(--glass-topbar-fill) left top / calc(100vw - 100px) 100% no-repeat,
     var(--glass-topbar-base);
-  -webkit-backdrop-filter: blur(26px) saturate(120%);
-  backdrop-filter: blur(26px) saturate(120%);
+  -webkit-backdrop-filter: blur(40px) saturate(140%);
+  backdrop-filter: blur(40px) saturate(140%);
 }
 
 .builder-scroll-area {

@@ -690,22 +690,22 @@ export function VisualizationBuilder({
 
   return (
     <aside className="builder-panel" aria-label="Visualization builder">
-      <div className="builder-heading">
-        <div>
-          <span className="section-kicker">Panel composer</span>
-          <h2 className="type-section-heading">Create visualization</h2>
-        </div>
-        <Badge variant="secondary" className="draft-badge">
-          Draft
-        </Badge>
-      </div>
-
       <div
         className="builder-scroll-area"
         role="region"
         aria-label="Panel composer controls"
         tabIndex={0}
       >
+        <div className="builder-heading">
+          <div>
+            <span className="section-kicker">Panel composer</span>
+            <h2 className="type-section-heading">Create visualization</h2>
+          </div>
+          <Badge variant="secondary" className="draft-badge">
+            Draft
+          </Badge>
+        </div>
+
         <BouncyAccordion
           className="builder-accordion"
           value={activeSection}
