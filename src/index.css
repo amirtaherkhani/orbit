@@ -59,6 +59,7 @@
     rgba(255, 255, 255, 0.5),
     rgba(250, 249, 241, 0.28)
   );
+  --glass-topbar-base: #eff0ed;
   --glass-panel-border: rgba(255, 255, 255, 0.58);
   --glass-panel-fill: linear-gradient(
     145deg,
@@ -238,6 +239,7 @@
     rgba(255, 255, 255, 0.08),
     rgba(255, 255, 255, 0.025)
   );
+  --glass-topbar-base: #1f242d;
   --glass-panel-border: rgba(231, 237, 226, 0.15);
   --glass-panel-fill: linear-gradient(
     145deg,
@@ -5927,7 +5929,8 @@ body {
 
 .builder-heading {
   border-color: color-mix(in srgb, var(--glass-panel-border) 74%, transparent);
-  background: var(--glass-topbar-fill);
+  background: var(--glass-topbar-fill) left top / calc(100vw - 100px) 100% no-repeat,
+    var(--glass-topbar-base);
   -webkit-backdrop-filter: blur(26px) saturate(120%);
   backdrop-filter: blur(26px) saturate(120%);
 }
