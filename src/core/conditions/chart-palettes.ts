@@ -42,7 +42,7 @@ export const neonChartPalette: ChartPalette = {
 
 const chartColorTypes = new Set<ChartType>([
   "line", "bar", "area", "donut", "pie", "gauge", "bar-gauge", "stat",
-  "uptime", "date-time", "countdown", "state-timeline", "heatmap",
+  "uptime", "date-time", "state-timeline", "heatmap",
   "status-history", "histogram", "humidity-wheel", "progress-ticks",
   "sleep-dial", "pull-refresh", "streamgraph", "brush-chart",
   "ridgeline", "sankey-flow", "funnel-chart",

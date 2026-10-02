@@ -18,7 +18,6 @@ export type ChartType =
   | "uptime"
   | "date-time"
   | "clock"
-  | "countdown"
   | "table"
   | "logs"
   | "alert-list"
@@ -173,7 +172,6 @@ export type PanelConfig = {
   clockDateFormat?: ClockDateFormat
   clockStyle?: ClockStyle
   clockColor?: ClockColor
-  countdownDurationMinutes?: number
   textContent?: string
   textMode?: TextMode
   textFontSize?: TextFontSize

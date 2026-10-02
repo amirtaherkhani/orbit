@@ -13,6 +13,7 @@
 - Add a reusable searchable multi-select with removable chips, keyboard listbox navigation, and clear-selection controls.
 
 ### Changed
+- Convert saved Focus timer panels to Clock panels while preserving their layout and custom titles.
 - Make only the bottom border of Grid and Floating tile title bars transparent in both themes.
 - Give dark-mode shell, composer, cards, preview, and controls a layered slate gradient.
 - Enlarge donut center totals and strengthen legend labels and percentages for smaller tiles.
@@ -43,4 +44,5 @@
 - Give Floating tiles the same glass fill, border, blur, shadow, and header finish as Grid cards, including dark mode and opaque fallback.
 
 ### Removed
+- Remove Focus timer from the panel catalog, builder, renderer, and styles.
 - Remove the Waffle chart option and its renderer.

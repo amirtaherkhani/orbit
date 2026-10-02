@@ -65,8 +65,6 @@ function FloatingPanelFooter({ panel }: { panel: PanelConfig }) {
   const metric = getMetric(panel.dataSourceId, panel.datasetId, panel.metricId)
   const metadata = panel.chartType === "clock"
     ? ["Local clock", "Updates every second"]
-    : panel.chartType === "countdown"
-      ? ["Focus timer", `${panel.countdownDurationMinutes ?? 25} min session`]
     : panel.chartType === "text"
       ? [
           panel.textMode === "code"
@@ -461,7 +459,7 @@ export function TrellisDashboard({
                   <div className="trellis-panel-visualization">
                     <LazyChartRenderer
                       panel={panel}
-                      compact={panel.chartType === "clock" || panel.chartType === "countdown"}
+                      compact={panel.chartType === "clock"}
                       metricAnimationDelay={Math.max(0, panels.indexOf(panel)) * MOTION_TOKENS.metricCardStaggerMs}
                     />
                   </div>

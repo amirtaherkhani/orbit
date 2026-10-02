@@ -32,7 +32,6 @@ import {
   RefreshCwIcon,
   Settings2Icon,
   SmileyWinkIcon,
-  TimerIcon,
   SparklesIcon,
   Table2Icon,
   TypeIcon,
@@ -131,7 +130,6 @@ const chartIcons: Record<ChartType, typeof ChartLineIcon> = {
   uptime: HeartPulseIcon,
   "date-time": CalendarClockIcon,
   clock: ClockIcon,
-  countdown: TimerIcon,
   table: Table2Icon,
   logs: ScrollTextIcon,
   "alert-list": BellRingIcon,
@@ -596,7 +594,7 @@ export function VisualizationBuilder({
   previewModel,
 }: VisualizationBuilderProps) {
   const [visualSearch, setVisualSearch] = useState("")
-  const isDataIndependent = ["clock", "countdown", "text", "dashboard-list"].includes(draft.chartType)
+  const isDataIndependent = ["clock", "text", "dashboard-list"].includes(draft.chartType)
   const [openSection, setOpenSection] = useState<string | null>(() =>
     isDataIndependent ? "visual" : "data"
   )
@@ -864,13 +862,10 @@ export function VisualizationBuilder({
                   const defaultTitle = (type: ChartType) =>
                     type === "clock"
                       ? "Current date & time"
-                      : type === "countdown"
-                        ? "Focus timer"
-                        : metric.name
+                      : metric.name
                   const managedTitles = new Set([
                     metric.name,
                     "Current date & time",
-                    "Focus timer",
                   ])
                   const getTitleForChartType = (title: string) =>
                     managedTitles.has(title) ? defaultTitle(chartType) : title
@@ -893,9 +888,6 @@ export function VisualizationBuilder({
                           clockStyle: draft.clockStyle ?? "soft",
                           clockColor: draft.clockColor ?? "mint",
                         }
-                      : {}),
-                    ...(chartType === "countdown"
-                      ? { countdownDurationMinutes: draft.countdownDurationMinutes ?? 25 }
                       : {}),
                   })
                 }
@@ -926,8 +918,6 @@ export function VisualizationBuilder({
             <span className="field-hint">
               {draft.chartType === "clock"
                 ? "Displays your device's local date and time."
-                : draft.chartType === "countdown"
-                  ? "A focus timer that counts down with a sweeping dial and pause, resume, and reset controls."
                 : draft.chartType === "text"
                   ? "Add formatted notes, plain text, or safe code to your dashboard."
                   : draft.chartType === "dashboard-list"
@@ -1453,36 +1443,6 @@ export function VisualizationBuilder({
             </div>
           )}
 
-          {draft.chartType === "countdown" && (
-            <div className="countdown-options" aria-label="Countdown settings">
-              <div className="builder-section-heading countdown-options-heading">
-                <TimerIcon />
-                <span>Focus timer</span>
-              </div>
-              <Field>
-                <FieldLabel htmlFor="countdown-duration">Duration</FieldLabel>
-                <div className="countdown-duration-input">
-                  <Input
-                    id="countdown-duration"
-                    type="number"
-                    min={1}
-                    max={1440}
-                    step={1}
-                    value={draft.countdownDurationMinutes ?? 25}
-                    onChange={(event) => {
-                      const duration = Number(event.target.value)
-                      if (Number.isFinite(duration) && duration >= 1 && duration <= 1440) {
-                        onDraftChange({ ...draft, countdownDurationMinutes: Math.round(duration) })
-                      }
-                    }}
-                  />
-                  <span>minutes</span>
-                </div>
-                <span className="field-hint">Set a session from 1 minute to 24 hours. The timer starts when the panel is created.</span>
-              </Field>
-            </div>
-          )}
-
           {visibleOperationalTypes.length > 0 && <Field>
             <FieldLabel>Operational views</FieldLabel>
             <ToggleGroup
@@ -1810,8 +1770,6 @@ export function VisualizationBuilder({
             <CardDescription>
               {draft.chartType === "clock"
                 ? "Device local time"
-                : draft.chartType === "countdown"
-                  ? `${draft.countdownDurationMinutes ?? 25} minute focus session`
                 : draft.chartType === "text"
                   ? draft.textMode === "code"
                     ? "Code block"
