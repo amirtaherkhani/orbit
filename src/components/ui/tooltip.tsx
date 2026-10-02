@@ -10,7 +10,7 @@ import { TooltipProvider } from "@/components/animate-ui/primitives/radix/toolti
 
 type TooltipProps = React.ComponentProps<typeof AnimatedTooltip>
 
-function Tooltip({ delayDuration = 280, ...props }: TooltipProps) {
+function Tooltip({ delayDuration = 0, ...props }: TooltipProps) {
   return <AnimatedTooltip delayDuration={delayDuration} {...props} />
 }
 

@@ -7,6 +7,7 @@ import {
   AnimatePresence,
   motion,
   useMotionValue,
+  useReducedMotion,
   useSpring,
   type SpringOptions,
   type HTMLMotionProps,
@@ -155,6 +156,7 @@ function TooltipContent({
   const { x, y, followCursor, followCursorSpringOptions } = useTooltip();
   const translateX = useSpring(x, followCursorSpringOptions);
   const translateY = useSpring(y, followCursorSpringOptions);
+  const prefersReducedMotion = useReducedMotion();
 
   return (
     <TooltipPrimitive.Content
@@ -176,9 +178,9 @@ function TooltipContent({
       <motion.div
         key="popover-content"
         data-slot="popover-content"
-        initial={{ opacity: 0, scale: 0.5 }}
+        initial={{ opacity: 0, scale: prefersReducedMotion ? 1 : 0.5 }}
         animate={{ opacity: 1, scale: 1 }}
-        exit={{ opacity: 0, scale: 0.5 }}
+        exit={{ opacity: 0, scale: prefersReducedMotion ? 1 : 0.5 }}
         transition={transition}
         style={{
           x:
