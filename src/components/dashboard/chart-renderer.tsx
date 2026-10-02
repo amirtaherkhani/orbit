@@ -969,6 +969,32 @@ function MetricValue({
   )
 }
 
+function MetricChartFrame({
+  metric,
+  children,
+}: {
+  metric: MetricDefinition
+  children: React.ReactNode
+}) {
+  const headlineMetric =
+    metric.format === "number"
+      ? { ...metric, format: "compact" as const }
+      : metric
+  const value = latestValue(metric)
+  return (
+    <div className="metric-chart-frame">
+      <div
+        className="metric-chart-readout"
+        aria-label={`${metric.name}: ${formatValue(headlineMetric, value)}`}
+      >
+        <MetricValue metric={headlineMetric} value={value} size="display" />
+        <span>{metric.name}</span>
+      </div>
+      <div className="metric-chart-plot">{children}</div>
+    </div>
+  )
+}
+
 function latestValue(metric: MetricDefinition) {
   return metric.data.at(-1)?.value ?? 0
 }
@@ -2160,18 +2186,20 @@ const ChartRendererContent = React.memo(function ChartRendererContent({
 
   if (relatedChartTypes.has(panel.chartType)) {
     return (
-      <React.Suspense fallback={<div className="related-chart-loading" role="status">Loading chart…</div>}>
-        <RelatedChartRenderer
-          panel={panel}
-          metric={metric}
-          chartType={panel.chartType as RelatedChartType}
-          colors={palette.colors}
-          gradientId={gradientId}
-          conditionalColors={conditionalColors}
-          seriesColor={seriesColor}
-          compact={compact || condensed}
-        />
-      </React.Suspense>
+      <MetricChartFrame metric={metric}>
+        <React.Suspense fallback={<div className="related-chart-loading" role="status">Loading chart…</div>}>
+          <RelatedChartRenderer
+            panel={panel}
+            metric={metric}
+            chartType={panel.chartType as RelatedChartType}
+            colors={palette.colors}
+            gradientId={gradientId}
+            conditionalColors={conditionalColors}
+            seriesColor={seriesColor}
+            compact={compact || condensed}
+          />
+        </React.Suspense>
+      </MetricChartFrame>
     )
   }
 
@@ -2295,25 +2323,29 @@ const ChartRendererContent = React.memo(function ChartRendererContent({
 
   if (panel.chartType === "heatmap") {
     return (
-      <HeatmapView
-        metric={metric}
-        compact={compact || condensed}
-        colors={palette.colors}
-      />
+      <MetricChartFrame metric={metric}>
+        <HeatmapView
+          metric={metric}
+          compact={compact || condensed}
+          colors={palette.colors}
+        />
+      </MetricChartFrame>
     )
   }
 
   if (panel.chartType === "histogram") {
     return (
-      <HistogramView
-        metric={metric}
-        compact={compact || condensed}
-        disableAnimations={disableAnimations}
-        colors={palette.colors}
-        conditionalColors={conditionalColors}
-        gradientId={gradientId}
-        style={panel.histogramStyle ?? "distribution"}
-      />
+      <MetricChartFrame metric={metric}>
+        <HistogramView
+          metric={metric}
+          compact={compact || condensed}
+          disableAnimations={disableAnimations}
+          colors={palette.colors}
+          conditionalColors={conditionalColors}
+          gradientId={gradientId}
+          style={panel.histogramStyle ?? "distribution"}
+        />
+      </MetricChartFrame>
     )
   }
 
@@ -2573,24 +2605,26 @@ const ChartRendererContent = React.memo(function ChartRendererContent({
     }
 
     return (
-      <TimeSeriesChartView
-        metric={metric}
-        data={dateTimeData}
-        style={panel.dateTimeStyle ?? "line"}
-        interpolation={panel.dateTimeInterpolation ?? "smooth"}
-        dateTimeAxis
-        compact={compact}
-        disableAnimations={disableAnimations}
-        axisInterval={axisInterval}
-        chartMargin={chartMargin}
-        chartConfig={chartConfig}
-        gradientId={gradientId}
-        colors={palette.colors}
-        conditionalColors={conditionalColors}
-        seriesColor={seriesColor}
-        visualStyle={visualStyle}
-        pointThresholdDot={pointThresholdDot}
-      />
+      <MetricChartFrame metric={metric}>
+        <TimeSeriesChartView
+          metric={metric}
+          data={dateTimeData}
+          style={panel.dateTimeStyle ?? "line"}
+          interpolation={panel.dateTimeInterpolation ?? "smooth"}
+          dateTimeAxis
+          compact={compact}
+          disableAnimations={disableAnimations}
+          axisInterval={axisInterval}
+          chartMargin={chartMargin}
+          chartConfig={chartConfig}
+          gradientId={gradientId}
+          colors={palette.colors}
+          conditionalColors={conditionalColors}
+          seriesColor={seriesColor}
+          visualStyle={visualStyle}
+          pointThresholdDot={pointThresholdDot}
+        />
+      </MetricChartFrame>
     )
   }
 
@@ -2736,79 +2770,85 @@ const ChartRendererContent = React.memo(function ChartRendererContent({
 
   if (panel.chartType === "bar") {
     return (
-      <ChartContainer
-        config={chartConfig}
-        className="panel-chart"
-        style={visualStyle}
-      >
-        <BarChart data={metric.data} accessibilityLayer margin={chartMargin}>
-          <ChartGradientDefinitions id={gradientId} colors={palette.colors} includeBars />
-          <CartesianGrid vertical={false} strokeDasharray="3 5" />
-          <XAxis
-            dataKey="label"
-            tickLine={false}
-            axisLine={false}
-            interval={axisInterval}
-          />
-          <YAxis tickLine={false} axisLine={false} width={42} />
-          <StandardTooltip metric={metric} />
-          <Bar
-            dataKey="value"
-            fill={conditionalColors ? seriesColor : gradientFill(gradientId, "bar")}
-            radius={[2, 2, 0, 0]}
-            isAnimationActive={isAnimationActive}
-          >
-            {metric.data.map((point, index) => (
-              <Cell
-                key={`${point.label}-${index}`}
-                fill={conditionalColors
-                  ? resolveSeriesColor(point.value, metric.thresholds, true, palette.colors[0])
-                  : gradientFill(gradientId, "bar", index)}
-              />
-            ))}
-          </Bar>
-        </BarChart>
-      </ChartContainer>
+      <MetricChartFrame metric={metric}>
+        <ChartContainer
+          config={chartConfig}
+          className="panel-chart"
+          style={visualStyle}
+        >
+          <BarChart data={metric.data} accessibilityLayer margin={chartMargin}>
+            <ChartGradientDefinitions id={gradientId} colors={palette.colors} includeBars />
+            <CartesianGrid vertical={false} strokeDasharray="3 5" />
+            <XAxis
+              dataKey="label"
+              tickLine={false}
+              axisLine={false}
+              interval={axisInterval}
+            />
+            <YAxis tickLine={false} axisLine={false} width={42} />
+            <StandardTooltip metric={metric} />
+            <Bar
+              dataKey="value"
+              fill={conditionalColors ? seriesColor : gradientFill(gradientId, "bar")}
+              radius={[2, 2, 0, 0]}
+              isAnimationActive={isAnimationActive}
+            >
+              {metric.data.map((point, index) => (
+                <Cell
+                  key={`${point.label}-${index}`}
+                  fill={conditionalColors
+                    ? resolveSeriesColor(point.value, metric.thresholds, true, palette.colors[0])
+                    : gradientFill(gradientId, "bar", index)}
+                />
+              ))}
+            </Bar>
+          </BarChart>
+        </ChartContainer>
+      </MetricChartFrame>
     )
   }
 
   if (panel.chartType === "area") {
     return (
-      <AreaChartView
-        panel={panel}
-        metric={metric}
-        colors={palette.colors}
-        gradientId={gradientId}
-        visualStyle={visualStyle}
-        conditionalColors={conditionalColors}
-        seriesColor={seriesColor}
-        pointThresholdDot={pointThresholdDot}
-        axisInterval={axisInterval}
-        chartMargin={chartMargin}
-        isAnimationActive={isAnimationActive}
-      />
+      <MetricChartFrame metric={metric}>
+        <AreaChartView
+          panel={panel}
+          metric={metric}
+          colors={palette.colors}
+          gradientId={gradientId}
+          visualStyle={visualStyle}
+          conditionalColors={conditionalColors}
+          seriesColor={seriesColor}
+          pointThresholdDot={pointThresholdDot}
+          axisInterval={axisInterval}
+          chartMargin={chartMargin}
+          isAnimationActive={isAnimationActive}
+        />
+      </MetricChartFrame>
     )
   }
 
   return (
-    <TimeSeriesChartView
-      metric={metric}
-      data={metric.data}
-      style={panel.timeSeriesStyle ?? "line"}
-      interpolation={panel.timeSeriesInterpolation ?? "smooth"}
-      dateTimeAxis={false}
-      compact={compact}
-      disableAnimations={disableAnimations}
-      axisInterval={axisInterval}
-      chartMargin={chartMargin}
-      chartConfig={chartConfig}
-      gradientId={gradientId}
-      colors={palette.colors}
-      conditionalColors={conditionalColors}
-      seriesColor={seriesColor}
-      visualStyle={visualStyle}
-      pointThresholdDot={pointThresholdDot}
-    />
+    <MetricChartFrame metric={metric}>
+      <TimeSeriesChartView
+        metric={metric}
+        data={metric.data}
+        style={panel.timeSeriesStyle ?? "line"}
+        interpolation={panel.timeSeriesInterpolation ?? "smooth"}
+        dateTimeAxis={false}
+        compact={compact}
+        disableAnimations={disableAnimations}
+        axisInterval={axisInterval}
+        chartMargin={chartMargin}
+        chartConfig={chartConfig}
+        gradientId={gradientId}
+        colors={palette.colors}
+        conditionalColors={conditionalColors}
+        seriesColor={seriesColor}
+        visualStyle={visualStyle}
+        pointThresholdDot={pointThresholdDot}
+      />
+    </MetricChartFrame>
   )
 })
 

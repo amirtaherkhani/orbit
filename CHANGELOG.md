@@ -2,6 +2,7 @@
 
 ### Added
 - Add nine shadcn-inspired Area chart styles: Interactive, Step, Linear, Stacked Expanded, Stacked, Legend, Axes, Gradient, and Icons. Stacked styles use the selected metric's series breakdown.
+- Show a compact, condensed current-value readout across graph-based chart types.
 - Provide a reusable Orbital O icon pack with SVG masters, outlined wordmarks, app icons, favicons, and Apple/web-app install assets.
 - Switch chart colors between gradient pastel, neon, and a custom color in the panel composer or on existing Grid and Floating tiles; saved dashboards retain the choice.
 - Show a pulse-icon Live badge beside chart titles when their metric is backed by a live stream.
@@ -10,6 +11,8 @@
 - Add a reusable searchable multi-select with removable chips, keyboard listbox navigation, and clear-selection controls.
 
 ### Changed
+- Move layout instructions below the dashboard tiles to free space beside the layout controls.
+- Flatten dark-mode Live and Draft badges by removing raised highlights, borders, blur, and dot halos.
 - Show Orbit and the package version in the app header and remove dashboard/composer section dividers.
 - Modernize grouped Floating tiles with a compact segmented tab strip, raised active pill, accent indicator, and keyboard focus styling.
 - Convert saved Waffle panels to Donut when loading or importing dashboards.
@@ -19,6 +22,8 @@
 
 ### Fixed
 - Give clock accent buttons enough vertical space for their labels and use the shared color picker in tile color controls.
+- Keep dashboard tooltips legible in light and dark themes and preserve dark icons on primary buttons.
+- Align the Grid style label inside its segmented control with consistent padding and responsive spacing.
 - Give Floating tiles the same glass fill, border, blur, shadow, and header finish as Grid cards, including dark mode and opaque fallback.
 
 ### Removed
