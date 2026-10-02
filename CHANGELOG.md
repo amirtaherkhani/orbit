@@ -38,6 +38,7 @@
 
 ### Fixed
 - Match the sidebar Orbit mark to the selected primary color.
+- Keep long Panel Composer controls scrollable by mouse, touch, and keyboard while its heading and Add action remain visible.
 - Emphasize the Grid style label and separate it from its layout choices.
 - Give clock accent buttons enough vertical space for their labels and use the shared color picker in tile color controls.
 - Keep dashboard tooltips legible in light and dark themes and preserve dark icons on primary buttons.

@@ -700,7 +700,12 @@ export function VisualizationBuilder({
         </Badge>
       </div>
 
-      <div className="builder-scroll-area">
+      <div
+        className="builder-scroll-area"
+        role="region"
+        aria-label="Panel composer controls"
+        tabIndex={0}
+      >
         <BouncyAccordion
           className="builder-accordion"
           value={activeSection}
