@@ -1,3 +1,8 @@
+# v0.7.6
+
+## Changed
+- Blend the dashboard composer footer into the sidebar surface in light and dark themes.
+
 # v0.7.5
 
 ## Changed
