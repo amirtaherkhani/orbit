@@ -1,6 +1,7 @@
 import * as React from "react"
 import { SlidingNumber } from "@/components/animate-ui/components/text/sliding-number"
 import {
+  ArrowDownIcon,
   ArrowUpRightIcon,
   LayoutDashboardIcon,
   PauseIcon,
@@ -28,10 +29,20 @@ import {
 
 import {
   ChartContainer,
+  ChartLegend,
+  ChartLegendContent,
   ChartTooltip,
   ChartTooltipContent,
   type ChartConfig,
 } from "@/components/ui/chart"
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
 import type { RelatedChartType } from "@/components/dashboard/related-chart-renderer"
 import {
   resolveSeriesColor,
@@ -42,6 +53,7 @@ import { getMetric } from "@/data/catalog"
 import { refreshMetricSeries, useMetricSeries } from "@/hooks/use-metric-series"
 import type {
   DataPoint,
+  AreaChartVariant,
   ChartType,
   HistogramStyle,
   MetricDefinition,
@@ -1636,6 +1648,157 @@ function StandardTooltip({
   )
 }
 
+function AreaChartView({
+  panel,
+  metric,
+  colors,
+  gradientId,
+  visualStyle,
+  conditionalColors,
+  seriesColor,
+  pointThresholdDot,
+  axisInterval,
+  chartMargin,
+  isAnimationActive,
+}: {
+  panel: PanelConfig
+  metric: MetricDefinition
+  colors: readonly string[]
+  gradientId: string
+  visualStyle: React.CSSProperties
+  conditionalColors: boolean
+  seriesColor: string
+  pointThresholdDot: ReturnType<typeof thresholdDot> | false
+  axisInterval: number
+  chartMargin: { left: number; right: number; top: number }
+  isAnimationActive: boolean
+}) {
+  const [range, setRange] = React.useState("all")
+  const requestedVariant: AreaChartVariant = panel.areaVariant ?? "default"
+  const hasSeries = Boolean(
+    metric.series &&
+    metric.series.length > 1 &&
+    metric.data.length > 0 &&
+    metric.data.every((point) => metric.series?.every(
+      ({ key }) => Number.isFinite(point.series?.[key]) && (point.series?.[key] ?? -1) >= 0
+    ))
+  )
+  const variant = !hasSeries && (requestedVariant === "stacked" || requestedVariant === "stacked-expanded")
+    ? "default"
+    : requestedVariant
+  const multiSeries = hasSeries && ["interactive", "stacked", "stacked-expanded", "legend", "icons"].includes(variant)
+  const series = multiSeries ? metric.series ?? [] : [{ key: "value", label: metric.name }]
+  const recentCount = Math.max(2, Math.ceil(metric.data.length / 4))
+  const halfCount = Math.max(recentCount + 1, Math.ceil(metric.data.length / 2))
+  const visiblePoints = variant === "interactive" && range !== "all"
+    ? metric.data.slice(-(range === "half" ? halfCount : recentCount))
+    : metric.data
+  const data = visiblePoints.map((point) => ({ ...point, ...point.series }))
+  const config: ChartConfig = Object.fromEntries(series.map(({ key, label }, index) => [
+    key,
+    {
+      label,
+      color: multiSeries ? colors[index % colors.length] : seriesColor,
+      ...(variant === "icons" ? {
+        icon: (visiblePoints.at(-1)?.series?.[key] ?? visiblePoints.at(-1)?.value ?? 0) >=
+          (visiblePoints.at(0)?.series?.[key] ?? visiblePoints.at(0)?.value ?? 0)
+          ? ArrowUpRightIcon
+          : ArrowDownIcon,
+      } : {}),
+    },
+  ]))
+  const showLegend = ["interactive", "stacked", "stacked-expanded", "legend", "icons"].includes(variant)
+  const expanded = variant === "stacked-expanded"
+  const stacked = variant === "stacked" || expanded || (variant === "interactive" && multiSeries)
+  const curve = variant === "step" ? "step" : variant === "linear" ? "linear" : "monotone"
+
+  return (
+    <div className="area-chart-view" data-variant={variant}>
+      {variant === "interactive" && (
+        <Select value={range} onValueChange={setRange}>
+          <SelectTrigger className="area-chart-range" aria-label="Area chart sample range">
+            <SelectValue />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectGroup>
+              <SelectItem value="all">All samples</SelectItem>
+              <SelectItem value="half">Last {halfCount} samples</SelectItem>
+              <SelectItem value="recent">Last {recentCount} samples</SelectItem>
+            </SelectGroup>
+          </SelectContent>
+        </Select>
+      )}
+      <ChartContainer config={config} className="panel-chart" style={visualStyle}>
+        <AreaChart
+          data={data}
+          accessibilityLayer
+          margin={{ ...chartMargin, top: variant === "interactive" ? 34 : chartMargin.top }}
+          stackOffset={expanded ? "expand" : "none"}
+        >
+          <ChartGradientDefinitions id={gradientId} colors={colors} />
+          <defs>
+            <linearGradient id={`${gradientId}-area-vertical`} x1="0" y1="0" x2="0" y2="1">
+              <stop offset="5%" stopColor={seriesColor} stopOpacity={0.7} />
+              <stop offset="95%" stopColor={seriesColor} stopOpacity={0.04} />
+            </linearGradient>
+          </defs>
+          <CartesianGrid vertical={false} strokeDasharray="3 5" />
+          <XAxis
+            dataKey="label"
+            tickLine={variant === "axes"}
+            axisLine={variant === "axes"}
+            interval={Math.min(axisInterval, Math.max(0, Math.ceil(visiblePoints.length / 6) - 1))}
+          />
+          <YAxis
+            tickLine={variant === "axes"}
+            axisLine={variant === "axes"}
+            width={expanded ? 38 : 42}
+            domain={expanded ? [0, 1] : undefined}
+            tickFormatter={expanded ? (value: number) => `${Math.round(value * 100)}%` : undefined}
+          />
+          {multiSeries ? (
+            <ChartTooltip
+              content={<ChartTooltipContent
+                indicator={variant === "icons" ? "line" : "dot"}
+                formatter={(value, name) => (
+                  <div className="tooltip-value-row">
+                    <span className="tooltip-value-label">{series.find((item) => item.key === name)?.label ?? name}</span>
+                    <span className="tooltip-value-number">{formatValue(metric, Number(value))}</span>
+                  </div>
+                )}
+              />}
+            />
+          ) : <StandardTooltip metric={metric} />}
+          {series.map(({ key }, index) => {
+            const color = multiSeries ? colors[index % colors.length] : seriesColor
+            return <Area
+              key={key}
+              dataKey={key}
+              type={curve}
+              stackId={stacked ? "area" : undefined}
+              stroke={multiSeries || conditionalColors || variant === "gradient"
+                ? color
+                : gradientFill(gradientId, "line")}
+              strokeWidth={2}
+              fill={multiSeries
+                ? color
+                : variant === "gradient"
+                  ? `url(#${gradientId}-area-vertical)`
+                  : conditionalColors
+                    ? seriesColor
+                    : gradientFill(gradientId, "area")}
+              fillOpacity={multiSeries ? (stacked ? 0.55 : 0.24) : conditionalColors ? 0.14 : 1}
+              dot={!multiSeries ? pointThresholdDot : false}
+              isAnimationActive={isAnimationActive}
+            />
+          })}
+          {showLegend && <ChartLegend content={<ChartLegendContent />} />}
+        </AreaChart>
+      </ChartContainer>
+    </div>
+  )
+}
+
 type TimeSeriesChartPoint = DataPoint & { time?: number }
 
 const timeSeriesCurve: Record<
@@ -2648,34 +2811,19 @@ const ChartRendererContent = React.memo(function ChartRendererContent({
   if (panel.chartType === "area") {
     return (
       <MetricChartFrame metric={metric}>
-        <ChartContainer
-          config={chartConfig}
-          className="panel-chart"
-          style={visualStyle}
-        >
-          <AreaChart data={metric.data} accessibilityLayer margin={chartMargin}>
-            <ChartGradientDefinitions id={gradientId} colors={palette.colors} />
-            <CartesianGrid vertical={false} strokeDasharray="3 5" />
-            <XAxis
-              dataKey="label"
-              tickLine={false}
-              axisLine={false}
-              interval={axisInterval}
-            />
-            <YAxis tickLine={false} axisLine={false} width={42} />
-            <StandardTooltip metric={metric} />
-            <Area
-              dataKey="value"
-              type="monotone"
-              stroke={conditionalColors ? seriesColor : gradientFill(gradientId, "line")}
-              strokeWidth={2}
-              fill={conditionalColors ? seriesColor : gradientFill(gradientId, "area")}
-              fillOpacity={conditionalColors ? 0.14 : 1}
-              dot={pointThresholdDot}
-              isAnimationActive={isAnimationActive}
-            />
-          </AreaChart>
-        </ChartContainer>
+        <AreaChartView
+          panel={panel}
+          metric={metric}
+          colors={palette.colors}
+          gradientId={gradientId}
+          visualStyle={visualStyle}
+          conditionalColors={conditionalColors}
+          seriesColor={seriesColor}
+          pointThresholdDot={pointThresholdDot}
+          axisInterval={axisInterval}
+          chartMargin={chartMargin}
+          isAnimationActive={isAnimationActive}
+        />
       </MetricChartFrame>
     )
   }

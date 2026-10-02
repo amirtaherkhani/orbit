@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/icon-library"
 
 import { Button } from "@/components/ui/button"
+import { ColorPicker } from "@/components/stepwise/color-picker"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -162,17 +163,19 @@ export function PanelActionToolbar({
                 </div>
               )}
               {colorStyle === "custom" && (
-                <label className="panel-custom-color">
-                  Custom color
-                  <input
-                    type="color"
-                    value={(panel.customChartColor ?? "#91D9C3").slice(0, 7)}
-                    onChange={(event) => onChartColorsChange(panelId, {
+                <div className="panel-custom-color">
+                  <span>Custom color</span>
+                  <ColorPicker
+                    portal={false}
+                    size="sm"
+                    showPresets
+                    value={panel.customChartColor ?? "#91D9C3"}
+                    onChange={(customChartColor) => onChartColorsChange(panelId, {
                       chartColorStyle: "custom",
-                      customChartColor: event.target.value,
+                      customChartColor,
                     })}
                   />
-                </label>
+                </div>
               )}
             </Popover.Content>
           </Popover.Portal>

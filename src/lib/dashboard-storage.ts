@@ -51,6 +51,7 @@ const panelFields = new Set([
   "title",
   "floatingTitle",
   "chartType",
+  "areaVariant",
   "dataSourceId",
   "datasetId",
   "metricId",

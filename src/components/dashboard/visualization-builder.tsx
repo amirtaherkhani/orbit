@@ -86,6 +86,7 @@ import {
 import { dashboardPlugins } from "@/plugins/builtins"
 import type {
   BuilderDraft,
+  AreaChartVariant,
   ChartColorStyle,
   ChartType,
   ClockColor,
@@ -171,6 +172,19 @@ const clockColors: Array<{ value: ClockColor; label: string }> = [
   { value: "lavender", label: "Lavender" },
   { value: "coral", label: "Coral" },
   { value: "sky", label: "Sky" },
+]
+
+const areaVariants: Array<{ value: AreaChartVariant; label: string; description: string; needsSeries?: boolean }> = [
+  { value: "default", label: "Classic", description: "Current filled area style" },
+  { value: "interactive", label: "Interactive", description: "Switch between recent sample ranges" },
+  { value: "step", label: "Step", description: "Hold each value until the next sample" },
+  { value: "linear", label: "Linear", description: "Connect samples with straight segments" },
+  { value: "stacked-expanded", label: "Stacked Expanded", description: "Show each series as a share of 100%", needsSeries: true },
+  { value: "stacked", label: "Stacked", description: "Sum multiple series over time", needsSeries: true },
+  { value: "legend", label: "Legend", description: "Identify each area below the chart" },
+  { value: "axes", label: "Axes", description: "Emphasize both chart axes" },
+  { value: "gradient", label: "Gradient", description: "Fade the area vertically" },
+  { value: "icons", label: "Icons", description: "Show trend icons in the legend" },
 ]
 
 const timeSeriesStyles: Array<{
@@ -641,6 +655,7 @@ export function VisualizationBuilder({
       floatingTitle: nextMetric.name,
       groupBy: nextDataset.groupOptions[0].id,
       chartType: recommendedChartType(nextSource.id, nextMetric.id),
+      areaVariant: nextMetric.series && nextMetric.series.length > 1 ? draft.areaVariant : "default",
       colorMode: nextMetric.thresholds?.length ? draft.colorMode : "series",
     })
   }
@@ -657,6 +672,7 @@ export function VisualizationBuilder({
       floatingTitle: nextMetric.name,
       groupBy: nextDataset.groupOptions[0].id,
       chartType: recommendedChartType(draft.dataSourceId, nextMetric.id),
+      areaVariant: nextMetric.series && nextMetric.series.length > 1 ? draft.areaVariant : "default",
       colorMode: nextMetric.thresholds?.length ? draft.colorMode : "series",
     })
   }
@@ -669,6 +685,7 @@ export function VisualizationBuilder({
       title: nextMetric.name,
       floatingTitle: nextMetric.name,
       chartType: recommendedChartType(draft.dataSourceId, nextMetric.id),
+      areaVariant: nextMetric.series && nextMetric.series.length > 1 ? draft.areaVariant : "default",
       colorMode: nextMetric.thresholds?.length ? draft.colorMode : "series",
     })
   }
@@ -937,6 +954,39 @@ export function VisualizationBuilder({
                 onDraftChange({ ...draft, timeSeriesInterpolation })
               }
             />
+          )}
+
+          {draft.chartType === "area" && (
+            <Field>
+              <FieldLabel htmlFor="area-variant">Area chart style</FieldLabel>
+              <Select
+                value={draft.areaVariant ?? "default"}
+                onValueChange={(areaVariant) =>
+                  onDraftChange({ ...draft, areaVariant: areaVariant as AreaChartVariant })
+                }
+              >
+                <SelectTrigger id="area-variant" className="builder-select">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectGroup>
+                    {areaVariants.map((variant) => (
+                      <SelectItem
+                        key={variant.value}
+                        value={variant.value}
+                        disabled={variant.needsSeries && !(metric.series && metric.series.length > 1)}
+                      >
+                        {variant.label}
+                      </SelectItem>
+                    ))}
+                  </SelectGroup>
+                </SelectContent>
+              </Select>
+              <span className="field-hint">
+                {areaVariants.find((variant) => variant.value === (draft.areaVariant ?? "default"))?.description}
+                {!(metric.series && metric.series.length > 1) && " · Stacked styles need a metric with multiple series."}
+              </span>
+            </Field>
           )}
 
           {draft.chartType === "gauge" && (
