@@ -1,3 +1,8 @@
+# v0.8.4
+
+## Changed
+- Add a moving severity-colored glow inside notification banners while keeping their text clear.
+
 # v0.8.3
 
 ## Fixed
