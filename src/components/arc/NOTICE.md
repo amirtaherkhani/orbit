@@ -1,4 +1,4 @@
-The Streamgraph, Brush chart, Waffle chart, and Ridgeline components in this
+The Streamgraph, Brush chart, and Ridgeline components in this
 directory are copied from the free Arc UI registry and remain under the MIT
 license in `LICENSE`.
 

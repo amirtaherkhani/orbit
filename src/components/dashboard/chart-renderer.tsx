@@ -66,7 +66,6 @@ const RelatedChartRenderer = React.lazy(async () => {
 const relatedChartTypes = new Set<ChartType>([
   "streamgraph",
   "brush-chart",
-  "waffle-chart",
   "ridgeline",
   "sankey-flow",
   "funnel-chart",

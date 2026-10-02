@@ -38,7 +38,6 @@ const chartTypes = new Set<ChartType>([
   "pull-refresh",
   "streamgraph",
   "brush-chart",
-  "waffle-chart",
   "ridgeline",
   "sankey-flow",
   "funnel-chart",
@@ -178,9 +177,10 @@ function normalizeStoredPanels(value: unknown) {
     const normalizedPanel = Object.fromEntries(
       Object.entries(panel).filter(([key]) => panelFields.has(key))
     )
-    const chartType =
-      typeof panel.chartType === "string" &&
-      chartTypes.has(panel.chartType as ChartType)
+    const chartType = panel.chartType === "waffle-chart"
+      ? "donut"
+      : typeof panel.chartType === "string" &&
+          chartTypes.has(panel.chartType as ChartType)
         ? panel.chartType
         : "line"
 

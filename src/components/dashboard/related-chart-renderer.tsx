@@ -5,16 +5,11 @@ import {
 } from "@/components/arc/brush-chart/brush-chart"
 import { Ridgeline } from "@/components/arc/ridgeline/ridgeline"
 import { Streamgraph } from "@/components/arc/streamgraph/streamgraph"
-import {
-  WaffleChart,
-  type WaffleCategory,
-} from "@/components/arc/waffle-chart/waffle-chart"
 import type { MetricDefinition, PanelConfig } from "@/types/dashboard"
 
 export type RelatedChartType =
   | "streamgraph"
   | "brush-chart"
-  | "waffle-chart"
   | "ridgeline"
   | "sankey-flow"
   | "funnel-chart"
@@ -99,39 +94,6 @@ function ArcTokenScope({ colors, children }: { colors: readonly string[]; childr
     "--series-5": colors[4] ?? colors[0],
   } as React.CSSProperties
   return <div className="arc-chart-token-scope" style={tokens}>{children}</div>
-}
-
-function WaffleMetricChart({ metric, colors, compact }: Pick<RelatedChartRendererProps, "metric" | "colors" | "compact">) {
-  const ranked = [...metric.data]
-    .filter((point) => Number.isFinite(point.value) && point.value > 0)
-    .sort((left, right) => right.value - left.value)
-  const shown = ranked.slice(0, compact ? 5 : 7)
-  const otherValue = ranked.slice(shown.length).reduce((sum, point) => sum + point.value, 0)
-  const data: WaffleCategory[] = [
-    ...shown.map((point, index) => ({
-      key: `${point.label}-${index}`,
-      label: point.label,
-      value: point.value,
-      color: colors[index % colors.length],
-    })),
-    ...(otherValue > 0 ? [{ key: "other", label: "Other", value: otherValue, color: "var(--text-muted)" }] : []),
-  ]
-  if (!data.length) return <div className="related-chart-empty">No positive category values are available.</div>
-  return (
-    <ArcTokenScope colors={colors}>
-      <WaffleChart
-        data={data}
-        label={`${metric.name} by category`}
-        unit={getArcUnit(metric)}
-        formatValue={(value) => formatMetricNumber(metric, value)}
-        rows={compact ? 7 : 9}
-        columns={compact ? 7 : 10}
-        legend
-        decimals={1}
-        className="related-arc-chart related-arc-waffle"
-      />
-    </ArcTokenScope>
-  )
 }
 
 function StreamgraphMetricChart({ metric, colors, compact }: Pick<RelatedChartRendererProps, "metric" | "colors" | "compact">) {
@@ -388,7 +350,6 @@ export function RelatedChartRenderer({ panel, metric, chartType, colors, gradien
   switch (chartType) {
     case "streamgraph": return <StreamgraphMetricChart metric={metric} colors={safeColors} compact={compact} />
     case "brush-chart": return <BrushMetricChart metric={metric} colors={safeColors} compact={compact} />
-    case "waffle-chart": return <WaffleMetricChart metric={metric} colors={safeColors} compact={compact} />
     case "ridgeline": return <RidgelineMetricChart metric={metric} colors={safeColors} compact={compact} />
     case "sankey-flow": return <SankeyMetricChart metric={metric} colors={safeColors} compact={compact} />
     case "funnel-chart": return <FunnelMetricChart metric={metric} colors={safeColors} compact={compact} />

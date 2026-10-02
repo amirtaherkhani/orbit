@@ -45,7 +45,7 @@ const chartColorTypes = new Set<ChartType>([
   "uptime", "date-time", "countdown", "state-timeline", "heatmap",
   "status-history", "histogram", "humidity-wheel", "progress-ticks",
   "sleep-dial", "pull-refresh", "streamgraph", "brush-chart",
-  "waffle-chart", "ridgeline", "sankey-flow", "funnel-chart",
+  "ridgeline", "sankey-flow", "funnel-chart",
   "radar-chart", "realtime-stream", "race-bar-chart",
 ])
 

@@ -28,7 +28,6 @@ export type ChartType =
   | "pull-refresh"
   | "streamgraph"
   | "brush-chart"
-  | "waffle-chart"
   | "ridgeline"
   | "sankey-flow"
   | "funnel-chart"

@@ -8,5 +8,9 @@
 - Add a reusable searchable multi-select with removable chips, keyboard listbox navigation, and clear-selection controls.
 
 ### Changed
+- Convert saved Waffle panels to Donut when loading or importing dashboards.
 - Slide banner items horizontally with directional transitions and honor reduced-motion preferences.
 - Align select popups to their triggers and refine dropdown surfaces for compact, viewport-aware warm glass menus.
+
+### Removed
+- Remove the Waffle chart option and its renderer.
