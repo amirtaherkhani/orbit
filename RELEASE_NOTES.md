@@ -1,3 +1,8 @@
+# v0.8.7
+
+## Fixed
+- Keep the Floating tile "Move tile to" arrow at the same scale as other menu icons.
+
 # v0.8.6
 
 ## Changed
