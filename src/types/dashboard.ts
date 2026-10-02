@@ -56,6 +56,17 @@ export type UptimeHistoryPeriod = {
   status: UptimeStatus
 }
 export type TimeSeriesStyle = "line" | "area" | "bar" | "points"
+export type AreaChartVariant =
+  | "default"
+  | "interactive"
+  | "step"
+  | "linear"
+  | "stacked-expanded"
+  | "stacked"
+  | "legend"
+  | "axes"
+  | "gradient"
+  | "icons"
 export type TimeSeriesInterpolation =
   | "linear"
   | "smooth"
@@ -84,6 +95,7 @@ export type DataSourceTransport = "memory" | "sql-gateway" | "websocket" | "sse"
 export type DataPoint = {
   label: string
   value: number
+  series?: Record<string, number>
   timestamp?: string
   message?: string
   level?: "debug" | "info" | "warning" | "error" | "critical"
@@ -105,6 +117,7 @@ export type MetricDefinition = {
   format: MetricFormat
   trend: number
   data: DataPoint[]
+  series?: Array<{ key: string; label: string }>
   valueRange?: { min: number; max: number }
   thresholds?: ThresholdRule[]
   streamKey?: string
@@ -135,6 +148,7 @@ export type PanelConfig = {
   /** Floating model title. Missing values inherit `title` for older dashboards. */
   floatingTitle?: string
   chartType: ChartType
+  areaVariant?: AreaChartVariant
   dataSourceId: string
   datasetId: string
   metricId: string
