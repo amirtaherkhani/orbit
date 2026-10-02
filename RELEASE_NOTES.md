@@ -2,6 +2,7 @@
 
 ## Changed
 - Add layered slate gradients to dark-mode workspace surfaces, cards, previews, and controls.
+- Make donut center totals and right-side legend text easier to read in compact tiles.
 
 # v0.7.7
 

@@ -3767,7 +3767,7 @@
 .donut-total > span:last-child {
   max-inline-size: 56%;
   overflow: hidden;
-  font-size: clamp(7px, 4cqi, 9px);
+  font-size: clamp(10px, 6cqi, 12px);
   text-overflow: ellipsis;
   white-space: nowrap;
 }
@@ -4775,6 +4775,21 @@
 .legend-item strong {
   color: var(--foreground);
   font-weight: 570;
+}
+
+.donut-visual .legend-item {
+  gap: 9px;
+  color: var(--text-secondary);
+  font-family: var(--font-ui);
+  font-size: 12px;
+  font-weight: 620;
+  letter-spacing: 0.015em;
+}
+
+.donut-visual .legend-item strong {
+  font-size: 12px;
+  font-weight: 750;
+  font-variant-numeric: tabular-nums;
 }
 
 .metric-table,
@@ -5797,12 +5812,21 @@ label {
 }
 
 .donut-total .metric-value {
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
   color: var(--foreground);
   max-inline-size: 72%;
-  font-size: clamp(1rem, 5cqi, 2.125rem);
+  font-size: clamp(1.25rem, 12cqi, 2.25rem);
   font-weight: var(--type-weight-metric);
   letter-spacing: var(--type-tracking-metric);
   line-height: var(--type-leading-metric);
+}
+
+.donut-total .metric-value-unit {
+  top: 0;
+  font-size: 0.42em;
+  opacity: 0.9;
 }
 
 .metric-value {
