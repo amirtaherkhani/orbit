@@ -1,3 +1,8 @@
+# v0.7.3
+
+## Changed
+- Match the dark Panel Composer heading gradient to the adjacent sidebar and top bar.
+
 # v0.7.2
 
 ## Changed

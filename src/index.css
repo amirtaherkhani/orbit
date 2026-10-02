@@ -6071,12 +6071,19 @@ body {
   );
 }
 
-.dark .builder-heading,
 .dark .builder-footer {
   background: linear-gradient(
     90deg,
     rgba(255, 255, 255, 0.055),
     rgba(255, 255, 255, 0.018)
+  );
+}
+
+.dark .builder-heading {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.055),
+    rgba(255, 255, 255, 0.07)
   );
 }
 
