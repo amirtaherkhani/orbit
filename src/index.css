@@ -137,6 +137,7 @@
   --status-success: var(--text-positive);
   --status-success-ink: #4d672e;
   --status-warning: #a67e48;
+  --announcement-warning-tone: #8a6900;
   --status-critical: var(--text-error);
   --status-info: #668fa3;
   --icon-gradient-one: #7655a5;
@@ -310,6 +311,7 @@
   --status-success: #91bd59;
   --status-success-ink: #b5d783;
   --status-warning: #dfb58d;
+  --announcement-warning-tone: #eac344;
   --status-critical: #d35c57;
   --status-info: #8db7c9;
   --icon-gradient-one: #d1baff;
@@ -1372,19 +1374,19 @@
   border-radius: inherit;
   background: radial-gradient(
       ellipse at 50% 100%,
-      color-mix(in srgb, var(--announcement-tone) 68%, transparent),
-      color-mix(in srgb, var(--announcement-tone) 26%, transparent) 38%,
+      color-mix(in srgb, var(--announcement-tone) 44%, transparent),
+      color-mix(in srgb, var(--announcement-tone) 18%, transparent) 38%,
       transparent 78%
     )
-    0 100% / 48% 170% no-repeat;
+    0 100% / 44% 155% no-repeat;
   content: "";
-  opacity: 0.7;
+  opacity: 0.55;
   pointer-events: none;
   animation: dashboard-announcement-inner-glow 7s ease-in-out infinite alternate;
 }
 
 .dark .dashboard-announcement-bar::after {
-  opacity: 0.94;
+  opacity: 0.62;
 }
 
 .dashboard-announcement-bar[data-severity="critical"] {
@@ -1392,7 +1394,7 @@
 }
 
 .dashboard-announcement-bar[data-severity="warning"] {
-  --announcement-tone: var(--status-warning);
+  --announcement-tone: var(--announcement-warning-tone);
 }
 
 .dashboard-announcement-bar[data-severity="success"] {
