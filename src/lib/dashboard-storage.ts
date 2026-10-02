@@ -26,7 +26,6 @@ const chartTypes = new Set<ChartType>([
   "uptime",
   "date-time",
   "clock",
-  "countdown",
   "table",
   "logs",
   "alert-list",
@@ -76,7 +75,6 @@ const panelFields = new Set([
   "clockDateFormat",
   "clockStyle",
   "clockColor",
-  "countdownDurationMinutes",
   "textContent",
   "textMode",
   "textFontSize",
@@ -180,19 +178,30 @@ function normalizeStoredPanels(value: unknown) {
     )
     const chartType = panel.chartType === "waffle-chart"
       ? "donut"
-      : typeof panel.chartType === "string" &&
+      : panel.chartType === "countdown"
+        ? "clock"
+        : typeof panel.chartType === "string" &&
           chartTypes.has(panel.chartType as ChartType)
         ? panel.chartType
         : "line"
+    const wasCountdown = panel.chartType === "countdown"
+    const normalizeTimerTitle = (title: unknown) =>
+      wasCountdown && (title === "Focus timer" || title === "Countdown")
+        ? "Current date & time"
+        : title
+    const title = normalizeTimerTitle(normalizedPanel.title)
+    const floatingTitle = normalizeTimerTitle(normalizedPanel.floatingTitle)
 
     if (
       chartType !== panel.chartType ||
+      title !== normalizedPanel.title ||
+      floatingTitle !== normalizedPanel.floatingTitle ||
       Object.keys(normalizedPanel).length !== Object.keys(panel).length
     ) {
       changed = true
     }
 
-    return { ...normalizedPanel, chartType }
+    return { ...normalizedPanel, chartType, title, floatingTitle }
   })
 
   if (!changed) return { value, changed: false }

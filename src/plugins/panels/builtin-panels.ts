@@ -122,12 +122,6 @@ const panelDefinitions: Array<{
     category: "chart",
   },
   {
-    chartType: "countdown",
-    name: "Countdown",
-    description: "Focus timer with a live countdown dial and pause controls",
-    category: "chart",
-  },
-  {
     chartType: "logs",
     name: "Logs",
     description: "Timestamped application log stream",

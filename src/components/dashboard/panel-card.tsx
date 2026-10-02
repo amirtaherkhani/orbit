@@ -86,8 +86,6 @@ export function PanelCard({
             <CardDescription>
               {panel.chartType === "clock"
                 ? "Local date & time"
-                : panel.chartType === "countdown"
-                  ? `${panel.countdownDurationMinutes ?? 25} min focus session`
                   : panel.chartType === "text"
                     ? panel.textMode === "code"
                       ? "Code block"
@@ -117,12 +115,6 @@ export function PanelCard({
             <span>Local clock</span>
             <span className="panel-status-divider" />
             <span>Updates every second</span>
-          </>
-        ) : panel.chartType === "countdown" ? (
-          <>
-            <span>Focus timer</span>
-            <span className="panel-status-divider" />
-            <span>{panel.countdownDurationMinutes ?? 25} min session</span>
           </>
         ) : panel.chartType === "text" ? (
           <>

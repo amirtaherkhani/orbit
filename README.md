@@ -29,7 +29,7 @@ See the [identity guide](./design/brand/README.md) for usage and regeneration.
 
 - **Build panels in context.** Choose a data source, dataset, metric, aggregation, and grouping; configure the visualization and see a live preview before adding it.
 - **Arrange dashboards your way.** Switch between isolated Grid and Floating workspaces. Drag, resize, group, tab, dock, and hide panels without coupling the two layout models.
-- **Explore a broad chart toolkit.** Use time series, bars, areas, stats, gauges, pie/donut, heatmaps, histograms, state timelines, status history, tables, logs, alert lists, uptime, date-time, clocks, and countdowns.
+- **Explore a broad chart toolkit.** Use time series, bars, areas, stats, gauges, pie/donut, heatmaps, histograms, state timelines, status history, tables, logs, alert lists, uptime, date-time, and clocks.
 - **Go further with related views.** Try Streamgraph, Brush, Waffle, Ridgeline, Sankey, Funnel, Radar, Realtime Stream, Race Bar, humidity, progress, sleep-range, and pull-to-refresh visualizations.
 - **Tune every panel.** Set separate grid and floating titles, typography, alignment, color palettes and gradients, conditional thresholds, and chart-specific options.
 - **Keep up with the signal.** Surface rotating alerts and notices in the dashboard announcement bar; use a clock, service uptime history, and live sample streams alongside metric charts.
@@ -62,7 +62,7 @@ npm run build
 | Trends | Time series, area, bar, brush chart, streamgraph, realtime stream |
 | Metrics | Stat, gauge, bar gauge, progress ticks, humidity wheel |
 | Distribution | Donut, pie, heatmap, histogram, ridgeline, waffle |
-| Reliability | Uptime, status history, state timeline, alerts, countdown |
+| Reliability | Uptime, status history, state timeline, alerts |
 | Operations | Table, logs, text, dashboard list, clock, date-time |
 | Analysis | Sankey flow, funnel, radar, race bar, sleep range, pull-to-refresh |
 

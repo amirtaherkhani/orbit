@@ -1,3 +1,11 @@
+# v0.8.0
+
+## Removed
+- Remove the Focus timer panel and its builder controls.
+
+## Migration
+- Saved and imported Focus timer panels become Clock panels. Their positions and custom titles remain; default timer titles become "Current date & time". Save the dashboard to persist the conversion.
+
 # v0.7.9
 
 ## Changed
