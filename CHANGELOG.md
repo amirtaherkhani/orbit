@@ -30,6 +30,7 @@
 - Align select popups to their triggers and refine dropdown surfaces for compact, viewport-aware warm glass menus.
 
 ### Fixed
+- Emphasize the Grid style label and separate it from its layout choices.
 - Give clock accent buttons enough vertical space for their labels and use the shared color picker in tile color controls.
 - Keep dashboard tooltips legible in light and dark themes and preserve dark icons on primary buttons.
 - Align the Grid style label inside its segmented control with consistent padding and responsive spacing.

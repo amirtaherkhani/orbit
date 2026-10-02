@@ -1649,12 +1649,17 @@
 }
 
 .grid-presentation-label {
+  display: inline-flex;
+  min-height: 18px;
   flex: 0 0 auto;
-  color: var(--muted-foreground);
-  font-size: 9px;
-  font-weight: 560;
+  align-items: center;
+  border-inline-end: 1px solid var(--glass-control-border);
+  padding-inline-end: 10px;
+  color: var(--foreground);
+  font-size: 10px;
+  font-weight: 700;
   line-height: 1;
-  letter-spacing: 0.045em;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
   white-space: nowrap;
 }

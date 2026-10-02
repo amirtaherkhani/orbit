@@ -1,3 +1,8 @@
+# v0.7.5
+
+## Changed
+- Make the Grid style label bold and add a divider before its options.
+
 # v0.7.4
 
 ## Added
