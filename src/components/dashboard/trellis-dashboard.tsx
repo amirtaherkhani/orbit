@@ -151,7 +151,7 @@ function FloatingPanelActionMenu({
         {destinations.length > 0 && (
           <DropdownMenuSub>
             <DropdownMenuSubTrigger>
-              <ArrowRightIcon />
+              <ArrowRightIcon className="size-3.5 shrink-0" />
               Move tile to
             </DropdownMenuSubTrigger>
             <DropdownMenuSubContent className="more-actions-menu">

@@ -44,6 +44,7 @@
 - Align select popups to their triggers and refine dropdown surfaces for compact, viewport-aware warm glass menus.
 
 ### Fixed
+- Size the "Move tile to" submenu icon consistently with other tile action icons.
 - Restore the Panel Composer heading's liquid-glass blur by making its base tint translucent like the navigation bar.
 - Match the sidebar Orbit mark to the selected primary color.
 - Keep long Panel Composer controls scrollable by mouse, touch, and keyboard while its heading and Add action remain visible.
