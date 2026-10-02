@@ -228,7 +228,7 @@ export function PanelActionToolbar({
               <EllipsisIcon />
             </Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent align="start" className="panel-menu">
+          <DropdownMenuContent align="start" className="panel-menu more-actions-menu">
             <DropdownMenuLabel>Panel actions</DropdownMenuLabel>
             {onNudge && (
               <>
