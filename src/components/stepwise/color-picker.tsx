@@ -94,10 +94,12 @@ export interface ColorPickerProps {
   size?        : ColorPickerSize
   /** Render the popover open on mount. Default false. */
   defaultOpen? : boolean
+  /** Keep the picker surface inside its parent overlay when nesting popovers. */
+  portal?      : boolean
   className?   : string
 }
 
-export function ColorPicker({ value = '#3b82f6', onChange, showPresets = false, size = 'md', defaultOpen = false, className }: ColorPickerProps) {
+export function ColorPicker({ value = '#3b82f6', onChange, showPresets = false, size = 'md', defaultOpen = false, portal = true, className }: ColorPickerProps) {
   const sz = SIZES[size]
   const [pickerState, setPickerState] = useState(() => ({
     source: value,
@@ -483,7 +485,7 @@ export function ColorPicker({ value = '#3b82f6', onChange, showPresets = false, 
         </span>
       </motion.button>
 
-      {defaultOpen ? (
+      {defaultOpen || !portal ? (
         <AnimatePresence>
           {open && (
             <motion.div

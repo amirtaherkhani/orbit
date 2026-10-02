@@ -1,3 +1,14 @@
+# v0.7.0
+
+## Highlights
+- Choose from nine new Area chart styles in the panel composer, including interactive ranges and stacked percentage views.
+
+## Added
+- Use the request-rate demo metric's service breakdown for multi-series Area charts. Stacked choices are available when a metric supplies multiple series.
+
+## Fixed
+- Fit clock accent labels inside their buttons and use Orbit's shared color picker from existing chart tiles.
+
 # v0.6.4
 
 ## Fixed
