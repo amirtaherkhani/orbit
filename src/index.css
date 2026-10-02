@@ -1762,6 +1762,11 @@
   font-size: 11px;
 }
 
+.canvas-layout-help {
+  padding: 0 22px 18px;
+  line-height: 1.5;
+}
+
 .canvas-hint svg {
   width: 14px;
   height: 14px;
