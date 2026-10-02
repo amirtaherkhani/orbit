@@ -16,7 +16,6 @@ import {
   ExpandIcon,
   EyeIcon,
   Minimize2Icon,
-  PlusIcon,
   RotateCcwIcon,
   XIcon,
 } from "@/components/ui/icon-library"
@@ -358,10 +357,6 @@ export function TrellisDashboard({
     <div className="trellis-dashboard-host">
       <div className="trellis-dashboard-toolbar" aria-label="Floating dashboard tools">
         <div className="trellis-toolbar-actions">
-          <Button type="button" size="sm" variant="outline" onClick={onOpenBuilder}>
-            <PlusIcon data-icon="inline-start" />
-            Chart
-          </Button>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button
