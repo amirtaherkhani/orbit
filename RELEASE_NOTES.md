@@ -1,3 +1,8 @@
+# v0.8.5
+
+## Changed
+- Increase the Panel Composer heading's glass blur and let controls scroll behind it.
+
 # v0.8.4
 
 ## Changed
