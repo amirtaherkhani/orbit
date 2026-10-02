@@ -59,7 +59,7 @@
     rgba(255, 255, 255, 0.5),
     rgba(250, 249, 241, 0.28)
   );
-  --glass-topbar-base: #eff0ed;
+  --glass-topbar-base: rgba(239, 240, 237, 0.68);
   --glass-panel-border: rgba(255, 255, 255, 0.58);
   --glass-panel-fill: linear-gradient(
     145deg,
@@ -247,7 +247,7 @@
     rgba(255, 255, 255, 0.08),
     rgba(255, 255, 255, 0.025)
   );
-  --glass-topbar-base: #1f242d;
+  --glass-topbar-base: rgba(31, 36, 45, 0.68);
   --glass-panel-border: rgba(231, 237, 226, 0.15);
   --glass-panel-fill: linear-gradient(
     145deg,
