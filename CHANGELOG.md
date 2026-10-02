@@ -11,6 +11,7 @@
 - Add a reusable searchable multi-select with removable chips, keyboard listbox navigation, and clear-selection controls.
 
 ### Changed
+- Strengthen the warm accent fill and border of selected tabs in light mode.
 - Unify layout switches, Floating tabs, and builder selection controls with the Grid style selector material.
 - Give large plain metric readouts a bold-to-light digit hierarchy across chart types.
 - Orient the top bar, composer heading, and composer footer glass gradients from left to right.
