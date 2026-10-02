@@ -1,13 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
-  <defs>
-    <linearGradient id="orbit" x1="12" y1="16" x2="54" y2="50" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#69E0B8" />
-      <stop offset=".52" stop-color="#9BCBFF" />
-      <stop offset="1" stop-color="#F1A8C1" />
-    </linearGradient>
-  </defs>
-  <rect x="3" y="3" width="58" height="58" rx="18" fill="#101715" stroke="#2C4038" stroke-width="2" />
-  <ellipse cx="32" cy="32" rx="21" ry="10" transform="rotate(-34 32 32)" stroke="url(#orbit)" stroke-width="2.5" />
-  <circle cx="49" cy="20" r="4" fill="#F1A8C1" />
-  <path d="M19 43V33h7v10m5 0V25h7v18m5 0V30h7v13" stroke="url(#orbit)" stroke-linecap="round" stroke-linejoin="round" stroke-width="4" />
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><title>Orbit</title><rect width="256" height="256" rx="56" fill="#F8F7F2"/><g transform="translate(33.28 33.28) scale(.74)"><path fill="#FF7543" d="M193.08 51.2 C187.01 45.13 178.33 41.22 166.62 41.22 C143.19 40.79 108.91 52.94 86.35 68.56 C69.86 80.71 60.75 99.8 60.75 123.66 C59.88 162.28 85.91 193.95 126.7 194.39 C167.92 195.25 196.12 167.05 196.12 130.6 C196.12 101.97 183.11 86.78 163.15 77.67 C155.77 74.63 156.2 66.82 161.84 64.65 C171.82 60.75 197.42 65.52 209.57 70.73 C236.47 81.57 246.89 102.83 246.89 129.74 C246.89 193.08 197.42 241.25 131.04 241.68 C61.61 242.12 6.94 192.65 6.94 126.26 C6.94 59.88 61.18 7.81 129.74 7.38 C160.11 6.94 184.41 16.49 196.99 35.15 C203.06 45.13 200.03 55.54 193.08 51.2 Z"/></g></svg>

@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/icon-library"
 
 import { Button } from "@/components/ui/button"
+import { OrbitMark } from "@/components/branding/orbit-mark"
 import {
   Tooltip,
   TooltipContent,
@@ -24,10 +25,8 @@ const navigation = [
 export function AppRail() {
   return (
     <aside className="app-rail" aria-label="Primary navigation">
-      <div className="brand-mark" aria-label="Orbit">
-        <span />
-        <span />
-        <span />
+      <div className="brand-mark" role="img" aria-label="Orbit">
+        <OrbitMark />
       </div>
 
       <nav className="rail-navigation" aria-label="Workspace">
