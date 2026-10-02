@@ -1,7 +1,17 @@
-# v0.7.7
+# v0.7.8
 
 ## Changed
 - Add layered slate gradients to dark-mode workspace surfaces, cards, previews, and controls.
+
+# v0.7.7
+
+## Changed
+- Match the Panel Composer heading background to the top navigation bar in light and dark themes.
+
+# v0.7.6
+
+## Changed
+- Blend the dashboard composer footer into the sidebar surface in light and dark themes.
 
 # v0.7.5
 
