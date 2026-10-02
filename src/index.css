@@ -1367,28 +1367,6 @@
   animation: dashboard-announcement-beam 7s linear infinite;
 }
 
-.dashboard-announcement-bar::after {
-  position: absolute;
-  z-index: 0;
-  inset: 1px;
-  border-radius: inherit;
-  background: radial-gradient(
-      ellipse at 50% 100%,
-      color-mix(in srgb, var(--announcement-tone) 24%, transparent),
-      color-mix(in srgb, var(--announcement-tone) 10%, transparent) 38%,
-      transparent 78%
-    )
-    0 100% / 40% 145% no-repeat;
-  content: "";
-  opacity: 0.38;
-  pointer-events: none;
-  animation: dashboard-announcement-inner-glow 7s ease-in-out infinite alternate;
-}
-
-.dark .dashboard-announcement-bar::after {
-  opacity: 0.44;
-}
-
 .dashboard-announcement-bar[data-severity="critical"] {
   --announcement-tone: var(--status-critical);
 }
@@ -1697,20 +1675,10 @@
   }
 }
 
-@keyframes dashboard-announcement-inner-glow {
-  from {
-    background-position: 0% 100%;
-  }
-  to {
-    background-position: 100% 100%;
-  }
-}
-
 @media (prefers-reduced-motion: reduce) {
   .dashboard-announcement-copy,
   .dashboard-announcement-manager,
-  .dashboard-announcement-bar::before,
-  .dashboard-announcement-bar::after {
+  .dashboard-announcement-bar::before {
     animation: none;
   }
 }
