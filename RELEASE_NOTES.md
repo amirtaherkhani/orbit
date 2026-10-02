@@ -5,6 +5,7 @@
 
 ## Changed
 - Use slate dark-mode surfaces for the notification banner while keeping alert severity visible.
+- Align Grid and Floating card title-bar gradients and dividers across light and dark themes.
 
 # v0.7.3
 

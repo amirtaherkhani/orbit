@@ -13,6 +13,7 @@
 
 ### Changed
 - Use the dark slate palette for notification banner fills, icons, and controls while retaining severity cues.
+- Give Grid and Floating card title bars a consistent directional glass gradient and subtle divider in both themes.
 - Blend the dark Panel Composer heading gradient into the sidebar and top bar.
 - Use a three-level slate palette for dark-mode page, shell, and panel surfaces.
 - Strengthen the warm accent fill and border of selected tabs in light mode.
