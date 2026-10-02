@@ -11,6 +11,7 @@
 - Add a reusable searchable multi-select with removable chips, keyboard listbox navigation, and clear-selection controls.
 
 ### Changed
+- Use a three-level slate palette for dark-mode page, shell, and panel surfaces.
 - Strengthen the warm accent fill and border of selected tabs in light mode.
 - Unify layout switches, Floating tabs, and builder selection controls with the Grid style selector material.
 - Give large plain metric readouts a bold-to-light digit hierarchy across chart types.
