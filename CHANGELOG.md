@@ -12,6 +12,7 @@
 - Add a reusable searchable multi-select with removable chips, keyboard listbox navigation, and clear-selection controls.
 
 ### Changed
+- Give dark-mode shell, composer, cards, preview, and controls a layered slate gradient.
 - Use the dark slate palette for notification banner fills, icons, and controls while retaining severity cues.
 - Give Grid and Floating card title bars a consistent directional glass gradient and subtle divider in both themes.
 - Blend the dark Panel Composer heading gradient into the sidebar and top bar.

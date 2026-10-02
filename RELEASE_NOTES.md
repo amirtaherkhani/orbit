@@ -1,3 +1,8 @@
+# v0.7.7
+
+## Changed
+- Add layered slate gradients to dark-mode workspace surfaces, cards, previews, and controls.
+
 # v0.7.5
 
 ## Changed

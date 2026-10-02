@@ -220,10 +220,11 @@
   --ui-border-focus: #ff9a75;
   --glass-shell-border: rgba(231, 237, 226, 0.16);
   --glass-shell-fill: linear-gradient(
-      118deg,
-      rgba(31, 36, 45, 0.78) 0%,
-      rgba(23, 29, 36, 0.68) 44%,
-      rgba(19, 24, 33, 0.76) 100%
+      125deg,
+      #1f242d 0%,
+      #1c222b 30%,
+      #171d24 68%,
+      #131821 100%
     ),
     #171d24;
   --glass-shell-shadow:
@@ -240,8 +241,10 @@
   --glass-panel-border: rgba(231, 237, 226, 0.15);
   --glass-panel-fill: linear-gradient(
     145deg,
-    rgba(31, 36, 45, 0.94),
-    rgba(31, 36, 45, 0.84)
+    #262d37 0%,
+    #222934 32%,
+    #1f242d 68%,
+    #171d24 100%
   );
   --glass-panel-heading-fill: linear-gradient(90deg, rgba(48, 57, 66, 0.74), rgba(31, 36, 45, 0.18));
   --glass-panel-heading-border: rgba(231, 237, 226, 0.11);
@@ -252,8 +255,8 @@
   --glass-control-border: rgba(231, 237, 226, 0.18);
   --glass-control-fill: linear-gradient(
     145deg,
-    rgba(255, 255, 255, 0.1),
-    rgba(255, 248, 226, 0.035)
+    rgba(74, 85, 101, 0.28),
+    rgba(31, 36, 45, 0.16)
   );
   --glass-control-shadow:
     0 8px 20px rgba(0, 0, 0, 0.2),
@@ -6094,9 +6097,11 @@ body {
 
 .dark .builder-panel {
   background: linear-gradient(
-    160deg,
-    rgba(31, 36, 45, 0.72),
-    rgba(23, 29, 36, 0.58)
+    155deg,
+    #262d37 0%,
+    #1f242d 35%,
+    #171d24 72%,
+    #131821 100%
   );
 }
 
