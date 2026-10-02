@@ -448,8 +448,18 @@
   display: block;
   width: 28px;
   height: 28px;
-  object-fit: contain;
+  background-color: #ff7543;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-size: contain;
+  mask-size: contain;
   user-select: none;
+}
+
+.app-rail .brand-mark .orbit-brand-symbol {
+  background-color: var(--primary);
 }
 
 .rail-navigation,

@@ -1,14 +1,12 @@
-/** Shared brand image; its containing landmark supplies the accessible name. */
+/** Shared brand mark; its containing landmark supplies the accessible name. */
 export function OrbitMark() {
+  const maskImage = `url(${import.meta.env.BASE_URL}brand/orbit-symbol-small.svg)`
+
   return (
-    <img
+    <span
       className="orbit-brand-symbol"
-      src={`${import.meta.env.BASE_URL}brand/orbit-symbol-small.svg`}
-      width={28}
-      height={28}
-      alt=""
+      style={{ maskImage, WebkitMaskImage: maskImage }}
       aria-hidden="true"
-      draggable={false}
     />
   )
 }
