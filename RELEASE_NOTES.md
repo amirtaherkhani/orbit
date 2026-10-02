@@ -1,3 +1,8 @@
+# v0.7.10
+
+## Fixed
+- Scroll through long Panel Composer controls with mouse, touch, or keyboard while the heading and Add action stay in place.
+
 # v0.7.9
 
 ## Changed
