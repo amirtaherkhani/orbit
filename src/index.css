@@ -5509,6 +5509,18 @@
   white-space: pre;
 }
 
+.sliding-number-character--emphasis {
+  font-weight: var(--type-weight-semibold);
+}
+
+.sliding-number-character--regular {
+  font-weight: var(--type-weight-regular);
+}
+
+.sliding-number-character--light {
+  font-weight: var(--type-weight-light);
+}
+
 .sliding-number-measure {
   position: absolute;
   inset: 0 auto auto 0;

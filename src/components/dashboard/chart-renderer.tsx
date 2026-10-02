@@ -923,6 +923,25 @@ function metricValueParts(metric: MetricDefinition, value: number) {
   return { number, unit, position, formatted }
 }
 
+function metricCharacterWeights(value: string) {
+  const characters = Array.from(value)
+  const digitIndexes = characters.flatMap((character, index) => /\d/.test(character) ? [index] : [])
+  const hasCompactSuffix = characters.some((character) => /[KMBT]/i.test(character))
+  if (digitIndexes.length === 0 || (digitIndexes.length === 1 && !hasCompactSuffix)) return undefined
+
+  const weights: Array<"emphasis" | "regular" | "light"> = characters.map(() => "regular")
+  const firstDigitIndex = digitIndexes[0]
+  const lastDigitIndex = digitIndexes[digitIndexes.length - 1]
+  if (firstDigitIndex !== undefined) weights[firstDigitIndex] = "emphasis"
+  if (digitIndexes.length > 1 && lastDigitIndex !== undefined) weights[lastDigitIndex] = "light"
+
+  characters.forEach((character, index) => {
+    if (/[KMBT]/i.test(character)) weights[index] = "light"
+  })
+
+  return weights
+}
+
 function MetricValue({
   metric,
   value,
@@ -934,6 +953,10 @@ function MetricValue({
 }) {
   const parts = metricValueParts(metric, value)
   const animationDelay = React.useContext(MetricAnimationDelayContext)
+  const characterWeights =
+    size === "display" && (metric.format === "number" || metric.format === "compact")
+      ? metricCharacterWeights(parts.number)
+      : undefined
 
   return (
     <strong className={`metric-value metric-value--${size}`}>
@@ -947,6 +970,7 @@ function MetricValue({
         ariaLabel={parts.formatted}
         delayMs={animationDelay}
         className="metric-value-number"
+        characterWeights={characterWeights}
       />
       {parts.position === "suffix" && parts.unit && (
         <span className="metric-value-unit" data-position={parts.position} aria-hidden="true">
@@ -2521,7 +2545,7 @@ const ChartRendererContent = React.memo(function ChartRendererContent({
             </PieChart>
           </ChartContainer>
           {isDonut && <div className="donut-total">
-              <MetricValue metric={metric} value={total} />
+              <MetricValue metric={metric} value={total} size="display" />
               <span>Total</span>
             </div>}
         </div>
