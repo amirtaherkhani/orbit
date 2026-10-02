@@ -1312,6 +1312,14 @@
     var(--motion-ease-emphasized) both;
 }
 
+.dashboard-announcement-copy[data-direction="previous"] {
+  --announcement-slide-offset: -12px;
+}
+
+.dashboard-announcement-copy[data-direction="next"] {
+  --announcement-slide-offset: 12px;
+}
+
 .dashboard-announcement-heading {
   display: flex;
   min-width: 0;
@@ -1409,19 +1417,154 @@
 }
 
 .dashboard-announcement-control:focus-visible {
-  outline: 2px solid
+  box-shadow: 0 0 0 2px
     color-mix(in oklch, var(--announcement-tone) 60%, var(--ring));
-  outline-offset: 1px;
+}
+
+.dashboard-announcement-placeholder {
+  display: flex;
+  min-height: 48px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 10px 18px 0;
+  border: 1px dashed color-mix(in oklch, var(--border) 86%, transparent);
+  border-radius: 12px;
+  padding: 6px 10px 6px 14px;
+  color: var(--muted-foreground);
+  font-size: var(--type-caption-size);
+}
+
+.dashboard-announcement-manager {
+  z-index: 80;
+  width: min(360px, calc(100vw - 24px));
+  max-height: min(560px, calc(100vh - 32px));
+  overflow: auto;
+  border: 1px solid color-mix(in oklch, var(--border) 85%, transparent);
+  border-radius: 14px;
+  padding: 14px;
+  background: color-mix(in oklch, var(--card) 92%, transparent);
+  color: var(--foreground);
+  box-shadow: 0 16px 40px color-mix(in oklch, var(--foreground) 14%, transparent);
+  backdrop-filter: blur(24px) saturate(1.35);
+  animation: dashboard-announcement-manager-enter 140ms ease-out both;
+}
+
+.dashboard-announcement-manager-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid color-mix(in oklch, var(--border) 78%, transparent);
+}
+
+.dashboard-announcement-manager-heading strong {
+  display: block;
+  font-size: 13px;
+  font-weight: var(--type-weight-semibold);
+}
+
+.dashboard-announcement-manager-heading p {
+  margin: 4px 0 0;
+  color: var(--muted-foreground);
+  font-size: 11px;
+  line-height: 1.4;
+}
+
+.dashboard-announcement-source-groups {
+  display: grid;
+  gap: 12px;
+  padding-top: 12px;
+}
+
+.dashboard-announcement-source-group {
+  display: grid;
+  min-width: 0;
+  gap: 4px;
+  margin: 0;
+  border: 0;
+  padding: 0;
+}
+
+.dashboard-announcement-source-group legend {
+  margin-bottom: 3px;
+  color: var(--muted-foreground);
+  font-family: var(--font-data);
+  font-size: 9px;
+  font-weight: var(--type-weight-technical);
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+.dashboard-announcement-source {
+  display: flex;
+  min-height: 34px;
+  align-items: center;
+  gap: 9px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  padding: 5px 7px;
+  background: transparent;
+  color: var(--foreground);
+  cursor: pointer;
+  font: inherit;
+  font-size: 11px;
+  text-align: left;
+}
+
+.dashboard-announcement-source:hover,
+.dashboard-announcement-source[aria-pressed="true"] {
+  border-color: color-mix(in oklch, var(--border) 76%, transparent);
+  background: color-mix(in oklch, var(--background) 70%, transparent);
+}
+
+.dashboard-announcement-source:focus-visible {
+  box-shadow: 0 0 0 2px color-mix(in oklch, var(--ring) 70%, transparent);
+}
+
+.dashboard-announcement-source-check {
+  display: grid;
+  width: 18px;
+  height: 18px;
+  flex: 0 0 auto;
+  place-items: center;
+  border: 1px solid color-mix(in oklch, var(--border) 85%, transparent);
+  border-radius: 5px;
+  color: var(--primary);
+}
+
+.dashboard-announcement-source-check svg {
+  width: 12px;
+  height: 12px;
+}
+
+@keyframes dashboard-announcement-manager-enter {
+  from {
+    opacity: 0;
+    transform: translateY(-4px) scale(0.99);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 
 @keyframes dashboard-announcement-enter {
   from {
     opacity: 0;
-    transform: translateY(5px);
+    transform: translateX(var(--announcement-slide-offset, 12px));
   }
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dashboard-announcement-copy,
+  .dashboard-announcement-manager {
+    animation: none;
   }
 }
 
@@ -4913,6 +5056,10 @@
     grid-template-columns: 30px minmax(0, 1fr);
     margin: 8px 10px 0;
     padding: 9px 10px;
+  }
+
+  .dashboard-announcement-placeholder {
+    margin: 8px 10px 0;
   }
 
   .dashboard-announcement-controls {

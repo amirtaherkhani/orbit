@@ -1,3 +1,14 @@
+# v0.2.0
+
+## Highlights
+- Configure a sliding dashboard banner for alarms, notifications, and chart data.
+
+## Added
+- Choose which dashboard panels contribute banner items, add chart panels to show their latest metric value, and hide or restore the banner.
+
+## Changed
+- Banner items slide horizontally with directional transitions and respect reduced-motion preferences.
+
 # v0.1.1
 
 ## Highlights
