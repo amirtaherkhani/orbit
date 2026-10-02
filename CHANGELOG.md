@@ -16,7 +16,7 @@
 - Show a moving severity-colored glow inside notification banners alongside their animated border.
 - Give alert rows a subtle theme-aware severity and primary-color gradient.
 - Match the Panel Composer heading to the navigation bar's shell-backed gradient in both themes.
-- Give dashboard and panel “More actions” menus a blue liquid-glass surface in both themes.
+- Match dashboard and panel “More actions” menus to the navbar's neutral glass surface in both themes.
 - Add a slow, severity-colored border beam to warning, error, and info announcement banners.
 - Convert saved Focus timer panels to Clock panels while preserving their layout and custom titles.
 - Make only the bottom border of Grid and Floating tile title bars transparent in both themes.
