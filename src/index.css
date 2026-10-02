@@ -1643,6 +1643,14 @@
   min-height: 610px;
 }
 
+.dashboard-grid-shell
+  .react-grid-item.cssTransforms:not(.resizing):not(.react-draggable-dragging):not(
+    .react-grid-placeholder
+  ) {
+  transition-duration: 420ms;
+  transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
 .grid-card-wrap {
   min-width: 0;
   transition:
@@ -6139,6 +6147,7 @@ body {
 
   .topbar .topbar-actions [data-slot="button"],
   .dashboard-card,
+  .dashboard-grid-shell .react-grid-item.cssTransforms,
   :where([data-slot="dropdown-menu-item"], [data-slot="select-item"]) {
     transition-duration: 0ms !important;
   }
