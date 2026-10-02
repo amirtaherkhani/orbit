@@ -5908,6 +5908,50 @@ body {
   backdrop-filter: none;
 }
 
+.trellis-dashboard-workspace .trellis [data-trellis-part="tabbar"]:not([data-single])
+  [data-trellis-part="tabs"] {
+  gap: 6px;
+  padding-inline: 7px;
+}
+
+.trellis-dashboard-workspace .trellis [data-trellis-part="tabbar"]:not([data-single])
+  [data-trellis-part="tab"] {
+  min-width: 88px;
+  margin-block: 4px;
+  padding-inline: 12px;
+  border: 1px solid color-mix(in oklch, var(--border) 88%, var(--muted-foreground));
+  border-radius: 8px;
+  background: color-mix(in oklch, var(--muted) 30%, transparent);
+  color: var(--muted-foreground);
+  cursor: pointer;
+  transition:
+    background-color var(--motion-duration-fast) var(--motion-ease-standard),
+    border-color var(--motion-duration-fast) var(--motion-ease-standard),
+    color var(--motion-duration-fast) var(--motion-ease-standard);
+}
+
+.trellis-dashboard-workspace .trellis [data-trellis-part="tabbar"]:not([data-single])
+  [data-trellis-part="tab"]:hover {
+  border-color: color-mix(in oklch, var(--primary) 35%, var(--border));
+  background: color-mix(in oklch, var(--primary) 8%, var(--muted));
+  color: var(--foreground);
+}
+
+.trellis-dashboard-workspace .trellis [data-trellis-part="tabbar"]:not([data-single])
+  [data-trellis-part="tab"][data-selected] {
+  border-color: color-mix(in oklch, var(--primary) 52%, var(--border));
+  background: color-mix(in oklch, var(--primary) 14%, var(--card));
+  color: var(--foreground);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.58);
+}
+
+.trellis-dashboard-workspace .trellis [data-trellis-part="tabbar"]:not([data-single])
+  [data-trellis-part="tab"][data-selected]::before,
+.trellis-dashboard-workspace .trellis [data-trellis-part="tabbar"]:not([data-single])
+  [data-trellis-part="tab"][data-selected]::after {
+  display: none;
+}
+
 .trellis-panel-footer {
   border-top: 1px solid color-mix(in oklch, var(--border) 78%, transparent);
   background: transparent;
