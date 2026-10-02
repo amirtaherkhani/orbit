@@ -4923,13 +4923,27 @@
 }
 
 .alert-row {
+  --alert-row-tone: var(--status-info);
   display: grid;
   grid-template-columns: auto minmax(0, 1fr);
   gap: 9px;
-  border: 1px solid color-mix(in oklch, var(--border) 72%, transparent);
+  border: 1px solid color-mix(in oklch, var(--alert-row-tone) 18%, var(--border));
   border-radius: 7px;
   padding: 7px 8px;
-  background: color-mix(in oklch, var(--background) 48%, var(--card));
+  background: linear-gradient(
+    110deg,
+    color-mix(in oklch, var(--alert-row-tone) 7%, var(--card)),
+    color-mix(in oklch, var(--primary) 4%, var(--background))
+  );
+}
+
+.alert-row[data-level="warning"] {
+  --alert-row-tone: var(--status-warning);
+}
+
+.alert-row[data-level="error"],
+.alert-row[data-level="critical"] {
+  --alert-row-tone: var(--status-critical);
 }
 
 .alert-severity {

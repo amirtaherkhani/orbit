@@ -1941,7 +1941,11 @@ function AlertList({
   return (
     <div className="event-list alert-list" aria-label="Alert rules">
       {points.slice(0, compact ? 3 : 5).map((point, index) => (
-        <div className="alert-row" key={`${point.label}-${index}`}>
+        <div
+          className="alert-row"
+          data-level={point.level ?? "info"}
+          key={`${point.label}-${index}`}
+        >
           <span className="alert-severity" data-level={point.level ?? "info"} />
           <div className="event-copy">
             <div className="alert-title-line">
