@@ -5366,6 +5366,7 @@
   font-family: var(--font-editorial);
   font-style: italic;
   font-synthesis: none;
+  font-weight: var(--type-weight-light);
 }
 
 /* Motion and animated text primitives */
