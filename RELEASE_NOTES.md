@@ -1,3 +1,14 @@
+# v0.1.1
+
+## Highlights
+- Warm glass dropdown and select controls now pair with a searchable, keyboard-accessible multi-select.
+
+## Added
+- Searchable multi-select options, removable selection chips, overflow counts, empty-search feedback, and clear-selection action.
+
+## Changed
+- Select popups match trigger width, and dropdown menus use compact warm-glass surfaces with reduced-motion support.
+
 # v0.1.0
 
 ## Highlights
