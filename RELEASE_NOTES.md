@@ -1,3 +1,8 @@
+# v0.7.4
+
+## Changed
+- Align Grid and Floating card title-bar gradients and dividers across light and dark themes.
+
 # v0.7.3
 
 ## Changed
