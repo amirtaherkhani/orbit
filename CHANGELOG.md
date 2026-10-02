@@ -13,6 +13,7 @@
 - Add a reusable searchable multi-select with removable chips, keyboard listbox navigation, and clear-selection controls.
 
 ### Changed
+- Match the Panel Composer heading to the navigation bar's shell-backed gradient in both themes.
 - Convert saved Focus timer panels to Clock panels while preserving their layout and custom titles.
 - Make only the bottom border of Grid and Floating tile title bars transparent in both themes.
 - Give dark-mode shell, composer, cards, preview, and controls a layered slate gradient.

@@ -1,3 +1,8 @@
+# v0.8.2
+
+## Changed
+- Align the Panel Composer heading's background with the top navigation bar in light and dark mode.
+
 # v0.8.1
 
 ## Fixed
