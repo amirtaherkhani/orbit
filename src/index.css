@@ -89,6 +89,14 @@
   --glass-menu-shadow:
     0 18px 48px rgba(55, 53, 43, 0.18),
     inset 0 1px 0 #fff;
+  --glass-more-menu-border: rgba(117, 174, 207, 0.52);
+  --glass-more-menu-fill:
+    radial-gradient(ellipse at 14% 0%, rgba(255, 255, 255, 0.86), transparent 56%),
+    linear-gradient(135deg, rgba(231, 246, 255, 0.97), rgba(207, 232, 248, 0.94));
+  --glass-more-menu-shadow:
+    0 18px 46px rgba(45, 92, 120, 0.22),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    inset 0 -1px 0 rgba(94, 151, 184, 0.2);
   --glass-sheet-fill: linear-gradient(
     145deg,
     rgba(255, 255, 255, 0.7),
@@ -270,6 +278,14 @@
   --glass-menu-shadow:
     0 18px 48px rgba(0, 0, 0, 0.42),
     inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  --glass-more-menu-border: rgba(139, 198, 229, 0.3);
+  --glass-more-menu-fill:
+    radial-gradient(ellipse at 14% 0%, rgba(99, 166, 201, 0.26), transparent 56%),
+    linear-gradient(135deg, rgba(29, 67, 91, 0.97), rgba(16, 43, 63, 0.97));
+  --glass-more-menu-shadow:
+    0 20px 52px rgba(0, 0, 0, 0.42),
+    inset 0 1px 0 rgba(232, 247, 255, 0.14),
+    inset 0 -1px 0 rgba(7, 27, 42, 0.38);
   --glass-sheet-fill: linear-gradient(
     145deg,
     rgba(31, 36, 45, 0.92),
@@ -6289,6 +6305,27 @@ body {
   box-shadow: var(--glass-menu-shadow);
   -webkit-backdrop-filter: blur(var(--glass-blur-menu)) saturate(var(--glass-saturation-menu));
   backdrop-filter: blur(var(--glass-blur-menu)) saturate(var(--glass-saturation-menu));
+}
+
+.more-actions-menu[data-slot="dropdown-menu-content"],
+.more-actions-menu[data-slot="dropdown-menu-sub-content"] {
+  border-color: var(--glass-more-menu-border);
+  background: var(--glass-more-menu-fill);
+  box-shadow: var(--glass-more-menu-shadow);
+  -webkit-backdrop-filter: blur(24px) saturate(165%);
+  backdrop-filter: blur(24px) saturate(165%);
+}
+
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .more-actions-menu[data-slot="dropdown-menu-content"],
+  .more-actions-menu[data-slot="dropdown-menu-sub-content"] {
+    background: #e4f3fb;
+  }
+
+  .dark .more-actions-menu[data-slot="dropdown-menu-content"],
+  .dark .more-actions-menu[data-slot="dropdown-menu-sub-content"] {
+    background: #19364a;
+  }
 }
 
 :where([data-slot="dropdown-menu-item"], [data-slot="select-item"]) {

@@ -142,7 +142,7 @@ export function Topbar({
             </TooltipTrigger>
             <TooltipContent>Dashboard actions</TooltipContent>
           </Tooltip>
-          <DropdownMenuContent align="end" className="dashboard-actions-menu">
+          <DropdownMenuContent align="end" className="dashboard-actions-menu more-actions-menu">
             <DropdownMenuLabel>Dashboard</DropdownMenuLabel>
             <DropdownMenuGroup>
               <DropdownMenuItem onSelect={onLoad}>

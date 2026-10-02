@@ -131,7 +131,7 @@ function FloatingPanelActionMenu({
           <EllipsisIcon />
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="start" className="panel-menu">
+      <DropdownMenuContent align="start" className="panel-menu more-actions-menu">
         <DropdownMenuLabel>Panel actions</DropdownMenuLabel>
         {!isFloating && (
           <DropdownMenuItem onSelect={() => workspaceRef.current?.navigation.toggle(trellisPanelId)}>
@@ -154,7 +154,7 @@ function FloatingPanelActionMenu({
               <ArrowRightIcon />
               Move tile to
             </DropdownMenuSubTrigger>
-            <DropdownMenuSubContent>
+            <DropdownMenuSubContent className="more-actions-menu">
               {destinations.map((destination) => {
                 const groupSize = visibleViews.filter((view) => view.panelId === destination.panelId).length
                 return (
