@@ -1,3 +1,8 @@
+# v0.8.9
+
+## Changed
+- Make the Floating tile action menu translucent with stronger glass blur in light and dark mode.
+
 # v0.8.8
 
 ## Changed

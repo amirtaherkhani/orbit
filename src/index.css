@@ -6134,6 +6134,21 @@ body {
   --trellis-shadow-lifted: none;
 }
 
+.trellis-dashboard-workspace .trellis .trellis-menu {
+  border: 1px solid var(--glass-menu-border);
+  border-radius: 14px;
+  background: var(--glass-topbar-fill), var(--glass-topbar-base);
+  box-shadow: var(--glass-menu-shadow);
+  -webkit-backdrop-filter: blur(32px) saturate(135%);
+  backdrop-filter: blur(32px) saturate(135%);
+}
+
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .trellis-dashboard-workspace .trellis .trellis-menu {
+    background: var(--glass-menu-fill);
+  }
+}
+
 .trellis-dashboard-workspace .trellis [data-trellis-part="tab-title"] {
   min-width: 0;
   overflow: hidden;
