@@ -56,8 +56,8 @@
     inset 1px 0 0 rgba(255, 255, 255, 0.56);
   --glass-topbar-fill: linear-gradient(
     90deg,
-    rgba(255, 255, 255, 0.5),
-    rgba(250, 249, 241, 0.28)
+    rgba(250, 249, 241, 0.28),
+    rgba(255, 255, 255, 0.5)
   );
   --glass-topbar-base: rgba(239, 240, 237, 0.68);
   --glass-panel-border: rgba(255, 255, 255, 0.58);
@@ -244,8 +244,8 @@
     inset 1px 0 0 rgba(255, 255, 255, 0.04);
   --glass-topbar-fill: linear-gradient(
     90deg,
-    rgba(255, 255, 255, 0.08),
-    rgba(255, 255, 255, 0.025)
+    rgba(255, 255, 255, 0.025),
+    rgba(255, 255, 255, 0.08)
   );
   --glass-topbar-base: rgba(31, 36, 45, 0.68);
   --glass-panel-border: rgba(231, 237, 226, 0.15);
