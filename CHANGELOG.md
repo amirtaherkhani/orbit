@@ -1,6 +1,7 @@
 ## [Unreleased]
 
 ### Added
+- Add nine shadcn-inspired Area chart styles: Interactive, Step, Linear, Stacked Expanded, Stacked, Legend, Axes, Gradient, and Icons. Stacked styles use the selected metric's series breakdown.
 - Provide a reusable Orbital O icon pack with SVG masters, outlined wordmarks, app icons, favicons, and Apple/web-app install assets.
 - Switch chart colors between gradient pastel, neon, and a custom color in the panel composer or on existing Grid and Floating tiles; saved dashboards retain the choice.
 - Show a pulse-icon Live badge beside chart titles when their metric is backed by a live stream.
@@ -17,6 +18,7 @@
 - Align select popups to their triggers and refine dropdown surfaces for compact, viewport-aware warm glass menus.
 
 ### Fixed
+- Give clock accent buttons enough vertical space for their labels and use the shared color picker in tile color controls.
 - Give Floating tiles the same glass fill, border, blur, shadow, and header finish as Grid cards, including dark mode and opaque fallback.
 
 ### Removed

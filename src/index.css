@@ -2659,12 +2659,14 @@
   z-index: 1;
   width: 100%;
   min-width: 0;
-  height: 32px;
+  height: 42px;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 6px;
-  padding: 0 4px;
-  font-size: 10px;
+  gap: 2px;
+  padding: 3px 2px;
+  font-size: 9px;
+  line-height: 1.1;
 }
 
 .clock-color-option i {
@@ -3201,15 +3203,6 @@
   justify-content: space-between;
   margin-top: 10px;
   font-size: 11px;
-}
-
-.panel-custom-color input {
-  width: 48px;
-  height: 28px;
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  background: none;
-  cursor: pointer;
 }
 
 .dashboard-card-content {
