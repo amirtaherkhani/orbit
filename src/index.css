@@ -5857,7 +5857,7 @@ body {
   --trellis-bg: transparent;
   --trellis-stage: transparent;
   --trellis-slot: transparent;
-  --trellis-panel: var(--glass-panel-fill);
+  --trellis-panel: transparent;
   --trellis-text: var(--foreground);
   --trellis-text-muted: var(--muted-foreground);
   --trellis-tabbar: transparent;
@@ -5873,8 +5873,8 @@ body {
   --trellis-tabbar-height: 38px;
   --trellis-tab-inset: 5px;
   --trellis-gap: 9px;
-  --trellis-shadow-float: var(--glass-panel-shadow);
-  --trellis-shadow-lifted: var(--glass-panel-shadow);
+  --trellis-shadow-float: none;
+  --trellis-shadow-lifted: none;
 }
 
 .trellis-dashboard-workspace .trellis [data-trellis-part="tab-title"] {
@@ -5894,10 +5894,10 @@ body {
 .trellis-dashboard-workspace .trellis [data-trellis-part="panel"] {
   border: 1px solid var(--glass-panel-border);
   border-radius: var(--trellis-radius);
-  background: var(--glass-panel-fill);
-  box-shadow: var(--glass-panel-shadow);
-  -webkit-backdrop-filter: blur(var(--glass-blur-panel)) saturate(var(--glass-saturation-panel));
-  backdrop-filter: blur(var(--glass-blur-panel)) saturate(var(--glass-saturation-panel));
+  background: transparent;
+  box-shadow: none;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
 }
 
 .trellis-dashboard-workspace .trellis [data-trellis-part="tabbar"] {
