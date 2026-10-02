@@ -1,3 +1,8 @@
+# v0.7.2
+
+## Changed
+- Apply a slate dark-mode layout palette across the page, shell, panels, menus, and tooltips.
+
 # v0.7.1
 
 ## Changed
