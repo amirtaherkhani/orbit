@@ -43,7 +43,7 @@ type TooltipContentProps = TooltipContentPrimitiveProps;
 
 function TooltipContent({
   className,
-  sideOffset,
+  sideOffset = 0,
   children,
   ...props
 }: TooltipContentProps) {
@@ -58,7 +58,9 @@ function TooltipContent({
         {...props}
       >
         {children}
-        <TooltipArrowPrimitive className="tooltip-arrow z-50" />
+        <TooltipArrowPrimitive asChild>
+          <span aria-hidden="true" className="tooltip-arrow z-50" />
+        </TooltipArrowPrimitive>
       </TooltipContentPrimitive>
     </TooltipPortalPrimitive>
   );

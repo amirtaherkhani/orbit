@@ -1411,7 +1411,7 @@ function HistogramView({
         <XAxis dataKey="label" tickLine={false} axisLine={false} interval={Math.max(0, Math.ceil(binCount / (compact ? 3 : 6)) - 1)} />
         <YAxis allowDecimals={false} tickLine={false} axisLine={false} width={28} />
         <ChartTooltip
-          cursor={{ fill: "var(--muted)", opacity: 0.18 }}
+          cursor={{ fill: "rgba(255,185,111,0.09)", stroke: "rgba(255,149,91,0.42)", strokeWidth: 1 }}
           content={<ChartTooltipContent formatter={(value) => (
             <div className="tooltip-value-row">
               <span className="tooltip-value-label">Samples</span>
@@ -1585,7 +1585,7 @@ function StandardTooltip({
 }) {
   return (
     <ChartTooltip
-      cursor={{ stroke: "var(--border)", strokeDasharray: "4 4" }}
+      cursor={{ fill: "rgba(255,185,111,0.09)", stroke: "rgba(255,149,91,0.42)", strokeWidth: 1 }}
       content={
         <ChartTooltipContent
           hideLabel={false}
