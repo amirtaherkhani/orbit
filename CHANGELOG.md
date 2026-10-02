@@ -14,7 +14,7 @@
 
 ### Changed
 - Let composer controls scroll behind a sticky glass heading and increase its blur in both themes.
-- Show a moving severity-colored glow inside notification banners alongside their animated border.
+- Keep the notification banner's moving interior glow subdued, with yellow warnings and red errors.
 - Give alert rows a subtle theme-aware severity and primary-color gradient.
 - Match the Panel Composer heading to the navigation bar's shell-backed gradient in both themes.
 - Match dashboard and panel “More actions” menus to the navbar's neutral glass surface in both themes.
