@@ -11,6 +11,7 @@
 - Add a reusable searchable multi-select with removable chips, keyboard listbox navigation, and clear-selection controls.
 
 ### Changed
+- Blend the dark Panel Composer heading gradient into the sidebar and top bar.
 - Use a three-level slate palette for dark-mode page, shell, and panel surfaces.
 - Strengthen the warm accent fill and border of selected tabs in light mode.
 - Unify layout switches, Floating tabs, and builder selection controls with the Grid style selector material.
