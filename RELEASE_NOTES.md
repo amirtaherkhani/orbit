@@ -1,3 +1,8 @@
+# v0.7.8
+
+## Changed
+- Make donut center totals and right-side legend text easier to read in compact tiles.
+
 # v0.7.7
 
 ## Changed
