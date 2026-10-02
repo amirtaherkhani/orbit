@@ -3059,6 +3059,39 @@
   min-width: 0;
 }
 
+.panel-title-heading {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: 7px;
+}
+
+.panel-title-heading [data-slot="card-title"] {
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
+.panel-live-badge {
+  height: 18px;
+  flex: 0 0 auto;
+  gap: 4px;
+  border-color: color-mix(in oklch, var(--status-success) 24%, var(--border));
+  padding-inline: 6px;
+  background: color-mix(in oklch, var(--status-success) 9%, var(--card));
+  color: color-mix(in oklch, var(--status-success) 82%, var(--foreground));
+  font-family: var(--font-data);
+  font-size: 8px;
+  letter-spacing: 0.06em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.panel-live-badge svg {
+  width: 11px;
+  height: 11px;
+  color: var(--status-success);
+}
+
 .dashboard-card [data-slot="card-title"] {
   overflow: hidden;
   font-size: 14px;
