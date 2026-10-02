@@ -1,3 +1,8 @@
+# v0.7.1
+
+## Changed
+- Apply consistent Grid-style selected states to layout switches, Floating tile tabs, and builder option selectors.
+
 # v0.7.0
 
 ## Highlights

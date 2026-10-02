@@ -11,6 +11,7 @@
 - Add a reusable searchable multi-select with removable chips, keyboard listbox navigation, and clear-selection controls.
 
 ### Changed
+- Unify layout switches, Floating tabs, and builder selection controls with the Grid style selector material.
 - Move layout instructions below the dashboard tiles to free space beside the layout controls.
 - Flatten dark-mode Live and Draft badges by removing raised highlights, borders, blur, and dot halos.
 - Show Orbit and the package version in the app header and remove dashboard/composer section dividers.
