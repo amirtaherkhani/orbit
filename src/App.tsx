@@ -384,60 +384,62 @@ export default function App() {
     <div className="app-shell">
       <AppRail activePage={activePage} onNavigate={setActivePage} />
       <div className="app-main">
-        <div className="dashboard-page" hidden={activePage !== "dashboard"}>
-          <Topbar
-            editMode={editMode}
-            timeRange={timeRange}
-            canUndo={history.length > 0}
-            canRedo={future.length > 0}
-            isSaved={isSaved}
-            isMobile={isMobile}
-            onToggleEditMode={() => setEditMode((value) => !value)}
-            onTimeRangeChange={handleTimeRangeChange}
-            onUndo={handleUndo}
-            onRedo={handleRedo}
-            onSave={handleSave}
-            onLoad={handleLoad}
-            onExport={handleExport}
-            onImport={() => importInputRef.current?.click()}
-            onReset={handleReset}
-            onOpenBuilder={openBuilder}
-          />
-
-          <div
-            className="editor-workspace"
-            data-builder-visible={!isMobile && editMode}
-          >
-            {!isMobile && editMode && (
-              <VisualizationBuilder
-                draft={draft}
-                onDraftChange={setDraft}
-                onAddPanel={handleAddPanel}
-                previewModel={dashboardModel}
-              />
-            )}
-            <DashboardCanvas
-              panels={panels}
-              layout={layout}
-              selectedPanelId={selectedPanelId}
+        {activePage === "dashboard" ? (
+          <div className="dashboard-page">
+            <Topbar
               editMode={editMode}
+              timeRange={timeRange}
+              canUndo={history.length > 0}
+              canRedo={future.length > 0}
+              isSaved={isSaved}
               isMobile={isMobile}
-              onSelectPanel={setSelectedPanelId}
-              onEditPanelTitles={handleOpenPanelTitleEditor}
-              onDuplicatePanel={handleDuplicatePanel}
-              onRemovePanel={handleRemovePanel}
-              onNudgePanel={handleNudgePanel}
-              onChartColorsChange={handleChartColorsChange}
-              onLayoutChange={handleLayoutChange}
-              onInteractionStart={checkpoint}
+              onToggleEditMode={() => setEditMode((value) => !value)}
+              onTimeRangeChange={handleTimeRangeChange}
+              onUndo={handleUndo}
+              onRedo={handleRedo}
+              onSave={handleSave}
+              onLoad={handleLoad}
+              onExport={handleExport}
+              onImport={() => importInputRef.current?.click()}
+              onReset={handleReset}
               onOpenBuilder={openBuilder}
-              model={dashboardModel}
-              onModelChange={setDashboardModel}
             />
-          </div>
-        </div>
 
-        {activePage === "settings" && <SettingsPage />}
+            <div
+              className="editor-workspace"
+              data-builder-visible={!isMobile && editMode}
+            >
+              {!isMobile && editMode && (
+                <VisualizationBuilder
+                  draft={draft}
+                  onDraftChange={setDraft}
+                  onAddPanel={handleAddPanel}
+                  previewModel={dashboardModel}
+                />
+              )}
+              <DashboardCanvas
+                panels={panels}
+                layout={layout}
+                selectedPanelId={selectedPanelId}
+                editMode={editMode}
+                isMobile={isMobile}
+                onSelectPanel={setSelectedPanelId}
+                onEditPanelTitles={handleOpenPanelTitleEditor}
+                onDuplicatePanel={handleDuplicatePanel}
+                onRemovePanel={handleRemovePanel}
+                onNudgePanel={handleNudgePanel}
+                onChartColorsChange={handleChartColorsChange}
+                onLayoutChange={handleLayoutChange}
+                onInteractionStart={checkpoint}
+                onOpenBuilder={openBuilder}
+                model={dashboardModel}
+                onModelChange={setDashboardModel}
+              />
+            </div>
+          </div>
+        ) : (
+          <SettingsPage />
+        )}
       </div>
 
       <Sheet open={mobileBuilderOpen} onOpenChange={setMobileBuilderOpen}>
