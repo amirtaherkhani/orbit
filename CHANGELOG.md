@@ -13,6 +13,7 @@
 - Add a reusable searchable multi-select with removable chips, keyboard listbox navigation, and clear-selection controls.
 
 ### Changed
+- Give the native Floating tile action menu a translucent, blurred glass surface in both themes.
 - Render the italic word in the Service health heading with a light font weight.
 - Mark the active tab in grouped tiles with a minimal primary-color top edge and no filled background.
 - Animate grouped Floating tab changes with spring-driven panel transitions and a smoothly moving selected state.
