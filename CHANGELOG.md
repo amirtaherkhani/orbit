@@ -1,6 +1,7 @@
 ## [Unreleased]
 
 ### Added
+- Show a compact, condensed current-value readout across graph-based chart types.
 - Provide a reusable Orbital O icon pack with SVG masters, outlined wordmarks, app icons, favicons, and Apple/web-app install assets.
 - Switch chart colors between gradient pastel, neon, and a custom color in the panel composer or on existing Grid and Floating tiles; saved dashboards retain the choice.
 - Show a pulse-icon Live badge beside chart titles when their metric is backed by a live stream.
