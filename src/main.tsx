@@ -14,7 +14,11 @@ import { TooltipProvider } from "@/components/ui/tooltip"
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <DuotoneIconProvider>
-      <ThemeProvider defaultTheme="light" storageKey="signalboard-theme">
+      <ThemeProvider
+        defaultTheme="light"
+        storageKey="signalboard-theme"
+        primaryColorStorageKey="signalboard-primary-color"
+      >
         <TooltipProvider delayDuration={280}>
           <App />
           <Toaster position="bottom-right" richColors />
