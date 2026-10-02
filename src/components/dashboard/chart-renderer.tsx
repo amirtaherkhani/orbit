@@ -1964,7 +1964,11 @@ const ChartRendererContent = React.memo(function ChartRendererContent({
     if (refreshTimer.current !== null) window.clearTimeout(refreshTimer.current)
     refreshTimer.current = window.setTimeout(() => setRefreshing(false), 500)
   }, [catalogMetric])
-  const palette = getChartPalette(panel.gradientPreset, panel.customChartColor)
+  const palette = getChartPalette(
+    panel.gradientPreset,
+    panel.customChartColor,
+    panel.chartColorStyle
+  )
   const conditionalColors =
     panel.colorMode === "threshold" && Boolean(metric.thresholds?.length)
   const currentValue = latestValue(metric)

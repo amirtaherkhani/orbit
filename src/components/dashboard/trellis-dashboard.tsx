@@ -23,6 +23,7 @@ import {
 import { LazyChartRenderer } from "@/components/dashboard/lazy-chart-renderer"
 import { MOTION_TOKENS } from "@/components/animate-ui/animation-tokens"
 import { PanelActionToolbar } from "@/components/dashboard/panel-action-toolbar"
+import type { PanelColorChange } from "@/components/dashboard/panel-action-toolbar"
 import { Button } from "@/components/ui/button"
 import {
   DropdownMenu,
@@ -46,6 +47,7 @@ type TrellisDashboardProps = {
   onDuplicatePanel: (id: string) => void
   onOpenBuilder: () => void
   onRemovePanel: (id: string) => void
+  onChartColorsChange: (id: string, changes: PanelColorChange) => void
 }
 
 type PanelViewParams = { panelId: string }
@@ -263,6 +265,7 @@ export function TrellisDashboard({
   onDuplicatePanel,
   onOpenBuilder,
   onRemovePanel,
+  onChartColorsChange,
 }: TrellisDashboardProps) {
   const { theme } = useTheme()
   const workspaceRef = React.useRef<WorkspaceHandle>(null)
@@ -436,11 +439,13 @@ export function TrellisDashboard({
                 <PanelActionToolbar
                   panelId={panel.id}
                   panelTitle={getFloatingTitle(panel)}
+                  panel={panel}
                   model="floating"
                   showMore={false}
                   onEditTitles={onEditPanelTitles}
                   onDuplicate={onDuplicatePanel}
                   onRemove={onRemovePanel}
+                  onChartColorsChange={onChartColorsChange}
                   moreActions={(
                     <FloatingPanelActionMenu
                       panelTitle={getFloatingTitle(panel)}

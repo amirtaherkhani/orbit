@@ -1,4 +1,4 @@
-import type { ChartGradientPreset } from "@/types/dashboard"
+import type { ChartColorStyle, ChartGradientPreset, ChartType } from "@/types/dashboard"
 
 type BuiltInChartGradientPreset = Exclude<ChartGradientPreset, "custom">
 export const DEFAULT_CHART_GRADIENT_PRESET: BuiltInChartGradientPreset = "aurora"
@@ -34,6 +34,32 @@ export const chartGradientPresets = Object.entries(chartPalettes).map(
     colors: palette.colors,
   })
 )
+
+export const neonChartPalette: ChartPalette = {
+  label: "Neon",
+  colors: ["#00A896", "#2369E8", "#8944E8", "#D932A0", "#E96932"],
+}
+
+const chartColorTypes = new Set<ChartType>([
+  "line", "bar", "area", "donut", "pie", "gauge", "bar-gauge", "stat",
+  "uptime", "date-time", "countdown", "state-timeline", "heatmap",
+  "status-history", "histogram", "humidity-wheel", "progress-ticks",
+  "sleep-dial", "pull-refresh", "streamgraph", "brush-chart",
+  "waffle-chart", "ridgeline", "sankey-flow", "funnel-chart",
+  "radar-chart", "realtime-stream", "race-bar-chart",
+])
+
+export function supportsChartColors(chartType: ChartType) {
+  return chartColorTypes.has(chartType)
+}
+
+export function resolveChartColorStyle(
+  style?: ChartColorStyle,
+  preset?: ChartGradientPreset
+): ChartColorStyle {
+  if (style === "pastel" || style === "neon" || style === "custom") return style
+  return preset === "custom" ? "custom" : "pastel"
+}
 
 function parseHexColor(value?: string) {
   const raw = value?.trim().replace(/^#/, "")
@@ -121,9 +147,12 @@ function getCustomPalette(color?: string): ChartPalette {
 
 export function getChartPalette(
   preset?: ChartGradientPreset,
-  customColor?: string
+  customColor?: string,
+  style?: ChartColorStyle
 ): ChartPalette {
-  if (preset === "custom") return getCustomPalette(customColor)
+  const colorStyle = resolveChartColorStyle(style, preset)
+  if (colorStyle === "custom") return getCustomPalette(customColor)
+  if (colorStyle === "neon") return neonChartPalette
 
   return (
     chartPalettes[preset as BuiltInChartGradientPreset] ??
