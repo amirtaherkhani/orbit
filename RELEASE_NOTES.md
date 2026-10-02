@@ -1,3 +1,8 @@
+# v0.7.7
+
+## Changed
+- Match the Panel Composer heading background to the top navigation bar in light and dark themes.
+
 # v0.7.6
 
 ## Changed

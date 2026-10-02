@@ -6102,19 +6102,9 @@ body {
 
 .builder-heading {
   border-color: color-mix(in srgb, var(--glass-panel-border) 74%, transparent);
-  background: linear-gradient(
-    90deg,
-    rgba(255, 255, 255, 0.34),
-    rgba(255, 252, 243, 0.16)
-  );
-}
-
-.dark .builder-heading {
-  background: linear-gradient(
-    90deg,
-    rgba(255, 255, 255, 0.055),
-    rgba(255, 255, 255, 0.07)
-  );
+  background: var(--glass-topbar-fill);
+  -webkit-backdrop-filter: blur(26px) saturate(120%);
+  backdrop-filter: blur(26px) saturate(120%);
 }
 
 .builder-scroll-area {
