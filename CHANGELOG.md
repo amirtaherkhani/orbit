@@ -12,6 +12,7 @@
 
 ### Changed
 - Give large plain metric readouts a bold-to-light digit hierarchy across chart types.
+- Orient the top bar, composer heading, and composer footer glass gradients from left to right.
 - Move layout instructions below the dashboard tiles to free space beside the layout controls.
 - Flatten dark-mode Live and Draft badges by removing raised highlights, borders, blur, and dot halos.
 - Show Orbit and the package version in the app header and remove dashboard/composer section dividers.
