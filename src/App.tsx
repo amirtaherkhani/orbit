@@ -2,8 +2,9 @@ import * as React from "react"
 import type { Layout, LayoutItem } from "react-grid-layout"
 import { toast } from "sonner"
 
-import { AppRail } from "@/components/dashboard/app-rail"
+import { AppRail, type AppPage } from "@/components/dashboard/app-rail"
 import { DashboardCanvas } from "@/components/dashboard/dashboard-canvas"
+import { SettingsPage } from "@/components/dashboard/settings-page"
 import type { PanelNudgeAction } from "@/components/dashboard/panel-card"
 import type { PanelColorChange } from "@/components/dashboard/panel-action-toolbar"
 import { Topbar } from "@/components/dashboard/topbar"
@@ -93,6 +94,7 @@ export default function App() {
   const [timeRange, setTimeRange] = React.useState(initial.timeRange)
   const [isSaved, setIsSaved] = React.useState(!initial.needsSave)
   const [mobileBuilderOpen, setMobileBuilderOpen] = React.useState(false)
+  const [activePage, setActivePage] = React.useState<AppPage>("dashboard")
   const isMobile = useMediaQuery("(max-width: 820px)")
   const stateRef = React.useRef<DashboardSnapshot>({ panels, layout })
   const importInputRef = React.useRef<HTMLInputElement>(null)
@@ -380,58 +382,62 @@ export default function App() {
 
   return (
     <div className="app-shell">
-      <AppRail />
+      <AppRail activePage={activePage} onNavigate={setActivePage} />
       <div className="app-main">
-        <Topbar
-          editMode={editMode}
-          timeRange={timeRange}
-          canUndo={history.length > 0}
-          canRedo={future.length > 0}
-          isSaved={isSaved}
-          isMobile={isMobile}
-          onToggleEditMode={() => setEditMode((value) => !value)}
-          onTimeRangeChange={handleTimeRangeChange}
-          onUndo={handleUndo}
-          onRedo={handleRedo}
-          onSave={handleSave}
-          onLoad={handleLoad}
-          onExport={handleExport}
-          onImport={() => importInputRef.current?.click()}
-          onReset={handleReset}
-          onOpenBuilder={openBuilder}
-        />
-
-        <div
-          className="editor-workspace"
-          data-builder-visible={!isMobile && editMode}
-        >
-          {!isMobile && editMode && (
-            <VisualizationBuilder
-              draft={draft}
-              onDraftChange={setDraft}
-              onAddPanel={handleAddPanel}
-              previewModel={dashboardModel}
-            />
-          )}
-          <DashboardCanvas
-            panels={panels}
-            layout={layout}
-            selectedPanelId={selectedPanelId}
+        <div className="dashboard-page" hidden={activePage !== "dashboard"}>
+          <Topbar
             editMode={editMode}
+            timeRange={timeRange}
+            canUndo={history.length > 0}
+            canRedo={future.length > 0}
+            isSaved={isSaved}
             isMobile={isMobile}
-            onSelectPanel={setSelectedPanelId}
-            onEditPanelTitles={handleOpenPanelTitleEditor}
-            onDuplicatePanel={handleDuplicatePanel}
-            onRemovePanel={handleRemovePanel}
-            onNudgePanel={handleNudgePanel}
-            onChartColorsChange={handleChartColorsChange}
-            onLayoutChange={handleLayoutChange}
-            onInteractionStart={checkpoint}
+            onToggleEditMode={() => setEditMode((value) => !value)}
+            onTimeRangeChange={handleTimeRangeChange}
+            onUndo={handleUndo}
+            onRedo={handleRedo}
+            onSave={handleSave}
+            onLoad={handleLoad}
+            onExport={handleExport}
+            onImport={() => importInputRef.current?.click()}
+            onReset={handleReset}
             onOpenBuilder={openBuilder}
-            model={dashboardModel}
-            onModelChange={setDashboardModel}
           />
+
+          <div
+            className="editor-workspace"
+            data-builder-visible={!isMobile && editMode}
+          >
+            {!isMobile && editMode && (
+              <VisualizationBuilder
+                draft={draft}
+                onDraftChange={setDraft}
+                onAddPanel={handleAddPanel}
+                previewModel={dashboardModel}
+              />
+            )}
+            <DashboardCanvas
+              panels={panels}
+              layout={layout}
+              selectedPanelId={selectedPanelId}
+              editMode={editMode}
+              isMobile={isMobile}
+              onSelectPanel={setSelectedPanelId}
+              onEditPanelTitles={handleOpenPanelTitleEditor}
+              onDuplicatePanel={handleDuplicatePanel}
+              onRemovePanel={handleRemovePanel}
+              onNudgePanel={handleNudgePanel}
+              onChartColorsChange={handleChartColorsChange}
+              onLayoutChange={handleLayoutChange}
+              onInteractionStart={checkpoint}
+              onOpenBuilder={openBuilder}
+              model={dashboardModel}
+              onModelChange={setDashboardModel}
+            />
+          </div>
         </div>
+
+        {activePage === "settings" && <SettingsPage />}
       </div>
 
       <Sheet open={mobileBuilderOpen} onOpenChange={setMobileBuilderOpen}>

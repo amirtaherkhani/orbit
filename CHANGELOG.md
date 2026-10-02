@@ -1,6 +1,7 @@
 ## [Unreleased]
 
 ### Added
+- Add a Settings page for persistent primary color selection across the dashboard, including Orbit orange and four selectable colors.
 - Show a close control on each grouped Floating chart tab.
 - Add nine shadcn-inspired Area chart styles: Interactive, Step, Linear, Stacked Expanded, Stacked, Legend, Axes, Gradient, and Icons. Stacked styles use the selected metric's series breakdown.
 - Show a compact, condensed current-value readout across graph-based chart types.

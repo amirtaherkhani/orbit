@@ -15,14 +15,25 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip"
 
-const navigation = [
-  { label: "Dashboards", icon: LayoutDashboardIcon, active: true },
-  { label: "Explore data", icon: DatabaseIcon, active: false },
-  { label: "Live signals", icon: ActivityIcon, active: false },
-  { label: "Integrations", icon: BlocksIcon, active: false },
+export type AppPage = "dashboard" | "settings"
+
+type AppRailProps = {
+  activePage: AppPage
+  onNavigate: (page: AppPage) => void
+}
+
+const navigation: Array<{
+  label: string
+  icon: typeof LayoutDashboardIcon
+  page?: AppPage
+}> = [
+  { label: "Dashboards", icon: LayoutDashboardIcon, page: "dashboard" },
+  { label: "Explore data", icon: DatabaseIcon },
+  { label: "Live signals", icon: ActivityIcon },
+  { label: "Integrations", icon: BlocksIcon },
 ]
 
-export function AppRail() {
+export function AppRail({ activePage, onNavigate }: AppRailProps) {
   return (
     <aside className="app-rail" aria-label="Primary navigation">
       <div className="brand-mark" role="img" aria-label="Orbit">
@@ -37,9 +48,10 @@ export function AppRail() {
                 variant="ghost"
                 size="icon-lg"
                 className="rail-button"
-                data-active={item.active}
+                data-active={item.page === activePage}
                 aria-label={item.label}
-                aria-current={item.active ? "page" : undefined}
+                aria-current={item.page === activePage ? "page" : undefined}
+                onClick={() => item.page && onNavigate(item.page)}
               >
                 <item.icon />
               </Button>
@@ -71,6 +83,9 @@ export function AppRail() {
               size="icon-lg"
               className="rail-button"
               aria-label="Settings"
+              data-active={activePage === "settings"}
+              aria-current={activePage === "settings" ? "page" : undefined}
+              onClick={() => onNavigate("settings")}
             >
               <Settings2Icon />
             </Button>

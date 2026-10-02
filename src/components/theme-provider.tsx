@@ -4,20 +4,34 @@ import * as React from "react"
 type Theme = "dark" | "light" | "system"
 type ResolvedTheme = "dark" | "light"
 
+export const PRIMARY_COLOR_OPTIONS = [
+  { name: "Orbit orange", value: "#ff7543" },
+  { name: "Golden yellow", value: "#ffc300" },
+  { name: "Sunshine", value: "#ffd60a" },
+  { name: "Sky", value: "#caf0f8" },
+  { name: "Periwinkle", value: "#7678ed" },
+] as const
+
+export type PrimaryColor = (typeof PRIMARY_COLOR_OPTIONS)[number]["value"]
+
 type ThemeProviderProps = {
   children: React.ReactNode
   defaultTheme?: Theme
   storageKey?: string
+  primaryColorStorageKey?: string
   disableTransitionOnChange?: boolean
 }
 
 type ThemeProviderState = {
   theme: Theme
   setTheme: (theme: Theme) => void
+  primaryColor: PrimaryColor
+  setPrimaryColor: (color: PrimaryColor) => void
 }
 
 const COLOR_SCHEME_QUERY = "(prefers-color-scheme: dark)"
 const THEME_VALUES: Theme[] = ["dark", "light", "system"]
+const DEFAULT_PRIMARY_COLOR: PrimaryColor = "#ff7543"
 
 const ThemeProviderContext = React.createContext<
   ThemeProviderState | undefined
@@ -29,6 +43,10 @@ function isTheme(value: string | null): value is Theme {
   }
 
   return THEME_VALUES.includes(value as Theme)
+}
+
+function isPrimaryColor(value: string | null): value is PrimaryColor {
+  return PRIMARY_COLOR_OPTIONS.some((option) => option.value === value)
 }
 
 function getSystemTheme(): ResolvedTheme {
@@ -81,6 +99,7 @@ export function ThemeProvider({
   children,
   defaultTheme = "system",
   storageKey = "theme",
+  primaryColorStorageKey = "primary-color",
   disableTransitionOnChange = true,
   ...props
 }: ThemeProviderProps) {
@@ -92,6 +111,12 @@ export function ThemeProvider({
 
     return defaultTheme
   })
+  const [primaryColor, setPrimaryColorState] = React.useState<PrimaryColor>(
+    () => {
+      const storedColor = localStorage.getItem(primaryColorStorageKey)
+      return isPrimaryColor(storedColor) ? storedColor : DEFAULT_PRIMARY_COLOR
+    }
+  )
 
   const setTheme = React.useCallback(
     (nextTheme: Theme) => {
@@ -100,6 +125,23 @@ export function ThemeProvider({
     },
     [storageKey]
   )
+
+  const setPrimaryColor = React.useCallback(
+    (nextColor: PrimaryColor) => {
+      localStorage.setItem(primaryColorStorageKey, nextColor)
+      setPrimaryColorState(nextColor)
+    },
+    [primaryColorStorageKey]
+  )
+
+  React.useEffect(() => {
+    const root = document.documentElement
+    root.style.setProperty("--primary", primaryColor)
+    root.style.setProperty("--text-accent", primaryColor)
+    root.style.setProperty("--ring", primaryColor)
+    root.style.setProperty("--ui-border-focus", primaryColor)
+    root.style.setProperty("--primary-foreground", "#191b17")
+  }, [primaryColor])
 
   const applyTheme = React.useCallback(
     (nextTheme: Theme) => {
@@ -185,6 +227,15 @@ export function ThemeProvider({
         return
       }
 
+      if (event.key === primaryColorStorageKey) {
+        setPrimaryColorState(
+          isPrimaryColor(event.newValue)
+            ? event.newValue
+            : DEFAULT_PRIMARY_COLOR
+        )
+        return
+      }
+
       if (event.key !== storageKey) {
         return
       }
@@ -202,14 +253,16 @@ export function ThemeProvider({
     return () => {
       window.removeEventListener("storage", handleStorageChange)
     }
-  }, [defaultTheme, storageKey])
+  }, [defaultTheme, primaryColorStorageKey, storageKey])
 
   const value = React.useMemo(
     () => ({
       theme,
       setTheme,
+      primaryColor,
+      setPrimaryColor,
     }),
-    [theme, setTheme]
+    [theme, setTheme, primaryColor, setPrimaryColor]
   )
 
   return (

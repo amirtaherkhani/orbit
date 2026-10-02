@@ -7181,3 +7181,189 @@ body {
   outline: 2px solid var(--ring);
   outline-offset: -2px;
 }
+
+.dashboard-page {
+  display: flex;
+  min-width: 0;
+  min-height: 0;
+  flex: 1 1 auto;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.dashboard-page[hidden] {
+  display: none;
+}
+
+.settings-page {
+  min-width: 0;
+  min-height: 0;
+  flex: 1 1 auto;
+  overflow: auto;
+}
+
+.settings-topbar {
+  flex: 0 0 auto;
+}
+
+.settings-content {
+  width: min(100%, 980px);
+  margin: 0 auto;
+  padding: clamp(24px, 4vw, 52px);
+}
+
+.settings-page-intro {
+  margin-bottom: 24px;
+}
+
+.settings-page-intro h2 {
+  margin: 8px 0 6px;
+  color: var(--foreground);
+  font-size: var(--type-section-heading-size);
+  font-weight: var(--type-weight-semibold);
+}
+
+.settings-page-intro p,
+.settings-card-heading p {
+  margin: 0;
+  color: var(--muted-foreground);
+  font-size: var(--type-body-size);
+}
+
+.settings-card {
+  padding: clamp(18px, 3vw, 28px);
+  border: 1px solid var(--glass-panel-border);
+  border-radius: var(--glass-surface-radius);
+  background: var(--glass-panel-fill);
+  box-shadow: var(--glass-panel-shadow);
+  -webkit-backdrop-filter: blur(var(--glass-blur-panel)) saturate(var(--glass-saturation-panel));
+  backdrop-filter: blur(var(--glass-blur-panel)) saturate(var(--glass-saturation-panel));
+}
+
+.settings-card-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.settings-card-heading h3 {
+  margin: 0 0 5px;
+  color: var(--foreground);
+  font-size: 16px;
+  font-weight: var(--type-weight-semibold);
+}
+
+.selected-color-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  flex: 0 0 auto;
+  color: var(--muted-foreground);
+  font-size: var(--type-caption-size);
+}
+
+.selected-color-dot {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: var(--swatch-color);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--swatch-color) 24%, transparent);
+}
+
+.primary-color-options {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 180px), 1fr));
+  gap: 10px;
+}
+
+.primary-color-option {
+  display: flex;
+  min-width: 0;
+  min-height: 72px;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  border: 1px solid var(--glass-control-border);
+  border-radius: 12px;
+  background: var(--glass-control-fill);
+  color: var(--foreground);
+  text-align: left;
+  cursor: pointer;
+  box-shadow: var(--glass-control-shadow);
+  transition:
+    border-color var(--motion-duration-fast) ease,
+    background-color var(--motion-duration-fast) ease,
+    transform var(--motion-duration-fast) ease;
+}
+
+.primary-color-option:hover {
+  transform: translateY(-1px);
+  border-color: color-mix(in srgb, var(--swatch-color) 52%, var(--glass-control-border));
+}
+
+.primary-color-option[data-selected="true"] {
+  border-color: color-mix(in srgb, var(--swatch-color) 66%, var(--glass-control-border));
+  background: color-mix(in srgb, var(--swatch-color) 10%, var(--card));
+  box-shadow:
+    0 0 0 2px color-mix(in srgb, var(--swatch-color) 18%, transparent),
+    var(--glass-control-shadow);
+}
+
+.primary-color-option:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+.primary-color-swatch {
+  width: 34px;
+  height: 34px;
+  flex: 0 0 auto;
+  border: 1px solid rgba(25, 27, 23, 0.12);
+  border-radius: 10px;
+  background: var(--swatch-color);
+}
+
+.primary-color-option-copy {
+  display: grid;
+  min-width: 0;
+  gap: 4px;
+  color: var(--foreground);
+  font-size: 13px;
+  font-weight: 550;
+}
+
+.primary-color-option-copy span:last-child {
+  color: var(--muted-foreground);
+  font-family: var(--font-data);
+  font-size: 11px;
+  font-weight: 400;
+  text-transform: uppercase;
+}
+
+.primary-color-check {
+  width: 18px;
+  height: 18px;
+  flex: 0 0 auto;
+  margin-left: auto;
+  color: var(--primary-foreground) !important;
+}
+
+.app-shell [data-variant="default"] svg {
+  color: var(--primary-foreground) !important;
+}
+
+@media (max-width: 820px) {
+  .settings-content {
+    padding: 24px 18px;
+  }
+
+  .settings-card-heading {
+    flex-direction: column;
+  }
+
+  .primary-color-options {
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 150px), 1fr));
+  }
+}
