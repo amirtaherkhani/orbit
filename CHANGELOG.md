@@ -15,6 +15,7 @@
 ### Changed
 - Match the Panel Composer heading to the navigation bar's shell-backed gradient in both themes.
 - Give dashboard and panel “More actions” menus a blue liquid-glass surface in both themes.
+- Add a slow, severity-colored border beam to warning, error, and info announcement banners.
 - Convert saved Focus timer panels to Clock panels while preserving their layout and custom titles.
 - Make only the bottom border of Grid and Floating tile title bars transparent in both themes.
 - Give dark-mode shell, composer, cards, preview, and controls a layered slate gradient.
