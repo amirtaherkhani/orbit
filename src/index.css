@@ -1374,19 +1374,19 @@
   border-radius: inherit;
   background: radial-gradient(
       ellipse at 50% 100%,
-      color-mix(in srgb, var(--announcement-tone) 44%, transparent),
-      color-mix(in srgb, var(--announcement-tone) 18%, transparent) 38%,
+      color-mix(in srgb, var(--announcement-tone) 24%, transparent),
+      color-mix(in srgb, var(--announcement-tone) 10%, transparent) 38%,
       transparent 78%
     )
-    0 100% / 44% 155% no-repeat;
+    0 100% / 40% 145% no-repeat;
   content: "";
-  opacity: 0.55;
+  opacity: 0.38;
   pointer-events: none;
   animation: dashboard-announcement-inner-glow 7s ease-in-out infinite alternate;
 }
 
 .dark .dashboard-announcement-bar::after {
-  opacity: 0.62;
+  opacity: 0.44;
 }
 
 .dashboard-announcement-bar[data-severity="critical"] {
