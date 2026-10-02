@@ -1,4 +1,4 @@
-# v0.5.0
+# v0.6.0
 
 ## Highlights
 - The Waffle chart is removed from the dashboard builder.
@@ -8,6 +8,20 @@
 
 ## Migration
 - Saved and imported dashboards convert Waffle panels to Donut automatically; save the dashboard to persist the conversion.
+
+# v0.5.1
+
+## Fixed
+- Match Floating tile surfaces to Grid cards while preserving docking, tabs, and resizing.
+
+# v0.5.0
+
+## Highlights
+- Orbit now uses the approved inward-curved Orbital O across desktop, mobile, browser, and project branding.
+
+## Added
+- Downloadable icon pack with vector masters, outlined wordmarks, transparent PNGs, light/dark app tiles, favicons, and Apple/web-app install icons.
+- A reproducible asset generator and identity usage guide.
 
 # v0.4.0
 

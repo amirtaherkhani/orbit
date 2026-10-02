@@ -421,35 +421,18 @@
   display: grid;
   width: 36px;
   height: 36px;
-  place-content: center;
-  grid-template-columns: repeat(3, 4px);
-  align-items: end;
-  gap: 3px;
+  place-items: center;
   border: 1px solid color-mix(in oklch, var(--primary) 34%, var(--border));
   border-radius: 10px;
   background: color-mix(in oklch, var(--primary) 10%, var(--card));
 }
 
-.brand-mark span,
-.mobile-brand-mark span {
-  width: 4px;
-  border-radius: 999px;
-  background: var(--primary);
-}
-
-.brand-mark span:nth-child(1),
-.mobile-brand-mark span:nth-child(1) {
-  height: 10px;
-}
-
-.brand-mark span:nth-child(2),
-.mobile-brand-mark span:nth-child(2) {
-  height: 18px;
-}
-
-.brand-mark span:nth-child(3),
-.mobile-brand-mark span:nth-child(3) {
-  height: 14px;
+.orbit-brand-symbol {
+  display: block;
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+  user-select: none;
 }
 
 .rail-navigation,
@@ -6176,10 +6159,6 @@ body {
 .trellis-dashboard-workspace .trellis [data-trellis-part="panel"] {
   border: 1px solid var(--glass-panel-border);
   border-radius: var(--trellis-radius);
-  background: transparent;
-  box-shadow: none;
-  -webkit-backdrop-filter: none;
-  backdrop-filter: none;
 }
 
 .trellis-dashboard-workspace .trellis [data-trellis-part="tabbar"] {
@@ -6241,6 +6220,7 @@ body {
   backdrop-filter: none;
 }
 
+.trellis-dashboard-workspace .trellis [data-trellis-part="panel"],
 .dashboard-card {
   border-color: var(--glass-panel-border);
   border-radius: var(--glass-surface-radius);
@@ -6254,6 +6234,7 @@ body {
     transform var(--motion-duration-fast) var(--motion-ease-standard);
 }
 
+.trellis-dashboard-workspace .trellis [data-trellis-part="panel"]:hover,
 .dashboard-card:hover {
   border-color: color-mix(in srgb, var(--glass-panel-border) 70%, var(--primary));
   box-shadow:
@@ -6268,11 +6249,13 @@ body {
     var(--glass-panel-shadow);
 }
 
+.trellis-dashboard-workspace .trellis [data-trellis-part="tabbar"],
 .dashboard-card-header {
   border-bottom-color: color-mix(in srgb, var(--glass-panel-border) 72%, var(--border));
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.24);
 }
 
+.dark .trellis-dashboard-workspace .trellis [data-trellis-part="tabbar"],
 .dark .dashboard-card-header {
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.045);
 }
@@ -6955,6 +6938,7 @@ body {
   .app-rail,
   .topbar,
   .builder-panel,
+  .trellis-dashboard-workspace .trellis [data-trellis-part="panel"],
   .dashboard-card,
   [data-slot="dropdown-menu-content"],
   [data-slot="select-content"],
@@ -6998,6 +6982,7 @@ body {
   }
 
   .topbar .topbar-actions [data-slot="button"],
+  .trellis-dashboard-workspace .trellis [data-trellis-part="panel"],
   .dashboard-card,
   .dashboard-grid-shell .react-grid-item.cssTransforms,
   :where([data-slot="dropdown-menu-item"], [data-slot="select-item"]) {
