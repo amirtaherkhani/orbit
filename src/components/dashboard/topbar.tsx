@@ -1,7 +1,8 @@
+import { version as appVersion } from "../../../package.json"
+
 import {
   CheckIcon,
   ChevronDownIcon,
-  CloudIcon,
   FileDownIcon,
   FileUpIcon,
   FolderOpenIcon,
@@ -86,8 +87,8 @@ export function Topbar({
         </div>
         <div>
           <div className="topbar-eyebrow">
-            <CloudIcon />
-            Production
+            <span>Orbit</span>
+            <span className="app-version">v{appVersion}</span>
           </div>
           <h1 className="type-page-heading">
             <TextAnimate>Operations overview</TextAnimate>

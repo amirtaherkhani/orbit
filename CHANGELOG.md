@@ -9,6 +9,7 @@
 - Add a reusable searchable multi-select with removable chips, keyboard listbox navigation, and clear-selection controls.
 
 ### Changed
+- Show Orbit and the package version in the app header and remove dashboard/composer section dividers.
 - Modernize grouped Floating tiles with a compact segmented tab strip, raised active pill, accent indicator, and keyboard focus styling.
 - Convert saved Waffle panels to Donut when loading or importing dashboards.
 - Replace the desktop, mobile, browser, and README branding with the approved inward-curved Orbital O.

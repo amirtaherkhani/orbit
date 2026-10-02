@@ -1,3 +1,9 @@
+# v0.6.1
+
+## Changed
+- Show the app name and package version above the dashboard title.
+- Remove header, section-heading, and composer footer divider borders for a cleaner workspace.
+
 # v0.6.0
 
 ## Highlights
