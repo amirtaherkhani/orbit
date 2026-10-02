@@ -13,6 +13,7 @@
 - Add a reusable searchable multi-select with removable chips, keyboard listbox navigation, and clear-selection controls.
 
 ### Changed
+- Show a moving severity-colored glow inside notification banners alongside their animated border.
 - Give alert rows a subtle theme-aware severity and primary-color gradient.
 - Match the Panel Composer heading to the navigation bar's shell-backed gradient in both themes.
 - Give dashboard and panel “More actions” menus a blue liquid-glass surface in both themes.
