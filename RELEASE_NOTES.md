@@ -1,3 +1,8 @@
+# v0.8.8
+
+## Changed
+- Use a thin italic style for "health" in the dashboard heading.
+
 # v0.8.7
 
 ## Fixed
