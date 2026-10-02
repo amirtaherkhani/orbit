@@ -4,11 +4,18 @@ import { motion, useInView, useReducedMotion, useSpring, useTransform } from "mo
 
 import { MOTION_TOKENS } from "@/components/animate-ui/animation-tokens"
 
+type SlidingNumberCharacterWeight = "emphasis" | "regular" | "light"
+
 type SlidingNumberProps = {
   value: string | number
   ariaLabel?: string
   className?: string
   delayMs?: number
+  characterWeights?: readonly SlidingNumberCharacterWeight[]
+}
+
+function characterWeightClass(weight?: SlidingNumberCharacterWeight) {
+  return weight ? `sliding-number-character--${weight}` : undefined
 }
 
 function DigitRoller({
@@ -16,11 +23,13 @@ function DigitRoller({
   digitHeight,
   entered,
   delayMs,
+  weight,
 }: {
   digit: string
   digitHeight: number
   entered: boolean
   delayMs: number
+  weight?: SlidingNumberCharacterWeight
 }) {
   const position = useSpring(0, MOTION_TOKENS.rollingNumberSpring)
   const y = useTransform(position, (step) => -step * digitHeight)
@@ -33,7 +42,10 @@ function DigitRoller({
   }, [delayMs, digit, digitHeight, entered, position])
 
   return (
-    <span className="sliding-number-digit" style={{ height: digitHeight || undefined }}>
+    <span
+      className={["sliding-number-digit", characterWeightClass(weight)].filter(Boolean).join(" ")}
+      style={{ height: digitHeight || undefined }}
+    >
       <motion.span className="sliding-number-track" style={{ y }}>
         {Array.from({ length: 10 }, (_, value) => (
           <span className="sliding-number-step" key={value} style={{ height: digitHeight || undefined }}>
@@ -50,6 +62,7 @@ export function SlidingNumber({
   ariaLabel,
   className,
   delayMs = 0,
+  characterWeights,
 }: SlidingNumberProps) {
   const formattedValue = String(value)
   const reduceMotion = useReducedMotion()
@@ -64,7 +77,15 @@ export function SlidingNumber({
     <span className={["sliding-number", className].filter(Boolean).join(" ")} ref={attachViewportRef}>
       <span className="visually-hidden">{ariaLabel ?? formattedValue}</span>
       {reduceMotion ? (
-        <span className="sliding-number-static" aria-hidden="true">{formattedValue}</span>
+        <span className="sliding-number-static" aria-hidden="true">
+          {characterWeights
+            ? Array.from(formattedValue, (character, index) => (
+              <span className={characterWeightClass(characterWeights[index])} key={index}>
+                {character}
+              </span>
+            ))
+            : formattedValue}
+        </span>
       ) : (
         <span className="sliding-number-visual" aria-hidden="true">
           {Array.from(formattedValue, (character, index) => /\d/.test(character) ? (
@@ -74,9 +95,18 @@ export function SlidingNumber({
               digitHeight={bounds.height}
               entered={entered}
               delayMs={delayMs}
+              weight={characterWeights?.[index]}
             />
           ) : (
-            <span className="sliding-number-static" key={index}>{character}</span>
+            <span
+              className={[
+                "sliding-number-static",
+                characterWeightClass(characterWeights?.[index]),
+              ].filter(Boolean).join(" ")}
+              key={index}
+            >
+              {character}
+            </span>
           ))}
           <span className="sliding-number-measure" ref={measureRef}>0</span>
         </span>
