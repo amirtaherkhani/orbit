@@ -12,3 +12,6 @@
 - Replace the desktop, mobile, browser, and README branding with the approved inward-curved Orbital O.
 - Slide banner items horizontally with directional transitions and honor reduced-motion preferences.
 - Align select popups to their triggers and refine dropdown surfaces for compact, viewport-aware warm glass menus.
+
+### Fixed
+- Give Floating tiles the same glass fill, border, blur, shadow, and header finish as Grid cards, including dark mode and opaque fallback.
