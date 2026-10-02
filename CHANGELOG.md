@@ -1,6 +1,7 @@
 ## [Unreleased]
 
 ### Added
+- Show a close control on each grouped Floating chart tab.
 - Add nine shadcn-inspired Area chart styles: Interactive, Step, Linear, Stacked Expanded, Stacked, Legend, Axes, Gradient, and Icons. Stacked styles use the selected metric's series breakdown.
 - Show a compact, condensed current-value readout across graph-based chart types.
 - Provide a reusable Orbital O icon pack with SVG masters, outlined wordmarks, app icons, favicons, and Apple/web-app install assets.
@@ -11,6 +12,7 @@
 - Add a reusable searchable multi-select with removable chips, keyboard listbox navigation, and clear-selection controls.
 
 ### Changed
+- Use the dark slate palette for notification banner fills, icons, and controls while retaining severity cues.
 - Blend the dark Panel Composer heading gradient into the sidebar and top bar.
 - Use a three-level slate palette for dark-mode page, shell, and panel surfaces.
 - Strengthen the warm accent fill and border of selected tabs in light mode.
