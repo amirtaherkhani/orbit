@@ -1,3 +1,11 @@
+# v0.7.4
+
+## Added
+- Close individual tabs in grouped Floating charts from the tab strip.
+
+## Changed
+- Use slate dark-mode surfaces for the notification banner while keeping alert severity visible.
+
 # v0.7.3
 
 ## Changed
