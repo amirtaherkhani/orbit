@@ -10,9 +10,13 @@
 
 ### Changed
 - Modernize grouped Floating tiles with a compact segmented tab strip, raised active pill, accent indicator, and keyboard focus styling.
+- Convert saved Waffle panels to Donut when loading or importing dashboards.
 - Replace the desktop, mobile, browser, and README branding with the approved inward-curved Orbital O.
 - Slide banner items horizontally with directional transitions and honor reduced-motion preferences.
 - Align select popups to their triggers and refine dropdown surfaces for compact, viewport-aware warm glass menus.
 
 ### Fixed
 - Give Floating tiles the same glass fill, border, blur, shadow, and header finish as Grid cards, including dark mode and opaque fallback.
+
+### Removed
+- Remove the Waffle chart option and its renderer.

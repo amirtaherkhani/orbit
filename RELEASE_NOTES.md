@@ -1,3 +1,14 @@
+# v0.6.0
+
+## Highlights
+- The Waffle chart is removed from the dashboard builder.
+
+## Changed
+- Existing Waffle panels load as Donut charts, preserving their data settings and layout.
+
+## Migration
+- Saved and imported dashboards convert Waffle panels to Donut automatically; save the dashboard to persist the conversion.
+
 # v0.5.2
 
 ## Changed

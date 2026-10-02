@@ -170,12 +170,6 @@ const panelDefinitions: Array<{
     category: "related",
   },
   {
-    chartType: "waffle-chart",
-    name: "Waffle chart",
-    description: "Unit grid showing the selected metric's category mix",
-    category: "related",
-  },
-  {
     chartType: "ridgeline",
     name: "Ridgeline",
     description: "Compare value distributions across sample windows",
