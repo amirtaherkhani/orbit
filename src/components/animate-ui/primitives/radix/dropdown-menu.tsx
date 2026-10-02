@@ -3,7 +3,12 @@
 
 import * as React from 'react';
 import { DropdownMenu as DropdownMenuPrimitive } from 'radix-ui';
-import { AnimatePresence, motion, type HTMLMotionProps } from 'motion/react';
+import {
+  AnimatePresence,
+  motion,
+  useReducedMotion,
+  type HTMLMotionProps,
+} from 'motion/react';
 
 import {
   Highlight,
@@ -192,12 +197,14 @@ function DropdownMenuSubContent({
   arrowPadding,
   sticky,
   hideWhenDetached,
-  transition = { duration: 0.2 },
+  transition,
   style,
   container,
   ...props
 }: DropdownMenuSubContentProps) {
   const { isOpen } = useDropdownMenuSub();
+  const shouldReduceMotion = useReducedMotion();
+  const contentTransition = transition ?? { duration: shouldReduceMotion ? 0 : 0.16 };
 
   return (
     <AnimatePresence>
@@ -226,7 +233,7 @@ function DropdownMenuSubContent({
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.95 }}
-              transition={transition}
+              transition={contentTransition}
               style={{ willChange: 'opacity, transform', ...style }}
               {...props}
             />
@@ -245,17 +252,23 @@ type DropdownMenuHighlightProps = Omit<
 };
 
 function DropdownMenuHighlight({
-  transition = { type: 'spring', stiffness: 350, damping: 35 },
+  transition,
   ...props
 }: DropdownMenuHighlightProps) {
   const { highlightedValue } = useDropdownMenu();
+  const shouldReduceMotion = useReducedMotion();
 
   return (
     <Highlight
       data-slot="dropdown-menu-highlight"
       click={false}
       controlledItems
-      transition={transition}
+      transition={
+        transition ??
+        (shouldReduceMotion
+          ? { duration: 0 }
+          : { type: 'spring', stiffness: 350, damping: 30, bounce: 0 })
+      }
       value={highlightedValue}
       {...props}
     />
@@ -289,12 +302,14 @@ function DropdownMenuContent({
   arrowPadding,
   sticky,
   hideWhenDetached,
-  transition = { duration: 0.2 },
+  transition,
   style,
   container,
   ...props
 }: DropdownMenuContentProps) {
   const { isOpen } = useDropdownMenu();
+  const shouldReduceMotion = useReducedMotion();
+  const contentTransition = transition ?? { duration: shouldReduceMotion ? 0 : 0.16 };
 
   return (
     <AnimatePresence>
@@ -325,7 +340,7 @@ function DropdownMenuContent({
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.95 }}
-              transition={transition}
+              transition={contentTransition}
               style={{ willChange: 'opacity, transform', ...style }}
               {...props}
             />
