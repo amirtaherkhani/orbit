@@ -1,3 +1,8 @@
+# v0.8.6
+
+## Changed
+- Give grouped Floating charts flat, attached tabs and remove tile title-bar bottom dividers in light and dark mode.
+
 # v0.8.5
 
 ## Changed

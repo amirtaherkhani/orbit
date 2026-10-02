@@ -2999,7 +2999,7 @@
 .dashboard-card-header {
   min-height: 62px;
   align-items: center;
-  border-bottom: 1px solid color-mix(in oklch, var(--border) 78%, transparent);
+  border-bottom: 0;
   padding-top: 12px;
   padding-bottom: 10px;
 }
@@ -6185,36 +6185,35 @@ body {
 }
 
 .trellis-dashboard-workspace .trellis [data-trellis-part="tabbar"] {
-  border-bottom: 1px solid color-mix(in oklch, var(--border) 78%, transparent);
+  border-bottom: 0;
   background: transparent;
   box-shadow: none;
   -webkit-backdrop-filter: none;
   backdrop-filter: none;
 }
 
-/* Grouped tiles use a floating segmented strip; single tiles keep their heading. */
+/* Grouped tiles use flat, attached tabs; single tiles keep their heading. */
 .trellis-dashboard-workspace .trellis [data-trellis-part="panel"]:has([data-trellis-part="tabbar"]:not([data-single])) {
-  --trellis-tabbar-height: 48px;
+  --trellis-tabbar-height: 42px;
 }
 
 .trellis-dashboard-workspace .trellis [data-trellis-part="tabbar"]:not([data-single]) {
-  align-items: center;
-  gap: 8px;
-  padding-inline: 10px;
-  border-bottom: 0;
+  align-items: end;
+  gap: 0;
+  padding-inline: 8px;
   box-shadow: none;
 }
 
 .trellis-dashboard-workspace .trellis [data-trellis-part="tabbar"]:not([data-single])
   [data-trellis-part="tabs"] {
-  align-items: center;
-  gap: 3px;
-  height: 38px;
-  padding: 3px;
-  border-radius: 9px;
-  border: 1px solid var(--glass-control-border);
-  background: var(--glass-control-fill);
-  box-shadow: var(--glass-control-shadow);
+  align-items: end;
+  gap: 2px;
+  height: 100%;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
 }
 
 .trellis-dashboard-workspace .trellis [data-trellis-part="tabbar"]:not([data-single])
@@ -6222,19 +6221,18 @@ body {
   flex: 0 1 auto;
   min-width: 100px;
   max-width: 220px;
-  height: 30px;
+  height: 34px;
   margin: 0;
-  padding-inline: 10px;
+  padding-inline: 12px;
   gap: 7px;
-  border: 1px solid transparent;
-  border-radius: 8px;
+  border: 0;
+  border-radius: 7px 7px 0 0;
   background: transparent;
   box-shadow: none;
   color: var(--muted-foreground);
   cursor: grab;
   transition:
     background-color var(--motion-duration-fast) var(--motion-ease-standard),
-    box-shadow var(--motion-duration-fast) var(--motion-ease-standard),
     color var(--motion-duration-fast) var(--motion-ease-standard);
 }
 
@@ -6249,7 +6247,7 @@ body {
 
 .trellis-dashboard-workspace .trellis [data-trellis-part="tabbar"]:not([data-single])
   [data-trellis-part="tab"]:hover {
-  background: color-mix(in oklch, var(--card) 65%, transparent);
+  background: color-mix(in oklch, var(--foreground) 7%, transparent);
   color: var(--foreground);
 }
 
@@ -6310,13 +6308,9 @@ body {
 
 .trellis-dashboard-workspace .trellis [data-trellis-part="tabbar"],
 .dashboard-card-header {
-  border-bottom-color: transparent;
+  border-bottom: 0;
   background: var(--glass-panel-heading-fill);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.24);
-}
-
-.trellis-dashboard-workspace .trellis [data-trellis-part="tabbar"]:not([data-single]) {
-  border-bottom-color: transparent;
 }
 
 .dark .trellis-dashboard-workspace .trellis [data-trellis-part="tabbar"],
@@ -7079,13 +7073,18 @@ body {
 
 .dashboard-model-switch button[aria-pressed="true"],
 [data-slot="toggle-group"] [data-slot="toggle-group-item"][data-state="on"],
-.panel-color-style-options .panel-color-style-option[aria-pressed="true"],
-.trellis-dashboard-workspace .trellis [data-trellis-part="tabbar"]:not([data-single])
-  [data-trellis-part="tab"][data-selected] {
+.panel-color-style-options .panel-color-style-option[aria-pressed="true"] {
   border-color: var(--segment-active-border);
   background: var(--segment-active-fill);
   color: var(--foreground);
   box-shadow: var(--segment-active-shadow);
+}
+
+.trellis-dashboard-workspace .trellis [data-trellis-part="tabbar"]:not([data-single])
+  [data-trellis-part="tab"][data-selected] {
+  background: color-mix(in oklch, var(--foreground) 11%, transparent);
+  color: var(--foreground);
+  box-shadow: none;
 }
 
 .dashboard-model-switch button:focus-visible,

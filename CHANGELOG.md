@@ -13,6 +13,7 @@
 - Add a reusable searchable multi-select with removable chips, keyboard listbox navigation, and clear-selection controls.
 
 ### Changed
+- Use flat attached tabs on grouped Floating tiles and remove Grid and Floating tile title-bar bottom borders in both themes.
 - Let composer controls scroll behind a sticky glass heading and increase its blur in both themes.
 - Keep the notification banner's moving interior glow subdued, with yellow warnings and red errors.
 - Give alert rows a subtle theme-aware severity and primary-color gradient.
