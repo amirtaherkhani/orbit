@@ -10,6 +10,8 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
+import { ActivityIcon } from "@/components/ui/icon-library"
+import { Badge } from "@/components/ui/badge"
 import { getDataset, getMetric } from "@/data/catalog"
 import type { PanelConfig } from "@/types/dashboard"
 
@@ -62,25 +64,37 @@ export function PanelCard({
       <CardHeader className="dashboard-card-header">
         <div className="panel-title-line">
           <div>
-          <CardTitle>{panel.title}</CardTitle>
-          <CardDescription>
-            {panel.chartType === "clock"
-              ? "Local date & time"
-              : panel.chartType === "countdown"
-                ? `${panel.countdownDurationMinutes ?? 25} min focus session`
-              : panel.chartType === "text"
-                ? panel.textMode === "code"
-                  ? "Code block"
-                  : panel.textMode === "plain"
-                    ? "Plain text"
-                    : "Markdown note"
-                : panel.chartType === "dashboard-list"
-                  ? "Workspace dashboards"
-                  : `${dataset.name} · ${panel.aggregation.toUpperCase()}`}
+            <div className="panel-title-heading">
+              <CardTitle>{panel.title}</CardTitle>
+              {metric.streamKey && (
+                <Badge
+                  variant="secondary"
+                  className="panel-live-badge"
+                  aria-label="Live data"
+                  title="Live data"
+                >
+                  <ActivityIcon aria-hidden="true" />
+                  <span>Live</span>
+                </Badge>
+              )}
+            </div>
+            <CardDescription>
+              {panel.chartType === "clock"
+                ? "Local date & time"
+                : panel.chartType === "countdown"
+                  ? `${panel.countdownDurationMinutes ?? 25} min focus session`
+                  : panel.chartType === "text"
+                    ? panel.textMode === "code"
+                      ? "Code block"
+                      : panel.textMode === "plain"
+                        ? "Plain text"
+                        : "Markdown note"
+                    : panel.chartType === "dashboard-list"
+                      ? "Workspace dashboards"
+                      : `${dataset.name} · ${panel.aggregation.toUpperCase()}`}
             </CardDescription>
           </div>
         </div>
-
       </CardHeader>
 
       <CardContent className="dashboard-card-content">

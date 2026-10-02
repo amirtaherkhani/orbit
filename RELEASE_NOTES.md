@@ -1,3 +1,11 @@
+# v0.3.0
+
+## Highlights
+- Live-streaming charts are identified at a glance.
+
+## Added
+- Show a pulse-icon Live badge beside chart titles when their metric receives live updates.
+
 # v0.2.0
 
 ## Highlights
