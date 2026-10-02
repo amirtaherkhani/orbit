@@ -2,11 +2,13 @@ import * as React from "react"
 import {
   createDocument,
   layout,
+  type LayoutNode,
   type LayoutDocument,
   type LayoutSpec,
   type WorkspaceHandle,
 } from "@danfessler/trellis"
 import { ViewType, Workspace } from "@danfessler/trellis-react"
+import { motion, useReducedMotion } from "motion/react"
 import { useTheme } from "@/components/theme-provider"
 import {
   AppWindowIcon,
@@ -61,6 +63,22 @@ function getFloatingTitle(panel: PanelConfig) {
   return panel.floatingTitle?.trim() || panel.title
 }
 
+function findTabbedPanel(node: LayoutNode | null | undefined, panelId: string): boolean {
+  if (!node) return false
+  if (node.kind === "panel") return node.id === panelId && node.views.length > 1
+  if (node.kind === "split") return node.children.some((child) => findTabbedPanel(child, panelId))
+  return node.child ? findTabbedPanel(node.child, panelId) : false
+}
+
+function hasMultipleTabViews(document: LayoutDocument | undefined, panelId: string) {
+  if (!document) return false
+  return (
+    findTabbedPanel(document.root, panelId) ||
+    document.floating.some(({ panel }) => panel.id === panelId && panel.views.length > 1) ||
+    document.hidden.some(({ panel }) => panel.id === panelId && panel.views.length > 1)
+  )
+}
+
 function FloatingPanelFooter({ panel }: { panel: PanelConfig }) {
   const metric = getMetric(panel.dataSourceId, panel.datasetId, panel.metricId)
   const metadata = panel.chartType === "clock"
@@ -88,6 +106,40 @@ function FloatingPanelFooter({ panel }: { panel: PanelConfig }) {
       <span className="panel-status-divider" aria-hidden="true" />
       <span>{metadata[1]}</span>
     </footer>
+  )
+}
+
+function FloatingPanelTabContent({
+  children,
+  enabled,
+  selected,
+}: {
+  children: React.ReactNode
+  enabled: boolean
+  selected: boolean
+}) {
+  const shouldReduceMotion = useReducedMotion()
+  const visible = { opacity: 1, y: 0, scale: 1 }
+
+  return (
+    <motion.div
+      className="trellis-panel-tab-content"
+      initial={enabled && selected && !shouldReduceMotion ? { opacity: 0.94, y: 6, scale: 0.99 } : false}
+      animate={
+        !enabled || shouldReduceMotion
+          ? visible
+          : selected
+            ? visible
+            : { opacity: 0.94, y: 6, scale: 0.99 }
+      }
+      transition={
+        shouldReduceMotion
+          ? { duration: 0 }
+          : { type: "spring", stiffness: 200, damping: 25 }
+      }
+    >
+      {children}
+    </motion.div>
   )
 }
 
@@ -434,37 +486,42 @@ export function TrellisDashboard({
                 data-selected={selectedPanelId === panel.id}
                 onPointerDown={() => onSelectPanel(panel.id)}
               >
-                <PanelActionToolbar
-                  panelId={panel.id}
-                  panelTitle={getFloatingTitle(panel)}
-                  panel={panel}
-                  model="floating"
-                  showMore={false}
-                  onEditTitles={onEditPanelTitles}
-                  onDuplicate={onDuplicatePanel}
-                  onRemove={onRemovePanel}
-                  onChartColorsChange={onChartColorsChange}
-                  moreActions={(
-                    <FloatingPanelActionMenu
-                      panelTitle={getFloatingTitle(panel)}
-                      viewId={view.id}
-                      trellisPanelId={view.panelId}
-                      placement={view.placement}
-                      snapshot={workspaceSnapshot}
-                      workspaceRef={workspaceRef}
-                    />
-                  )}
-                />
-                <div className="trellis-panel-body">
-                  <div className="trellis-panel-visualization">
-                    <LazyChartRenderer
-                      panel={panel}
-                      compact={panel.chartType === "clock"}
-                      metricAnimationDelay={Math.max(0, panels.indexOf(panel)) * MOTION_TOKENS.metricCardStaggerMs}
-                    />
+                <FloatingPanelTabContent
+                  enabled={hasMultipleTabViews(workspaceSnapshot?.document, view.panelId)}
+                  selected={view.selected}
+                >
+                  <PanelActionToolbar
+                    panelId={panel.id}
+                    panelTitle={getFloatingTitle(panel)}
+                    panel={panel}
+                    model="floating"
+                    showMore={false}
+                    onEditTitles={onEditPanelTitles}
+                    onDuplicate={onDuplicatePanel}
+                    onRemove={onRemovePanel}
+                    onChartColorsChange={onChartColorsChange}
+                    moreActions={(
+                      <FloatingPanelActionMenu
+                        panelTitle={getFloatingTitle(panel)}
+                        viewId={view.id}
+                        trellisPanelId={view.panelId}
+                        placement={view.placement}
+                        snapshot={workspaceSnapshot}
+                        workspaceRef={workspaceRef}
+                      />
+                    )}
+                  />
+                  <div className="trellis-panel-body">
+                    <div className="trellis-panel-visualization">
+                      <LazyChartRenderer
+                        panel={panel}
+                        compact={panel.chartType === "clock"}
+                        metricAnimationDelay={Math.max(0, panels.indexOf(panel)) * MOTION_TOKENS.metricCardStaggerMs}
+                      />
+                    </div>
+                    <FloatingPanelFooter panel={panel} />
                   </div>
-                  <FloatingPanelFooter panel={panel} />
-                </div>
+                </FloatingPanelTabContent>
               </div>
             )
           }}
