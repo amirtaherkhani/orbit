@@ -1,3 +1,8 @@
+# v0.8.10
+
+## Fixed
+- Display the Add to dashboard icon in the button's dark foreground color.
+
 # v0.8.9
 
 ## Changed

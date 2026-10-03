@@ -1,5 +1,8 @@
 ## [Unreleased]
 
+### Fixed
+- Use the button's dark foreground color for the Add to dashboard icon in both themes.
+
 ### Added
 - Add a Settings page for persistent primary color selection across the dashboard, including Orbit orange and four selectable colors.
 - Show a close control on each grouped Floating chart tab.
