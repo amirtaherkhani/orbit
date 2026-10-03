@@ -2683,8 +2683,8 @@
 .dashboard-card:hover > .dashboard-panel-toolbar,
 .dashboard-card:focus-within > .dashboard-panel-toolbar,
 .trellis-dashboard-workspace [data-trellis-part="panel"]:hover .dashboard-panel-toolbar,
-.trellis-chart-content:hover > .dashboard-panel-toolbar,
-.trellis-chart-content:focus-within > .dashboard-panel-toolbar {
+.trellis-chart-content:hover .dashboard-panel-toolbar,
+.trellis-chart-content:focus-within .dashboard-panel-toolbar {
   opacity: 1;
   pointer-events: auto;
   transform: translateY(0);

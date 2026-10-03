@@ -52,6 +52,7 @@
 - Align select popups to their triggers and refine dropdown surfaces for compact, viewport-aware warm glass menus.
 
 ### Fixed
+- Reveal Floating tile action menus on hover and keyboard focus through the tab animation wrapper.
 - Size the "Move tile to" submenu icon consistently with other tile action icons.
 - Restore the Panel Composer heading's liquid-glass blur by making its base tint translucent like the navigation bar.
 - Match the sidebar Orbit mark to the selected primary color.
