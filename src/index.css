@@ -98,16 +98,8 @@
     0 18px 48px rgba(55, 53, 43, 0.18),
     inset 0 1px 0 #fff;
   --glass-action-border: rgba(255, 255, 255, 0.72);
-  --glass-action-toolbar-fill: linear-gradient(
-    145deg,
-    rgba(255, 254, 250, 0.82),
-    rgba(239, 240, 237, 0.72)
-  );
-  --glass-action-menu-fill: linear-gradient(
-    145deg,
-    rgba(255, 254, 250, 0.9),
-    rgba(248, 247, 242, 0.82)
-  );
+  --glass-action-toolbar-fill: rgba(255, 254, 250, 0.46);
+  --glass-action-menu-fill: rgba(255, 254, 250, 0.58);
   --glass-sheet-fill: linear-gradient(
     145deg,
     rgba(255, 255, 255, 0.7),
@@ -299,16 +291,8 @@
     0 18px 48px rgba(0, 0, 0, 0.42),
     inset 0 1px 0 rgba(255, 255, 255, 0.08);
   --glass-action-border: rgba(231, 237, 226, 0.2);
-  --glass-action-toolbar-fill: linear-gradient(
-    145deg,
-    rgba(31, 36, 45, 0.84),
-    rgba(23, 29, 36, 0.74)
-  );
-  --glass-action-menu-fill: linear-gradient(
-    145deg,
-    rgba(31, 36, 45, 0.9),
-    rgba(23, 29, 36, 0.82)
-  );
+  --glass-action-toolbar-fill: rgba(31, 36, 45, 0.5);
+  --glass-action-menu-fill: rgba(31, 36, 45, 0.62);
   --glass-sheet-fill: linear-gradient(
     145deg,
     rgba(31, 36, 45, 0.92),
@@ -6484,8 +6468,8 @@ body {
   border-color: var(--glass-action-border);
   background: var(--glass-action-menu-fill);
   box-shadow: var(--glass-menu-shadow);
-  -webkit-backdrop-filter: blur(34px) saturate(145%);
-  backdrop-filter: blur(34px) saturate(145%);
+  -webkit-backdrop-filter: blur(20px) saturate(125%);
+  backdrop-filter: blur(20px) saturate(125%);
 }
 
 @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
