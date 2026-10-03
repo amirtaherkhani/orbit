@@ -90,6 +90,17 @@
   --glass-menu-shadow:
     0 18px 48px rgba(55, 53, 43, 0.18),
     inset 0 1px 0 #fff;
+  --glass-action-border: rgba(119, 155, 192, 0.46);
+  --glass-action-toolbar-fill: linear-gradient(
+    145deg,
+    rgba(208, 226, 245, 0.64),
+    rgba(180, 204, 231, 0.48)
+  );
+  --glass-action-menu-fill: linear-gradient(
+    145deg,
+    rgba(214, 231, 248, 0.7),
+    rgba(186, 210, 235, 0.58)
+  );
   --glass-sheet-fill: linear-gradient(
     145deg,
     rgba(255, 255, 255, 0.7),
@@ -273,6 +284,17 @@
   --glass-menu-shadow:
     0 18px 48px rgba(0, 0, 0, 0.42),
     inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  --glass-action-border: rgba(137, 174, 210, 0.34);
+  --glass-action-toolbar-fill: linear-gradient(
+    145deg,
+    rgba(74, 103, 134, 0.7),
+    rgba(43, 63, 85, 0.56)
+  );
+  --glass-action-menu-fill: linear-gradient(
+    145deg,
+    rgba(59, 84, 112, 0.7),
+    rgba(34, 50, 70, 0.56)
+  );
   --glass-sheet-fill: linear-gradient(
     145deg,
     rgba(31, 36, 45, 0.92),
@@ -6352,12 +6374,12 @@ body {
 }
 
 .dashboard-panel-toolbar {
-  border-color: var(--glass-menu-border);
+  border-color: var(--glass-action-border);
   border-radius: 11px;
-  background: var(--glass-menu-fill);
+  background: var(--glass-action-toolbar-fill);
   box-shadow: var(--glass-control-shadow);
-  -webkit-backdrop-filter: blur(var(--glass-blur-control)) saturate(var(--glass-saturation-control));
-  backdrop-filter: blur(var(--glass-blur-control)) saturate(var(--glass-saturation-control));
+  -webkit-backdrop-filter: blur(18px) saturate(145%);
+  backdrop-filter: blur(18px) saturate(145%);
 }
 
 .builder-preview-card,
@@ -6421,14 +6443,15 @@ body {
 
 .more-actions-menu[data-slot="dropdown-menu-content"],
 .more-actions-menu[data-slot="dropdown-menu-sub-content"] {
-  border-color: var(--glass-menu-border);
-  background: var(--glass-topbar-fill), var(--glass-topbar-base);
+  border-color: var(--glass-action-border);
+  background: var(--glass-action-menu-fill);
   box-shadow: var(--glass-menu-shadow);
-  -webkit-backdrop-filter: blur(26px) saturate(120%);
-  backdrop-filter: blur(26px) saturate(120%);
+  -webkit-backdrop-filter: blur(34px) saturate(145%);
+  backdrop-filter: blur(34px) saturate(145%);
 }
 
 @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .dashboard-panel-toolbar,
   .more-actions-menu[data-slot="dropdown-menu-content"],
   .more-actions-menu[data-slot="dropdown-menu-sub-content"] {
     background: var(--glass-menu-fill);
