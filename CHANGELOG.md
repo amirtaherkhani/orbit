@@ -1,6 +1,7 @@
 ## [Unreleased]
 
 ### Fixed
+- Show the native tooltip arrow beside sidebar and control tooltips in both themes.
 - Give Periwinkle primary buttons darker text in light mode and lighter text in dark mode.
 - Use the button's dark foreground color for the Add to dashboard icon in both themes.
 
