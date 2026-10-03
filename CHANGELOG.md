@@ -3,6 +3,7 @@
 ### Added
 
 ### Changed
+- Use a minimal stroke arrow for the dashboard editor accordion indicator.
 - Use the Grid canvas background and pointer-following spotlight behind Floating tiles in both themes.
 - Increase the contrast and accent glow of dots that brighten around the pointer in Grid and Floating modes.
 - Let panel action glass pick up blurred colors from behind it while keeping menu icons readable in both themes.

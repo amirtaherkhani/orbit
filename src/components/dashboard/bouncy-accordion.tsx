@@ -1,8 +1,6 @@
 import * as React from "react"
 import { motion, useReducedMotion } from "motion/react"
 
-import { ChevronDownIcon } from "@/components/ui/icon-library"
-
 type AccordionContextValue = {
   value: string | null
   onValueChange: (value: string | null) => void
@@ -83,7 +81,14 @@ export function BouncyAccordionItem({
           <span className="bouncy-accordion-title">{title}</span>
           <span className="bouncy-accordion-summary">{summary}</span>
         </span>
-        <ChevronDownIcon className="bouncy-accordion-chevron" aria-hidden="true" />
+        <svg
+          className="bouncy-accordion-chevron"
+          viewBox="0 0 16 16"
+          fill="none"
+          aria-hidden="true"
+        >
+          <path d="m4 6 4 4 4-4" />
+        </svg>
       </button>
       <motion.div
         id={panelId}
