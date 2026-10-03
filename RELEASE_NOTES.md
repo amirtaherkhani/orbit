@@ -1,3 +1,8 @@
+# v0.8.13
+
+## Changed
+- Show the Orbit icon pack mark on the dashboard Preview button.
+
 # v0.8.12
 
 ## Fixed

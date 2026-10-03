@@ -488,6 +488,13 @@
   background-color: var(--primary);
 }
 
+.mode-button .orbit-brand-symbol {
+  width: 16px;
+  height: 16px;
+  flex: 0 0 auto;
+  background-color: var(--primary);
+}
+
 .rail-navigation,
 .rail-footer {
   display: flex;
@@ -5167,7 +5174,7 @@
     height: 16px;
   }
 
-  .mode-button span {
+  .mode-button > span:last-child {
     display: none;
   }
 }
