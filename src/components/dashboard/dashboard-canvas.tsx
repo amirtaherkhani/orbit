@@ -17,6 +17,10 @@ import {
 } from "@/components/dashboard/panel-card"
 import type { PanelColorChange } from "@/components/dashboard/panel-action-toolbar"
 import { DashboardAnnouncementBar } from "@/components/dashboard/dashboard-announcement-bar"
+import {
+  hideDashboardSpotlight,
+  moveDashboardSpotlight,
+} from "@/components/dashboard/dashboard-spotlight"
 import { TextFlip } from "@/components/animate-ui/components/text/text-flip"
 import { MOTION_TOKENS } from "@/components/animate-ui/animation-tokens"
 import { Badge } from "@/components/ui/badge"
@@ -349,26 +353,8 @@ export function DashboardCanvas({
           ref={containerRef}
           data-editing={editMode}
           data-layout-style={gridPresentation}
-          onPointerMove={(event) => {
-            if (event.pointerType === "touch") {
-              delete event.currentTarget.dataset.spotlightActive
-              return
-            }
-
-            const bounds = event.currentTarget.getBoundingClientRect()
-            event.currentTarget.style.setProperty(
-              "--dashboard-spotlight-x",
-              `${event.clientX - bounds.left}px`
-            )
-            event.currentTarget.style.setProperty(
-              "--dashboard-spotlight-y",
-              `${event.clientY - bounds.top}px`
-            )
-            event.currentTarget.dataset.spotlightActive = "true"
-          }}
-          onPointerLeave={(event) => {
-            delete event.currentTarget.dataset.spotlightActive
-          }}
+          onPointerMove={(event) => moveDashboardSpotlight(event.currentTarget, event)}
+          onPointerLeave={(event) => hideDashboardSpotlight(event.currentTarget)}
         >
           {panels.length === 0 ? (
             <div className="empty-dashboard">

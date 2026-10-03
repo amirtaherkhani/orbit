@@ -1958,7 +1958,8 @@
   background-size: 18px 18px;
 }
 
-.dashboard-grid-shell::before {
+.dashboard-grid-shell::before,
+.trellis-dashboard-workspace::before {
   position: absolute;
   z-index: 0;
   inset: 0;
@@ -1987,11 +1988,13 @@
   transition: opacity 180ms ease;
 }
 
-.dashboard-grid-shell[data-spotlight-active="true"]::before {
+.dashboard-grid-shell[data-spotlight-active="true"]::before,
+.trellis-dashboard-workspace[data-spotlight-active="true"]::before {
   opacity: 0.8;
 }
 
-.dashboard-grid-shell > * {
+.dashboard-grid-shell > *,
+.trellis-dashboard-workspace > * {
   position: relative;
   z-index: 1;
 }
@@ -6192,6 +6195,8 @@ body {
 
 /* Floating chrome is transparent; the tiles reuse Grid's glass surface tokens. */
 .trellis-dashboard-workspace {
+  position: relative;
+  isolation: isolate;
   border-color: transparent;
   border-radius: 10px;
   background-color: transparent;
@@ -7129,7 +7134,8 @@ body {
     animation: none !important;
   }
 
-  .dashboard-grid-shell::before {
+  .dashboard-grid-shell::before,
+  .trellis-dashboard-workspace::before {
     transition-duration: 0ms !important;
   }
 
