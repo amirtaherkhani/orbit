@@ -58,9 +58,7 @@ function TooltipContent({
         {...props}
       >
         {children}
-        <TooltipArrowPrimitive asChild>
-          <span aria-hidden="true" className="tooltip-arrow z-50" />
-        </TooltipArrowPrimitive>
+        <TooltipArrowPrimitive className="tooltip-arrow" />
       </TooltipContentPrimitive>
     </TooltipPortalPrimitive>
   );

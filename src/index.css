@@ -6900,12 +6900,9 @@ body {
 }
 
 .tooltip-arrow {
-  display: block;
   width: 10px;
-  height: 10px;
-  border-radius: 2px;
-  background: var(--tooltip-arrow-color);
-  transform: rotate(45deg);
+  height: 5px;
+  fill: var(--tooltip-arrow-color);
 }
 
 .chart-glass-tooltip {
