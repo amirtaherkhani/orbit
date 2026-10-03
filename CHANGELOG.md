@@ -3,6 +3,7 @@
 ### Added
 
 ### Changed
+- Use the Grid canvas background behind Floating tiles in both themes.
 
 ### Fixed
 
