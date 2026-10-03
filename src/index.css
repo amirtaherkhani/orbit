@@ -6389,6 +6389,14 @@ body {
   backdrop-filter: blur(18px) saturate(145%);
 }
 
+.dark .dashboard-panel-toolbar {
+  border-color: var(--glass-panel-border);
+  background: var(--glass-topbar-fill), var(--glass-topbar-base);
+  box-shadow: var(--glass-control-shadow);
+  -webkit-backdrop-filter: blur(22px) saturate(125%);
+  backdrop-filter: blur(22px) saturate(125%);
+}
+
 .builder-preview-card,
 .chart-gradient-custom,
 .condition-color-rules {

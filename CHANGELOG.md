@@ -23,7 +23,7 @@
 ### Changed
 - Use the Orbit icon pack mark on the dashboard Preview button.
 - Keep Orbit orange in both theme palettes, with Periwinkle in light mode and Sky in dark mode.
-- Give the panel action toolbar a cool glass tint and make action menus more translucent.
+- Use a theme-aware glass surface for panel action toolbars and make action menus more translucent.
 - Add a subtle pointer-following spotlight to the dashboard's dotted background.
 - Give the native Floating tile action menu a translucent, blurred glass surface in both themes.
 - Render the italic word in the Service health heading with a light font weight.
