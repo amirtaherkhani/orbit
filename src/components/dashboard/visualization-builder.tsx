@@ -42,7 +42,6 @@ import { ColorPicker } from "@/components/stepwise/color-picker"
 import {
   chartGradientPresets,
   DEFAULT_CHART_GRADIENT_PRESET,
-  neonChartPalette,
   resolveChartColorStyle,
   supportsChartColors,
 } from "@/core/conditions/chart-palettes"
@@ -1680,7 +1679,6 @@ export function VisualizationBuilder({
               >
                 {([
                   { value: "pastel", label: "Pastel", colors: chartGradientPresets[0].colors },
-                  { value: "neon", label: "Neon", colors: neonChartPalette.colors },
                   { value: "custom", label: "Custom", colors: [draft.customChartColor ?? "#91D9C3"] },
                 ] as const).map(({ value, label, colors }) => (
                   <ToggleGroupItem

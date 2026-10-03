@@ -28,7 +28,6 @@ import {
 } from "@/components/ui/dropdown-menu"
 import {
   chartGradientPresets,
-  neonChartPalette,
   resolveChartColorStyle,
   supportsChartColors,
 } from "@/core/conditions/chart-palettes"
@@ -124,7 +123,6 @@ export function PanelActionToolbar({
               <div className="panel-color-style-options" role="group" aria-label="Color style">
                 {([
                   { value: "pastel", label: "Pastel", colors: chartGradientPresets[0].colors },
-                  { value: "neon", label: "Neon", colors: neonChartPalette.colors },
                   { value: "custom", label: "Custom", colors: [panel.customChartColor ?? "#91D9C3"] },
                 ] as const).map(({ value, label, colors }) => (
                   <button

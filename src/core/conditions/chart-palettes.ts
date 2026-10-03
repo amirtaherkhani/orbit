@@ -35,11 +35,6 @@ export const chartGradientPresets = Object.entries(chartPalettes).map(
   })
 )
 
-export const neonChartPalette: ChartPalette = {
-  label: "Neon",
-  colors: ["#00A896", "#2369E8", "#8944E8", "#D932A0", "#E96932"],
-}
-
 const chartColorTypes = new Set<ChartType>([
   "line", "bar", "area", "donut", "pie", "gauge", "bar-gauge", "stat",
   "uptime", "date-time", "state-timeline", "heatmap",
@@ -57,7 +52,7 @@ export function resolveChartColorStyle(
   style?: ChartColorStyle,
   preset?: ChartGradientPreset
 ): ChartColorStyle {
-  if (style === "pastel" || style === "neon" || style === "custom") return style
+  if (style === "pastel" || style === "custom") return style
   return preset === "custom" ? "custom" : "pastel"
 }
 
@@ -152,7 +147,6 @@ export function getChartPalette(
 ): ChartPalette {
   const colorStyle = resolveChartColorStyle(style, preset)
   if (colorStyle === "custom") return getCustomPalette(customColor)
-  if (colorStyle === "neon") return neonChartPalette
 
   return (
     chartPalettes[preset as BuiltInChartGradientPreset] ??

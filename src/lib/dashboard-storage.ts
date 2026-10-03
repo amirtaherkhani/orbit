@@ -176,6 +176,10 @@ function normalizeStoredPanels(value: unknown) {
     const normalizedPanel = Object.fromEntries(
       Object.entries(panel).filter(([key]) => panelFields.has(key))
     )
+    if (normalizedPanel.chartColorStyle === "neon") {
+      normalizedPanel.chartColorStyle = "pastel"
+      changed = true
+    }
     const chartType = panel.chartType === "waffle-chart"
       ? "donut"
       : panel.chartType === "countdown"

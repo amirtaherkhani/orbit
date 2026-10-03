@@ -43,7 +43,7 @@ export type ChartGradientPreset =
   | "violet"
   | "ember"
   | "custom"
-export type ChartColorStyle = "pastel" | "neon" | "custom"
+export type ChartColorStyle = "pastel" | "custom"
 export type UptimeStyle =
   | "service-cards"
   | "status-pills"

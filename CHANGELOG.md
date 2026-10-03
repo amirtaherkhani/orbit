@@ -9,11 +9,14 @@
 - Add nine shadcn-inspired Area chart styles: Interactive, Step, Linear, Stacked Expanded, Stacked, Legend, Axes, Gradient, and Icons. Stacked styles use the selected metric's series breakdown.
 - Show a compact, condensed current-value readout across graph-based chart types.
 - Provide a reusable Orbital O icon pack with SVG masters, outlined wordmarks, app icons, favicons, and Apple/web-app install assets.
-- Switch chart colors between gradient pastel, neon, and a custom color in the panel composer or on existing Grid and Floating tiles; saved dashboards retain the choice.
+- Switch chart colors between gradient pastel palettes and a custom color in the panel composer or on existing Grid and Floating tiles; saved dashboards retain the choice.
 - Show a pulse-icon Live badge beside chart titles when their metric is backed by a live stream.
 - Configure the dashboard announcement banner to rotate alarms, notifications, and latest chart values from selected panels; hide and restore the banner at any time.
 - Distinguish warm glass chart data tooltips from compact solid control tooltips, with accessible keyboard focus and reduced-motion support.
 - Add a reusable searchable multi-select with removable chips, keyboard listbox navigation, and clear-selection controls.
+
+### Removed
+- Remove the Neon chart color style and migrate saved Neon selections to the pastel palette.
 
 ### Changed
 - Give the panel action toolbar a cool glass tint and make action menus more translucent.
