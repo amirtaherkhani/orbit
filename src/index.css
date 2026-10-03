@@ -31,6 +31,13 @@
   --muted-foreground: #797b73;
   --accent: #f8e4da;
   --accent-foreground: #63331f;
+  --menu-item-hover-fill: linear-gradient(
+    110deg,
+    color-mix(in srgb, var(--primary) 13%, var(--popover)),
+    color-mix(in srgb, var(--primary) 7%, var(--popover))
+  );
+  --menu-item-hover-border: color-mix(in srgb, var(--primary) 22%, var(--border));
+  --menu-item-hover-edge: color-mix(in srgb, var(--primary) 52%, transparent);
   --destructive: #d35c57;
   --border: #deddd4;
   --input: #deddd4;
@@ -225,6 +232,13 @@
   --muted-foreground: #9da99b;
   --accent: #1f242d;
   --accent-foreground: oklch(0.94 0.009 190);
+  --menu-item-hover-fill: linear-gradient(
+    110deg,
+    color-mix(in srgb, var(--primary) 20%, var(--popover)),
+    color-mix(in srgb, var(--primary) 13%, var(--popover))
+  );
+  --menu-item-hover-border: color-mix(in srgb, var(--primary) 34%, var(--border));
+  --menu-item-hover-edge: color-mix(in srgb, var(--primary) 66%, transparent);
   --destructive: oklch(0.69 0.19 25);
   --border: rgba(231, 237, 226, 0.15);
   --input: rgba(231, 237, 226, 0.16);
@@ -6478,6 +6492,8 @@ body {
   font-size: 11px;
   transition:
     background-color var(--motion-duration-fast) var(--motion-ease-standard),
+    border-color var(--motion-duration-fast) var(--motion-ease-standard),
+    box-shadow var(--motion-duration-fast) var(--motion-ease-standard),
     color var(--motion-duration-fast) var(--motion-ease-standard);
 }
 
@@ -6546,35 +6562,23 @@ body {
   text-transform: uppercase;
 }
 
-:where([data-slot="dropdown-menu-highlight"]) {
-  border: 1px solid
-    color-mix(in srgb, var(--primary) 13%, rgba(255, 255, 255, 0.8));
-  background: linear-gradient(
-    110deg,
-    color-mix(in srgb, var(--primary) 9%, var(--card)),
-    color-mix(in srgb, #a2b783 9%, var(--card))
-  );
-  box-shadow: inset 2px 0 0 color-mix(in srgb, var(--primary) 58%, transparent);
+[data-slot="dropdown-menu-content"] [data-slot="motion-highlight"],
+[data-slot="dropdown-menu-sub-content"] [data-slot="motion-highlight"] {
+  border: 1px solid var(--menu-item-hover-border);
+  background: var(--menu-item-hover-fill);
+  box-shadow: inset 2px 0 0 var(--menu-item-hover-edge);
 }
 
-.dark :where([data-slot="dropdown-menu-highlight"]) {
-  border-color: color-mix(
-    in srgb,
-    var(--primary) 24%,
-    rgba(231, 237, 226, 0.12)
-  );
-  background: linear-gradient(
-    110deg,
-    color-mix(in srgb, var(--primary) 15%, var(--card)),
-    color-mix(in srgb, #9fb27d 8%, var(--card))
-  );
-}
-
-:where(
-  [data-slot="dropdown-menu-item"][data-highlighted],
-  [data-slot="select-item"][data-highlighted]
-) {
-  background: color-mix(in srgb, var(--primary) 8%, var(--card));
+[data-slot="dropdown-menu-item"][data-highlighted]:not([data-variant="destructive"]),
+[data-slot="dropdown-menu-content"] [data-slot="motion-highlight-item"][data-highlighted]:not([data-variant="destructive"]),
+[data-slot="dropdown-menu-sub-content"] [data-slot="motion-highlight-item"][data-highlighted]:not([data-variant="destructive"]),
+[data-slot="dropdown-menu-checkbox-item"][data-highlighted],
+[data-slot="dropdown-menu-radio-item"][data-highlighted],
+[data-slot="dropdown-menu-sub-trigger"][data-highlighted],
+[data-slot="select-item"][data-highlighted] {
+  border-color: var(--menu-item-hover-border);
+  background: var(--menu-item-hover-fill);
+  box-shadow: inset 2px 0 0 var(--menu-item-hover-edge);
   color: var(--foreground);
 }
 
@@ -6792,11 +6796,14 @@ body {
   font-size: 11px;
   transition:
     background-color 100ms ease,
+    border-color 100ms ease,
+    box-shadow 100ms ease,
     color 100ms ease;
 }
 .orbit-multi-select__option[data-active="true"] {
-  border-color: color-mix(in srgb, var(--primary) 10%, transparent);
-  background: color-mix(in srgb, var(--primary) 9%, var(--card));
+  border-color: var(--menu-item-hover-border);
+  background: var(--menu-item-hover-fill);
+  box-shadow: inset 2px 0 0 var(--menu-item-hover-edge);
   color: var(--foreground);
 }
 .orbit-multi-select__option[aria-disabled="true"] {
@@ -6870,10 +6877,6 @@ body {
 .dark .orbit-multi-select__option {
   color: var(--foreground);
 }
-.dark .orbit-multi-select__option[data-active="true"] {
-  background: color-mix(in srgb, var(--primary) 14%, #293029);
-}
-
 @media (prefers-reduced-motion: reduce) {
   .orbit-select-trigger,
   .orbit-multi-select__control,

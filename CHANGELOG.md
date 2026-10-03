@@ -1,6 +1,7 @@
 ## [Unreleased]
 
 ### Fixed
+- Match the Save and Saved icons to their button's foreground color.
 - Show the native tooltip arrow beside sidebar and control tooltips in both themes.
 - Give Periwinkle primary buttons darker text in light mode and lighter text in dark mode.
 - Use the button's dark foreground color for the Add to dashboard icon in both themes.
@@ -21,6 +22,7 @@
 - Remove the Neon chart color style and migrate saved Neon selections to the pastel palette.
 
 ### Changed
+- Tint dropdown, select, and listbox hover surfaces with the active primary palette in both themes.
 - Use the Orbit icon pack mark on the dashboard Preview button.
 - Keep Orbit orange in both theme palettes, with Periwinkle in light mode and Sky in dark mode.
 - Use a theme-aware glass surface for panel action toolbars and make action menus more translucent.
