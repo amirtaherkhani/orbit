@@ -1357,11 +1357,10 @@
     color-mix(in oklch, var(--announcement-tone) 24%, var(--border));
   border-radius: 12px;
   padding: 8px 10px 8px 12px;
-  background: linear-gradient(
-    105deg,
-    color-mix(in oklch, var(--announcement-tone) 9%, var(--card)),
-    color-mix(in oklch, var(--announcement-tone) 3%, var(--background))
-  );
+  background: var(--glass-panel-fill);
+  box-shadow: var(--glass-panel-shadow);
+  -webkit-backdrop-filter: blur(var(--glass-blur-panel)) saturate(var(--glass-saturation-panel));
+  backdrop-filter: blur(var(--glass-blur-panel)) saturate(var(--glass-saturation-panel));
 }
 
 .dashboard-announcement-bar > * {
@@ -1408,8 +1407,6 @@
 
 .dark .dashboard-announcement-bar {
   border-color: color-mix(in srgb, var(--announcement-tone) 22%, var(--glass-panel-border));
-  background: linear-gradient(105deg, var(--card), var(--surface-warm));
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
 }
 
 .dashboard-announcement-icon {
