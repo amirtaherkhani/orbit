@@ -3,7 +3,7 @@
 ### Added
 
 ### Changed
-- Use the Grid canvas background behind Floating tiles in both themes.
+- Use the Grid canvas background and pointer-following spotlight behind Floating tiles in both themes.
 
 ### Fixed
 

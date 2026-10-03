@@ -1,7 +1,7 @@
 # v0.8.16
 
 ## Changed
-- Show the same dotted dashboard canvas behind tiles in Grid and Floating modes.
+- Show the same dotted, pointer-responsive dashboard canvas behind tiles in Grid and Floating modes.
 
 # v0.8.15
 

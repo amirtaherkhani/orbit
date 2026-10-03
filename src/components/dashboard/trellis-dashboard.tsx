@@ -23,6 +23,10 @@ import {
 } from "@/components/ui/icon-library"
 
 import { LazyChartRenderer } from "@/components/dashboard/lazy-chart-renderer"
+import {
+  hideDashboardSpotlight,
+  moveDashboardSpotlight,
+} from "@/components/dashboard/dashboard-spotlight"
 import { MOTION_TOKENS } from "@/components/animate-ui/animation-tokens"
 import { PanelActionToolbar } from "@/components/dashboard/panel-action-toolbar"
 import type { PanelColorChange } from "@/components/dashboard/panel-action-toolbar"
@@ -410,6 +414,23 @@ export function TrellisDashboard({
     <div
       className="trellis-dashboard-host"
       data-selection-cleared={selectedPanelId === null}
+      onPointerMove={(event) => {
+        const workspace = event.currentTarget.querySelector<HTMLElement>(
+          ".trellis-dashboard-workspace"
+        )
+        if (!workspace) return
+        if (!workspace.contains(event.target as Node)) {
+          hideDashboardSpotlight(workspace)
+          return
+        }
+        moveDashboardSpotlight(workspace, event)
+      }}
+      onPointerLeave={(event) => {
+        const workspace = event.currentTarget.querySelector<HTMLElement>(
+          ".trellis-dashboard-workspace"
+        )
+        if (workspace) hideDashboardSpotlight(workspace)
+      }}
     >
       <div className="trellis-dashboard-toolbar" aria-label="Floating dashboard tools">
         <div className="trellis-toolbar-actions">
