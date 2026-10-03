@@ -22,6 +22,7 @@
 - Remove the Neon chart color style and migrate saved Neon selections to the pastel palette.
 
 ### Changed
+- Use small, light chevrons for select, multi-select, and time-range controls, rotating them while their lists are open.
 - Tint dropdown, select, and listbox hover surfaces with the active primary palette in both themes.
 - Use the Orbit icon pack mark on the dashboard Preview button.
 - Keep Orbit orange in both theme palettes, with Periwinkle in light mode and Sky in dark mode.

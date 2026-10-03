@@ -6603,6 +6603,24 @@ body {
   );
 }
 
+.control-chevron {
+  width: 12px;
+  height: 12px;
+  transition: transform 140ms ease;
+}
+
+.orbit-select-trigger[data-state="open"] .control-chevron,
+.orbit-multi-select__trigger[data-state="open"] .control-chevron,
+.time-range-button[data-state="open"] .control-chevron {
+  transform: rotate(180deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .control-chevron {
+    transition: none;
+  }
+}
+
 .orbit-select-trigger:focus-visible {
   box-shadow:
     0 0 0 3px color-mix(in srgb, var(--primary) 19%, transparent),

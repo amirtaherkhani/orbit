@@ -204,7 +204,10 @@ function MultiSelect({
               >
                 {placeholder}
               </span>
-              <ChevronDownIcon className="size-3.5 shrink-0 text-muted-foreground" />
+              <ChevronDownIcon
+                className="control-chevron size-3 shrink-0 text-muted-foreground"
+                weight="light"
+              />
             </button>
           </Popover.Trigger>
         </div>
