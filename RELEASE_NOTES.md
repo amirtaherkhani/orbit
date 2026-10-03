@@ -1,3 +1,28 @@
+# v0.8.15
+
+## Highlights
+- Expand dashboard customization across chart styles, primary colors, and grouped tiles, with a more consistent light and dark visual system.
+
+## Added
+- Choose theme-specific primary colors and save chart palettes or custom colors with dashboards.
+- Use nine Area chart styles, compact metric readouts, Live indicators, and configurable announcement content.
+- Search multi-select options and close individual tabs in grouped Floating tiles.
+- Download Orbit's Orbital O icon pack and install assets.
+
+## Changed
+- Refine dashboard, composer, menu, tab, and layout-control surfaces with theme-aware glass styling.
+- Use small, light dropdown arrows that flip upward while lists are open.
+- Reduce chart color intensity and make warning and error banner severity clearer.
+
+## Fixed
+- Improve tooltip arrows and theme contrast, keep button icons legible, and restore reliable tile actions, deselection, and composer scrolling.
+
+## Removed
+- Remove the Neon chart style, Focus timer panel, and Waffle chart option.
+
+## Migration
+- Saved Focus timers convert to Clock panels, Waffle charts to Donut charts, and Neon selections to the pastel palette.
+
 # v0.8.14
 
 ## Fixed

@@ -1,10 +1,18 @@
 ## [Unreleased]
 
+### Added
+
+### Changed
+
 ### Fixed
-- Match the Save and Saved icons to their button's foreground color.
-- Show the native tooltip arrow beside sidebar and control tooltips in both themes.
-- Give Periwinkle primary buttons darker text in light mode and lighter text in dark mode.
-- Use the button's dark foreground color for the Add to dashboard icon in both themes.
+
+### Performance
+
+### Removed
+
+### Security
+
+## [0.8.15] - 2026-10-03
 
 ### Added
 - Add a Settings page for persistent primary color selection across the dashboard, including theme-specific accent choices.
@@ -17,9 +25,6 @@
 - Configure the dashboard announcement banner to rotate alarms, notifications, and latest chart values from selected panels; hide and restore the banner at any time.
 - Distinguish warm glass chart data tooltips from compact solid control tooltips, with accessible keyboard focus and reduced-motion support.
 - Add a reusable searchable multi-select with removable chips, keyboard listbox navigation, and clear-selection controls.
-
-### Removed
-- Remove the Neon chart color style and migrate saved Neon selections to the pastel palette.
 
 ### Changed
 - Use small, light chevrons for select, multi-select, and time-range controls, rotating them while their lists are open.
@@ -63,6 +68,10 @@
 - Align select popups to their triggers and refine dropdown surfaces for compact, viewport-aware warm glass menus.
 
 ### Fixed
+- Match the Save and Saved icons to their button's foreground color.
+- Show the native tooltip arrow beside sidebar and control tooltips in both themes.
+- Give Periwinkle primary buttons darker text in light mode and lighter text in dark mode.
+- Use the button's dark foreground color for the Add to dashboard icon in both themes.
 - Clear the selected tile and grouped-tab highlight when clicking outside dashboard tiles in Grid or Floating mode.
 - Reveal Floating tile action menus on hover and keyboard focus through the tab animation wrapper.
 - Size the "Move tile to" submenu icon consistently with other tile action icons.
@@ -77,5 +86,6 @@
 - Give Floating tiles the same glass fill, border, blur, shadow, and header finish as Grid cards, including dark mode and opaque fallback.
 
 ### Removed
+- Remove the Neon chart color style and migrate saved Neon selections to the pastel palette.
 - Remove Focus timer from the panel catalog, builder, renderer, and styles.
 - Remove the Waffle chart option and its renderer.
