@@ -5,6 +5,7 @@
 ### Changed
 - Use the Grid canvas background and pointer-following spotlight behind Floating tiles in both themes.
 - Increase the contrast and accent glow of dots that brighten around the pointer in Grid and Floating modes.
+- Let panel action glass pick up blurred colors from the surface behind it in both themes.
 
 ### Fixed
 - Keep More actions menus and panel toolbars on neutral, translucent surfaces in both themes.
