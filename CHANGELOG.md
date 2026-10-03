@@ -3,6 +3,7 @@
 ### Added
 
 ### Changed
+- Use Font Awesome solid icons in the application sidebar.
 - Use the Grid canvas background and pointer-following spotlight behind Floating tiles in both themes.
 
 ### Fixed

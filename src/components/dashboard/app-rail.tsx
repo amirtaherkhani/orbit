@@ -1,11 +1,12 @@
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import {
-  ActivityIcon,
-  BellIcon,
-  BlocksIcon,
-  DatabaseIcon,
-  LayoutDashboardIcon,
-  Settings2Icon,
-} from "@/components/ui/icon-library"
+  faBell,
+  faDatabase,
+  faGear,
+  faPlug,
+  faTableCellsLarge,
+  faWaveSquare,
+} from "@fortawesome/free-solid-svg-icons"
 
 import { Button } from "@/components/ui/button"
 import { OrbitMark } from "@/components/branding/orbit-mark"
@@ -24,13 +25,13 @@ type AppRailProps = {
 
 const navigation: Array<{
   label: string
-  icon: typeof LayoutDashboardIcon
+  icon: typeof faGear
   page?: AppPage
 }> = [
-  { label: "Dashboards", icon: LayoutDashboardIcon, page: "dashboard" },
-  { label: "Explore data", icon: DatabaseIcon },
-  { label: "Live signals", icon: ActivityIcon },
-  { label: "Integrations", icon: BlocksIcon },
+  { label: "Dashboards", icon: faTableCellsLarge, page: "dashboard" },
+  { label: "Explore data", icon: faDatabase },
+  { label: "Live signals", icon: faWaveSquare },
+  { label: "Integrations", icon: faPlug },
 ]
 
 export function AppRail({ activePage, onNavigate }: AppRailProps) {
@@ -53,7 +54,11 @@ export function AppRail({ activePage, onNavigate }: AppRailProps) {
                 aria-current={item.page === activePage ? "page" : undefined}
                 onClick={() => item.page && onNavigate(item.page)}
               >
-                <item.icon />
+                <FontAwesomeIcon
+                  icon={item.icon}
+                  aria-hidden="true"
+                  className="size-4 shrink-0"
+                />
               </Button>
             </TooltipTrigger>
             <TooltipContent side="right">{item.label}</TooltipContent>
@@ -70,7 +75,11 @@ export function AppRail({ activePage, onNavigate }: AppRailProps) {
               className="rail-button"
               aria-label="Notifications"
             >
-              <BellIcon />
+              <FontAwesomeIcon
+                icon={faBell}
+                aria-hidden="true"
+                className="size-4 shrink-0"
+              />
               <span className="notification-dot" />
             </Button>
           </TooltipTrigger>
@@ -87,7 +96,11 @@ export function AppRail({ activePage, onNavigate }: AppRailProps) {
               aria-current={activePage === "settings" ? "page" : undefined}
               onClick={() => onNavigate("settings")}
             >
-              <Settings2Icon />
+              <FontAwesomeIcon
+                icon={faGear}
+                aria-hidden="true"
+                className="size-4 shrink-0"
+              />
             </Button>
           </TooltipTrigger>
           <TooltipContent side="right">Settings</TooltipContent>
