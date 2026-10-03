@@ -140,7 +140,6 @@ export function ThemeProvider({
     root.style.setProperty("--text-accent", primaryColor)
     root.style.setProperty("--ring", primaryColor)
     root.style.setProperty("--ui-border-focus", primaryColor)
-    root.style.setProperty("--primary-foreground", "#191b17")
   }, [primaryColor])
 
   const applyTheme = React.useCallback(
@@ -154,12 +153,20 @@ export function ThemeProvider({
 
       root.classList.remove("light", "dark")
       root.classList.add(resolvedTheme)
+      root.style.setProperty(
+        "--primary-foreground",
+        primaryColor === "#7678ed"
+          ? resolvedTheme === "dark"
+            ? "#f7f7ff"
+            : "#101129"
+          : "#191b17"
+      )
 
       if (restoreTransitions) {
         restoreTransitions()
       }
     },
-    [disableTransitionOnChange]
+    [disableTransitionOnChange, primaryColor]
   )
 
   React.useEffect(() => {
