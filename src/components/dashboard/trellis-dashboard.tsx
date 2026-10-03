@@ -51,7 +51,6 @@ type TrellisDashboardProps = {
   onSelectPanel: (id: string) => void
   onEditPanelTitles: (id: string) => void
   onDuplicatePanel: (id: string) => void
-  onOpenBuilder: () => void
   onRemovePanel: (id: string) => void
   onChartColorsChange: (id: string, changes: PanelColorChange) => void
 }
@@ -317,7 +316,6 @@ export function TrellisDashboard({
   onSelectPanel,
   onEditPanelTitles,
   onDuplicatePanel,
-  onOpenBuilder,
   onRemovePanel,
   onChartColorsChange,
 }: TrellisDashboardProps) {
@@ -553,13 +551,11 @@ export function TrellisDashboard({
         <Workspace.StageEmpty>
           <div className="trellis-empty-state">
             <p>No panels in this workspace.</p>
-            <Button size="sm" onClick={onOpenBuilder}>Create panel</Button>
           </div>
         </Workspace.StageEmpty>
         <Workspace.Empty>
           <div className="trellis-empty-state">
             <p>Your dashboard is ready for its first panel.</p>
-            <Button size="sm" onClick={onOpenBuilder}>Create panel</Button>
           </div>
         </Workspace.Empty>
       </Workspace>

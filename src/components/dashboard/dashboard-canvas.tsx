@@ -342,7 +342,6 @@ export function DashboardCanvas({
             onSelectPanel={onSelectPanel}
             onEditPanelTitles={onEditPanelTitles}
             onDuplicatePanel={onDuplicatePanel}
-            onOpenBuilder={onOpenBuilder}
             onRemovePanel={onRemovePanel}
             onChartColorsChange={onChartColorsChange}
           />
