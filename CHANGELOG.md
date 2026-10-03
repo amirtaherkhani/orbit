@@ -49,6 +49,7 @@
 - Align select popups to their triggers and refine dropdown surfaces for compact, viewport-aware warm glass menus.
 
 ### Fixed
+- Clear the selected tile and grouped-tab highlight when clicking outside dashboard tiles in Grid or Floating mode.
 - Reveal Floating tile action menus on hover and keyboard focus through the tab animation wrapper.
 - Size the "Move tile to" submenu icon consistently with other tile action icons.
 - Restore the Panel Composer heading's liquid-glass blur by making its base tint translucent like the navigation bar.

@@ -7130,6 +7130,21 @@ body {
   font-weight: 600;
 }
 
+.trellis-dashboard-host[data-selection-cleared="true"] .trellis
+  [data-trellis-part="tabbar"]:not([data-single])
+  [data-trellis-part="tab"][data-selected] {
+  background: transparent;
+  color: var(--muted-foreground);
+  box-shadow: none;
+  transform: none;
+}
+
+.trellis-dashboard-host[data-selection-cleared="true"] .trellis
+  [data-trellis-part="tabbar"]:not([data-single])
+  [data-trellis-part="tab"][data-selected] [data-trellis-part="tab-title"] {
+  font-weight: 500;
+}
+
 .dashboard-model-switch button:focus-visible,
 [data-slot="toggle-group"] [data-slot="toggle-group-item"]:focus-visible,
 .panel-color-style-option:focus-visible {
