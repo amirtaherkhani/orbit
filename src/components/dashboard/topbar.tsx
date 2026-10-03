@@ -228,9 +228,9 @@ export function Topbar({
           aria-label={isSaved ? "Dashboard saved" : "Save dashboard"}
         >
           {isSaved ? (
-            <CheckIcon className="text-primary-foreground" data-icon="inline-start" />
+            <CheckIcon color="var(--primary-foreground)" data-icon="inline-start" />
           ) : (
-            <SaveIcon data-icon="inline-start" />
+            <SaveIcon color="var(--primary-foreground)" data-icon="inline-start" />
           )}
           <span>{isSaved ? "Saved" : "Save"}</span>
         </Button>

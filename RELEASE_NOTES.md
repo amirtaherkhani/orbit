@@ -1,3 +1,8 @@
+# v0.8.14
+
+## Fixed
+- Match the Save button icon color to its label in both states.
+
 # v0.8.13
 
 ## Changed
