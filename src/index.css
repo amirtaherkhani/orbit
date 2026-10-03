@@ -6221,6 +6221,10 @@ body {
   --trellis-shadow-lifted: none;
 }
 
+.dark .trellis-dashboard-workspace > .trellis {
+  --trellis-tab-active: color-mix(in srgb, var(--primary) 16%, var(--card));
+}
+
 .trellis-dashboard-workspace .trellis .trellis-menu {
   border: 1px solid var(--glass-menu-border);
   border-radius: 14px;
@@ -7176,7 +7180,7 @@ body {
 
 .trellis-dashboard-workspace .trellis [data-trellis-part="tabbar"]:not([data-single])
   [data-trellis-part="tab"][data-selected] {
-  background: transparent;
+  background: var(--trellis-tab-active, transparent);
   color: var(--foreground);
   box-shadow: inset 0 2px 0 var(--primary);
   transform: translateY(-1px);
