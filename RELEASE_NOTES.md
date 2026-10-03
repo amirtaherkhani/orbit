@@ -1,3 +1,8 @@
+# v0.8.11
+
+## Fixed
+- Adjust text contrast on Periwinkle buttons separately for light and dark mode.
+
 # v0.8.10
 
 ## Fixed
