@@ -67,7 +67,7 @@ function DropdownMenuContent({
       )}
       {...props}
     >
-      <DropdownMenuHighlightPrimitive className="absolute inset-0 bg-accent z-0 rounded-sm">
+      <DropdownMenuHighlightPrimitive className="absolute inset-0 z-0 rounded-[8px]">
         {children}
       </DropdownMenuHighlightPrimitive>
     </DropdownMenuContentPrimitive>
