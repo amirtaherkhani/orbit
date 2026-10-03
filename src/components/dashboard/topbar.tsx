@@ -6,7 +6,6 @@ import {
   FileDownIcon,
   FileUpIcon,
   FolderOpenIcon,
-  EyeIcon,
   MoreHorizontalIcon,
   PanelLeftOpenIcon,
   PencilRulerIcon,
@@ -205,7 +204,7 @@ export function Topbar({
           className="mode-button"
         >
           {editMode ? (
-            <EyeIcon data-icon="inline-start" />
+            <OrbitMark />
           ) : (
             <PencilRulerIcon data-icon="inline-start" />
           )}
