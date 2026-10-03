@@ -107,7 +107,11 @@ export function Topbar({
           <DropdownMenuTrigger asChild>
             <Button variant="outline" className="time-range-button">
               {timeRange}
-              <ChevronDownIcon data-icon="inline-end" />
+              <ChevronDownIcon
+                className="control-chevron"
+                data-icon="inline-end"
+                weight="light"
+              />
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end" className="time-range-menu">
