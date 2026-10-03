@@ -6,6 +6,7 @@
 - Use the Grid canvas background behind Floating tiles in both themes.
 
 ### Fixed
+- Keep More actions menus and panel toolbars on neutral, translucent surfaces in both themes.
 
 ### Performance
 
