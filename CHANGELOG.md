@@ -12,6 +12,7 @@
 ### Performance
 
 ### Removed
+- Remove the Create panel button from empty Floating workspaces.
 
 ### Security
 
