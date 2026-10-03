@@ -407,7 +407,10 @@ export function TrellisDashboard({
   }, [panelSignature, panelsById])
 
   return (
-    <div className="trellis-dashboard-host">
+    <div
+      className="trellis-dashboard-host"
+      data-selection-cleared={selectedPanelId === null}
+    >
       <div className="trellis-dashboard-toolbar" aria-label="Floating dashboard tools">
         <div className="trellis-toolbar-actions">
           <DropdownMenu>
