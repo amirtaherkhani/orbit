@@ -1,5 +1,8 @@
 ## [Unreleased]
 
+### Fixed
+- Use the button's dark foreground color for the Add to dashboard icon in both themes.
+
 ### Added
 - Add a Settings page for persistent primary color selection across the dashboard, including Orbit orange and four selectable colors.
 - Show a close control on each grouped Floating chart tab.
@@ -50,6 +53,8 @@
 - Align select popups to their triggers and refine dropdown surfaces for compact, viewport-aware warm glass menus.
 
 ### Fixed
+- Clear the selected tile and grouped-tab highlight when clicking outside dashboard tiles in Grid or Floating mode.
+- Reveal Floating tile action menus on hover and keyboard focus through the tab animation wrapper.
 - Size the "Move tile to" submenu icon consistently with other tile action icons.
 - Restore the Panel Composer heading's liquid-glass blur by making its base tint translucent like the navigation bar.
 - Match the sidebar Orbit mark to the selected primary color.

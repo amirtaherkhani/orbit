@@ -385,7 +385,28 @@ export default function App() {
       <AppRail activePage={activePage} onNavigate={setActivePage} />
       <div className="app-main">
         {activePage === "dashboard" ? (
-          <div className="dashboard-page">
+          <div
+            className="dashboard-page"
+            onPointerDownCapture={(event) => {
+              const target = event.target
+              if (!(target instanceof Element)) return
+
+              const tile = target.closest(
+                ".dashboard-card, [data-trellis-part='panel']"
+              )
+              if (!tile) {
+                setSelectedPanelId(null)
+                return
+              }
+
+              const tab = target.closest("[data-trellis-part='tab']")
+              const viewId = tab?.getAttribute("data-view")
+              const panel = viewId
+                ? panels.find((item) => `signalboard-panel-${item.id}` === viewId)
+                : undefined
+              if (panel) setSelectedPanelId(panel.id)
+            }}
+          >
             <Topbar
               editMode={editMode}
               timeRange={timeRange}

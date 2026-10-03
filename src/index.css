@@ -2705,8 +2705,8 @@
 .dashboard-card:hover > .dashboard-panel-toolbar,
 .dashboard-card:focus-within > .dashboard-panel-toolbar,
 .trellis-dashboard-workspace [data-trellis-part="panel"]:hover .dashboard-panel-toolbar,
-.trellis-chart-content:hover > .dashboard-panel-toolbar,
-.trellis-chart-content:focus-within > .dashboard-panel-toolbar {
+.trellis-chart-content:hover .dashboard-panel-toolbar,
+.trellis-chart-content:focus-within .dashboard-panel-toolbar {
   opacity: 1;
   pointer-events: auto;
   transform: translateY(0);
@@ -7151,6 +7151,21 @@ body {
 .trellis-dashboard-workspace .trellis [data-trellis-part="tabbar"]:not([data-single])
   [data-trellis-part="tab"][data-selected] [data-trellis-part="tab-title"] {
   font-weight: 600;
+}
+
+.trellis-dashboard-host[data-selection-cleared="true"] .trellis
+  [data-trellis-part="tabbar"]:not([data-single])
+  [data-trellis-part="tab"][data-selected] {
+  background: transparent;
+  color: var(--muted-foreground);
+  box-shadow: none;
+  transform: none;
+}
+
+.trellis-dashboard-host[data-selection-cleared="true"] .trellis
+  [data-trellis-part="tabbar"]:not([data-single])
+  [data-trellis-part="tab"][data-selected] [data-trellis-part="tab-title"] {
+  font-weight: 500;
 }
 
 .dashboard-model-switch button:focus-visible,
