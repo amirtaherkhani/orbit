@@ -1,3 +1,8 @@
+# v0.8.12
+
+## Fixed
+- Restore the small arrow on sidebar and control tooltips in light and dark mode.
+
 # v0.8.11
 
 ## Fixed
