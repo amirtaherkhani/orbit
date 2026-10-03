@@ -2,6 +2,7 @@
 
 ## Changed
 - Show the same dotted, pointer-responsive dashboard canvas behind tiles in Grid and Floating modes.
+- Make pointer-reactive canvas dots brighter and more visible in both themes.
 
 # v0.8.15
 

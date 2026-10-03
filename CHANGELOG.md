@@ -4,6 +4,7 @@
 
 ### Changed
 - Use the Grid canvas background and pointer-following spotlight behind Floating tiles in both themes.
+- Increase the contrast and accent glow of dots that brighten around the pointer in Grid and Floating modes.
 
 ### Fixed
 

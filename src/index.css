@@ -1965,8 +1965,12 @@
   inset: 0;
   background-image: radial-gradient(
     circle,
-    color-mix(in oklch, var(--muted-foreground) 48%, transparent) 1.15px,
-    transparent 1.15px
+    color-mix(
+      in oklch,
+      color-mix(in oklch, var(--primary) 35%, var(--muted-foreground)) 76%,
+      transparent
+    ) 1.35px,
+    transparent 1.35px
   );
   background-position: 4px 4px;
   background-size: 18px 18px;
@@ -1990,7 +1994,7 @@
 
 .dashboard-grid-shell[data-spotlight-active="true"]::before,
 .trellis-dashboard-workspace[data-spotlight-active="true"]::before {
-  opacity: 0.8;
+  opacity: 1;
 }
 
 .dashboard-grid-shell > *,
