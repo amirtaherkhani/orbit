@@ -16,6 +16,7 @@
 - Add a reusable searchable multi-select with removable chips, keyboard listbox navigation, and clear-selection controls.
 
 ### Changed
+- Give the panel action toolbar a cool glass tint and make action menus more translucent.
 - Add a subtle pointer-following spotlight to the dashboard's dotted background.
 - Give the native Floating tile action menu a translucent, blurred glass surface in both themes.
 - Render the italic word in the Service health heading with a light font weight.
