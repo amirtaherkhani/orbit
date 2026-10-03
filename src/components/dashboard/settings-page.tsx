@@ -1,11 +1,15 @@
 import * as React from "react"
 
-import { PRIMARY_COLOR_OPTIONS, useTheme } from "@/components/theme-provider"
+import {
+  getPrimaryColorOptions,
+  useTheme,
+} from "@/components/theme-provider"
 import { CheckIcon } from "@/components/ui/icon-library"
 
 export function SettingsPage() {
-  const { primaryColor, setPrimaryColor } = useTheme()
-  const selectedOption = PRIMARY_COLOR_OPTIONS.find(
+  const { primaryColor, resolvedTheme, setPrimaryColor } = useTheme()
+  const colorOptions = getPrimaryColorOptions(resolvedTheme)
+  const selectedOption = colorOptions.find(
     (option) => option.value === primaryColor
   )
 
@@ -37,7 +41,10 @@ export function SettingsPage() {
           <div className="settings-card-heading">
             <div>
               <h3 id="primary-color-heading">Primary color</h3>
-              <p>Pick a color for the dashboard interface.</p>
+              <p>
+                Pick a color for the current mode. Orbit orange is available in
+                both themes.
+              </p>
             </div>
             {selectedOption && (
               <span className="selected-color-label" aria-live="polite">
@@ -57,9 +64,9 @@ export function SettingsPage() {
           <div
             className="primary-color-options"
             role="group"
-            aria-label="Primary color"
+            aria-label={`Primary color for ${resolvedTheme} mode`}
           >
-            {PRIMARY_COLOR_OPTIONS.map((option) => {
+            {colorOptions.map((option) => {
               const isSelected = option.value === primaryColor
 
               return (

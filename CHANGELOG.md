@@ -5,7 +5,7 @@
 - Use the button's dark foreground color for the Add to dashboard icon in both themes.
 
 ### Added
-- Add a Settings page for persistent primary color selection across the dashboard, including Orbit orange and four selectable colors.
+- Add a Settings page for persistent primary color selection across the dashboard, including theme-specific accent choices.
 - Show a close control on each grouped Floating chart tab.
 - Add nine shadcn-inspired Area chart styles: Interactive, Step, Linear, Stacked Expanded, Stacked, Legend, Axes, Gradient, and Icons. Stacked styles use the selected metric's series breakdown.
 - Show a compact, condensed current-value readout across graph-based chart types.
@@ -20,6 +20,7 @@
 - Remove the Neon chart color style and migrate saved Neon selections to the pastel palette.
 
 ### Changed
+- Keep Orbit orange in both theme palettes, with Periwinkle in light mode and Sky in dark mode.
 - Give the panel action toolbar a cool glass tint and make action menus more translucent.
 - Add a subtle pointer-following spotlight to the dashboard's dotted background.
 - Give the native Floating tile action menu a translucent, blurred glass surface in both themes.

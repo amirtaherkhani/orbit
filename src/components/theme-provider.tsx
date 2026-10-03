@@ -5,11 +5,9 @@ type Theme = "dark" | "light" | "system"
 type ResolvedTheme = "dark" | "light"
 
 export const PRIMARY_COLOR_OPTIONS = [
-  { name: "Orbit orange", value: "#ff7543" },
-  { name: "Golden yellow", value: "#ffc300" },
-  { name: "Sunshine", value: "#ffd60a" },
-  { name: "Sky", value: "#caf0f8" },
-  { name: "Periwinkle", value: "#7678ed" },
+  { name: "Orbit orange", value: "#ff7543", theme: "both" },
+  { name: "Sky", value: "#caf0f8", theme: "dark" },
+  { name: "Periwinkle", value: "#7678ed", theme: "light" },
 ] as const
 
 export type PrimaryColor = (typeof PRIMARY_COLOR_OPTIONS)[number]["value"]
@@ -24,6 +22,7 @@ type ThemeProviderProps = {
 
 type ThemeProviderState = {
   theme: Theme
+  resolvedTheme: ResolvedTheme
   setTheme: (theme: Theme) => void
   primaryColor: PrimaryColor
   setPrimaryColor: (color: PrimaryColor) => void
@@ -47,6 +46,22 @@ function isTheme(value: string | null): value is Theme {
 
 function isPrimaryColor(value: string | null): value is PrimaryColor {
   return PRIMARY_COLOR_OPTIONS.some((option) => option.value === value)
+}
+
+function isPrimaryColorAvailable(
+  color: PrimaryColor,
+  theme: ResolvedTheme
+) {
+  return PRIMARY_COLOR_OPTIONS.some(
+    (option) =>
+      option.value === color && (option.theme === "both" || option.theme === theme)
+  )
+}
+
+export function getPrimaryColorOptions(theme: ResolvedTheme) {
+  return PRIMARY_COLOR_OPTIONS.filter(
+    (option) => option.theme === "both" || option.theme === theme
+  )
 }
 
 function getSystemTheme(): ResolvedTheme {
@@ -111,12 +126,19 @@ export function ThemeProvider({
 
     return defaultTheme
   })
+  const [systemTheme, setSystemTheme] = React.useState<ResolvedTheme>(
+    getSystemTheme
+  )
+  const resolvedTheme = theme === "system" ? systemTheme : theme
   const [primaryColor, setPrimaryColorState] = React.useState<PrimaryColor>(
     () => {
       const storedColor = localStorage.getItem(primaryColorStorageKey)
       return isPrimaryColor(storedColor) ? storedColor : DEFAULT_PRIMARY_COLOR
     }
   )
+  const activePrimaryColor = isPrimaryColorAvailable(primaryColor, resolvedTheme)
+    ? primaryColor
+    : DEFAULT_PRIMARY_COLOR
 
   const setTheme = React.useCallback(
     (nextTheme: Theme) => {
@@ -128,35 +150,36 @@ export function ThemeProvider({
 
   const setPrimaryColor = React.useCallback(
     (nextColor: PrimaryColor) => {
-      localStorage.setItem(primaryColorStorageKey, nextColor)
-      setPrimaryColorState(nextColor)
+      const availableColor = isPrimaryColorAvailable(nextColor, resolvedTheme)
+        ? nextColor
+        : DEFAULT_PRIMARY_COLOR
+      localStorage.setItem(primaryColorStorageKey, availableColor)
+      setPrimaryColorState(availableColor)
     },
-    [primaryColorStorageKey]
+    [primaryColorStorageKey, resolvedTheme]
   )
 
   React.useEffect(() => {
     const root = document.documentElement
-    root.style.setProperty("--primary", primaryColor)
-    root.style.setProperty("--text-accent", primaryColor)
-    root.style.setProperty("--ring", primaryColor)
-    root.style.setProperty("--ui-border-focus", primaryColor)
-  }, [primaryColor])
+    root.style.setProperty("--primary", activePrimaryColor)
+    root.style.setProperty("--text-accent", activePrimaryColor)
+    root.style.setProperty("--ring", activePrimaryColor)
+    root.style.setProperty("--ui-border-focus", activePrimaryColor)
+  }, [activePrimaryColor])
 
   const applyTheme = React.useCallback(
-    (nextTheme: Theme) => {
+    (nextTheme: ResolvedTheme) => {
       const root = document.documentElement
-      const resolvedTheme =
-        nextTheme === "system" ? getSystemTheme() : nextTheme
       const restoreTransitions = disableTransitionOnChange
         ? disableTransitionsTemporarily()
         : null
 
       root.classList.remove("light", "dark")
-      root.classList.add(resolvedTheme)
+      root.classList.add(nextTheme)
       root.style.setProperty(
         "--primary-foreground",
-        primaryColor === "#7678ed"
-          ? resolvedTheme === "dark"
+        activePrimaryColor === "#7678ed"
+          ? nextTheme === "dark"
             ? "#f7f7ff"
             : "#101129"
           : "#191b17"
@@ -166,11 +189,11 @@ export function ThemeProvider({
         restoreTransitions()
       }
     },
-    [disableTransitionOnChange, primaryColor]
+    [activePrimaryColor, disableTransitionOnChange]
   )
 
   React.useEffect(() => {
-    applyTheme(theme)
+    applyTheme(resolvedTheme)
 
     if (theme !== "system") {
       return undefined
@@ -178,15 +201,16 @@ export function ThemeProvider({
 
     const mediaQuery = window.matchMedia(COLOR_SCHEME_QUERY)
     const handleChange = () => {
-      applyTheme("system")
+      setSystemTheme(mediaQuery.matches ? "dark" : "light")
     }
 
+    handleChange()
     mediaQuery.addEventListener("change", handleChange)
 
     return () => {
       mediaQuery.removeEventListener("change", handleChange)
     }
-  }, [theme, applyTheme])
+  }, [theme, resolvedTheme, applyTheme])
 
   React.useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -236,9 +260,7 @@ export function ThemeProvider({
 
       if (event.key === primaryColorStorageKey) {
         setPrimaryColorState(
-          isPrimaryColor(event.newValue)
-            ? event.newValue
-            : DEFAULT_PRIMARY_COLOR
+          isPrimaryColor(event.newValue) ? event.newValue : DEFAULT_PRIMARY_COLOR
         )
         return
       }
@@ -265,11 +287,12 @@ export function ThemeProvider({
   const value = React.useMemo(
     () => ({
       theme,
+      resolvedTheme,
       setTheme,
-      primaryColor,
+      primaryColor: activePrimaryColor,
       setPrimaryColor,
     }),
-    [theme, setTheme, primaryColor, setPrimaryColor]
+    [theme, resolvedTheme, setTheme, activePrimaryColor, setPrimaryColor]
   )
 
   return (
