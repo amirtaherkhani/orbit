@@ -1,3 +1,8 @@
+# v0.8.17
+
+## Added
+- Navigate directly to the dashboard editor or saved dashboards from separate sidebar items.
+
 # v0.8.16
 
 ## Changed
