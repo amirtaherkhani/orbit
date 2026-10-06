@@ -2,7 +2,6 @@ import {
   ActivityIcon,
   AppWindowIcon,
   BellIcon,
-  BlocksIcon,
   DatabaseIcon,
   LayoutDashboardIcon,
   Settings2Icon,
@@ -28,11 +27,10 @@ const navigation: Array<{
   icon: typeof LayoutDashboardIcon
   page?: AppPage
 }> = [
-  { label: "Dashboards", icon: LayoutDashboardIcon, page: "library" },
   { label: "Editor", icon: AppWindowIcon, page: "dashboard" },
   { label: "Explore data", icon: DatabaseIcon },
   { label: "Live signals", icon: ActivityIcon },
-  { label: "Integrations", icon: BlocksIcon },
+  { label: "Dashboards", icon: LayoutDashboardIcon, page: "library" },
 ]
 
 export function AppRail({ activePage, onNavigate }: AppRailProps) {

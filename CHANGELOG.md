@@ -5,6 +5,7 @@
 - Add a dedicated Editor destination beside Dashboards in the sidebar.
 
 ### Changed
+- Move the Dashboards shortcut into the former Integrations position while keeping Editor separate.
 - Use a minimal stroke arrow for the dashboard editor accordion indicator.
 - Use the Grid canvas background and pointer-following spotlight behind Floating tiles in both themes.
 - Increase the contrast and accent glow of dots that brighten around the pointer in Grid and Floating modes.
