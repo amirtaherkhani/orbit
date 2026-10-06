@@ -4,6 +4,7 @@ import { toast } from "sonner"
 
 import { AppRail, type AppPage } from "@/components/dashboard/app-rail"
 import { DashboardCanvas } from "@/components/dashboard/dashboard-canvas"
+import { DashboardLibrary } from "@/components/dashboard/dashboard-library"
 import { SettingsPage } from "@/components/dashboard/settings-page"
 import type { PanelNudgeAction } from "@/components/dashboard/panel-card"
 import type { PanelColorChange } from "@/components/dashboard/panel-action-toolbar"
@@ -26,9 +27,11 @@ import { defaultDraft, seedLayout, seedPanels } from "@/data/catalog"
 import { useMediaQuery } from "@/hooks/use-media-query"
 import {
   downloadDashboard,
+  listSavedDashboards,
   loadDashboard,
   parseDashboardDocument,
   saveDashboard,
+  selectSavedDashboard,
 } from "@/lib/dashboard-storage"
 import type {
   BuilderDraft,
@@ -49,6 +52,7 @@ function initialDashboard() {
   const stored = loadDashboard()
   if (stored) {
     return {
+      document: stored.document,
       snapshot: cloneSnapshot(stored.snapshot),
       timeRange: stored.timeRange,
       needsSave: stored.needsSave,
@@ -56,6 +60,7 @@ function initialDashboard() {
   }
 
   return {
+    document: null,
     snapshot: cloneSnapshot({ panels: seedPanels, layout: seedLayout }),
     timeRange: "Last 1 hour",
     needsSave: false,
@@ -92,7 +97,10 @@ export default function App() {
   const [editMode, setEditMode] = React.useState(true)
   const [dashboardModel, setDashboardModel] = React.useState<"grid" | "floating">("grid")
   const [timeRange, setTimeRange] = React.useState(initial.timeRange)
-  const [isSaved, setIsSaved] = React.useState(!initial.needsSave)
+  const [dashboardTitle, setDashboardTitle] = React.useState(initial.document?.title ?? "Operations overview")
+  const [currentDashboardId, setCurrentDashboardId] = React.useState<string | null>(initial.document?.id ?? null)
+  const [savedDashboards, setSavedDashboards] = React.useState(listSavedDashboards)
+  const [isSaved, setIsSaved] = React.useState(Boolean(initial.document && !initial.needsSave))
   const [mobileBuilderOpen, setMobileBuilderOpen] = React.useState(false)
   const [activePage, setActivePage] = React.useState<AppPage>("dashboard")
   const isMobile = useMediaQuery("(max-width: 820px)")
@@ -309,15 +317,24 @@ export default function App() {
   }
 
   const handleSave = () => {
-    saveDashboard(stateRef.current, timeRange)
-    setIsSaved(true)
-    toast.success("Dashboard saved", {
-      description: "Your layout is stored in this browser.",
-    })
+    try {
+      const id = currentDashboardId ?? crypto.randomUUID()
+      const document = saveDashboard(stateRef.current, timeRange, { id, title: dashboardTitle })
+      setCurrentDashboardId(document.id)
+      setSavedDashboards(listSavedDashboards())
+      setIsSaved(true)
+      toast.success("Dashboard saved", {
+        description: "Your layout is stored in this browser.",
+      })
+    } catch {
+      toast.error("Dashboard could not be saved", {
+        description: "Check your browser storage and try again.",
+      })
+    }
   }
 
   const handleLoad = () => {
-    const stored = loadDashboard()
+    const stored = loadDashboard(currentDashboardId ?? undefined)
     if (!stored) {
       toast.error("No saved dashboard", {
         description: "Save a dashboard in this browser before loading it.",
@@ -325,15 +342,21 @@ export default function App() {
       return
     }
 
-    checkpoint()
     applySnapshot(stored.snapshot)
     setTimeRange(stored.timeRange)
+    setDashboardTitle(stored.document.title)
+    setCurrentDashboardId(stored.document.id)
+    setHistory([])
+    setFuture([])
     setIsSaved(!stored.needsSave)
     toast.success("Dashboard loaded")
   }
 
   const handleExport = () => {
-    downloadDashboard(stateRef.current, timeRange)
+    downloadDashboard(stateRef.current, timeRange, {
+      id: currentDashboardId ?? "operations-overview",
+      title: dashboardTitle,
+    })
     toast.success("Dashboard exported", {
       description: "A portable versioned JSON file was created.",
     })
@@ -349,6 +372,8 @@ export default function App() {
       checkpoint()
       applySnapshot(document.dashboard)
       setTimeRange(document.timeRange)
+      setDashboardTitle(document.title)
+      setCurrentDashboardId(null)
       setIsSaved(false)
       toast.success("Dashboard imported", {
         description: `${document.dashboard.panels.length} panels are ready to review.`,
@@ -380,6 +405,47 @@ export default function App() {
     if (isMobile) setMobileBuilderOpen(true)
   }
 
+  const hasUnsavedWork = () => {
+    if (isSaved) return false
+    const untouchedStarter = currentDashboardId === null &&
+      dashboardTitle === "Operations overview" &&
+      timeRange === "Last 1 hour" &&
+      JSON.stringify(stateRef.current) === JSON.stringify({ panels: seedPanels, layout: seedLayout })
+    return !untouchedStarter
+  }
+
+  const handleOpenDashboard = (id: string) => {
+    if (hasUnsavedWork() && !window.confirm("Discard unsaved dashboard changes and open a saved dashboard?")) return
+    const stored = loadDashboard(id)
+    if (!stored) {
+      toast.error("Dashboard unavailable")
+      setSavedDashboards(listSavedDashboards())
+      return
+    }
+    applySnapshot(stored.snapshot)
+    setTimeRange(stored.timeRange)
+    setDashboardTitle(stored.document.title)
+    setCurrentDashboardId(stored.document.id)
+    setHistory([])
+    setFuture([])
+    setIsSaved(!stored.needsSave)
+    selectSavedDashboard(id)
+    setActivePage("dashboard")
+  }
+
+  const handleCreateDashboard = (title: string) => {
+    if (hasUnsavedWork() && !window.confirm("Discard unsaved dashboard changes and create a new dashboard?")) return false
+    applySnapshot({ panels: [], layout: [] })
+    setDashboardTitle(title)
+    setCurrentDashboardId(null)
+    setTimeRange("Last 1 hour")
+    setHistory([])
+    setFuture([])
+    setDashboardModel("grid")
+    setActivePage("dashboard")
+    return true
+  }
+
   return (
     <div className="app-shell">
       <AppRail activePage={activePage} onNavigate={setActivePage} />
@@ -408,6 +474,7 @@ export default function App() {
             }}
           >
             <Topbar
+              title={dashboardTitle}
               editMode={editMode}
               timeRange={timeRange}
               canUndo={history.length > 0}
@@ -424,6 +491,7 @@ export default function App() {
               onImport={() => importInputRef.current?.click()}
               onReset={handleReset}
               onOpenBuilder={openBuilder}
+              onShowLibrary={() => setActivePage("library")}
             />
 
             <div
@@ -439,6 +507,7 @@ export default function App() {
                 />
               )}
               <DashboardCanvas
+                title={dashboardTitle}
                 panels={panels}
                 layout={layout}
                 selectedPanelId={selectedPanelId}
@@ -458,6 +527,14 @@ export default function App() {
               />
             </div>
           </div>
+        ) : activePage === "library" ? (
+          <DashboardLibrary
+            dashboards={savedDashboards}
+            currentId={currentDashboardId}
+            onOpen={handleOpenDashboard}
+            onCreate={handleCreateDashboard}
+            onReturn={() => setActivePage("dashboard")}
+          />
         ) : (
           <SettingsPage />
         )}

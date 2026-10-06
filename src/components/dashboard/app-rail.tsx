@@ -15,7 +15,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip"
 
-export type AppPage = "dashboard" | "settings"
+export type AppPage = "dashboard" | "library" | "settings"
 
 type AppRailProps = {
   activePage: AppPage
@@ -27,7 +27,7 @@ const navigation: Array<{
   icon: typeof LayoutDashboardIcon
   page?: AppPage
 }> = [
-  { label: "Dashboards", icon: LayoutDashboardIcon, page: "dashboard" },
+  { label: "Dashboards", icon: LayoutDashboardIcon, page: "library" },
   { label: "Explore data", icon: DatabaseIcon },
   { label: "Live signals", icon: ActivityIcon },
   { label: "Integrations", icon: BlocksIcon },
@@ -48,7 +48,7 @@ export function AppRail({ activePage, onNavigate }: AppRailProps) {
                 variant="ghost"
                 size="icon-lg"
                 className="rail-button"
-                data-active={item.page === activePage}
+                data-active={item.page === activePage || (item.page === "library" && activePage === "dashboard")}
                 aria-label={item.label}
                 aria-current={item.page === activePage ? "page" : undefined}
                 onClick={() => item.page && onNavigate(item.page)}

@@ -6,6 +6,7 @@ import {
   FileDownIcon,
   FileUpIcon,
   FolderOpenIcon,
+  LayoutDashboardIcon,
   MoreHorizontalIcon,
   PanelLeftOpenIcon,
   PencilRulerIcon,
@@ -35,6 +36,7 @@ import {
 } from "@/components/ui/tooltip"
 
 type TopbarProps = {
+  title: string
   editMode: boolean
   timeRange: string
   canUndo: boolean
@@ -51,6 +53,7 @@ type TopbarProps = {
   onImport: () => void
   onReset: () => void
   onOpenBuilder: () => void
+  onShowLibrary: () => void
 }
 
 const timeRanges = [
@@ -61,6 +64,7 @@ const timeRanges = [
 ]
 
 export function Topbar({
+  title,
   editMode,
   timeRange,
   canUndo,
@@ -77,6 +81,7 @@ export function Topbar({
   onImport,
   onReset,
   onOpenBuilder,
+  onShowLibrary,
 }: TopbarProps) {
   return (
     <header className="topbar">
@@ -90,12 +95,17 @@ export function Topbar({
             <span className="app-version">v{appVersion}</span>
           </div>
           <h1 className="type-page-heading">
-            <TextAnimate>Operations overview</TextAnimate>
+            <TextAnimate key={title}>{title}</TextAnimate>
           </h1>
         </div>
       </div>
 
       <div className="topbar-actions">
+        {isMobile && (
+          <Button variant="outline" size="icon" aria-label="View dashboards" onClick={onShowLibrary}>
+            <LayoutDashboardIcon />
+          </Button>
+        )}
         {!isMobile && (
           <Badge variant="secondary" className="live-badge">
             <span className="live-dot" />
