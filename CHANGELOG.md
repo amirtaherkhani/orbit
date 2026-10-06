@@ -1,6 +1,7 @@
 ## [Unreleased]
 
 ### Added
+- Add a dedicated Editor destination beside Dashboards in the sidebar.
 
 ### Changed
 - Use a minimal stroke arrow for the dashboard editor accordion indicator.

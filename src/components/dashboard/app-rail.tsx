@@ -1,5 +1,6 @@
 import {
   ActivityIcon,
+  AppWindowIcon,
   BellIcon,
   BlocksIcon,
   DatabaseIcon,
@@ -28,6 +29,7 @@ const navigation: Array<{
   page?: AppPage
 }> = [
   { label: "Dashboards", icon: LayoutDashboardIcon, page: "library" },
+  { label: "Editor", icon: AppWindowIcon, page: "dashboard" },
   { label: "Explore data", icon: DatabaseIcon },
   { label: "Live signals", icon: ActivityIcon },
   { label: "Integrations", icon: BlocksIcon },
@@ -48,7 +50,7 @@ export function AppRail({ activePage, onNavigate }: AppRailProps) {
                 variant="ghost"
                 size="icon-lg"
                 className="rail-button"
-                data-active={item.page === activePage || (item.page === "library" && activePage === "dashboard")}
+                data-active={item.page === activePage}
                 aria-label={item.label}
                 aria-current={item.page === activePage ? "page" : undefined}
                 onClick={() => item.page && onNavigate(item.page)}
