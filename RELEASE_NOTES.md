@@ -1,3 +1,8 @@
+# v0.8.20
+
+## Changed
+- Use an editor-specific icon for the Dashboards page's return-to-editor control.
+
 # v0.8.19
 
 ## Changed
