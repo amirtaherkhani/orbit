@@ -5,6 +5,7 @@
 - Add a dedicated Editor destination beside Dashboards in the sidebar.
 
 ### Changed
+- Use an editor-specific icon for the Dashboards page's return-to-editor control.
 - Move the Dashboards shortcut into the former Integrations position while keeping Editor separate.
 - Use a minimal stroke arrow for the dashboard editor accordion indicator.
 - Use the Grid canvas background and pointer-following spotlight behind Floating tiles in both themes.

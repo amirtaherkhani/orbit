@@ -2,10 +2,10 @@ import * as React from "react"
 
 import { OrbitMark } from "@/components/branding/orbit-mark"
 import {
-  ArrowLeftIcon,
   ArrowRightIcon,
   LayoutDashboardIcon,
   PencilLineIcon,
+  PencilRulerIcon,
   PlusIcon,
   Trash2Icon,
 } from "@/components/ui/icon-library"
@@ -234,7 +234,7 @@ export function DashboardLibrary({
         </div>
         <div className="dashboard-library-topbar-actions">
           <Button variant="outline" onClick={onReturn} aria-label="Return to editor">
-            <ArrowLeftIcon data-icon="inline-start" /> <span>Editor</span>
+            <PencilRulerIcon data-icon="inline-start" /> <span>Editor</span>
           </Button>
           <Button variant="outline" onClick={() => setCreateCategoryOpen(true)}>
             <PlusIcon data-icon="inline-start" /> New category
