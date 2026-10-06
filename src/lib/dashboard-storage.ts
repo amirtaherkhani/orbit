@@ -147,6 +147,7 @@ function isDashboardDocument(value: unknown): value is DashboardDocument {
     value.schemaVersion === DASHBOARD_SCHEMA_VERSION &&
     typeof value.id === "string" &&
     typeof value.title === "string" &&
+    (value.category === undefined || typeof value.category === "string") &&
     typeof value.timeRange === "string" &&
     typeof value.createdAt === "string" &&
     typeof value.updatedAt === "string" &&
@@ -293,7 +294,15 @@ export function parseDashboardDocument(value: string): DashboardDocument {
 type DashboardCollection = {
   version: 1
   activeId: string
+  categories: string[]
   dashboards: DashboardDocument[]
+}
+
+function normalizeCategories(value: unknown) {
+  if (!Array.isArray(value)) return []
+  return [...new Set(value.filter((category): category is string =>
+    typeof category === "string" && category.trim().length > 0
+  ).map((category) => category.trim()))]
 }
 
 function readDashboardCollection(): DashboardCollection {
@@ -312,6 +321,7 @@ function readDashboardCollection(): DashboardCollection {
         return {
           version: 1,
           activeId: typeof value.activeId === "string" ? value.activeId : "",
+          categories: normalizeCategories(value.categories),
           dashboards,
         }
       }
@@ -324,18 +334,89 @@ function readDashboardCollection(): DashboardCollection {
     const legacy = localStorage.getItem(STORAGE_KEY)
     if (legacy) {
       const document = parseDashboardDocument(legacy)
-      return { version: 1, activeId: document.id, dashboards: [document] }
+      return { version: 1, activeId: document.id, categories: [], dashboards: [document] }
     }
   } catch {
     // An invalid legacy document is treated as an empty library.
   }
-  return { version: 1, activeId: "", dashboards: [] }
+  return { version: 1, activeId: "", categories: [], dashboards: [] }
 }
 
 export function listSavedDashboards(): DashboardDocument[] {
   return readDashboardCollection().dashboards.sort((a, b) =>
     b.updatedAt.localeCompare(a.updatedAt)
   )
+}
+
+export function listDashboardCategories() {
+  return readDashboardCollection().categories
+}
+
+export function createDashboardCategory(name: string) {
+  const category = name.trim()
+  if (!category) return null
+  const collection = readDashboardCollection()
+  const existing = collection.categories.find((item) => item.toLocaleLowerCase() === category.toLocaleLowerCase())
+  if (existing) return existing
+  const categories = [...collection.categories, category]
+  localStorage.setItem(COLLECTION_KEY, JSON.stringify({ ...collection, categories }))
+  return category
+}
+
+export function renameDashboardCategory(previousName: string, nextName: string) {
+  const category = nextName.trim()
+  if (!category) return false
+  const collection = readDashboardCollection()
+  if (!collection.categories.includes(previousName)) return false
+  if (collection.categories.some((item) => item !== previousName && item.toLocaleLowerCase() === category.toLocaleLowerCase())) return false
+  const categories = collection.categories.map((item) => item === previousName ? category : item)
+  const dashboards = collection.dashboards.map((document) => document.category === previousName
+    ? { ...document, category }
+    : document
+  )
+  localStorage.setItem(COLLECTION_KEY, JSON.stringify({ ...collection, categories, dashboards }))
+  return true
+}
+
+export function deleteDashboardCategory(name: string) {
+  const collection = readDashboardCollection()
+  if (!collection.categories.includes(name)) return false
+  const categories = collection.categories.filter((category) => category !== name)
+  const dashboards = collection.dashboards.map((document) => document.category === name
+    ? { ...document, category: undefined }
+    : document
+  )
+  localStorage.setItem(COLLECTION_KEY, JSON.stringify({ ...collection, categories, dashboards }))
+  return true
+}
+
+export function assignDashboardCategory(id: string, category?: string) {
+  const collection = readDashboardCollection()
+  if (category && !collection.categories.includes(category)) return false
+  let found = false
+  const dashboards = collection.dashboards.map((document) => {
+    if (document.id !== id) return document
+    found = true
+    return { ...document, category: category || undefined }
+  })
+  if (!found) return false
+  localStorage.setItem(COLLECTION_KEY, JSON.stringify({ ...collection, dashboards }))
+  return true
+}
+
+export function renameSavedDashboard(id: string, title: string) {
+  const nextTitle = title.trim()
+  if (!nextTitle) return false
+  const collection = readDashboardCollection()
+  let found = false
+  const dashboards = collection.dashboards.map((document) => {
+    if (document.id !== id) return document
+    found = true
+    return { ...document, title: nextTitle, updatedAt: new Date().toISOString() }
+  })
+  if (!found) return false
+  localStorage.setItem(COLLECTION_KEY, JSON.stringify({ ...collection, dashboards }))
+  return true
 }
 
 export function loadDashboard(id?: string): LoadedDashboard | null {
@@ -368,7 +449,7 @@ export function loadDashboard(id?: string): LoadedDashboard | null {
 export function saveDashboard(
   snapshot: DashboardSnapshot,
   timeRange: string,
-  identity?: { id: string; title: string }
+  identity?: { id: string; title: string; category?: string }
 ) {
   const collection = readDashboardCollection()
   const id = identity?.id ?? (collection.activeId || crypto.randomUUID())
@@ -376,13 +457,14 @@ export function saveDashboard(
   const document = createDashboardDocument(snapshot, timeRange, previous)
   document.id = id
   document.title = identity?.title.trim() || previous?.title || "Untitled dashboard"
+  document.category = identity?.category ?? previous?.category
   const dashboards = [
     document,
     ...collection.dashboards.filter((item) => item.id !== id),
   ]
   localStorage.setItem(
     COLLECTION_KEY,
-    JSON.stringify({ version: 1, activeId: id, dashboards })
+    JSON.stringify({ ...collection, activeId: id, dashboards })
   )
   return document
 }

@@ -197,6 +197,7 @@ export type DashboardDocument = {
   schemaVersion: 1
   id: string
   title: string
+  category?: string
   timeRange: string
   createdAt: string
   updatedAt: string

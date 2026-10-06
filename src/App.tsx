@@ -28,6 +28,12 @@ import { useMediaQuery } from "@/hooks/use-media-query"
 import {
   downloadDashboard,
   listSavedDashboards,
+  listDashboardCategories,
+  createDashboardCategory,
+  renameDashboardCategory,
+  deleteDashboardCategory,
+  assignDashboardCategory,
+  renameSavedDashboard,
   loadDashboard,
   parseDashboardDocument,
   saveDashboard,
@@ -98,8 +104,10 @@ export default function App() {
   const [dashboardModel, setDashboardModel] = React.useState<"grid" | "floating">("grid")
   const [timeRange, setTimeRange] = React.useState(initial.timeRange)
   const [dashboardTitle, setDashboardTitle] = React.useState(initial.document?.title ?? "Operations overview")
+  const [dashboardCategory, setDashboardCategory] = React.useState(initial.document?.category)
   const [currentDashboardId, setCurrentDashboardId] = React.useState<string | null>(initial.document?.id ?? null)
   const [savedDashboards, setSavedDashboards] = React.useState(listSavedDashboards)
+  const [dashboardCategories, setDashboardCategories] = React.useState(listDashboardCategories)
   const [isSaved, setIsSaved] = React.useState(Boolean(initial.document && !initial.needsSave))
   const [mobileBuilderOpen, setMobileBuilderOpen] = React.useState(false)
   const [activePage, setActivePage] = React.useState<AppPage>("dashboard")
@@ -319,9 +327,10 @@ export default function App() {
   const handleSave = () => {
     try {
       const id = currentDashboardId ?? crypto.randomUUID()
-      const document = saveDashboard(stateRef.current, timeRange, { id, title: dashboardTitle })
+      const document = saveDashboard(stateRef.current, timeRange, { id, title: dashboardTitle, category: dashboardCategory })
       setCurrentDashboardId(document.id)
       setSavedDashboards(listSavedDashboards())
+      setDashboardCategories(listDashboardCategories())
       setIsSaved(true)
       toast.success("Dashboard saved", {
         description: "Your layout is stored in this browser.",
@@ -345,6 +354,7 @@ export default function App() {
     applySnapshot(stored.snapshot)
     setTimeRange(stored.timeRange)
     setDashboardTitle(stored.document.title)
+    setDashboardCategory(stored.document.category)
     setCurrentDashboardId(stored.document.id)
     setHistory([])
     setFuture([])
@@ -373,6 +383,7 @@ export default function App() {
       applySnapshot(document.dashboard)
       setTimeRange(document.timeRange)
       setDashboardTitle(document.title)
+      setDashboardCategory(document.category)
       setCurrentDashboardId(null)
       setIsSaved(false)
       toast.success("Dashboard imported", {
@@ -425,6 +436,7 @@ export default function App() {
     applySnapshot(stored.snapshot)
     setTimeRange(stored.timeRange)
     setDashboardTitle(stored.document.title)
+    setDashboardCategory(stored.document.category)
     setCurrentDashboardId(stored.document.id)
     setHistory([])
     setFuture([])
@@ -433,10 +445,11 @@ export default function App() {
     setActivePage("dashboard")
   }
 
-  const handleCreateDashboard = (title: string) => {
+  const handleCreateDashboard = (title: string, category?: string) => {
     if (hasUnsavedWork() && !window.confirm("Discard unsaved dashboard changes and create a new dashboard?")) return false
     applySnapshot({ panels: [], layout: [] })
     setDashboardTitle(title)
+    setDashboardCategory(category)
     setCurrentDashboardId(null)
     setTimeRange("Last 1 hour")
     setHistory([])
@@ -444,6 +457,66 @@ export default function App() {
     setDashboardModel("grid")
     setActivePage("dashboard")
     return true
+  }
+
+  const handleAssignDashboardCategory = (id: string, category?: string) => {
+    try {
+      if (!assignDashboardCategory(id, category)) return
+      setSavedDashboards(listSavedDashboards())
+    } catch {
+      toast.error("Dashboard category could not be changed", { description: "Check your browser storage and try again." })
+    }
+  }
+
+  const handleRenameSavedDashboard = (id: string, title: string) => {
+    try {
+      const renamed = renameSavedDashboard(id, title)
+      if (!renamed) return false
+      setSavedDashboards(listSavedDashboards())
+      if (currentDashboardId === id) setDashboardTitle(title.trim())
+      return true
+    } catch {
+      toast.error("Dashboard could not be renamed", { description: "Check your browser storage and try again." })
+      return false
+    }
+  }
+
+  const handleCreateDashboardCategory = (name: string) => {
+    try {
+      const category = createDashboardCategory(name)
+      if (category) setDashboardCategories(listDashboardCategories())
+      return category
+    } catch {
+      toast.error("Category could not be created", { description: "Check your browser storage and try again." })
+      return null
+    }
+  }
+
+  const handleRenameDashboardCategory = (previous: string, next: string) => {
+    try {
+      const renamed = renameDashboardCategory(previous, next)
+      if (renamed) {
+        setDashboardCategories(listDashboardCategories())
+        setSavedDashboards(listSavedDashboards())
+      } else {
+        toast.error("Category name is already in use")
+      }
+      return renamed
+    } catch {
+      toast.error("Category could not be renamed", { description: "Check your browser storage and try again." })
+      return false
+    }
+  }
+
+  const handleDeleteDashboardCategory = (name: string) => {
+    try {
+      if (deleteDashboardCategory(name)) {
+        setDashboardCategories(listDashboardCategories())
+        setSavedDashboards(listSavedDashboards())
+      }
+    } catch {
+      toast.error("Category could not be deleted", { description: "Check your browser storage and try again." })
+    }
   }
 
   return (
@@ -530,9 +603,15 @@ export default function App() {
         ) : activePage === "library" ? (
           <DashboardLibrary
             dashboards={savedDashboards}
+            categories={dashboardCategories}
             currentId={currentDashboardId}
             onOpen={handleOpenDashboard}
             onCreate={handleCreateDashboard}
+            onAssignCategory={handleAssignDashboardCategory}
+            onRenameDashboard={handleRenameSavedDashboard}
+            onCreateCategory={handleCreateDashboardCategory}
+            onRenameCategory={handleRenameDashboardCategory}
+            onDeleteCategory={handleDeleteDashboardCategory}
             onReturn={() => setActivePage("dashboard")}
           />
         ) : (
