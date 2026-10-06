@@ -1,3 +1,8 @@
+# v0.8.19
+
+## Changed
+- Move the Dashboards shortcut into the former Integrations position, with a single sidebar entry for dashboards and a separate Editor entry.
+
 # v0.8.18
 
 ## Added
