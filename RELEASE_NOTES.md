@@ -1,3 +1,10 @@
+# v0.8.18
+
+## Added
+- Organize named dashboards into user-created categories and browse them in animated category tabs.
+- Preview saved dashboard layouts with static chart-style thumbnails that do not run live charts.
+- Rename saved dashboards and categories, assign dashboards to categories, and remove categories while keeping dashboards uncategorized.
+
 # v0.8.17
 
 ## Added

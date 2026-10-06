@@ -1,6 +1,7 @@
 ## [Unreleased]
 
 ### Added
+- Create, rename, and delete dashboard categories; name dashboards, assign them to categories, and browse static saved-layout previews.
 - Add a dedicated Editor destination beside Dashboards in the sidebar.
 
 ### Changed
