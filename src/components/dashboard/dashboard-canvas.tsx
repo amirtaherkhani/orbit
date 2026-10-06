@@ -131,6 +131,7 @@ const TrellisDashboard = React.lazy(async () => {
 })
 
 type DashboardCanvasProps = {
+  title: string
   panels: PanelConfig[]
   layout: Layout
   selectedPanelId: string | null
@@ -188,6 +189,7 @@ function useGridContainerWidth() {
 }
 
 export function DashboardCanvas({
+  title,
   panels,
   layout,
   selectedPanelId,
@@ -259,17 +261,21 @@ export function DashboardCanvas({
         <div>
           <div className="canvas-title-row">
             <h2 className="type-section-heading">
-              Service <em className="type-editorial-emphasis">health</em>
+              {title === "Operations overview" ? <>
+                Service <em className="type-editorial-emphasis">health</em>
+              </> : title}
             </h2>
             <Badge variant="outline">{panels.length} panels</Badge>
           </div>
           <p>
-            Arrange your{" "}
-            <TextFlip
-              words={["service health", "live telemetry", "reliability trends"]}
-              ariaLabel="service health, live telemetry, and reliability trends"
-            />{" "}
-            for the next decision.
+            {title === "Operations overview" ? <>
+              Arrange your{" "}
+              <TextFlip
+                words={["service health", "live telemetry", "reliability trends"]}
+                ariaLabel="service health, live telemetry, and reliability trends"
+              />{" "}
+              for the next decision.
+            </> : "Arrange panels and monitor the signals that matter here."}
           </p>
         </div>
         <div className="canvas-heading-actions">

@@ -8,6 +8,7 @@ import type {
 } from "@/types/dashboard"
 
 const STORAGE_KEY = "signalboard-dashboard-v1"
+const COLLECTION_KEY = "orbit-dashboards-v1"
 const DASHBOARD_SCHEMA_VERSION = 1
 const DASHBOARD_ID = "operations-overview"
 const chartTypes = new Set<ChartType>([
@@ -89,6 +90,7 @@ const panelFields = new Set([
 ])
 
 export type LoadedDashboard = {
+  document: DashboardDocument
   snapshot: DashboardSnapshot
   timeRange: string
   needsSave: boolean
@@ -288,17 +290,72 @@ export function parseDashboardDocument(value: string): DashboardDocument {
   return parseDashboardDocumentWithMigration(value).document
 }
 
-export function loadDashboard(): LoadedDashboard | null {
-  try {
-    const stored = localStorage.getItem(STORAGE_KEY)
-    if (!stored) return null
+type DashboardCollection = {
+  version: 1
+  activeId: string
+  dashboards: DashboardDocument[]
+}
 
-    const { document, migrated: panelsMigrated } =
-      parseDashboardDocumentWithMigration(stored)
+function readDashboardCollection(): DashboardCollection {
+  try {
+    const stored = localStorage.getItem(COLLECTION_KEY)
+    if (stored) {
+      const value: unknown = JSON.parse(stored)
+      if (isRecord(value) && value.version === 1 && Array.isArray(value.dashboards)) {
+        const dashboards = value.dashboards.flatMap((item) => {
+          try {
+            return [parseDashboardDocument(JSON.stringify(item))]
+          } catch {
+            return []
+          }
+        })
+        return {
+          version: 1,
+          activeId: typeof value.activeId === "string" ? value.activeId : "",
+          dashboards,
+        }
+      }
+    }
+  } catch {
+    // A damaged collection must not hide a valid dashboard from the older format.
+  }
+
+  try {
+    const legacy = localStorage.getItem(STORAGE_KEY)
+    if (legacy) {
+      const document = parseDashboardDocument(legacy)
+      return { version: 1, activeId: document.id, dashboards: [document] }
+    }
+  } catch {
+    // An invalid legacy document is treated as an empty library.
+  }
+  return { version: 1, activeId: "", dashboards: [] }
+}
+
+export function listSavedDashboards(): DashboardDocument[] {
+  return readDashboardCollection().dashboards.sort((a, b) =>
+    b.updatedAt.localeCompare(a.updatedAt)
+  )
+}
+
+export function loadDashboard(id?: string): LoadedDashboard | null {
+  try {
+    const collection = readDashboardCollection()
+    const document = id
+      ? collection.dashboards.find((item) => item.id === id)
+      : collection.dashboards.find((item) => item.id === collection.activeId) ?? collection.dashboards[0]
+    if (!document) return null
+    const legacy = !localStorage.getItem(COLLECTION_KEY)
+      ? localStorage.getItem(STORAGE_KEY)
+      : null
+    const panelsMigrated = legacy
+      ? parseDashboardDocumentWithMigration(legacy).migrated
+      : false
     const migrated = applyDefaultChartGradients(
       cloneSnapshot(document.dashboard)
     )
     return {
+      document,
       snapshot: migrated.snapshot,
       timeRange: document.timeRange,
       needsSave: panelsMigrated || migrated.changed,
@@ -308,20 +365,32 @@ export function loadDashboard(): LoadedDashboard | null {
   }
 }
 
-export function saveDashboard(snapshot: DashboardSnapshot, timeRange: string) {
-  let previous: DashboardDocument | undefined
-  const stored = localStorage.getItem(STORAGE_KEY)
-  if (stored) {
-    try {
-      previous = parseDashboardDocument(stored)
-    } catch {
-      previous = undefined
-    }
-  }
-
+export function saveDashboard(
+  snapshot: DashboardSnapshot,
+  timeRange: string,
+  identity?: { id: string; title: string }
+) {
+  const collection = readDashboardCollection()
+  const id = identity?.id ?? (collection.activeId || crypto.randomUUID())
+  const previous = collection.dashboards.find((item) => item.id === id)
   const document = createDashboardDocument(snapshot, timeRange, previous)
-  localStorage.setItem(STORAGE_KEY, getJsonExporter().serialize(document))
+  document.id = id
+  document.title = identity?.title.trim() || previous?.title || "Untitled dashboard"
+  const dashboards = [
+    document,
+    ...collection.dashboards.filter((item) => item.id !== id),
+  ]
+  localStorage.setItem(
+    COLLECTION_KEY,
+    JSON.stringify({ version: 1, activeId: id, dashboards })
+  )
   return document
+}
+
+export function selectSavedDashboard(id: string) {
+  const collection = readDashboardCollection()
+  if (!collection.dashboards.some((item) => item.id === id)) return
+  localStorage.setItem(COLLECTION_KEY, JSON.stringify({ ...collection, activeId: id }))
 }
 
 export function serializeDashboard(
@@ -335,10 +404,15 @@ export function serializeDashboard(
 
 export function downloadDashboard(
   snapshot: DashboardSnapshot,
-  timeRange: string
+  timeRange: string,
+  identity?: { id: string; title: string }
 ) {
   const exporter = getJsonExporter()
   const document = createDashboardDocument(snapshot, timeRange)
+  if (identity) {
+    document.id = identity.id
+    document.title = identity.title
+  }
   const blob = new Blob([exporter.serialize(document)], {
     type: exporter.mediaType,
   })
