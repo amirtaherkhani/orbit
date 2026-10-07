@@ -1,3 +1,8 @@
+# v0.8.27
+
+## Changed
+- Give dashboard deck titles the project’s light Newsreader italic treatment.
+
 # v0.8.26
 
 ## Changed
