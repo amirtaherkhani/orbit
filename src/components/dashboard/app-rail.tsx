@@ -28,7 +28,7 @@ const navigation: Array<{
   page?: AppPage
 }> = [
   { label: "Editor", icon: AppWindowIcon, page: "dashboard" },
-  { label: "Explore data", icon: DatabaseIcon },
+  { label: "Resource", icon: DatabaseIcon },
   { label: "Live signals", icon: ActivityIcon },
   { label: "Dashboards", icon: LayoutDashboardIcon, page: "library" },
 ]
