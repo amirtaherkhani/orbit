@@ -2,7 +2,7 @@ import * as React from "react"
 
 import { OrbitMark } from "@/components/branding/orbit-mark"
 import {
-  ArrowRightIcon,
+  EyeIcon,
   LayoutDashboardIcon,
   PencilLineIcon,
   PencilRulerIcon,
@@ -211,8 +211,8 @@ export function DashboardLibrary({
             <h2>{document.title}</h2>
             <p>{document.dashboard.panels.length} panels · {savedAt(document.updatedAt)}</p>
           </div>
-          <Button className="dashboard-library-open" onClick={() => onOpen(document.id)} aria-label={`Open ${document.title}`}>
-            Open dashboard <ArrowRightIcon data-icon="inline-end" />
+          <Button className="dashboard-library-open" onClick={() => onOpen(document.id)} aria-label={`Open ${document.title} in view mode`}>
+            <EyeIcon data-icon="inline-start" /> Open dashboard
           </Button>
         </div>
         <DashboardPreview document={document} />
@@ -247,7 +247,7 @@ export function DashboardLibrary({
           <div>
             <span className="section-kicker">Your workspace</span>
             <h2>Saved dashboards <span>{dashboards.length.toString().padStart(2, "0")}</span></h2>
-            <p>Group dashboards into categories, then open one to continue editing.</p>
+            <p>Group dashboards into categories, then open one in view mode.</p>
           </div>
           <span className="dashboard-library-local-label">Stored in this browser</span>
         </div>
