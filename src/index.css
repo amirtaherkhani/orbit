@@ -7544,8 +7544,8 @@ body {
   box-shadow:
     0 22px 64px color-mix(in srgb, var(--primary) 12%, transparent),
     var(--glass-panel-shadow);
-  -webkit-backdrop-filter: blur(var(--glass-blur-panel)) saturate(var(--glass-saturation-panel));
-  backdrop-filter: blur(var(--glass-blur-panel)) saturate(var(--glass-saturation-panel));
+  -webkit-backdrop-filter: blur(calc(var(--glass-blur-panel) + 14px)) saturate(var(--glass-saturation-panel));
+  backdrop-filter: blur(calc(var(--glass-blur-panel) + 14px)) saturate(var(--glass-saturation-panel));
   color: var(--foreground);
 }
 .dashboard-library-deck-heading {
@@ -7598,8 +7598,8 @@ body {
   border-radius: calc(var(--glass-surface-radius) - 2px);
   background: var(--glass-panel-fill);
   box-shadow: 0 16px 46px color-mix(in srgb, var(--foreground) 8%, transparent), var(--glass-panel-shadow);
-  -webkit-backdrop-filter: blur(var(--glass-blur-panel)) saturate(var(--glass-saturation-panel));
-  backdrop-filter: blur(var(--glass-blur-panel)) saturate(var(--glass-saturation-panel));
+  -webkit-backdrop-filter: blur(calc(var(--glass-blur-panel) + 8px)) saturate(var(--glass-saturation-panel));
+  backdrop-filter: blur(calc(var(--glass-blur-panel) + 8px)) saturate(var(--glass-saturation-panel));
 }
 .dashboard-library-deck-card .dashboard-library-preview-grid {
   height: calc(100% - 51px);
