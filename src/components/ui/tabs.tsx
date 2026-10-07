@@ -21,10 +21,10 @@ export function Tabs({ tabs, value, onValueChange, className, ariaLabel = "Saved
   const id = React.useId()
   const reduceMotion = useReducedMotion()
   const [history, setHistory] = React.useState<string[]>([])
-  const [hovering, setHovering] = React.useState(false)
+  const [hoveredTabValue, setHoveredTabValue] = React.useState<string | null>(null)
   const selected = tabs.find((tab) => tab.value === value) ?? tabs[0]
   // The tab row stays in document order; selected cards move to the front of the deck.
-  const orderedValues = [...new Set([selected?.value, ...history, ...tabs.map((tab) => tab.value)])]
+  const orderedValues = [...new Set([selected?.value, hoveredTabValue, ...history, ...tabs.map((tab) => tab.value)])]
   const deck = orderedValues.flatMap((tabValue) => {
     const tab = tabs.find((item) => item.value === tabValue)
     return tab ? [tab] : []
@@ -33,6 +33,7 @@ export function Tabs({ tabs, value, onValueChange, className, ariaLabel = "Saved
   const selectTab = (nextValue: string) => {
     setHistory((previous) => [...new Set([nextValue, selected?.value ?? nextValue, ...previous])]
       .filter((item) => tabs.some((tab) => tab.value === item)))
+    setHoveredTabValue(null)
     onValueChange(nextValue)
   }
 
@@ -58,14 +59,15 @@ export function Tabs({ tabs, value, onValueChange, className, ariaLabel = "Saved
 
   return (
     <div className={cn("dashboard-tabs", className)}>
-      <div className="dashboard-tabs-list" role="tablist" aria-label={ariaLabel}
-        onPointerEnter={() => setHovering(true)} onPointerLeave={() => setHovering(false)}>
+      <div className="dashboard-tabs-list" role="tablist" aria-label={ariaLabel}>
         {tabs.map((tab, index) => {
           const active = tab.value === selected.value
           return (
             <button key={tab.value} id={`${id}-tab-${index}`} type="button" role="tab"
               aria-selected={active} aria-controls={`${id}-panel-${index}`} tabIndex={active ? 0 : -1}
               className="dashboard-tabs-trigger" title={tab.title}
+              onPointerEnter={() => setHoveredTabValue(active ? null : tab.value)}
+              onPointerLeave={() => setHoveredTabValue((current) => current === tab.value ? null : current)}
               onClick={() => selectTab(tab.value)} onKeyDown={(event) => onTabKeyDown(event, index)}>
               {active && (
                 <motion.span layoutId={`${id}-active-tab`} className="dashboard-tabs-active" aria-hidden="true"
@@ -80,13 +82,19 @@ export function Tabs({ tabs, value, onValueChange, className, ariaLabel = "Saved
         {deck.map((tab, depth) => {
           const index = tabs.findIndex((item) => item.value === tab.value)
           const active = depth === 0
+          const hovered = !active && tab.value === hoveredTabValue
+          const previewing = hoveredTabValue !== null && hoveredTabValue !== selected.value
           return (
             <motion.div key={tab.value} id={`${id}-panel-${index}`} role="tabpanel"
               aria-labelledby={`${id}-tab-${index}`} aria-hidden={!active} inert={!active}
               tabIndex={active ? 0 : -1} className="dashboard-tabs-card"
               style={{ zIndex: 3 - depth, pointerEvents: active ? "auto" : "none" }}
               initial={false}
-              animate={{ scale: 1 - depth * 0.1, top: hovering && !reduceMotion ? depth * -50 : 0, opacity: 1 - depth * 0.1 }}
+              animate={{
+                scale: 1 - depth * 0.1,
+                top: previewing && !reduceMotion ? (hovered ? -88 : depth * -50) : 0,
+                opacity: 1 - depth * 0.1,
+              }}
               transition={reduceMotion ? { duration: 0 } : { type: "spring", stiffness: 260, damping: 28 }}>
               <motion.div className="dashboard-tabs-card-content" initial={false}
                 animate={{ y: active && !reduceMotion ? [0, 32, 0] : 0 }}
