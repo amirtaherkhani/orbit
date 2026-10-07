@@ -1,3 +1,8 @@
+# v0.8.23
+
+## Changed
+- Rename the Explore data sidebar label and tooltip to Resource.
+
 # v0.8.22
 
 ## Fixed
