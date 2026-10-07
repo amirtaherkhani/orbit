@@ -1,3 +1,8 @@
+# v0.8.25
+
+## Changed
+- Use the project typography system throughout the dashboard library, including display headings, UI labels, technical captions, and condensed metric values.
+
 # v0.8.24
 
 ## Fixed
