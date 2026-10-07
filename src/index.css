@@ -7524,8 +7524,12 @@ body {
   overflow: hidden;
   padding: clamp(22px, 3vw, 40px) clamp(22px, 3vw, 40px) 0;
   border-radius: 20px;
-  background: linear-gradient(135deg, #7e22ce, #4c1d95);
-  color: #fff;
+  background: linear-gradient(135deg,
+    color-mix(in oklab, var(--primary) 22%, var(--card)) 0%,
+    color-mix(in oklab, var(--primary) 12%, var(--surface-warm)) 48%,
+    color-mix(in oklab, var(--primary) 5%, var(--background)) 100%);
+  border: 1px solid color-mix(in srgb, var(--primary) 18%, var(--border));
+  color: var(--foreground);
 }
 .dashboard-library-deck-heading {
   display: flex;
@@ -7537,7 +7541,7 @@ body {
 .dashboard-library-deck-heading h2 {
   margin: 0;
   overflow-wrap: anywhere;
-  color: #fff;
+  color: var(--foreground);
   font-family: var(--font-display);
   font-size: var(--type-page-heading-size);
   font-weight: var(--type-weight-medium);
@@ -7546,16 +7550,16 @@ body {
 }
 .dashboard-library-deck-heading p {
   margin: 9px 0 0;
-  color: #e9d5ff;
+  color: var(--muted-foreground);
   font-size: var(--type-caption-size);
   line-height: var(--type-leading-caption);
 }
 .dashboard-library-deck-card .dashboard-library-open {
   flex-shrink: 0;
-  background: #fff;
-  color: #3b0764;
+  background: var(--card);
+  color: var(--foreground);
 }
-.dashboard-library-deck-card .dashboard-library-open svg { color: #3b0764 !important; }
+.dashboard-library-deck-card .dashboard-library-open svg { color: var(--foreground) !important; }
 .dashboard-library-deck-card .dashboard-library-preview {
   width: 100%;
   min-height: 0;
@@ -7564,7 +7568,7 @@ body {
   background: var(--card);
   color: var(--foreground);
   border-color: var(--border);
-  box-shadow: 0 16px 50px #16052b50;
+  box-shadow: 0 16px 50px color-mix(in srgb, var(--foreground) 10%, transparent);
 }
 .dashboard-library-deck-card .dashboard-library-preview-grid {
   height: calc(100% - 51px);

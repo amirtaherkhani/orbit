@@ -1,3 +1,8 @@
+# v0.8.26
+
+## Changed
+- Replace the fixed purple dashboard deck with a smooth primary-color pastel gradient that adapts to light and dark layout palettes, including matching text and buttons.
+
 # v0.8.25
 
 ## Changed

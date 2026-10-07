@@ -5,6 +5,7 @@
 - Add a dedicated Editor destination beside Dashboards in the sidebar.
 
 ### Changed
+- Blend dashboard preview cards into a soft pastel gradient derived from the primary color and theme surfaces.
 - Align dashboard library headings, controls, captions, and snapshot metrics with the shared typography roles and font tokens.
 - Rename the Explore data sidebar label and tooltip to Resource.
 - Browse named dashboards as animated tabs with full-width static previews and a real card stack; filter the deck by category.
