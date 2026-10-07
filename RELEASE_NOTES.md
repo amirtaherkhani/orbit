@@ -1,3 +1,8 @@
+# v0.8.21
+
+## Changed
+- Present dashboard categories as an animated pill navigation with a layered featured-dashboard snapshot.
+
 # v0.8.20
 
 ## Changed

@@ -14,9 +14,10 @@ type TabsProps = {
   value: string
   onValueChange: (value: string) => void
   className?: string
+  ariaLabel?: string
 }
 
-export function Tabs({ tabs, value, onValueChange, className }: TabsProps) {
+export function Tabs({ tabs, value, onValueChange, className, ariaLabel = "Saved dashboards" }: TabsProps) {
   const id = React.useId().replace(/:/g, "")
   const reduceMotion = useReducedMotion()
   const selected = tabs.find((tab) => tab.value === value) ?? tabs[0]
@@ -42,7 +43,7 @@ export function Tabs({ tabs, value, onValueChange, className }: TabsProps) {
 
   return (
     <div className={cn("dashboard-tabs", className)}>
-      <div className="dashboard-tabs-list" role="tablist" aria-label="Saved dashboards">
+      <div className="dashboard-tabs-list" role="tablist" aria-label={ariaLabel}>
         {tabs.map((tab, index) => {
           const active = tab.value === selected.value
           return (
