@@ -1,3 +1,10 @@
+# v0.8.22
+
+## Fixed
+- Match the reference tab behavior with named dashboard tabs, real stacked preview cards, and hover expansion.
+- Place each static dashboard preview below its title and keep preview text readable in both themes.
+- Keep category filtering and dashboard management available around the deck.
+
 # v0.8.21
 
 ## Changed
