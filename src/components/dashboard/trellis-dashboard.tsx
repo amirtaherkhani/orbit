@@ -28,7 +28,7 @@ import {
   moveDashboardSpotlight,
 } from "@/components/dashboard/dashboard-spotlight"
 import { MOTION_TOKENS } from "@/components/animate-ui/animation-tokens"
-import { PanelActionToolbar } from "@/components/dashboard/panel-action-toolbar"
+import { PanelActionToolbar, PanelActionTooltip } from "@/components/dashboard/panel-action-toolbar"
 import type { PanelColorChange } from "@/components/dashboard/panel-action-toolbar"
 import { Button } from "@/components/ui/button"
 import {
@@ -175,17 +175,18 @@ function FloatingPanelActionMenu({
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button
-          type="button"
-          variant="ghost"
-          size="icon-sm"
-          aria-label={`More actions for ${panelTitle}`}
-          title="More actions"
-        >
-          <EllipsisIcon />
-        </Button>
-      </DropdownMenuTrigger>
+      <PanelActionTooltip label="More actions">
+        <DropdownMenuTrigger asChild>
+          <Button
+            type="button"
+            variant="ghost"
+            size="icon-sm"
+            aria-label={`More actions for ${panelTitle}`}
+          >
+            <EllipsisIcon />
+          </Button>
+        </DropdownMenuTrigger>
+      </PanelActionTooltip>
       <DropdownMenuContent align="start" className="panel-menu more-actions-menu">
         <DropdownMenuLabel>Panel actions</DropdownMenuLabel>
         {!isFloating && (

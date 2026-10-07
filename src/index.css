@@ -121,10 +121,10 @@
   --chart-tooltip-muted: #73766d;
   --chart-tooltip-border: rgba(255, 255, 255, 0.68);
   --chart-tooltip-divider: rgba(64, 66, 58, 0.09);
-  --tooltip-surface: var(--foreground);
-  --tooltip-foreground: var(--background);
-  --tooltip-muted-foreground: #4d5048;
-  --tooltip-arrow-color: var(--foreground);
+  --tooltip-surface: var(--popover);
+  --tooltip-foreground: var(--popover-foreground);
+  --tooltip-muted-foreground: var(--muted-foreground);
+  --tooltip-arrow-color: var(--popover);
   --tooltip-border: rgba(77, 80, 72, 0.2);
   --tooltip-shadow:
     0 12px 28px rgba(45, 49, 40, 0.16),
@@ -314,10 +314,10 @@
   --chart-tooltip-muted: #bfc8bb;
   --chart-tooltip-border: rgba(231, 237, 226, 0.2);
   --chart-tooltip-divider: rgba(231, 237, 226, 0.12);
-  --tooltip-surface: #1f242d;
-  --tooltip-foreground: #e9eee5;
+  --tooltip-surface: var(--popover);
+  --tooltip-foreground: var(--popover-foreground);
   --tooltip-muted-foreground: #bfc8bb;
-  --tooltip-arrow-color: #1f242d;
+  --tooltip-arrow-color: var(--popover);
   --tooltip-border: rgba(231, 237, 226, 0.24);
   --tooltip-shadow:
     0 14px 34px rgba(0, 0, 0, 0.42),
