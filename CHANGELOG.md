@@ -5,7 +5,7 @@
 - Add a dedicated Editor destination beside Dashboards in the sidebar.
 
 ### Changed
-- Present dashboard categories as an animated pill navigation with a layered featured-dashboard snapshot.
+- Browse named dashboards as animated tabs with full-width static previews and a real card stack; filter the deck by category.
 - Use an editor-specific icon for the Dashboards page's return-to-editor control.
 - Move the Dashboards shortcut into the former Integrations position while keeping Editor separate.
 - Use a minimal stroke arrow for the dashboard editor accordion indicator.
