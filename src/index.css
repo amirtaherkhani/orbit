@@ -7542,9 +7542,11 @@ body {
   margin: 0;
   overflow-wrap: anywhere;
   color: var(--foreground);
-  font-family: var(--font-display);
+  font-family: var(--font-editorial);
   font-size: var(--type-page-heading-size);
-  font-weight: var(--type-weight-medium);
+  font-style: italic;
+  font-synthesis: none;
+  font-weight: var(--type-weight-light);
   line-height: var(--type-leading-display);
   letter-spacing: var(--type-tracking-display);
 }
