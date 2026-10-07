@@ -1,3 +1,31 @@
+# v0.10.5
+
+## Highlights
+- Add a complete saved-dashboard library, with categories, named dashboards, editable settings, descriptions, and static previews.
+- Improve dashboard editing and browsing with separate Editor and Dashboards navigation, theme-aware tabs, and card hover previews.
+- Refine dashboard surfaces, typography, and interactions with theme-aware glass, pointer-responsive backgrounds, and accessible tooltips.
+
+## Added
+- Create, rename, and delete dashboard categories; assign dashboards to categories and filter the library by category.
+- Name dashboards, describe them, and edit their category, layout mode, time range, and title.
+- Preview saved dashboard layouts with static chart thumbnails; open dashboards in view mode or enter the Editor explicitly.
+- Add a dedicated Editor destination and a Resource destination in the sidebar.
+
+## Changed
+- Use project typography, segmented tabs, pastel primary-color gradients, shared card surfaces, and theme-aware shadows throughout the dashboard library.
+- Increase glass blur on dashboard previews, editor toolbars, and action menus in both themes.
+- Add a pointer-responsive dotted canvas to Grid and Floating layouts, with brighter dots near the pointer.
+- Use app tooltips with theme-aware surfaces and arrows; improve dashboard card hover transitions and put Edit beside each card's Open action.
+- Use a view icon for opening saved dashboards and an editor-specific icon for returning to the Editor.
+- Refine dashboard banners, panel menus, and navigation labels to match the shared visual system.
+
+## Fixed
+- Keep primary-button icons dark in light mode and preserve readable button and tooltip contrast in both themes.
+- Keep tile action menus and panel toolbars legible over translucent backgrounds.
+
+## Removed
+- Remove the Create panel action from empty Floating workspaces.
+
 # v0.10.4
 
 ## Changed
