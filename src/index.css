@@ -7844,3 +7844,28 @@ body {
   .dashboard-library-dashboard-actions { justify-content: flex-start; }
   .dashboard-library-preview-tile { padding: 8px; }
 }
+
+.dashboard-library-deck-heading .dashboard-library-description {
+  max-width: 65ch;
+  max-height: 4.5em;
+  overflow: auto;
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
+  font: var(--type-weight-regular) var(--type-control-size)/var(--type-leading-body) var(--font-ui);
+}
+.dashboard-description-input {
+  width: 100%;
+  min-height: 100px;
+  resize: vertical;
+  padding: 10px 12px;
+  border: 1px solid var(--input);
+  border-radius: 8px;
+  background: var(--glass-control-fill);
+  color: var(--foreground);
+  font: inherit;
+}
+.dashboard-description-input:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+.dashboard-description-input::placeholder { color: var(--muted-foreground); }

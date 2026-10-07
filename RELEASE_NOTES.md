@@ -1,3 +1,8 @@
+# v0.10.0
+
+## Added
+- Add optional saved dashboard descriptions, editable up to 500 characters and displayed beneath the dashboard name.
+
 # v0.9.0
 
 ## Added

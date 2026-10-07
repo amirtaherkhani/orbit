@@ -107,6 +107,7 @@ function isPanel(value: unknown): value is PanelConfig {
   return (
     typeof value.id === "string" &&
     typeof value.title === "string" &&
+    (value.description === undefined || typeof value.description === "string") &&
     typeof value.chartType === "string" &&
     chartTypes.has(value.chartType as ChartType) &&
     typeof value.dataSourceId === "string" &&
@@ -148,6 +149,7 @@ function isDashboardDocument(value: unknown): value is DashboardDocument {
     value.schemaVersion === DASHBOARD_SCHEMA_VERSION &&
     typeof value.id === "string" &&
     typeof value.title === "string" &&
+    (value.description === undefined || typeof value.description === "string") &&
     (value.category === undefined || typeof value.category === "string") &&
     (value.viewMode === undefined || value.viewMode === "grid" || value.viewMode === "floating") &&
     typeof value.timeRange === "string" &&
@@ -259,6 +261,7 @@ export function createDashboardDocument(
     id: previous?.id ?? DASHBOARD_ID,
     title: previous?.title ?? "Operations overview",
     viewMode: previous?.viewMode ?? "grid",
+    description: previous?.description,
     timeRange,
     createdAt: previous?.createdAt ?? timestamp,
     updatedAt: timestamp,
@@ -515,11 +518,11 @@ export function downloadDashboard(
 export function updateSavedDashboardSettings(id: string, settings: DashboardSettings) {
   const title = settings.title.trim()
   const collection = readDashboardCollection()
-  if (!title || title.length > 72 || !["grid", "floating"].includes(settings.viewMode) ||
+  if (!title || title.length > 72 || (settings.description?.length ?? 0) > 500 || !["grid", "floating"].includes(settings.viewMode) ||
     (settings.category && !collection.categories.includes(settings.category)) ||
     !collection.dashboards.some((document) => document.id === id)) return false
   const dashboards = collection.dashboards.map((document) => document.id === id
-    ? { ...document, title, category: settings.category || undefined, timeRange: settings.timeRange,
+    ? { ...document, title, description: settings.description?.trim() || undefined, category: settings.category || undefined, timeRange: settings.timeRange,
       viewMode: settings.viewMode, updatedAt: new Date().toISOString() }
     : document)
   localStorage.setItem(COLLECTION_KEY, JSON.stringify({ ...collection, dashboards }))

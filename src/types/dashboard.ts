@@ -193,6 +193,7 @@ export type DashboardSnapshot = {
 }
 
 export type DashboardDocument = {
+  description?: string
   viewMode?: "grid" | "floating"
   kind: "signalboard-dashboard"
   schemaVersion: 1
@@ -205,4 +206,4 @@ export type DashboardDocument = {
   dashboard: DashboardSnapshot
 }
 
-export type DashboardSettings = Pick<DashboardDocument, "title" | "category" | "timeRange"> & { viewMode: "grid" | "floating" }
+export type DashboardSettings = Pick<DashboardDocument, "title" | "description" | "category" | "timeRange"> & { viewMode: "grid" | "floating" }

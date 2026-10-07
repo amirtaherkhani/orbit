@@ -121,6 +121,7 @@ export function DashboardLibrary({
   const [editingCategory, setEditingCategory] = React.useState("")
   const [title, setTitle] = React.useState("")
   const [categoryName, setCategoryName] = React.useState("")
+  const [description, setDescription] = React.useState("")
   const [settingsCategory, setSettingsCategory] = React.useState("uncategorized")
   const [settingsMode, setSettingsMode] = React.useState<"grid" | "floating">("grid")
   const [settingsTimeRange, setSettingsTimeRange] = React.useState("Last 1 hour")
@@ -160,7 +161,7 @@ export function DashboardLibrary({
 
   const renameDashboard = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    if (!editingDashboard || !onUpdateSettings(editingDashboard.id, { title, category: settingsCategory === "uncategorized" ? undefined : settingsCategory, viewMode: settingsMode, timeRange: settingsTimeRange })) return
+    if (!editingDashboard || !onUpdateSettings(editingDashboard.id, { title, description, category: settingsCategory === "uncategorized" ? undefined : settingsCategory, viewMode: settingsMode, timeRange: settingsTimeRange })) return
     setRenameDashboardOpen(false)
     setEditingDashboard(null)
     setTitle("")
@@ -169,6 +170,7 @@ export function DashboardLibrary({
   const beginRenameDashboard = (document: DashboardDocument) => {
     setEditingDashboard(document)
     setTitle(document.title)
+    setDescription(document.description ?? "")
     setSettingsCategory(document.category ?? "uncategorized")
     setSettingsMode(document.viewMode ?? "grid")
     setSettingsTimeRange(document.timeRange)
@@ -198,6 +200,7 @@ export function DashboardLibrary({
         <div className="dashboard-library-deck-heading">
           <div>
             <h2>{document.title}</h2>
+            {document.description && <p className="dashboard-library-description">{document.description}</p>}
             <p>{document.dashboard.panels.length} panels · {savedAt(document.updatedAt)}</p>
           </div>
           <Button className="dashboard-library-open" onClick={() => onOpen(document.id)} aria-label={`Open ${document.title} in view mode`}>
@@ -308,11 +311,15 @@ export function DashboardLibrary({
         <SheetContent side="right" className="dashboard-library-create-sheet">
           <SheetHeader>
             <SheetTitle>Edit dashboard</SheetTitle>
-            <SheetDescription>Update the saved name, category, layout view mode, and time range. Edit chart panels from the dashboard editor.</SheetDescription>
+            <SheetDescription>Update the saved name, description, category, layout view mode, and time range. Edit chart panels from the dashboard editor.</SheetDescription>
           </SheetHeader>
           <form onSubmit={renameDashboard} className="dashboard-library-create-form">
             <label htmlFor="rename-dashboard-title">Dashboard name</label>
             <Input id="rename-dashboard-title" autoFocus maxLength={72} value={title} onChange={(event) => setTitle(event.target.value)} />
+            <label htmlFor="dashboard-description">Description (optional)</label>
+            <textarea id="dashboard-description" className="dashboard-description-input" rows={4} maxLength={500}
+              placeholder="Describe what this dashboard tracks" value={description}
+              onChange={(event) => setDescription(event.target.value)} />
             <label>Category</label>
             <Select value={settingsCategory} onValueChange={setSettingsCategory}>
               <SelectTrigger aria-label="Dashboard category"><SelectValue /></SelectTrigger>
