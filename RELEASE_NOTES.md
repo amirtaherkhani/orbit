@@ -1,3 +1,9 @@
+# v0.9.0
+
+## Added
+- Replace Rename dashboard with an Edit settings panel for name, category, layout view mode, and time range.
+- Persist the preferred Grid/Floating view mode per dashboard; older dashboards default to Grid.
+
 # v0.8.27
 
 ## Changed

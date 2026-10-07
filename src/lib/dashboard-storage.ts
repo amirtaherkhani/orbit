@@ -1,3 +1,4 @@
+import type { DashboardSettings } from "@/types/dashboard"
 import { DEFAULT_CHART_GRADIENT_PRESET, supportsChartColors } from "@/core/conditions/chart-palettes"
 import { dashboardPlugins } from "@/plugins/builtins"
 import type {
@@ -148,6 +149,7 @@ function isDashboardDocument(value: unknown): value is DashboardDocument {
     typeof value.id === "string" &&
     typeof value.title === "string" &&
     (value.category === undefined || typeof value.category === "string") &&
+    (value.viewMode === undefined || value.viewMode === "grid" || value.viewMode === "floating") &&
     typeof value.timeRange === "string" &&
     typeof value.createdAt === "string" &&
     typeof value.updatedAt === "string" &&
@@ -256,6 +258,7 @@ export function createDashboardDocument(
     schemaVersion: DASHBOARD_SCHEMA_VERSION,
     id: previous?.id ?? DASHBOARD_ID,
     title: previous?.title ?? "Operations overview",
+    viewMode: previous?.viewMode ?? "grid",
     timeRange,
     createdAt: previous?.createdAt ?? timestamp,
     updatedAt: timestamp,
@@ -449,12 +452,13 @@ export function loadDashboard(id?: string): LoadedDashboard | null {
 export function saveDashboard(
   snapshot: DashboardSnapshot,
   timeRange: string,
-  identity?: { id: string; title: string; category?: string }
+  identity?: { id: string; title: string; category?: string; viewMode?: "grid" | "floating" }
 ) {
   const collection = readDashboardCollection()
   const id = identity?.id ?? (collection.activeId || crypto.randomUUID())
   const previous = collection.dashboards.find((item) => item.id === id)
   const document = createDashboardDocument(snapshot, timeRange, previous)
+  document.viewMode = identity?.viewMode ?? previous?.viewMode ?? "grid"
   document.id = id
   document.title = identity?.title.trim() || previous?.title || "Untitled dashboard"
   document.category = identity?.category ?? previous?.category
@@ -506,4 +510,18 @@ export function downloadDashboard(
   anchor.click()
   anchor.remove()
   window.setTimeout(() => URL.revokeObjectURL(url), 0)
+}
+
+export function updateSavedDashboardSettings(id: string, settings: DashboardSettings) {
+  const title = settings.title.trim()
+  const collection = readDashboardCollection()
+  if (!title || title.length > 72 || !["grid", "floating"].includes(settings.viewMode) ||
+    (settings.category && !collection.categories.includes(settings.category)) ||
+    !collection.dashboards.some((document) => document.id === id)) return false
+  const dashboards = collection.dashboards.map((document) => document.id === id
+    ? { ...document, title, category: settings.category || undefined, timeRange: settings.timeRange,
+      viewMode: settings.viewMode, updatedAt: new Date().toISOString() }
+    : document)
+  localStorage.setItem(COLLECTION_KEY, JSON.stringify({ ...collection, dashboards }))
+  return true
 }

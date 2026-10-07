@@ -1,6 +1,7 @@
 ## [Unreleased]
 
 ### Added
+- Edit saved dashboard names, categories, Grid/Floating view modes, and time ranges together with Save and Cancel.
 - Create, rename, and delete dashboard categories; name dashboards, assign them to categories, and browse static saved-layout previews.
 - Add a dedicated Editor destination beside Dashboards in the sidebar.
 
