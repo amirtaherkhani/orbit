@@ -1,3 +1,4 @@
+import type { DashboardSettings } from "@/types/dashboard"
 import * as React from "react"
 import type { Layout, LayoutItem } from "react-grid-layout"
 import { toast } from "sonner"
@@ -32,8 +33,7 @@ import {
   createDashboardCategory,
   renameDashboardCategory,
   deleteDashboardCategory,
-  assignDashboardCategory,
-  renameSavedDashboard,
+  updateSavedDashboardSettings,
   loadDashboard,
   parseDashboardDocument,
   saveDashboard,
@@ -101,7 +101,7 @@ export default function App() {
   const [history, setHistory] = React.useState<DashboardSnapshot[]>([])
   const [future, setFuture] = React.useState<DashboardSnapshot[]>([])
   const [editMode, setEditMode] = React.useState(true)
-  const [dashboardModel, setDashboardModel] = React.useState<"grid" | "floating">("grid")
+  const [dashboardModel, setDashboardModel] = React.useState<"grid" | "floating">(initial.document?.viewMode ?? "grid")
   const [timeRange, setTimeRange] = React.useState(initial.timeRange)
   const [dashboardTitle, setDashboardTitle] = React.useState(initial.document?.title ?? "Operations overview")
   const [dashboardCategory, setDashboardCategory] = React.useState(initial.document?.category)
@@ -327,7 +327,7 @@ export default function App() {
   const handleSave = () => {
     try {
       const id = currentDashboardId ?? crypto.randomUUID()
-      const document = saveDashboard(stateRef.current, timeRange, { id, title: dashboardTitle, category: dashboardCategory })
+      const document = saveDashboard(stateRef.current, timeRange, { id, title: dashboardTitle, category: dashboardCategory, viewMode: dashboardModel })
       setCurrentDashboardId(document.id)
       setSavedDashboards(listSavedDashboards())
       setDashboardCategories(listDashboardCategories())
@@ -355,6 +355,7 @@ export default function App() {
     setTimeRange(stored.timeRange)
     setDashboardTitle(stored.document.title)
     setDashboardCategory(stored.document.category)
+    setDashboardModel(stored.document.viewMode ?? "grid")
     setCurrentDashboardId(stored.document.id)
     setHistory([])
     setFuture([])
@@ -384,6 +385,7 @@ export default function App() {
       setTimeRange(document.timeRange)
       setDashboardTitle(document.title)
       setDashboardCategory(document.category)
+      setDashboardModel(document.viewMode ?? "grid")
       setCurrentDashboardId(null)
       setIsSaved(false)
       toast.success("Dashboard imported", {
@@ -437,6 +439,7 @@ export default function App() {
     setTimeRange(stored.timeRange)
     setDashboardTitle(stored.document.title)
     setDashboardCategory(stored.document.category)
+    setDashboardModel(stored.document.viewMode ?? "grid")
     setCurrentDashboardId(stored.document.id)
     setHistory([])
     setFuture([])
@@ -462,24 +465,22 @@ export default function App() {
     return true
   }
 
-  const handleAssignDashboardCategory = (id: string, category?: string) => {
+  const handleUpdateDashboardSettings = (id: string, settings: DashboardSettings) => {
     try {
-      if (!assignDashboardCategory(id, category)) return
+      if (!updateSavedDashboardSettings(id, settings)) {
+        toast.error("Dashboard settings could not be saved")
+        return false
+      }
       setSavedDashboards(listSavedDashboards())
-    } catch {
-      toast.error("Dashboard category could not be changed", { description: "Check your browser storage and try again." })
-    }
-  }
-
-  const handleRenameSavedDashboard = (id: string, title: string) => {
-    try {
-      const renamed = renameSavedDashboard(id, title)
-      if (!renamed) return false
-      setSavedDashboards(listSavedDashboards())
-      if (currentDashboardId === id) setDashboardTitle(title.trim())
+      if (currentDashboardId === id) {
+        setDashboardTitle(settings.title.trim())
+        setDashboardCategory(settings.category)
+        setTimeRange(settings.timeRange)
+        setDashboardModel(settings.viewMode)
+      }
       return true
     } catch {
-      toast.error("Dashboard could not be renamed", { description: "Check your browser storage and try again." })
+      toast.error("Dashboard settings could not be saved", { description: "Check your browser storage and try again." })
       return false
     }
   }
@@ -602,7 +603,10 @@ export default function App() {
                 onInteractionStart={checkpoint}
                 onOpenBuilder={openBuilder}
                 model={dashboardModel}
-                onModelChange={setDashboardModel}
+                onModelChange={(model) => {
+                  setDashboardModel(model)
+                  setIsSaved(false)
+                }}
               />
             </div>
           </div>
@@ -613,8 +617,7 @@ export default function App() {
             currentId={currentDashboardId}
             onOpen={handleOpenDashboard}
             onCreate={handleCreateDashboard}
-            onAssignCategory={handleAssignDashboardCategory}
-            onRenameDashboard={handleRenameSavedDashboard}
+            onUpdateSettings={handleUpdateDashboardSettings}
             onCreateCategory={handleCreateDashboardCategory}
             onRenameCategory={handleRenameDashboardCategory}
             onDeleteCategory={handleDeleteDashboardCategory}

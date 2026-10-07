@@ -1,3 +1,4 @@
+import type { DashboardSettings } from "@/types/dashboard"
 import * as React from "react"
 
 import { OrbitMark } from "@/components/branding/orbit-mark"
@@ -34,8 +35,7 @@ type DashboardLibraryProps = {
   currentId: string | null
   onOpen: (id: string) => void
   onCreate: (title: string, category?: string) => boolean
-  onAssignCategory: (id: string, category?: string) => void
-  onRenameDashboard: (id: string, title: string) => boolean
+  onUpdateSettings: (id: string, settings: DashboardSettings) => boolean
   onCreateCategory: (name: string) => string | null
   onRenameCategory: (previous: string, next: string) => boolean
   onDeleteCategory: (name: string) => void
@@ -108,8 +108,7 @@ export function DashboardLibrary({
   currentId,
   onOpen,
   onCreate,
-  onAssignCategory,
-  onRenameDashboard,
+  onUpdateSettings,
   onCreateCategory,
   onRenameCategory,
   onDeleteCategory,
@@ -122,6 +121,9 @@ export function DashboardLibrary({
   const [editingCategory, setEditingCategory] = React.useState("")
   const [title, setTitle] = React.useState("")
   const [categoryName, setCategoryName] = React.useState("")
+  const [settingsCategory, setSettingsCategory] = React.useState("uncategorized")
+  const [settingsMode, setSettingsMode] = React.useState<"grid" | "floating">("grid")
+  const [settingsTimeRange, setSettingsTimeRange] = React.useState("Last 1 hour")
   const [editingDashboard, setEditingDashboard] = React.useState<DashboardDocument | null>(null)
   const [activeDashboard, setActiveDashboard] = React.useState(currentId ?? "")
   const [activeCategory, setActiveCategory] = React.useState(() =>
@@ -158,7 +160,7 @@ export function DashboardLibrary({
 
   const renameDashboard = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    if (!editingDashboard || !onRenameDashboard(editingDashboard.id, title)) return
+    if (!editingDashboard || !onUpdateSettings(editingDashboard.id, { title, category: settingsCategory === "uncategorized" ? undefined : settingsCategory, viewMode: settingsMode, timeRange: settingsTimeRange })) return
     setRenameDashboardOpen(false)
     setEditingDashboard(null)
     setTitle("")
@@ -167,24 +169,11 @@ export function DashboardLibrary({
   const beginRenameDashboard = (document: DashboardDocument) => {
     setEditingDashboard(document)
     setTitle(document.title)
+    setSettingsCategory(document.category ?? "uncategorized")
+    setSettingsMode(document.viewMode ?? "grid")
+    setSettingsTimeRange(document.timeRange)
     setRenameDashboardOpen(true)
   }
-
-  const dashboardCategoryField = (document: DashboardDocument) => (
-    <label className="dashboard-library-category-field">
-      <span>Category</span>
-      <Select
-        value={document.category ?? "uncategorized"}
-        onValueChange={(value) => onAssignCategory(document.id, value === "uncategorized" ? undefined : value)}
-      >
-        <SelectTrigger aria-label={`Category for ${document.title}`}><SelectValue /></SelectTrigger>
-        <SelectContent>
-          <SelectItem value="uncategorized">Uncategorized</SelectItem>
-          {categories.map((category) => <SelectItem key={category} value={category}>{category}</SelectItem>)}
-        </SelectContent>
-      </Select>
-    </label>
-  )
 
   const emptyCategory = (category: string) => (
     <div className="dashboard-library-empty">
@@ -279,10 +268,9 @@ export function DashboardLibrary({
           <>
             <Tabs tabs={tabs} value={selectedDashboard.id} onValueChange={setActiveDashboard} ariaLabel="Saved dashboards" />
             <div className="dashboard-library-dashboard-actions" aria-label={`Manage ${selectedDashboard.title}`}>
-              <Button variant="ghost" size="sm" onClick={() => beginRenameDashboard(selectedDashboard)} aria-label={`Rename ${selectedDashboard.title}`}>
-                <PencilLineIcon /> Rename dashboard
+              <Button variant="ghost" size="sm" onClick={() => beginRenameDashboard(selectedDashboard)} aria-label={`Edit ${selectedDashboard.title}`}>
+                <PencilLineIcon /> Edit
               </Button>
-              {dashboardCategoryField(selectedDashboard)}
             </div>
           </>
         ) : emptyCategory(activeTabValue)}
@@ -319,13 +307,34 @@ export function DashboardLibrary({
       <Sheet open={renameDashboardOpen} onOpenChange={setRenameDashboardOpen}>
         <SheetContent side="right" className="dashboard-library-create-sheet">
           <SheetHeader>
-            <SheetTitle>Rename dashboard</SheetTitle>
-            <SheetDescription>Choose the name shown on this dashboard’s card and in the editor.</SheetDescription>
+            <SheetTitle>Edit dashboard</SheetTitle>
+            <SheetDescription>Update the saved name, category, layout view mode, and time range. Edit chart panels from the dashboard editor.</SheetDescription>
           </SheetHeader>
           <form onSubmit={renameDashboard} className="dashboard-library-create-form">
             <label htmlFor="rename-dashboard-title">Dashboard name</label>
             <Input id="rename-dashboard-title" autoFocus maxLength={72} value={title} onChange={(event) => setTitle(event.target.value)} />
-            <Button type="submit" disabled={!title.trim() || title.trim() === editingDashboard?.title}>Save name</Button>
+            <label>Category</label>
+            <Select value={settingsCategory} onValueChange={setSettingsCategory}>
+              <SelectTrigger aria-label="Dashboard category"><SelectValue /></SelectTrigger>
+              <SelectContent>
+                <SelectItem value="uncategorized">Uncategorized</SelectItem>
+                {categories.map((category) => <SelectItem key={category} value={category}>{category}</SelectItem>)}
+              </SelectContent>
+            </Select>
+            <label>Dashboard view mode</label>
+            <Select value={settingsMode} onValueChange={(value) => setSettingsMode(value as "grid" | "floating")}>
+              <SelectTrigger aria-label="Dashboard view mode"><SelectValue /></SelectTrigger>
+              <SelectContent><SelectItem value="grid">Grid</SelectItem><SelectItem value="floating">Floating</SelectItem></SelectContent>
+            </Select>
+            <label>Time range</label>
+            <Select value={settingsTimeRange} onValueChange={setSettingsTimeRange}>
+              <SelectTrigger aria-label="Dashboard time range"><SelectValue /></SelectTrigger>
+              <SelectContent>
+                {[...new Set([settingsTimeRange, "Last 15 minutes", "Last 1 hour", "Last 6 hours", "Last 24 hours"])].map((range) => <SelectItem key={range} value={range}>{range}</SelectItem>)}
+              </SelectContent>
+            </Select>
+            <Button type="submit" disabled={!title.trim()}>Save changes</Button>
+            <Button type="button" variant="outline" onClick={() => setRenameDashboardOpen(false)}>Cancel</Button>
           </form>
         </SheetContent>
       </Sheet>
