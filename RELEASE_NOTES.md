@@ -1,3 +1,8 @@
+# v0.8.24
+
+## Fixed
+- Open saved dashboards in view mode with an eye icon and keep editor entry points in editing mode.
+
 # v0.8.23
 
 ## Changed

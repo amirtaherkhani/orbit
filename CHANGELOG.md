@@ -16,6 +16,7 @@
 - Match the dashboard notification banner surface to the dashboard cards in both themes.
 
 ### Fixed
+- Open saved dashboards in view mode with a view icon; Editor and new-dashboard actions explicitly enter editing mode.
 - Keep More actions menus and panel toolbars on neutral, translucent surfaces in both themes.
 
 ### Performance

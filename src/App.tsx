@@ -442,6 +442,8 @@ export default function App() {
     setFuture([])
     setIsSaved(!stored.needsSave)
     selectSavedDashboard(id)
+    setEditMode(false)
+    setMobileBuilderOpen(false)
     setActivePage("dashboard")
   }
 
@@ -455,6 +457,7 @@ export default function App() {
     setHistory([])
     setFuture([])
     setDashboardModel("grid")
+    setEditMode(true)
     setActivePage("dashboard")
     return true
   }
@@ -521,7 +524,10 @@ export default function App() {
 
   return (
     <div className="app-shell">
-      <AppRail activePage={activePage} onNavigate={setActivePage} />
+      <AppRail activePage={activePage} onNavigate={(page) => {
+        if (page === "dashboard") setEditMode(true)
+        setActivePage(page)
+      }} />
       <div className="app-main">
         {activePage === "dashboard" ? (
           <div
@@ -612,7 +618,10 @@ export default function App() {
             onCreateCategory={handleCreateDashboardCategory}
             onRenameCategory={handleRenameDashboardCategory}
             onDeleteCategory={handleDeleteDashboardCategory}
-            onReturn={() => setActivePage("dashboard")}
+            onReturn={() => {
+              setEditMode(true)
+              setActivePage("dashboard")
+            }}
           />
         ) : (
           <SettingsPage />
