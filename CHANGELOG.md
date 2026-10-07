@@ -7,6 +7,7 @@
 - Add a dedicated Editor destination beside Dashboards in the sidebar.
 
 ### Changed
+- Match dashboard deck and preview tile surfaces to the shared glass card tokens, with theme aware shadows and primary color depth.
 - Style dashboard deck titles with the project’s light Newsreader italic font.
 - Blend dashboard preview cards into a soft pastel gradient derived from the primary color and theme surfaces.
 - Align dashboard library headings, controls, captions, and snapshot metrics with the shared typography roles and font tokens.
