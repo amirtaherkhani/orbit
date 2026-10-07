@@ -1,3 +1,8 @@
+# v0.10.2
+
+## Changed
+- Restyle saved dashboard tabs to match the project’s attached tab bars, including subtle inactive labels and the primary selected indicator.
+
 # v0.10.1
 
 ## Changed

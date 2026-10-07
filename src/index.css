@@ -7466,30 +7466,37 @@ body {
 /* Each dashboard is a real card in a shared stack, matching the Aceternity tab interaction. */
 .dashboard-tabs-list {
   display: flex;
-  gap: 8px;
+  width: max-content;
   max-width: 100%;
-  padding: 4px 0;
+  align-items: end;
+  gap: 2px;
+  padding: 0 8px;
   overflow-x: auto;
+  border-bottom: 1px solid var(--glass-panel-border);
   scrollbar-width: none;
 }
 .dashboard-tabs-trigger {
   position: relative;
-  flex: 0 0 auto;
-  max-width: min(300px, 75vw);
-  min-height: 44px;
-  padding: 10px 20px;
+  flex: 0 1 auto;
+  min-width: 100px;
+  max-width: min(220px, 75vw);
+  height: 38px;
+  padding: 0 12px;
   border: 0;
-  border-radius: 999px;
+  border-radius: 8px 8px 0 0;
   background: transparent;
-  color: var(--foreground);
-  font: var(--type-weight-control) var(--type-control-size)/var(--type-leading-control) var(--font-ui);
+  color: var(--muted-foreground);
+  font: 500 var(--type-control-size)/var(--type-leading-control) var(--font-ui);
   cursor: pointer;
+  transition: color 180ms ease, background-color 180ms ease, transform 180ms ease;
 }
+.dashboard-tabs-trigger:hover { color: var(--foreground); }
 .dashboard-tabs-active {
   position: absolute;
   inset: 0;
   border-radius: inherit;
-  background: color-mix(in srgb, var(--foreground) 10%, var(--background));
+  background: color-mix(in srgb, var(--primary) 8%, var(--card));
+  box-shadow: inset 0 2px 0 var(--primary);
 }
 .dashboard-tabs-label {
   position: relative;
