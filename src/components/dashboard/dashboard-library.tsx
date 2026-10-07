@@ -163,35 +163,41 @@ export function DashboardLibrary({
     setTitle("")
   }
 
-  const dashboardCards = (items: DashboardDocument[]) => (
+  const beginRenameDashboard = (document: DashboardDocument) => {
+    setEditingDashboard(document)
+    setTitle(document.title)
+    setRenameDashboardOpen(true)
+  }
+
+  const dashboardCategoryField = (document: DashboardDocument) => (
+    <label className="dashboard-library-category-field">
+      <span>Category</span>
+      <Select
+        value={document.category ?? "uncategorized"}
+        onValueChange={(value) => onAssignCategory(document.id, value === "uncategorized" ? undefined : value)}
+      >
+        <SelectTrigger aria-label={`Category for ${document.title}`}><SelectValue /></SelectTrigger>
+        <SelectContent>
+          <SelectItem value="uncategorized">Uncategorized</SelectItem>
+          {categories.map((category) => <SelectItem key={category} value={category}>{category}</SelectItem>)}
+        </SelectContent>
+      </Select>
+    </label>
+  )
+
+  const dashboardCards = (items: DashboardDocument[], startIndex = 0) => (
     <div className="dashboard-library-dashboard-grid">
       {items.map((document, index) => (
         <article className="dashboard-library-dashboard-card" key={document.id}>
           <DashboardPreview document={document} />
           <div className="dashboard-library-dashboard-card-info">
             <div>
-              <span className="section-kicker">Dashboard {String(index + 1).padStart(2, "0")}</span>
+              <span className="section-kicker">Dashboard {String(index + startIndex + 1).padStart(2, "0")}</span>
               <h2>{document.title}</h2>
               <p>{document.dashboard.panels.length} panels · {savedAt(document.updatedAt)}</p>
             </div>
-            <Button variant="ghost" size="sm" onClick={() => {
-              setEditingDashboard(document)
-              setTitle(document.title)
-              setRenameDashboardOpen(true)
-            }} aria-label={`Rename ${document.title}`}><PencilLineIcon /> Rename</Button>
-            <label className="dashboard-library-category-field">
-              <span>Category</span>
-              <Select
-                value={document.category ?? "uncategorized"}
-                onValueChange={(value) => onAssignCategory(document.id, value === "uncategorized" ? undefined : value)}
-              >
-                <SelectTrigger aria-label={`Category for ${document.title}`}><SelectValue /></SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="uncategorized">Uncategorized</SelectItem>
-                  {categories.map((category) => <SelectItem key={category} value={category}>{category}</SelectItem>)}
-                </SelectContent>
-              </Select>
-            </label>
+            <Button variant="ghost" size="sm" onClick={() => beginRenameDashboard(document)} aria-label={`Rename ${document.title}`}><PencilLineIcon /> Rename</Button>
+            {dashboardCategoryField(document)}
             <Button onClick={() => onOpen(document.id)}>
               Open dashboard <ArrowRightIcon data-icon="inline-end" />
             </Button>
@@ -200,6 +206,48 @@ export function DashboardLibrary({
       ))}
     </div>
   )
+
+  const categoryShowcase = (category: string, items: DashboardDocument[]) => {
+    if (!items.length) return emptyCategory(category)
+
+    const featured = items.reduce((mostPopulated, document) =>
+      document.dashboard.panels.length > mostPopulated.dashboard.panels.length ? document : mostPopulated
+    )
+    const remaining = items.filter((document) => document.id !== featured.id)
+    const categoryTitle = category === "all" ? "All dashboards" : category
+
+    return (
+      <div className="dashboard-library-category-showcase">
+        <section className="dashboard-library-feature dashboard-library-category-feature" aria-label={`${categoryTitle} featured dashboard`}>
+          <div className="dashboard-library-feature-copy">
+            <span className="section-kicker">Dashboard collection · {String(items.length).padStart(2, "0")}</span>
+            <h2>{categoryTitle}</h2>
+            <p>{items.length === 1 ? "One saved dashboard in this collection." : `${items.length} saved dashboards in this collection.`}</p>
+            <div className="dashboard-library-feature-meta">
+              <span><LayoutDashboardIcon /> {featured.dashboard.panels.length} panels</span>
+              <span>{savedAt(featured.updatedAt)}</span>
+            </div>
+            <div className="dashboard-library-feature-actions">
+              <Button onClick={() => onOpen(featured.id)}>
+                Open {featured.title} <ArrowRightIcon data-icon="inline-end" />
+              </Button>
+              <Button variant="ghost" size="sm" onClick={() => beginRenameDashboard(featured)} aria-label={`Rename ${featured.title}`}>
+                <PencilLineIcon /> Rename
+              </Button>
+            </div>
+            {dashboardCategoryField(featured)}
+          </div>
+          <DashboardPreview document={featured} />
+        </section>
+        {remaining.length > 0 && (
+          <section className="dashboard-library-more-dashboards" aria-label={`More dashboards in ${categoryTitle}`}>
+            <h3>More dashboards <span>{String(remaining.length).padStart(2, "0")}</span></h3>
+            {dashboardCards(remaining, 1)}
+          </section>
+        )}
+      </div>
+    )
+  }
 
   const emptyCategory = (category: string) => (
     <div className="dashboard-library-empty">
@@ -213,13 +261,11 @@ export function DashboardLibrary({
     </div>
   )
   const tabs: TabItem[] = [
-    { title: `All dashboards · ${dashboards.length}`, value: "all", content: dashboards.length ? dashboardCards(dashboards) : emptyCategory("all") },
+    { title: `All dashboards · ${dashboards.length}`, value: "all", content: categoryShowcase("all", dashboards) },
     ...categories.map((category) => ({
       title: `${category} · ${dashboards.filter((item) => item.category === category).length}`,
       value: category,
-      content: dashboards.some((item) => item.category === category)
-        ? dashboardCards(dashboards.filter((item) => item.category === category))
-        : emptyCategory(category),
+      content: categoryShowcase(category, dashboards.filter((item) => item.category === category)),
     })),
   ]
 
@@ -273,7 +319,7 @@ export function DashboardLibrary({
           </div>
         )}
 
-        <Tabs tabs={tabs} value={activeTabValue} onValueChange={setActiveCategory} className="dashboard-library-category-tabs" />
+        <Tabs tabs={tabs} value={activeTabValue} onValueChange={setActiveCategory} className="dashboard-library-category-tabs" ariaLabel="Dashboard categories" />
       </div>
 
       <Sheet open={createOpen} onOpenChange={setCreateOpen}>
