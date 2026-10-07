@@ -92,7 +92,7 @@ export function Tabs({ tabs, value, onValueChange, className, ariaLabel = "Saved
               initial={false}
               animate={{
                 scale: 1 - depth * 0.1,
-                top: previewing && !reduceMotion ? (hovered ? -88 : depth * -50) : 0,
+                top: previewing ? (hovered ? -88 : depth * -50) : 0,
                 opacity: 1 - depth * 0.1,
               }}
               transition={reduceMotion ? { duration: 0 } : { type: "spring", stiffness: 260, damping: 28 }}>
