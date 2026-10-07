@@ -1,3 +1,8 @@
+# v0.10.1
+
+## Changed
+- Restyle dashboard deck and snapshot cards with the shared glass panel surface, project radius, blur, and soft theme aware primary color shadows.
+
 # v0.10.0
 
 ## Added
