@@ -7,7 +7,8 @@
 - Add a dedicated Editor destination beside Dashboards in the sidebar.
 
 ### Changed
-- Match saved dashboard tabs to the project’s flat attached tab style, with a primary accent on the selected tab.
+- Match saved dashboard tabs to the project’s glass segmented controls, with a theme-aware primary selected state.
+- Strengthen the light-mode blur on dashboard panel action toolbars.
 - Match dashboard deck and preview tile surfaces to the shared glass card tokens, with theme aware shadows and primary color depth.
 - Style dashboard deck titles with the project’s light Newsreader italic font.
 - Blend dashboard preview cards into a soft pastel gradient derived from the primary color and theme surfaces.

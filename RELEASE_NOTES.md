@@ -1,3 +1,9 @@
+# v0.10.3
+
+## Changed
+- Restyle saved dashboard tabs as the app's glass segmented control, with the shared theme-aware active state.
+- Increase light-mode blur on dashboard panel action toolbars.
+
 # v0.10.2
 
 ## Changed
