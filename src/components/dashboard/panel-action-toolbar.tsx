@@ -16,6 +16,11 @@ import {
 } from "@/components/ui/icon-library"
 
 import { Button } from "@/components/ui/button"
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip"
 import { ColorPicker } from "@/components/stepwise/color-picker"
 import {
   DropdownMenu,
@@ -47,6 +52,15 @@ export type PanelNudgeAction =
   | "narrower"
   | "taller"
   | "shorter"
+
+export function PanelActionTooltip({ label, children }: { label: string; children: ReactNode }) {
+  return (
+    <Tooltip>
+      <TooltipTrigger asChild>{children}</TooltipTrigger>
+      <TooltipContent>{label}</TooltipContent>
+    </Tooltip>
+  )
+}
 
 type PanelActionToolbarProps = {
   panelId: string
@@ -88,30 +102,35 @@ export function PanelActionToolbar({
       onPointerDown={(event) => event.stopPropagation()}
     >
       {showDragHandle && (
-        <Button
-          type="button"
-          variant="ghost"
-          size="icon-sm"
-          className="panel-drag-handle"
-          aria-label={`Drag ${panelTitle}`}
-          title="Drag panel"
-        >
-          <GripVerticalIcon />
-        </Button>
+        <PanelActionTooltip label="Drag panel">
+          <Button
+            type="button"
+            variant="ghost"
+            size="icon-sm"
+            className="panel-drag-handle"
+            aria-label={`Drag ${panelTitle}`}
+          >
+            <GripVerticalIcon />
+          </Button>
+        </PanelActionTooltip>
       )}
       {panel && supportsChartColors(panel.chartType) && onChartColorsChange && (
         <Popover.Root>
-          <Popover.Trigger asChild>
-            <Button
-              type="button"
-              variant="ghost"
-              size="icon-sm"
-              aria-label={`Change ${panelTitle} chart colors`}
-              title="Chart colors"
-            >
-              <DropletsIcon />
-            </Button>
-          </Popover.Trigger>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Popover.Trigger asChild>
+                <Button
+                  type="button"
+                  variant="ghost"
+                  size="icon-sm"
+                  aria-label={`Change ${panelTitle} chart colors`}
+                >
+                  <DropletsIcon />
+                </Button>
+              </Popover.Trigger>
+            </TooltipTrigger>
+            <TooltipContent>Chart colors</TooltipContent>
+          </Tooltip>
           <Popover.Portal>
             <Popover.Content
               className="panel-color-popover"
@@ -145,18 +164,18 @@ export function PanelActionToolbar({
               {colorStyle === "pastel" && (
                 <div className="panel-pastel-options" role="group" aria-label="Pastel palette">
                   {chartGradientPresets.map(({ value, label, colors }) => (
-                    <button
-                      key={value}
-                      type="button"
-                      aria-label={`${label} palette`}
-                      title={label}
-                      aria-pressed={(panel.gradientPreset === "custom" ? "aurora" : panel.gradientPreset ?? "aurora") === value}
-                      onClick={() => onChartColorsChange(panelId, {
-                        chartColorStyle: "pastel",
-                        gradientPreset: value,
-                      })}
-                      style={{ background: `linear-gradient(90deg, ${colors[0]}, ${colors[2]}, ${colors[4]})` }}
-                    />
+                    <PanelActionTooltip key={value} label={label}>
+                      <button
+                        type="button"
+                        aria-label={`${label} palette`}
+                        aria-pressed={(panel.gradientPreset === "custom" ? "aurora" : panel.gradientPreset ?? "aurora") === value}
+                        onClick={() => onChartColorsChange(panelId, {
+                          chartColorStyle: "pastel",
+                          gradientPreset: value,
+                        })}
+                        style={{ background: `linear-gradient(90deg, ${colors[0]}, ${colors[2]}, ${colors[4]})` }}
+                      />
+                    </PanelActionTooltip>
                   ))}
                 </div>
               )}
@@ -179,53 +198,57 @@ export function PanelActionToolbar({
           </Popover.Portal>
         </Popover.Root>
       )}
-      <Button
-        type="button"
-        variant="ghost"
-        size="icon-sm"
-        aria-label={`Edit ${panelTitle} title`}
-        title="Edit title"
-        onClick={() => onEditTitles(panelId)}
-      >
-        <PencilLineIcon />
-      </Button>
-      <Button
-        type="button"
-        variant="ghost"
-        size="icon-sm"
-        aria-label={`Duplicate ${panelTitle}`}
-        title="Duplicate panel"
-        onClick={() => onDuplicate(panelId)}
-      >
-        <CopyIcon />
-      </Button>
-      <Button
-        type="button"
-        variant="ghost"
-        size="icon-sm"
-        className="panel-remove-action"
-        aria-label={`Remove ${panelTitle}`}
-        title="Remove panel"
-        onClick={(event) => {
-          event.stopPropagation()
-          onRemove(panelId)
-        }}
-      >
-        <Trash2Icon />
-      </Button>
+      <PanelActionTooltip label="Edit title">
+        <Button
+          type="button"
+          variant="ghost"
+          size="icon-sm"
+          aria-label={`Edit ${panelTitle} title`}
+          onClick={() => onEditTitles(panelId)}
+        >
+          <PencilLineIcon />
+        </Button>
+      </PanelActionTooltip>
+      <PanelActionTooltip label="Duplicate panel">
+        <Button
+          type="button"
+          variant="ghost"
+          size="icon-sm"
+          aria-label={`Duplicate ${panelTitle}`}
+          onClick={() => onDuplicate(panelId)}
+        >
+          <CopyIcon />
+        </Button>
+      </PanelActionTooltip>
+      <PanelActionTooltip label="Remove panel">
+        <Button
+          type="button"
+          variant="ghost"
+          size="icon-sm"
+          className="panel-remove-action"
+          aria-label={`Remove ${panelTitle}`}
+          onClick={(event) => {
+            event.stopPropagation()
+            onRemove(panelId)
+          }}
+        >
+          <Trash2Icon />
+        </Button>
+      </PanelActionTooltip>
       {moreActions ?? (showMore && (
         <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button
-              type="button"
-              variant="ghost"
-              size="icon-sm"
-              aria-label={`More actions for ${panelTitle}`}
-              title="More actions"
-            >
-              <EllipsisIcon />
-            </Button>
-          </DropdownMenuTrigger>
+          <PanelActionTooltip label="More actions">
+            <DropdownMenuTrigger asChild>
+              <Button
+                type="button"
+                variant="ghost"
+                size="icon-sm"
+                aria-label={`More actions for ${panelTitle}`}
+              >
+                <EllipsisIcon />
+              </Button>
+            </DropdownMenuTrigger>
+          </PanelActionTooltip>
           <DropdownMenuContent align="start" className="panel-menu more-actions-menu">
             <DropdownMenuLabel>Panel actions</DropdownMenuLabel>
             {onNudge && (

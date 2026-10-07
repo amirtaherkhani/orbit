@@ -1,3 +1,8 @@
+# v0.10.4
+
+## Changed
+- Replace native hover hints on panel action buttons with compact app tooltips that follow the light and dark theme, including the arrow.
+
 # v0.10.3
 
 ## Changed

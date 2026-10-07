@@ -7,6 +7,7 @@
 - Add a dedicated Editor destination beside Dashboards in the sidebar.
 
 ### Changed
+- Show button action tooltips with the shared theme-aware surface and arrow in both light and dark modes.
 - Match saved dashboard tabs to the project’s glass segmented controls, with a theme-aware primary selected state.
 - Strengthen the light-mode blur on dashboard panel action toolbars.
 - Match dashboard deck and preview tile surfaces to the shared glass card tokens, with theme aware shadows and primary color depth.
