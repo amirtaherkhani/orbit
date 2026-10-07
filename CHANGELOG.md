@@ -1,6 +1,20 @@
 ## [Unreleased]
 
 ### Added
+
+### Changed
+
+### Fixed
+
+### Performance
+
+### Removed
+
+### Security
+
+## [0.10.5] - 2026-10-07
+
+### Added
 - Add optional dashboard descriptions in Edit settings and display them below dashboard titles.
 - Edit saved dashboard names, categories, Grid/Floating view modes, and time ranges together with Save and Cancel.
 - Create, rename, and delete dashboard categories; name dashboards, assign them to categories, and browse static saved-layout previews.
@@ -32,12 +46,8 @@
 - Open saved dashboards in view mode with a view icon; Editor and new-dashboard actions explicitly enter editing mode.
 - Keep More actions menus and panel toolbars on neutral, translucent surfaces in both themes.
 
-### Performance
-
 ### Removed
 - Remove the Create panel button from empty Floating workspaces.
-
-### Security
 
 ## [0.8.15] - 2026-10-03
 
