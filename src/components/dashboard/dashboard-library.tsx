@@ -203,9 +203,14 @@ export function DashboardLibrary({
             {document.description && <p className="dashboard-library-description">{document.description}</p>}
             <p>{document.dashboard.panels.length} panels · {savedAt(document.updatedAt)}</p>
           </div>
-          <Button className="dashboard-library-open" onClick={() => onOpen(document.id)} aria-label={`Open ${document.title} in view mode`}>
-            <EyeIcon data-icon="inline-start" /> Open dashboard
-          </Button>
+          <div className="dashboard-library-deck-actions">
+            <Button variant="outline" size="sm" onClick={() => beginRenameDashboard(document)} aria-label={`Edit ${document.title}`}>
+              <PencilLineIcon data-icon="inline-start" /> Edit
+            </Button>
+            <Button className="dashboard-library-open" onClick={() => onOpen(document.id)} aria-label={`Open ${document.title} in view mode`}>
+              <EyeIcon data-icon="inline-start" /> Open dashboard
+            </Button>
+          </div>
         </div>
         <DashboardPreview document={document} />
       </article>
@@ -270,11 +275,6 @@ export function DashboardLibrary({
         {selectedDashboard ? (
           <>
             <Tabs tabs={tabs} value={selectedDashboard.id} onValueChange={setActiveDashboard} ariaLabel="Saved dashboards" />
-            <div className="dashboard-library-dashboard-actions" aria-label={`Manage ${selectedDashboard.title}`}>
-              <Button variant="ghost" size="sm" onClick={() => beginRenameDashboard(selectedDashboard)} aria-label={`Edit ${selectedDashboard.title}`}>
-                <PencilLineIcon /> Edit
-              </Button>
-            </div>
           </>
         ) : emptyCategory(activeTabValue)}
       </div>

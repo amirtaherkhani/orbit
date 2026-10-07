@@ -7,6 +7,7 @@
 - Add a dedicated Editor destination beside Dashboards in the sidebar.
 
 ### Changed
+- Place each dashboard's Edit action inside its card beside the view-mode action.
 - Show button action tooltips with the shared theme-aware surface and arrow in both light and dark modes.
 - Match saved dashboard tabs to the project’s glass segmented controls, with a theme-aware primary selected state.
 - Strengthen the light-mode blur on dashboard panel action toolbars.
