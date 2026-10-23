@@ -597,7 +597,7 @@ export default function App() {
       </Dialog>
       <AppRail activePage={activePage} onNavigate={(page) => {
         if (page === "dashboard" && currentDashboardId !== null) {
-          handleCreateDashboard(NEW_DASHBOARD_TITLE)
+          startNewDashboard(NEW_DASHBOARD_TITLE)
           return
         }
         if (page === "dashboard") setEditMode(true)
