@@ -324,7 +324,7 @@ export function DashboardAnnouncementBar({
                 }))
               }
             >
-              {settings.visible ? "On" : "Show banner"}
+              {settings.visible ? "ON" : "OFF"}
             </Button>
           </div>
           <div className="dashboard-announcement-source-groups">
