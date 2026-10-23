@@ -329,7 +329,7 @@ export function DashboardCanvas({
 
       <DashboardAnnouncementBar panels={panels} />
 
-      {model === "floating" ? (
+      {model === "floating" && panels.length > 0 ? (
         <React.Suspense
           fallback={
             <div className="trellis-loading" role="status">
