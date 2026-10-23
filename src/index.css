@@ -7907,21 +7907,11 @@ body {
 }
 .dashboard-description-input::placeholder { color: var(--muted-foreground); }
 
-.dashboard-confirm-overlay {
-  position: fixed;
-  inset: 0;
-  z-index: 90;
-  background: rgb(0 0 0 / 30%);
-  -webkit-backdrop-filter: blur(4px);
-  backdrop-filter: blur(4px);
-}
-
 .dashboard-confirm-card {
   position: fixed;
   top: 50%;
   left: 50%;
   z-index: 91;
-  transform: translate(-50%, -50%);
   width: min(420px, calc(100vw - 32px));
   padding: 24px;
   border: 1px solid var(--glass-action-border);

@@ -2,7 +2,7 @@ import type { DashboardSettings } from "@/types/dashboard"
 import * as React from "react"
 import type { Layout, LayoutItem } from "react-grid-layout"
 import { toast } from "sonner"
-import { Dialog } from "radix-ui"
+import { Dialog, DialogContent, DialogTitle, DialogDescription, DialogClose } from "@/components/ui/dialog"
 
 import { AppRail, type AppPage } from "@/components/dashboard/app-rail"
 import { DashboardCanvas } from "@/components/dashboard/dashboard-canvas"
@@ -120,6 +120,7 @@ export default function App() {
   const [isSaved, setIsSaved] = React.useState(Boolean(initial.document && !initial.needsSave))
   const [saveOpen, setSaveOpen] = React.useState(false)
   const [resetOpen, setResetOpen] = React.useState(false)
+  const [confirmation, setConfirmation] = React.useState<{ action: () => void; description: string } | null>(null)
   const [addingSaveCategory, setAddingSaveCategory] = React.useState(false)
   const [newSaveCategory, setNewSaveCategory] = React.useState("")
   const [saveSettings, setSaveSettings] = React.useState<DashboardSettings>({
@@ -481,8 +482,11 @@ export default function App() {
     return !untouchedStarter && !untouchedEmpty
   }
 
-  const handleOpenDashboard = (id: string) => {
-    if (hasUnsavedWork() && !window.confirm("Discard unsaved dashboard changes and open a saved dashboard?")) return
+  const handleOpenDashboard = (id: string, confirmed = false) => {
+    if (!confirmed && hasUnsavedWork()) {
+      setConfirmation({ description: "Discard unsaved changes and open the saved dashboard?", action: () => handleOpenDashboard(id, true) })
+      return
+    }
     const stored = loadDashboard(id)
     if (!stored) {
       toast.error("Dashboard unavailable")
@@ -504,8 +508,11 @@ export default function App() {
     setActivePage("dashboard")
   }
 
-  const handleCreateDashboard = (title: string, category?: string) => {
-    if (hasUnsavedWork() && !window.confirm("Discard unsaved dashboard changes and create a new dashboard?")) return false
+  const handleCreateDashboard = (title: string, category?: string, confirmed = false) => {
+    if (!confirmed && hasUnsavedWork()) {
+      setConfirmation({ description: "Discard unsaved changes and start a new dashboard?", action: () => handleCreateDashboard(title, category, true) })
+      return false
+    }
     startNewDashboard(title, category)
     return true
   }
@@ -578,21 +585,16 @@ export default function App() {
 
   return (
     <div className="app-shell">
-      <Dialog.Root open={resetOpen} onOpenChange={setResetOpen}>
-        <Dialog.Portal>
-          <Dialog.Overlay className="dashboard-confirm-overlay" />
-          <Dialog.Content className="dashboard-confirm-card">
-            <Dialog.Title className="type-card-heading">Start a new dashboard?</Dialog.Title>
-            <Dialog.Description>
-              Clear this canvas and start an empty draft. Unsaved changes will be lost. Your saved dashboards stay in the library.
-            </Dialog.Description>
+      <Dialog open={resetOpen || confirmation !== null} onOpenChange={(open) => { if (!open) { setResetOpen(false); setConfirmation(null) } }}>
+          <DialogContent className="dashboard-confirm-card" showCloseButton={false}>
+            <DialogTitle>{confirmation ? "Discard unsaved changes?" : "Start a new dashboard?"}</DialogTitle>
+            <DialogDescription>{confirmation?.description ?? "Clear this canvas and start an empty draft. Unsaved changes will be lost. Your saved dashboards stay in the library."}</DialogDescription>
             <div className="dashboard-confirm-actions">
-              <Dialog.Close asChild><Button variant="outline" autoFocus>Keep editing</Button></Dialog.Close>
-              <Button onClick={handleReset}>Reset dashboard</Button>
+              <DialogClose asChild><Button variant="outline" autoFocus>Keep editing</Button></DialogClose>
+              <Button onClick={() => { if (confirmation) { const action = confirmation.action; setConfirmation(null); action() } else handleReset() }}>{confirmation ? "Discard changes" : "Reset dashboard"}</Button>
             </div>
-          </Dialog.Content>
-        </Dialog.Portal>
-      </Dialog.Root>
+          </DialogContent>
+      </Dialog>
       <AppRail activePage={activePage} onNavigate={(page) => {
         if (page === "dashboard" && currentDashboardId !== null) {
           handleCreateDashboard(NEW_DASHBOARD_TITLE)
