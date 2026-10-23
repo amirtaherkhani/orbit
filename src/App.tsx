@@ -53,6 +53,7 @@ import type {
 } from "@/types/dashboard"
 
 const HISTORY_LIMIT = 30
+const NEW_DASHBOARD_TITLE = "Untitled"
 
 function cloneSnapshot(snapshot: DashboardSnapshot): DashboardSnapshot {
   return {
@@ -151,6 +152,22 @@ export default function App() {
     setSelectedPanelId(cloned.panels[0]?.id ?? null)
     setIsSaved(false)
   }, [])
+
+  const startNewDashboard = (title: string, category?: string) => {
+    applySnapshot({ panels: [], layout: [] })
+    setDraft(defaultDraft)
+    setDashboardTitle(title)
+    setDashboardCategory(category)
+    setCurrentDashboardId(null)
+    setTimeRange("Last 1 hour")
+    setHistory([])
+    setFuture([])
+    setDashboardModel("grid")
+    setEditingPanelId(null)
+    setMobileBuilderOpen(false)
+    setEditMode(true)
+    setActivePage("dashboard")
+  }
 
   const handleAddPanel = () => {
     const id = `panel-${Date.now().toString(36)}`
@@ -359,18 +376,13 @@ export default function App() {
     if (!saveSettings.title.trim()) return
     try {
       const id = currentDashboardId ?? crypto.randomUUID()
-      const document = saveDashboard(stateRef.current, saveSettings.timeRange, { id, ...saveSettings })
-      setCurrentDashboardId(document.id)
-      setDashboardTitle(document.title)
-      setDashboardCategory(document.category)
-      setDashboardModel(document.viewMode ?? "grid")
-      setTimeRange(document.timeRange)
+      saveDashboard(stateRef.current, saveSettings.timeRange, { id, ...saveSettings })
       setSavedDashboards(listSavedDashboards())
       setDashboardCategories(listDashboardCategories())
-      setIsSaved(true)
       setSaveOpen(false)
+      startNewDashboard(NEW_DASHBOARD_TITLE)
       toast.success("Dashboard saved", {
-        description: "Your layout is stored in this browser.",
+        description: "Your dashboard is in the library. A new empty dashboard is ready.",
       })
     } catch {
       toast.error("Dashboard could not be saved", {
@@ -461,7 +473,12 @@ export default function App() {
       dashboardTitle === "Operations overview" &&
       timeRange === "Last 1 hour" &&
       JSON.stringify(stateRef.current) === JSON.stringify({ panels: seedPanels, layout: seedLayout })
-    return !untouchedStarter
+    const untouchedEmpty = currentDashboardId === null &&
+      dashboardTitle === NEW_DASHBOARD_TITLE &&
+      !dashboardCategory && dashboardModel === "grid" &&
+      timeRange === "Last 1 hour" &&
+      stateRef.current.panels.length === 0 && stateRef.current.layout.length === 0
+    return !untouchedStarter && !untouchedEmpty
   }
 
   const handleOpenDashboard = (id: string) => {
@@ -489,16 +506,7 @@ export default function App() {
 
   const handleCreateDashboard = (title: string, category?: string) => {
     if (hasUnsavedWork() && !window.confirm("Discard unsaved dashboard changes and create a new dashboard?")) return false
-    applySnapshot({ panels: [], layout: [] })
-    setDashboardTitle(title)
-    setDashboardCategory(category)
-    setCurrentDashboardId(null)
-    setTimeRange("Last 1 hour")
-    setHistory([])
-    setFuture([])
-    setDashboardModel("grid")
-    setEditMode(true)
-    setActivePage("dashboard")
+    startNewDashboard(title, category)
     return true
   }
 
