@@ -453,12 +453,10 @@ export default function App() {
   }
 
   const handleReset = () => {
-    checkpoint()
-    const reset = cloneSnapshot({ panels: seedPanels, layout: seedLayout })
-    applySnapshot(reset)
-    setTimeRange("Last 1 hour")
+    if (!window.confirm("Clear this dashboard and start a new empty draft? Saved dashboards will remain in your library.")) return
+    startNewDashboard(NEW_DASHBOARD_TITLE)
     toast.success("Dashboard reset", {
-      description: "The starter service view has been restored.",
+      description: "A new empty dashboard is ready.",
     })
   }
 
