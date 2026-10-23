@@ -261,9 +261,7 @@ export function DashboardCanvas({
         <div>
           <div className="canvas-title-row">
             <h2 className="type-section-heading">
-              {title === "Operations overview" ? <>
-                Service <em className="type-editorial-emphasis">health</em>
-              </> : title}
+              Dashboard{" "}<em className="type-editorial-emphasis">{title}</em>
             </h2>
             <Badge variant="outline">{panels.length} panels</Badge>
           </div>
