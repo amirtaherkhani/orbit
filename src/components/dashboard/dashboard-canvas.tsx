@@ -8,7 +8,6 @@ import {
   AppWindowIcon,
   LayoutDashboardIcon,
   MousePointer2Icon,
-  PlusIcon,
 } from "@/components/ui/icon-library"
 
 import {
@@ -145,7 +144,6 @@ type DashboardCanvasProps = {
   onChartColorsChange: (id: string, changes: PanelColorChange) => void
   onLayoutChange: (layout: Layout) => void
   onInteractionStart: () => void
-  onOpenBuilder: () => void
   model: DashboardModel
   onModelChange: (model: DashboardModel) => void
 }
@@ -203,7 +201,6 @@ export function DashboardCanvas({
   onChartColorsChange,
   onLayoutChange,
   onInteractionStart,
-  onOpenBuilder,
   model,
   onModelChange,
 }: DashboardCanvasProps) {
@@ -369,10 +366,6 @@ export function DashboardCanvas({
                 Choose a data source and visualization, then add it to this
                 canvas.
               </p>
-              <Button onClick={onOpenBuilder} className="gap-2 px-3">
-                <PlusIcon aria-hidden="true" />
-                <span>Create panel</span>
-              </Button>
             </div>
           ) : isMobile ? (
             <div className="mobile-card-stack">
