@@ -44,6 +44,7 @@ type TopbarProps = {
   isSaved: boolean
   isMobile: boolean
   onToggleEditMode: () => void
+  onCancelEdit?: () => void
   onTimeRangeChange: (value: string) => void
   onUndo: () => void
   onRedo: () => void
@@ -72,6 +73,7 @@ export function Topbar({
   isSaved,
   isMobile,
   onToggleEditMode,
+  onCancelEdit,
   onTimeRangeChange,
   onUndo,
   onRedo,
@@ -210,6 +212,12 @@ export function Topbar({
               <TooltipContent>Redo</TooltipContent>
             </Tooltip>
           </div>
+        )}
+
+        {editMode && onCancelEdit && (
+          <Button variant="outline" onClick={onCancelEdit}>
+            Cancel edit
+          </Button>
         )}
 
         {editMode && (

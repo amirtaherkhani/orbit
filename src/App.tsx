@@ -636,6 +636,7 @@ export default function App() {
               isSaved={isSaved}
               isMobile={isMobile}
               onToggleEditMode={() => setEditMode((value) => !value)}
+              onCancelEdit={currentDashboardId ? () => handleOpenDashboard(currentDashboardId, true) : undefined}
               onTimeRangeChange={handleTimeRangeChange}
               onUndo={handleUndo}
               onRedo={handleRedo}
