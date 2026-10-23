@@ -599,7 +599,7 @@ export default function App() {
             }}
           >
             <Topbar
-              title={dashboardTitle}
+              title={dashboardCategory ?? dashboardTitle}
               editMode={editMode}
               timeRange={timeRange}
               canUndo={history.length > 0}
