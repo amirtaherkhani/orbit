@@ -7915,7 +7915,11 @@ body {
   width: min(420px, calc(100vw - 32px));
   padding: 24px;
   border: 1px solid var(--glass-action-border);
-  border-radius: 14px;
+  border-radius: 20px;
+  background: var(--glass-panel-heading-fill), color-mix(in srgb, var(--glass-action-menu-fill) 72%, transparent);
+  box-shadow: var(--glass-menu-shadow), var(--glass-panel-shadow);
+  -webkit-backdrop-filter: blur(32px) saturate(145%);
+  backdrop-filter: blur(32px) saturate(145%);
   color: var(--foreground);
 }
 
