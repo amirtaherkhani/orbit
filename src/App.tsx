@@ -2,6 +2,7 @@ import type { DashboardSettings } from "@/types/dashboard"
 import * as React from "react"
 import type { Layout, LayoutItem } from "react-grid-layout"
 import { toast } from "sonner"
+import { Dialog } from "radix-ui"
 
 import { AppRail, type AppPage } from "@/components/dashboard/app-rail"
 import { DashboardCanvas } from "@/components/dashboard/dashboard-canvas"
@@ -118,6 +119,7 @@ export default function App() {
   const [dashboardCategories, setDashboardCategories] = React.useState(listDashboardCategories)
   const [isSaved, setIsSaved] = React.useState(Boolean(initial.document && !initial.needsSave))
   const [saveOpen, setSaveOpen] = React.useState(false)
+  const [resetOpen, setResetOpen] = React.useState(false)
   const [addingSaveCategory, setAddingSaveCategory] = React.useState(false)
   const [newSaveCategory, setNewSaveCategory] = React.useState("")
   const [saveSettings, setSaveSettings] = React.useState<DashboardSettings>({
@@ -453,7 +455,7 @@ export default function App() {
   }
 
   const handleReset = () => {
-    if (!window.confirm("Clear this dashboard and start a new empty draft? Saved dashboards will remain in your library.")) return
+    setResetOpen(false)
     startNewDashboard(NEW_DASHBOARD_TITLE)
     toast.success("Dashboard reset", {
       description: "A new empty dashboard is ready.",
@@ -576,6 +578,21 @@ export default function App() {
 
   return (
     <div className="app-shell">
+      <Dialog.Root open={resetOpen} onOpenChange={setResetOpen}>
+        <Dialog.Portal>
+          <Dialog.Overlay className="dashboard-confirm-overlay" />
+          <Dialog.Content className="dashboard-confirm-card">
+            <Dialog.Title className="type-card-heading">Start a new dashboard?</Dialog.Title>
+            <Dialog.Description>
+              Clear this canvas and start an empty draft. Unsaved changes will be lost. Your saved dashboards stay in the library.
+            </Dialog.Description>
+            <div className="dashboard-confirm-actions">
+              <Dialog.Close asChild><Button variant="outline" autoFocus>Keep editing</Button></Dialog.Close>
+              <Button onClick={handleReset}>Reset dashboard</Button>
+            </div>
+          </Dialog.Content>
+        </Dialog.Portal>
+      </Dialog.Root>
       <AppRail activePage={activePage} onNavigate={(page) => {
         if (page === "dashboard" && currentDashboardId !== null) {
           handleCreateDashboard(NEW_DASHBOARD_TITLE)
@@ -624,7 +641,7 @@ export default function App() {
               onLoad={handleLoad}
               onExport={handleExport}
               onImport={() => importInputRef.current?.click()}
-              onReset={handleReset}
+              onReset={() => setResetOpen(true)}
               onOpenBuilder={openBuilder}
               onShowLibrary={() => setActivePage("library")}
             />
