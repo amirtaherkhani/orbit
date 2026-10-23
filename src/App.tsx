@@ -117,6 +117,8 @@ export default function App() {
   const [dashboardCategories, setDashboardCategories] = React.useState(listDashboardCategories)
   const [isSaved, setIsSaved] = React.useState(Boolean(initial.document && !initial.needsSave))
   const [saveOpen, setSaveOpen] = React.useState(false)
+  const [addingSaveCategory, setAddingSaveCategory] = React.useState(false)
+  const [newSaveCategory, setNewSaveCategory] = React.useState("")
   const [saveSettings, setSaveSettings] = React.useState<DashboardSettings>({
     title: dashboardTitle,
     description: initial.document?.description ?? "",
@@ -340,6 +342,8 @@ export default function App() {
   }
 
   const openSaveSettings = () => {
+    setAddingSaveCategory(false)
+    setNewSaveCategory("")
     setSaveSettings({
       title: dashboardTitle,
       description: savedDashboards.find((item) => item.id === currentDashboardId)?.description ?? "",
@@ -529,6 +533,14 @@ export default function App() {
     }
   }
 
+  const addSaveCategory = () => {
+    const category = handleCreateDashboardCategory(newSaveCategory)
+    if (!category) return
+    setSaveSettings((current) => ({ ...current, category }))
+    setNewSaveCategory("")
+    setAddingSaveCategory(false)
+  }
+
   const handleRenameDashboardCategory = (previous: string, next: string) => {
     try {
       const renamed = renameDashboardCategory(previous, next)
@@ -678,13 +690,39 @@ export default function App() {
               placeholder="Describe what this dashboard tracks" value={saveSettings.description}
               onChange={(event) => setSaveSettings((current) => ({ ...current, description: event.target.value }))} />
             <label>Category</label>
-            <Select value={saveSettings.category ?? "uncategorized"} onValueChange={(value) => setSaveSettings((current) => ({ ...current, category: value === "uncategorized" ? undefined : value }))}>
-              <SelectTrigger aria-label="Dashboard category"><SelectValue /></SelectTrigger>
+            <Select value={saveSettings.category ?? "uncategorized"} onValueChange={(value) => {
+              if (value) setSaveSettings((current) => ({ ...current, category: value === "uncategorized" ? undefined : value }))
+            }}>
+              <SelectTrigger aria-label="Dashboard category"><span>{saveSettings.category ?? "Uncategorized"}</span></SelectTrigger>
               <SelectContent>
                 <SelectItem value="uncategorized">Uncategorized</SelectItem>
                 {dashboardCategories.map((category) => <SelectItem key={category} value={category}>{category}</SelectItem>)}
               </SelectContent>
             </Select>
+            {addingSaveCategory ? (
+              <div className="grid gap-2">
+                <Input
+                  autoFocus
+                  aria-label="New category name"
+                  maxLength={48}
+                  placeholder="New category name"
+                  value={newSaveCategory}
+                  onChange={(event) => setNewSaveCategory(event.target.value)}
+                  onKeyDown={(event) => {
+                    if (event.key === "Enter") {
+                      event.preventDefault()
+                      addSaveCategory()
+                    }
+                  }}
+                />
+                <div className="flex gap-2">
+                  <Button type="button" size="sm" disabled={!newSaveCategory.trim()} onClick={addSaveCategory}>Add category</Button>
+                  <Button type="button" size="sm" variant="outline" onClick={() => { setAddingSaveCategory(false); setNewSaveCategory("") }}>Cancel</Button>
+                </div>
+              </div>
+            ) : (
+              <Button type="button" size="sm" variant="outline" onClick={() => setAddingSaveCategory(true)}>New category</Button>
+            )}
             <label>Dashboard view mode</label>
             <Select value={saveSettings.viewMode} onValueChange={(value) => setSaveSettings((current) => ({ ...current, viewMode: value as "grid" | "floating" }))}>
               <SelectTrigger aria-label="Dashboard view mode"><SelectValue /></SelectTrigger>
