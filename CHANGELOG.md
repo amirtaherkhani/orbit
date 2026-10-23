@@ -3,6 +3,7 @@
 ### Added
 
 ### Changed
+- Use Font Awesome solid icons in the application sidebar.
 
 ### Fixed
 
