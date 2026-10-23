@@ -6266,9 +6266,9 @@ body {
 
 /* Keep the same quiet tab treatment for single and grouped tiles. */
 .trellis-dashboard-workspace .trellis [data-trellis-part="tab"][data-selected] {
-  background: transparent;
+  background: linear-gradient(var(--primary), var(--primary)) 10px bottom / 24px 2px no-repeat;
   color: var(--foreground);
-  box-shadow: inset 0 -2px 0 var(--primary);
+  box-shadow: none;
 }
 
 .trellis-dashboard-workspace .trellis [data-trellis-part="tab"][data-selected]::before,
@@ -7185,9 +7185,9 @@ body {
 
 .trellis-dashboard-workspace .trellis [data-trellis-part="tabbar"]:not([data-single])
   [data-trellis-part="tab"][data-selected] {
-  background: transparent;
+  background: linear-gradient(var(--primary), var(--primary)) 10px bottom / 24px 2px no-repeat;
   color: var(--foreground);
-  box-shadow: inset 0 -2px 0 var(--primary);
+  box-shadow: none;
 }
 
 .trellis-dashboard-workspace .trellis [data-trellis-part="tabbar"]:not([data-single])
