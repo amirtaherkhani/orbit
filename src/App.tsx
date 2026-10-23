@@ -18,6 +18,13 @@ import {
 } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
 import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
+import {
   Sheet,
   SheetContent,
   SheetDescription,
@@ -109,6 +116,14 @@ export default function App() {
   const [savedDashboards, setSavedDashboards] = React.useState(listSavedDashboards)
   const [dashboardCategories, setDashboardCategories] = React.useState(listDashboardCategories)
   const [isSaved, setIsSaved] = React.useState(Boolean(initial.document && !initial.needsSave))
+  const [saveOpen, setSaveOpen] = React.useState(false)
+  const [saveSettings, setSaveSettings] = React.useState<DashboardSettings>({
+    title: dashboardTitle,
+    description: initial.document?.description ?? "",
+    category: dashboardCategory,
+    viewMode: dashboardModel,
+    timeRange,
+  })
   const [mobileBuilderOpen, setMobileBuilderOpen] = React.useState(false)
   const [activePage, setActivePage] = React.useState<AppPage>("dashboard")
   const isMobile = useMediaQuery("(max-width: 820px)")
@@ -324,14 +339,32 @@ export default function App() {
     toast.success("Change restored")
   }
 
-  const handleSave = () => {
+  const openSaveSettings = () => {
+    setSaveSettings({
+      title: dashboardTitle,
+      description: savedDashboards.find((item) => item.id === currentDashboardId)?.description ?? "",
+      category: dashboardCategory,
+      viewMode: dashboardModel,
+      timeRange,
+    })
+    setSaveOpen(true)
+  }
+
+  const handleSave = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+    if (!saveSettings.title.trim()) return
     try {
       const id = currentDashboardId ?? crypto.randomUUID()
-      const document = saveDashboard(stateRef.current, timeRange, { id, title: dashboardTitle, category: dashboardCategory, viewMode: dashboardModel })
+      const document = saveDashboard(stateRef.current, saveSettings.timeRange, { id, ...saveSettings })
       setCurrentDashboardId(document.id)
+      setDashboardTitle(document.title)
+      setDashboardCategory(document.category)
+      setDashboardModel(document.viewMode ?? "grid")
+      setTimeRange(document.timeRange)
       setSavedDashboards(listSavedDashboards())
       setDashboardCategories(listDashboardCategories())
       setIsSaved(true)
+      setSaveOpen(false)
       toast.success("Dashboard saved", {
         description: "Your layout is stored in this browser.",
       })
@@ -565,7 +598,7 @@ export default function App() {
               onTimeRangeChange={handleTimeRangeChange}
               onUndo={handleUndo}
               onRedo={handleRedo}
-              onSave={handleSave}
+              onSave={openSaveSettings}
               onLoad={handleLoad}
               onExport={handleExport}
               onImport={() => importInputRef.current?.click()}
@@ -630,6 +663,45 @@ export default function App() {
           <SettingsPage />
         )}
       </div>
+
+      <Sheet open={saveOpen} onOpenChange={setSaveOpen}>
+        <SheetContent side="right" className="dashboard-library-create-sheet">
+          <SheetHeader>
+            <SheetTitle>Save dashboard</SheetTitle>
+            <SheetDescription>Review dashboard settings before saving your layout in this browser.</SheetDescription>
+          </SheetHeader>
+          <form onSubmit={handleSave} className="dashboard-library-create-form">
+            <label htmlFor="save-dashboard-title">Dashboard name</label>
+            <Input id="save-dashboard-title" autoFocus maxLength={72} value={saveSettings.title} onChange={(event) => setSaveSettings((current) => ({ ...current, title: event.target.value }))} />
+            <label htmlFor="save-dashboard-description">Description (optional)</label>
+            <textarea id="save-dashboard-description" className="dashboard-description-input" rows={4} maxLength={500}
+              placeholder="Describe what this dashboard tracks" value={saveSettings.description}
+              onChange={(event) => setSaveSettings((current) => ({ ...current, description: event.target.value }))} />
+            <label>Category</label>
+            <Select value={saveSettings.category ?? "uncategorized"} onValueChange={(value) => setSaveSettings((current) => ({ ...current, category: value === "uncategorized" ? undefined : value }))}>
+              <SelectTrigger aria-label="Dashboard category"><SelectValue /></SelectTrigger>
+              <SelectContent>
+                <SelectItem value="uncategorized">Uncategorized</SelectItem>
+                {dashboardCategories.map((category) => <SelectItem key={category} value={category}>{category}</SelectItem>)}
+              </SelectContent>
+            </Select>
+            <label>Dashboard view mode</label>
+            <Select value={saveSettings.viewMode} onValueChange={(value) => setSaveSettings((current) => ({ ...current, viewMode: value as "grid" | "floating" }))}>
+              <SelectTrigger aria-label="Dashboard view mode"><SelectValue /></SelectTrigger>
+              <SelectContent><SelectItem value="grid">Grid</SelectItem><SelectItem value="floating">Floating</SelectItem></SelectContent>
+            </Select>
+            <label>Time range</label>
+            <Select value={saveSettings.timeRange} onValueChange={(value) => setSaveSettings((current) => ({ ...current, timeRange: value }))}>
+              <SelectTrigger aria-label="Dashboard time range"><SelectValue /></SelectTrigger>
+              <SelectContent>
+                {[...new Set([saveSettings.timeRange, "Last 15 minutes", "Last 1 hour", "Last 6 hours", "Last 24 hours"])].map((range) => <SelectItem key={range} value={range}>{range}</SelectItem>)}
+              </SelectContent>
+            </Select>
+            <Button type="submit" disabled={!saveSettings.title.trim()}>Save dashboard</Button>
+            <Button type="button" variant="outline" onClick={() => setSaveOpen(false)}>Cancel</Button>
+          </form>
+        </SheetContent>
+      </Sheet>
 
       <Sheet open={mobileBuilderOpen} onOpenChange={setMobileBuilderOpen}>
         <SheetContent side="left" className="mobile-builder-sheet">
