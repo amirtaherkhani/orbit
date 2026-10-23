@@ -218,7 +218,7 @@ export function Topbar({
         {editMode && onCancelEdit && (
           <Button variant="outline" onClick={onCancelEdit}>
             <XIcon data-icon="inline-start" aria-hidden="true" />
-            <span>Cancel edit</span>
+            <span>Cancel</span>
           </Button>
         )}
 
