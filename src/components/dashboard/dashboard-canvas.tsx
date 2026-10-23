@@ -369,9 +369,9 @@ export function DashboardCanvas({
                 Choose a data source and visualization, then add it to this
                 canvas.
               </p>
-              <Button onClick={onOpenBuilder}>
-                <PlusIcon data-icon="inline-start" />
-                Create panel
+              <Button onClick={onOpenBuilder} className="gap-2 px-3">
+                <PlusIcon aria-hidden="true" />
+                <span>Create panel</span>
               </Button>
             </div>
           ) : isMobile ? (
