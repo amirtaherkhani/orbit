@@ -14,6 +14,7 @@ import {
   RotateCcwIcon,
   SaveIcon,
   Undo2Icon,
+  XIcon,
 } from "@/components/ui/icon-library"
 
 import { TextAnimate } from "@/components/animate-ui/components/text/text-animate"
@@ -216,7 +217,8 @@ export function Topbar({
 
         {editMode && onCancelEdit && (
           <Button variant="outline" onClick={onCancelEdit}>
-            Cancel edit
+            <XIcon data-icon="inline-start" aria-hidden="true" />
+            <span>Cancel edit</span>
           </Button>
         )}
 
