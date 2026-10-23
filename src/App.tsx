@@ -579,6 +579,10 @@ export default function App() {
   return (
     <div className="app-shell">
       <AppRail activePage={activePage} onNavigate={(page) => {
+        if (page === "dashboard" && currentDashboardId !== null) {
+          handleCreateDashboard(NEW_DASHBOARD_TITLE)
+          return
+        }
         if (page === "dashboard") setEditMode(true)
         setActivePage(page)
       }} />
