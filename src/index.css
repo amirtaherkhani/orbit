@@ -2043,6 +2043,40 @@
   opacity: 1;
 }
 
+.dashboard-grid-shell[data-editing="true"][data-layout-style="custom"]
+  .react-grid-item
+  > .react-resizable-handle-se {
+  width: 24px;
+  height: 24px;
+  border: 1px solid var(--primary);
+  border-radius: 6px 0 6px 0;
+  background: var(--card);
+  opacity: 1;
+  z-index: 2;
+}
+
+.dashboard-grid-shell[data-editing="true"][data-layout-style="custom"]
+  .react-grid-item
+  > .react-resizable-handle-se::before {
+  position: absolute;
+  right: 5px;
+  bottom: 10px;
+  width: 12px;
+  height: 2px;
+  background: var(--primary);
+  content: "";
+  transform: rotate(45deg);
+}
+
+.dashboard-grid-shell[data-editing="true"][data-layout-style="custom"]
+  .react-grid-item
+  > .react-resizable-handle-se::after {
+  right: 4px;
+  bottom: 4px;
+  width: 7px;
+  height: 7px;
+}
+
 .react-grid-item > .react-resizable-handle.react-resizable-handle-e {
   top: calc(50% - 8px);
   right: -4px;
