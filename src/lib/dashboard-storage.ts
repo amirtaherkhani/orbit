@@ -455,7 +455,7 @@ export function loadDashboard(id?: string): LoadedDashboard | null {
 export function saveDashboard(
   snapshot: DashboardSnapshot,
   timeRange: string,
-  identity?: { id: string; title: string; category?: string; viewMode?: "grid" | "floating" }
+  identity?: { id: string; title: string; description?: string; category?: string; viewMode?: "grid" | "floating" }
 ) {
   const collection = readDashboardCollection()
   const id = identity?.id ?? (collection.activeId || crypto.randomUUID())
@@ -464,7 +464,8 @@ export function saveDashboard(
   document.viewMode = identity?.viewMode ?? previous?.viewMode ?? "grid"
   document.id = id
   document.title = identity?.title.trim() || previous?.title || "Untitled dashboard"
-  document.category = identity?.category ?? previous?.category
+  document.description = identity ? identity.description?.trim() || undefined : previous?.description
+  document.category = identity ? identity.category : previous?.category
   const dashboards = [
     document,
     ...collection.dashboards.filter((item) => item.id !== id),

@@ -1577,13 +1577,14 @@
   width: min(360px, calc(100vw - 24px));
   max-height: min(560px, calc(100vh - 32px));
   overflow: auto;
-  border: 1px solid color-mix(in oklch, var(--border) 85%, transparent);
+  border: 1px solid var(--glass-menu-border);
   border-radius: 14px;
   padding: 14px;
-  background: color-mix(in oklch, var(--card) 92%, transparent);
+  background: var(--glass-topbar-fill), var(--glass-topbar-base);
   color: var(--foreground);
-  box-shadow: 0 16px 40px color-mix(in oklch, var(--foreground) 14%, transparent);
-  backdrop-filter: blur(24px) saturate(1.35);
+  box-shadow: var(--glass-menu-shadow);
+  -webkit-backdrop-filter: blur(32px) saturate(135%);
+  backdrop-filter: blur(32px) saturate(135%);
   animation: dashboard-announcement-manager-enter 140ms ease-out both;
 }
 
@@ -1652,8 +1653,8 @@
 
 .dashboard-announcement-source:hover,
 .dashboard-announcement-source[aria-pressed="true"] {
-  border-color: color-mix(in oklch, var(--border) 76%, transparent);
-  background: color-mix(in oklch, var(--background) 70%, transparent);
+  border-color: var(--glass-control-border);
+  background: color-mix(in srgb, var(--primary) 9%, var(--popover));
 }
 
 .dashboard-announcement-source:focus-visible {
@@ -2041,40 +2042,6 @@
   .react-grid-item:hover
   > .react-resizable-handle {
   opacity: 1;
-}
-
-.dashboard-grid-shell[data-editing="true"][data-layout-style="custom"]
-  .react-grid-item
-  > .react-resizable-handle-se {
-  width: 24px;
-  height: 24px;
-  border: 1px solid var(--primary);
-  border-radius: 6px 0 6px 0;
-  background: var(--card);
-  opacity: 1;
-  z-index: 2;
-}
-
-.dashboard-grid-shell[data-editing="true"][data-layout-style="custom"]
-  .react-grid-item
-  > .react-resizable-handle-se::before {
-  position: absolute;
-  right: 5px;
-  bottom: 10px;
-  width: 12px;
-  height: 2px;
-  background: var(--primary);
-  content: "";
-  transform: rotate(45deg);
-}
-
-.dashboard-grid-shell[data-editing="true"][data-layout-style="custom"]
-  .react-grid-item
-  > .react-resizable-handle-se::after {
-  right: 4px;
-  bottom: 4px;
-  width: 7px;
-  height: 7px;
 }
 
 .react-grid-item > .react-resizable-handle.react-resizable-handle-e {
@@ -6239,7 +6206,7 @@ body {
   --trellis-text: var(--foreground);
   --trellis-text-muted: var(--muted-foreground);
   --trellis-tabbar: transparent;
-  --trellis-tab-active: transparent;
+  --trellis-tab-active: color-mix(in srgb, var(--primary) 24%, var(--card));
   --trellis-tab-hover: color-mix(in oklch, var(--muted) 55%, transparent);
   --trellis-border: var(--glass-panel-border);
   --trellis-accent: var(--primary);
@@ -6253,10 +6220,6 @@ body {
   --trellis-gap: 9px;
   --trellis-shadow-float: none;
   --trellis-shadow-lifted: none;
-}
-
-.dark .trellis-dashboard-workspace > .trellis {
-  --trellis-tab-active: color-mix(in srgb, var(--primary) 16%, var(--card));
 }
 
 .trellis-dashboard-workspace .trellis .trellis-menu {
@@ -6421,6 +6384,10 @@ body {
   border-bottom: 0;
   background: var(--glass-panel-heading-fill);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.24);
+}
+
+.trellis-dashboard-workspace .trellis [data-trellis-part="tabbar"] {
+  background: color-mix(in srgb, var(--primary) 12%, var(--card));
 }
 
 .dark .trellis-dashboard-workspace .trellis [data-trellis-part="tabbar"],
