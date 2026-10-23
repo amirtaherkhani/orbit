@@ -675,7 +675,6 @@ export default function App() {
                 onChartColorsChange={handleChartColorsChange}
                 onLayoutChange={handleLayoutChange}
                 onInteractionStart={checkpoint}
-                onOpenBuilder={openBuilder}
                 model={dashboardModel}
                 onModelChange={(model) => {
                   setDashboardModel(model)
