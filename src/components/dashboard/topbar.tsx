@@ -212,6 +212,13 @@ export function Topbar({
           </div>
         )}
 
+        {editMode && (
+          <Button variant="outline" onClick={onReset} aria-label="Reset dashboard">
+            <RotateCcwIcon data-icon="inline-start" />
+            <span>Reset</span>
+          </Button>
+        )}
+
         <Button
           variant="outline"
           onClick={onToggleEditMode}
