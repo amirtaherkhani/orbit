@@ -6474,6 +6474,8 @@ body {
   backdrop-filter: blur(var(--glass-blur-menu)) saturate(var(--glass-saturation-menu));
 }
 
+.dashboard-announcement-manager,
+.dashboard-confirm-card,
 .more-actions-menu[data-slot="dropdown-menu-content"],
 .more-actions-menu[data-slot="dropdown-menu-sub-content"] {
   border-color: var(--glass-action-border);
@@ -7904,3 +7906,45 @@ body {
   outline-offset: 2px;
 }
 .dashboard-description-input::placeholder { color: var(--muted-foreground); }
+
+.dashboard-confirm-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  background: rgb(0 0 0 / 30%);
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+}
+
+.dashboard-confirm-card {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  z-index: 91;
+  transform: translate(-50%, -50%);
+  width: min(420px, calc(100vw - 32px));
+  padding: 24px;
+  border: 1px solid var(--glass-action-border);
+  border-radius: 14px;
+  color: var(--foreground);
+}
+
+.dashboard-confirm-card p {
+  margin-top: 12px;
+  color: var(--muted-foreground);
+  font-size: var(--type-control-size);
+  line-height: 1.6;
+}
+
+.dashboard-confirm-actions {
+  display: flex;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 24px;
+}
+
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .dashboard-announcement-manager,
+  .dashboard-confirm-card { background: var(--glass-menu-fill); }
+}
