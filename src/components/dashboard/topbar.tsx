@@ -28,7 +28,6 @@ import {
   DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import {
@@ -184,11 +183,6 @@ export function Topbar({
                 Import JSON
               </DropdownMenuItem>
             </DropdownMenuGroup>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem variant="destructive" onSelect={onReset}>
-              <RotateCcwIcon />
-              Reset dashboard
-            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
 
