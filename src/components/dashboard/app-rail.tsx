@@ -1,6 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import {
-  faBell,
   faDatabase,
   faGear,
   faPenToSquare,
@@ -67,24 +66,6 @@ export function AppRail({ activePage, onNavigate }: AppRailProps) {
       </nav>
 
       <div className="rail-footer">
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <Button
-              variant="ghost"
-              size="icon-lg"
-              className="rail-button"
-              aria-label="Notifications"
-            >
-              <FontAwesomeIcon
-                icon={faBell}
-                aria-hidden="true"
-                className="size-4 shrink-0"
-              />
-              <span className="notification-dot" />
-            </Button>
-          </TooltipTrigger>
-          <TooltipContent side="right">Notifications</TooltipContent>
-        </Tooltip>
         <Tooltip>
           <TooltipTrigger asChild>
             <Button

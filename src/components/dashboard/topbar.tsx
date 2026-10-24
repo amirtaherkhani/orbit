@@ -1,6 +1,7 @@
 import { version as appVersion } from "../../../package.json"
 
 import {
+  BellIcon,
   CheckIcon,
   ChevronDownIcon,
   FileDownIcon,
@@ -104,6 +105,15 @@ export function Topbar({
       </div>
 
       <div className="topbar-actions">
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <Button variant="outline" size="icon" className="relative" aria-label="Notifications">
+              <BellIcon aria-hidden="true" />
+              <span className="notification-dot" aria-hidden="true" />
+            </Button>
+          </TooltipTrigger>
+          <TooltipContent>Notifications</TooltipContent>
+        </Tooltip>
         {isMobile && (
           <Button variant="outline" size="icon" aria-label="View dashboards" onClick={onShowLibrary}>
             <LayoutDashboardIcon />
