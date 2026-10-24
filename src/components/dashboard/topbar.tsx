@@ -100,9 +100,17 @@ export function Topbar({
             <span>Orbit</span>
             <span className="app-version">v{appVersion}</span>
           </div>
-          <h1 className="type-page-heading">
-            <TextAnimate key={title}>{title}</TextAnimate>
-          </h1>
+          <div className="flex min-w-0 items-center gap-3">
+            <h1 className="type-page-heading">
+              <TextAnimate key={title}>{title}</TextAnimate>
+            </h1>
+            {!isMobile && (
+              <Badge variant="secondary" className="live-badge">
+                <span className="live-dot" />
+                Live
+              </Badge>
+            )}
+          </div>
         </div>
       </div>
 
@@ -112,12 +120,6 @@ export function Topbar({
           <Button variant="outline" size="icon" aria-label="View dashboards" onClick={onShowLibrary}>
             <LayoutDashboardIcon />
           </Button>
-        )}
-        {!isMobile && (
-          <Badge variant="secondary" className="live-badge">
-            <span className="live-dot" />
-            Live
-          </Badge>
         )}
 
         <DropdownMenu>
