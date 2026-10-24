@@ -8046,7 +8046,7 @@ body {
   justify-content: center;
   gap: 6px;
   padding: 8px 5px;
-  border: 0;
+  border: 1px solid transparent;
   border-radius: 9px;
   background: transparent;
   color: var(--muted-foreground);
@@ -8059,9 +8059,10 @@ body {
 .notification-tab svg { width: 14px; height: 14px; }
 .notification-tab:hover { color: var(--foreground); background: color-mix(in oklch, var(--primary) 5%, transparent); }
 .notification-tab[data-state="active"] {
-  background: color-mix(in oklch, var(--primary) 12%, var(--card));
+  border-color: var(--segment-active-border);
+  background: var(--segment-active-fill);
   color: var(--foreground);
-  box-shadow: 0 1px 4px color-mix(in oklch, var(--foreground) 5%, transparent);
+  box-shadow: var(--segment-active-shadow);
 }
 
 .notification-tab-count {
