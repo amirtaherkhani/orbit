@@ -1,17 +1,30 @@
 ## [Unreleased]
 
+## [0.11.0] - 2026-10-24
+
 ### Added
+- Review dashboard name, description, category, view mode, and time range before saving; choose an existing category or create one in the save settings.
+- Reset the editor to an empty draft after confirmation without deleting saved dashboards, and undo the reset to restore the previous draft and its settings.
+- Cancel edits to a saved dashboard and return to its saved state.
+- Browse dashboard alarms and log events in a notification center with All, Alarms, and Activity tabs, active counts, severity icons, and grouped sections.
 
 ### Changed
+- Start a new empty editor draft after saving, and keep Editor navigation separate from opening saved dashboards.
+- Show the category in the page heading and the dashboard name in the canvas heading with editorial typography.
+- Move notifications to the top navigation and place the Live badge beside the category title.
+- Use centered glass confirmation dialogs and shared translucent menu surfaces for banner settings and notifications.
+- Simplify Floating panel tabs and match notification tab selection to Grid/Floating controls in both themes.
+- Use the primary color for borderless control tooltips, including their arrows, with matching contrast text.
 - Use Font Awesome solid icons in the application sidebar.
 
 ### Fixed
-
-### Performance
+- Restore Custom-grid tile resizing with unobtrusive edge and corner handles.
+- Clear stale Floating tile bodies when the dashboard becomes empty.
+- Open reset confirmation directly without navigating to the editor first.
+- Remove the bright shell highlight that Safari blurred across the dashboard's top edge.
 
 ### Removed
-
-### Security
+- Remove the duplicate Reset dashboard menu action and the empty-canvas Create panel button.
 
 ## [0.10.5] - 2026-10-07
 

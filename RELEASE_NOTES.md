@@ -1,3 +1,33 @@
+# v0.11.0
+
+## Highlights
+- Save a named, categorized dashboard and continue with a fresh empty draft; reset or cancel editing without removing saved dashboards.
+- Browse alarms and log activity in a glass notification center with category tabs, severity groups, and active counts.
+- Refine dashboard interaction with working Custom-grid resize handles, clearer headings, shared selection colors, and primary-color tooltips.
+
+## Added
+- Review dashboard name, description, category, Grid/Floating mode, and time range in save settings; create a category without leaving the form.
+- Reset the current canvas through a centered confirmation dialog, then use Undo to recover its panels and settings.
+- Cancel edits to an existing dashboard and restore its saved state.
+- View All, Alarms, and Activity tabs, with Needs attention, Watching, Recovered, and Service activity sections derived from dashboard panels.
+
+## Changed
+- Saving opens an empty draft, and the Editor destination starts a new canvas independently of saved dashboards.
+- Display the category in the top bar and the dashboard name in the canvas heading; place the Live badge beside the category.
+- Move notifications to the top navigation and use solid Font Awesome icons in the sidebar.
+- Apply project glass surfaces to confirmation dialogs, banner settings, and notifications; use the Grid/Floating selection colors in notification tabs.
+- Simplify Floating panel tabs and use borderless primary-color tooltips with readable contrast text.
+
+## Fixed
+- Restore Custom-grid resizing and show a clean empty canvas after clearing Floating panels.
+- Open reset confirmation without switching navigation first, and preserve reset history for Undo/Redo.
+- Remove the shell highlight responsible for Safari's bright top-edge blur.
+
+## Removed
+- Remove the duplicate Reset dashboard action from the menu and the Create panel button from the empty canvas.
+
+[Full changes since v0.10.5](https://github.com/amirtaherkhani/orbit/compare/v0.10.5...v0.11.0)
+
 # v0.10.5
 
 ## Highlights
