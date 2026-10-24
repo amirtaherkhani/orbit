@@ -1,4 +1,5 @@
 import { AlarmMenu } from "@/components/dashboard/alarm-menu"
+import { ThemeToggle } from "@/components/theme-toggle"
 import type { PanelConfig } from "@/types/dashboard"
 import { version as appVersion } from "../../../package.json"
 
@@ -95,7 +96,7 @@ export function Topbar({
         <div className="mobile-brand-mark" aria-hidden="true">
           <OrbitMark />
         </div>
-        <div>
+        <div className={isMobile ? "hidden" : undefined}>
           <div className="topbar-eyebrow">
             <span>Orbit</span>
             <span className="app-version">v{appVersion}</span>
@@ -115,6 +116,7 @@ export function Topbar({
       </div>
 
       <div className="topbar-actions">
+        {isMobile && <ThemeToggle />}
         <AlarmMenu panels={panels} />
         {isMobile && (
           <Button variant="outline" size="icon" aria-label="View dashboards" onClick={onShowLibrary}>
@@ -217,16 +219,16 @@ export function Topbar({
         )}
 
         {editMode && onCancelEdit && (
-          <Button variant="outline" onClick={onCancelEdit}>
+          <Button variant="outline" size={isMobile ? "icon" : "default"} onClick={onCancelEdit} aria-label="Cancel edit">
             <XIcon data-icon="inline-start" aria-hidden="true" />
-            <span>Cancel</span>
+            {!isMobile && <span>Cancel</span>}
           </Button>
         )}
 
         {editMode && (
-          <Button variant="outline" onClick={onReset} aria-label="Reset dashboard">
+          <Button variant="outline" size={isMobile ? "icon" : "default"} onClick={onReset} aria-label="Reset dashboard">
             <RotateCcwIcon data-icon="inline-start" />
-            <span>Reset</span>
+            {!isMobile && <span>Reset</span>}
           </Button>
         )}
 
