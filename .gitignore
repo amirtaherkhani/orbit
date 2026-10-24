@@ -15,6 +15,7 @@ dist-ssr
 !.env.example
 .playwright-cli/
 coverage/
+.codegraph/
 
 # Editor directories and files
 .vscode/*
