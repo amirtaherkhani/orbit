@@ -6930,6 +6930,11 @@ body {
 }
 
 .tooltip-surface {
+  --tooltip-surface: color-mix(in oklch, var(--primary) 12%, var(--card));
+  --tooltip-arrow-color: var(--tooltip-surface);
+  border: 0;
+  color: var(--foreground);
+  box-shadow: 0 8px 24px color-mix(in oklch, var(--foreground) 12%, transparent);
   font-family: var(--font-ui);
   max-width: min(320px, calc(100vw - 16px));
   gap: 6px;
