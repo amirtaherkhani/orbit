@@ -660,6 +660,7 @@ export default function App() {
             }}
           >
             <Topbar
+              panels={panels}
               title={dashboardCategory ?? (currentDashboardId ? "Uncategorized" : dashboardTitle)}
               editMode={editMode}
               timeRange={timeRange}
