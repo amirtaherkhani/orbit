@@ -1,5 +1,8 @@
 ## [Unreleased]
 
+### Changed
+- Update application and development dependencies to the latest compatible stable releases, including Motion 14, React 19.3, Radix UI 1.8, and Recharts 3.10. Keep TypeScript 6.0.3 until typescript-eslint supports TypeScript 7.
+
 ## [0.11.0] - 2026-10-24
 
 ### Added
