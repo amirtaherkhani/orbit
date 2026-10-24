@@ -1,11 +1,14 @@
 ## [Unreleased]
 
+## [0.12.0] - 2026-10-24
+
 ### Added
 - Switch between light and dark themes with an animated Animate UI wipe from the desktop sidebar or mobile toolbar, while keeping the existing saved preference and reduced-motion behavior.
 
 ### Changed
 - Use compact icon-only Cancel and Reset actions in the mobile toolbar to keep the theme control and other actions visible.
 - Update application and development dependencies to the latest compatible stable releases, including Motion 14, React 19.3, Radix UI 1.8, and Recharts 3.10. Keep TypeScript 6.0.3 until typescript-eslint supports TypeScript 7.
+- Refresh README screenshots and theme-aware branding for light and dark GitHub themes.
 
 ## [0.11.0] - 2026-10-24
 
