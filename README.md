@@ -5,7 +5,11 @@
     <img src="./public/brand/orbit-logo-horizontal-charcoal.svg" alt="Orbit" width="280" />
   </picture>
 
-  <img src="./design/orbit-dashboard-desktop.png" alt="Orbit dashboard with a live panel composer and operational charts" width="100%" />
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="./design/orbit-dashboard-desktop.png" />
+    <source media="(prefers-color-scheme: light)" srcset="./design/orbit-dashboard-desktop-light.png" />
+    <img src="./design/orbit-dashboard-desktop-light.png" alt="Orbit dashboard with a live panel composer and operational charts" width="100%" />
+  </picture>
 
   <h1>Orbit</h1>
   <p><strong>An expressive dashboard studio for operational signals.</strong></p>
