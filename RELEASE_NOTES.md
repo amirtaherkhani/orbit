@@ -1,3 +1,18 @@
+# v0.12.0
+
+## Highlights
+- Switch between light and dark themes with an animated wipe from the desktop sidebar or mobile toolbar.
+
+## Added
+- Add an Animate UI theme toggle that preserves saved preferences and respects reduced motion.
+
+## Changed
+- Keep mobile toolbar actions visible with compact Cancel and Reset icons.
+- Update runtime and development dependencies, including React 19.3, Motion 14, Radix UI 1.8, and Recharts 3.10. Retain TypeScript 6.0.3 for typescript-eslint compatibility.
+- Refresh README screenshots and theme-aware branding for light and dark GitHub themes.
+
+[Full changes since v0.11.0](https://github.com/amirtaherkhani/orbit/compare/v0.11.0...v0.12.0)
+
 # v0.11.0
 
 ## Highlights
