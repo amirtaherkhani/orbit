@@ -8,6 +8,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons"
 
 import { Button } from "@/components/ui/button"
+import { ThemeToggle } from "@/components/theme-toggle"
 import { OrbitMark } from "@/components/branding/orbit-mark"
 import {
   Tooltip,
@@ -66,6 +67,7 @@ export function AppRail({ activePage, onNavigate }: AppRailProps) {
       </nav>
 
       <div className="rail-footer">
+        <ThemeToggle sidebar />
         <Tooltip>
           <TooltipTrigger asChild>
             <Button
