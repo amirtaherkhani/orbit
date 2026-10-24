@@ -1,7 +1,8 @@
+import { AlarmMenu } from "@/components/dashboard/alarm-menu"
+import type { PanelConfig } from "@/types/dashboard"
 import { version as appVersion } from "../../../package.json"
 
 import {
-  BellIcon,
   CheckIcon,
   ChevronDownIcon,
   FileDownIcon,
@@ -37,6 +38,7 @@ import {
 } from "@/components/ui/tooltip"
 
 type TopbarProps = {
+  panels: PanelConfig[]
   title: string
   editMode: boolean
   timeRange: string
@@ -66,6 +68,7 @@ const timeRanges = [
 ]
 
 export function Topbar({
+  panels,
   title,
   editMode,
   timeRange,
@@ -104,15 +107,7 @@ export function Topbar({
       </div>
 
       <div className="topbar-actions">
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <Button variant="outline" size="icon" className="relative" aria-label="Notifications">
-              <BellIcon aria-hidden="true" />
-              <span className="notification-dot" aria-hidden="true" />
-            </Button>
-          </TooltipTrigger>
-          <TooltipContent>Notifications</TooltipContent>
-        </Tooltip>
+        <AlarmMenu panels={panels} />
         {isMobile && (
           <Button variant="outline" size="icon" aria-label="View dashboards" onClick={onShowLibrary}>
             <LayoutDashboardIcon />
