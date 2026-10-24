@@ -1,5 +1,9 @@
 <div align="center">
-  <img src="./public/brand/orbit-logo-horizontal-color.svg" alt="Orbit" width="280" />
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="./public/brand/orbit-icon-dark.svg" />
+    <source media="(prefers-color-scheme: light)" srcset="./public/brand/orbit-icon-light.svg" />
+    <img src="./public/brand/orbit-icon-light.svg" alt="Orbit" width="96" height="96" />
+  </picture>
 
   <img src="./design/orbit-dashboard-desktop.png" alt="Orbit dashboard with a live panel composer and operational charts" width="100%" />
 
