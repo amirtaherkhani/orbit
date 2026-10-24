@@ -53,6 +53,15 @@ import type {
   PanelConfig,
 } from "@/types/dashboard"
 
+type DashboardHistoryEntry = {
+  snapshot: DashboardSnapshot
+  title: string
+  category?: string
+  id: string | null
+  model: "grid" | "floating"
+  timeRange: string
+}
+
 const HISTORY_LIMIT = 30
 const NEW_DASHBOARD_TITLE = "Untitled"
 
@@ -107,8 +116,8 @@ export default function App() {
   )
   const [editingPanelId, setEditingPanelId] = React.useState<string | null>(null)
   const [panelTitleDraft, setPanelTitleDraft] = React.useState({ grid: "", floating: "" })
-  const [history, setHistory] = React.useState<DashboardSnapshot[]>([])
-  const [future, setFuture] = React.useState<DashboardSnapshot[]>([])
+  const [history, setHistory] = React.useState<DashboardHistoryEntry[]>([])
+  const [future, setFuture] = React.useState<DashboardHistoryEntry[]>([])
   const [editMode, setEditMode] = React.useState(true)
   const [dashboardModel, setDashboardModel] = React.useState<"grid" | "floating">(initial.document?.viewMode ?? "grid")
   const [timeRange, setTimeRange] = React.useState(initial.timeRange)
@@ -140,12 +149,21 @@ export default function App() {
     stateRef.current = { panels, layout }
   }, [panels, layout])
 
-  const checkpoint = React.useCallback(() => {
-    const snapshot = cloneSnapshot(stateRef.current)
-    setHistory((current) => [...current, snapshot].slice(-HISTORY_LIMIT))
+  const captureHistoryEntry = (): DashboardHistoryEntry => ({
+    snapshot: cloneSnapshot(stateRef.current),
+    title: dashboardTitle,
+    category: dashboardCategory,
+    id: currentDashboardId,
+    model: dashboardModel,
+    timeRange,
+  })
+
+  const checkpoint = () => {
+    const entry = captureHistoryEntry()
+    setHistory((current) => [...current, entry].slice(-HISTORY_LIMIT))
     setFuture([])
     setIsSaved(false)
-  }, [])
+  }
 
   const applySnapshot = React.useCallback((snapshot: DashboardSnapshot) => {
     const cloned = cloneSnapshot(snapshot)
@@ -337,15 +355,25 @@ export default function App() {
     setIsSaved(false)
   }
 
+  const restoreHistoryEntry = (entry: DashboardHistoryEntry) => {
+    applySnapshot(entry.snapshot)
+    setDashboardTitle(entry.title)
+    setDashboardCategory(entry.category)
+    setCurrentDashboardId(entry.id)
+    setDashboardModel(entry.model)
+    setTimeRange(entry.timeRange)
+  }
+
   const handleUndo = () => {
     const previous = history.at(-1)
     if (!previous) return
 
+    const entry = captureHistoryEntry()
     setFuture((current) =>
-      [cloneSnapshot(stateRef.current), ...current].slice(0, HISTORY_LIMIT)
+      [entry, ...current].slice(0, HISTORY_LIMIT)
     )
     setHistory((current) => current.slice(0, -1))
-    applySnapshot(previous)
+    restoreHistoryEntry(previous)
     toast.success("Last change undone")
   }
 
@@ -353,11 +381,12 @@ export default function App() {
     const next = future[0]
     if (!next) return
 
+    const entry = captureHistoryEntry()
     setHistory((current) =>
-      [...current, cloneSnapshot(stateRef.current)].slice(-HISTORY_LIMIT)
+      [...current, entry].slice(-HISTORY_LIMIT)
     )
     setFuture((current) => current.slice(1))
-    applySnapshot(next)
+    restoreHistoryEntry(next)
     toast.success("Change restored")
   }
 
@@ -457,7 +486,10 @@ export default function App() {
 
   const handleReset = () => {
     setResetOpen(false)
+    const previous = captureHistoryEntry()
+    const previousHistory = history
     startNewDashboard(NEW_DASHBOARD_TITLE)
+    setHistory([...previousHistory, previous].slice(-HISTORY_LIMIT))
     toast.success("Dashboard reset", {
       description: "A new empty dashboard is ready.",
     })
