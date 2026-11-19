@@ -1,6 +1,6 @@
 # Orbit handoff
 
-Read this first in a new session. It replaces the design chat on claude.ai (2026-10-31 to 2026-11-19), which cannot be moved. Details and every decision: `ARCHITECTURE.md` (revision notes 1-83).
+Read this first in a new session. It replaces the design chat on claude.ai (2026-10-31 to 2026-11-19), which cannot be moved. Details and every decision: `ARCHITECTURE.md` (revision notes 1-85).
 
 ## What Orbit is
 
@@ -12,14 +12,15 @@ A fork of Grafana OSS (`github.com/amirtaherkhani/orbit`, public) for a producti
 | --- | --- |
 | Architecture (`ARCHITECTURE.md`) | ✔ Written and checked against Grafana v13.3.0; cited files compared with v13.3.1 (51 of 52 identical, one line number moved) |
 | Design canvas, 36 boards (claude.ai) | ✔ Done for this phase; source in `.orbit/design/`, live version in `.orbit/artifacts.json` |
-| Architecture map (claude.ai) | ✔ Current to revision note 83; source in `.orbit/map/` |
-| Repository rules, skills, hooks, CI | ✔ Written; guard has 51 passing tests; CI workflows not run yet |
+| Architecture map (claude.ai) | ! Source current to revision note 85; the live artifact still shows revision 83 (publish after this branch is merged) |
+| Repository rules, skills, hooks, CI | ✔ In `orbit` (PR #1, #2); guard has 55 passing tests; `orbit-ci / guards` ran green on PR #1 and #2 |
+| Branch model | One product branch `orbit` (revision 85); Grafana releases come in by `update/<tag>` pull requests with a merge commit |
 | Product code (`public/app/orbit/`, `pkg/orbit/`) | ○ Not started. Nothing is built, type-checked or tested (RK01) |
-| GitHub settings (rulesets, default branch, Grafana workflows off) | ○ Owner, see `GITHUB-SETUP.md` |
+| GitHub settings | ✔ Grafana workflows off · ✔ merge buttons (squash and merge commit, PR title as message) · ○ rename `orbit/13.3.1` → `orbit`, default branch `orbit`, rulesets (`GITHUB-SETUP.md` 1, 3, 4) |
 
 ## Next steps, in order
 
-1. Owner: finish `GITHUB-SETUP.md`.
+1. Owner: finish `GITHUB-SETUP.md` (rename to `orbit`, default branch, rulesets). Then publish the architecture map (`orbit-artifacts-sync`).
 2. v0.1 spike (ARCHITECTURE.md section 16): SM01 shell swap behind the kill switch (OD1 still open), `orbit/entry.ts`, an empty `AppShell` that renders the stock chrome; prove RK02 (import-time routes) and RK13 (Jest, tsconfig, rspack pick up `public/app/orbit`).
 3. v0.4 spike: `pkg/orbit` wiring (SM13, SM14) and `orbit_app_lifecycle`; prove RK24 on SQLite, MySQL and PostgreSQL.
 4. Write the deletable check script and the contract-test folder (`public/app/orbit/__tests__/contract`), both described in 13.3 but not written.

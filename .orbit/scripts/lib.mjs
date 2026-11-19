@@ -24,8 +24,9 @@ export const OURS_GUARDED = [
 // Grafana's agent files: never edited (OD35).
 export const GRAFANA_AI_FILES = ['CLAUDE.md', 'AGENTS.md', 'AI_POLICY.md', '.gitignore'];
 
-// main mirrors Grafana's main; everything under orbit/ is a product line, one per Grafana release (orbit/13.3.1). Both change only by PR or by the owner.
-export const PROTECTED_BRANCH = /^(main|orbit\/.+)$/;
+// main mirrors Grafana's main; orbit is the one product branch (decided 2026-11-19, revision 85); hotfix/<version> is made by the owner
+// from an old release tag only when an old release needs a fix. orbit/<version> stays protected for the old per-release lines.
+export const PROTECTED_BRANCH = /^(main|orbit(\/.+)?|hotfix\/.+)$/;
 // Short-lived work branches, one PR each (decided 2026-11-19).
 export const WORK_TYPES = ['feat', 'fix', 'seam', 'design', 'docs', 'update', 'release', 'ci', 'tooling'];
 export const WORK_BRANCH = new RegExp(`^(${WORK_TYPES.join('|')})/[a-z0-9][a-z0-9.+-]*$`);

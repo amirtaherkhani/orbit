@@ -181,7 +181,8 @@ for (const p of parts) {
     || (sub === 'clean' && rest.some((x) => /^-[a-z]*f/.test(x)))
     || (sub === 'branch' && rest.includes('-D'))
     || (sub === 'stash' && ['drop', 'clear'].includes(rest[0]))
-    || ((sub === 'checkout' || sub === 'restore') && rest.includes('.'));
+    || ((sub === 'checkout' || sub === 'restore') && rest.includes('.'))
+    || (sub === 'read-tree' && rest.includes('--reset'));
   if (discards) {
     ask(`git ${sub} ${rest.join(' ')} discards work. The owner must approve it.`);
   }

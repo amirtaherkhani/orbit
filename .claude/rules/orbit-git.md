@@ -12,13 +12,13 @@ These rules are enforced. `.orbit/scripts/agent-guard.mjs` runs before every she
 | Branch | What it is | Who changes it |
 | --- | --- | --- |
 | `main` | Mirror of Grafana's `main`. Never commit to it | The owner, with GitHub's "Sync fork" |
-| `orbit/<grafana version>`, e.g. `orbit/13.3.1` | A product line: one Grafana release tag plus our commits. One line per Grafana release, patch releases included | Created by the owner from the tag; then only through pull requests the owner merges |
+| `orbit` | The product: one Grafana release plus our commits. The default branch. It never changes name; the Grafana version it holds is `base` in `.orbit/seams.json` | Only through pull requests the owner merges |
+| `hotfix/<version>`, e.g. `hotfix/13.3.1` | Only when an old release needs a fix: made by the owner from that release's tag | Only through pull requests the owner merges |
 | `<type>/<topic>` | Short-lived work branch, one pull request | You |
 
 - Work branch types: `feat`, `fix`, `seam`, `design`, `docs`, `update`, `release`, `ci`, `tooling`. Topic in lowercase with hyphens: `feat/dock-bookmarks`, `update/v13.3.2`, `release/v13.3.1-orbit.1`.
-- Start every task from the current product line, the newest `orbit/*` (the repository's default branch; its version is `base` in `.orbit/seams.json`): `git switch orbit/13.3.1 && git pull && git switch -c feat/<topic>`.
-- Older lines stay for rollback and are not changed, unless the owner asks for a fix on one.
-- Never commit on `main`, `orbit/*` or a detached HEAD.
+- Start every task from `orbit`: `git switch orbit && git pull --ff-only && git switch -c feat/<topic>`.
+- Never commit on `main`, `orbit`, `hotfix/*` or a detached HEAD.
 
 ## Commits
 
@@ -31,8 +31,8 @@ These rules are enforced. `.orbit/scripts/agent-guard.mjs` runs before every she
 ## Push and pull requests
 
 - Before a push, run the checks (`orbit-git-workflow` skill), then show the owner: branch, commits, changed files, check results. Push only after the owner approves; the push prompt is that approval.
-- Never force-push, never push to `upstream`, `main` or `orbit/*`, never push `--tags`.
-- Open a pull request into the current `orbit/<grafana version>` with `gh pr create`, after approval. Title in commit format, since pull requests are **squash-merged** and the title becomes the commit (except `update/*`, see below).
+- Never force-push, never push to `upstream`, `main`, `orbit` or `hotfix/*`, never push `--tags`.
+- Open a pull request into `orbit` (or the `hotfix/*` branch the owner named) with `gh pr create`, after approval. Title in commit format, since pull requests are **squash-merged** and the title becomes the commit (except `update/*`, see below).
 - Every pull request adds one line under `## [Unreleased]` in `.orbit/CHANGELOG.md`, unless it changes only docs or CI.
 - Never merge. Merging is the owner's job. When checks are green, say the pull request is ready and stop.
 
@@ -43,16 +43,16 @@ These rules are enforced. `.orbit/scripts/agent-guard.mjs` runs before every she
 | Release | `v<grafana>+orbit.<n>`, e.g. `v13.3.1+orbit.1` | `ghcr.io/amirtaherkhani/orbit:13.3.1-orbit.1` |
 | Release candidate | `v<grafana>+orbit.<n>.rc.<m>`, e.g. `v13.3.1+orbit.2.rc.1` | `…:13.3.1-orbit.2-rc.1` |
 
-- `<grafana>` is the version of the line, the same as its branch name and the `base` in `.orbit/seams.json` (`orbit/13.3.1` releases `v13.3.1+orbit.<n>`). `<n>` counts our releases on that line and starts at 1 on each new line. `<m>` counts candidates for the coming `<n>`.
-- Tags are annotated, made on the product line after the release pull request is merged, and never moved or deleted.
+- `<grafana>` is the Grafana version in the tagged commit, the `base` in `.orbit/seams.json` (base `v13.3.1` releases `v13.3.1+orbit.<n>`). `<n>` counts our releases on that Grafana version and starts at 1 after each update. `<m>` counts candidates for the coming `<n>`.
+- Release tags are annotated, made on `orbit` after the release pull request is merged, and never moved or deleted. A release candidate may also be tagged on an `update/*` branch, to test a new Grafana version before it reaches `orbit`.
 - Grafana's own version never changes. The Orbit API version in `.orbit/VERSION` follows SemVer: major when apps or users break (`ui.json`, `/api/orbit`, `orbit_` tables), minor for features, patch for fixes. It is `0.x` until v1.
 - A release is prepared with the `orbit-release` skill. Pushing the tag starts `orbit-release.yml`, which builds the image and the GitHub release; the owner approves that push.
 
 ## Grafana updates
 
-Every Grafana release, patch, minor or major, gets its own line (owner's decision, 2026-11-19):
-1. The owner creates `orbit/13.3.2` from Grafana's tag `v13.3.2`.
-2. You copy our commits from the current line onto a work branch `update/v13.3.2` made from it, and set `base` in `.orbit/seams.json`.
-3. Pull request into `orbit/13.3.2`, merged with **"Create a merge commit"**, never squashed: a squash would fold all our commits into one, and seam commits must stay separate so the next copy replays cleanly. Say this in the pull request body.
-4. The owner makes `orbit/13.3.2` the default branch. The old line stays as it is.
+One branch, `orbit`, for every Grafana version (owner's decision, 2026-11-19, revision 85). A new Grafana release, patch, minor or major, comes in through one pull request:
+1. When the owner asks: `update/v13.3.2` from `orbit`, merge Grafana's tag `v13.3.2`, take Grafana's files exactly as the tag has them, keep our folders, re-apply the seam lines, set `base` in `.orbit/seams.json`.
+2. Test it. If the owner wants, tag a release candidate on the update branch (`v13.3.2+orbit.1.rc.1`) to test its image.
+3. Pull request into `orbit`, merged with **"Create a merge commit"**, never squashed: the merge commit records that `orbit` now contains Grafana's tag, so the next update merges only the new changes. Say this in the pull request body.
+4. After the merge, release `v13.3.2+orbit.1` from `orbit`. Nothing else changes: default branch, rulesets and settings stay.
 - Details: `orbit-upstream-update` skill. Never rebase a pushed branch.

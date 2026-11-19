@@ -32,7 +32,7 @@ The design tools are Python and always run through this launcher; never activate
 
 ## Publish (after the owner merged the PR)
 
-Publishing needs the claude.ai artifact tools. If this session has them (`publish_files`), publish only the changed files with the version in `artifacts.json` as the base version; otherwise tell the owner to ask a claude.ai session: "Publish .orbit/design from the current orbit line". After publishing, copy the published files into `.orbit/published/`, update `artifacts.json` (version, date, sha256) and commit `orbit(design): record published version <version>`.
+Publishing needs the claude.ai artifact tools. If this session has them (`publish_files`), publish only the changed files with the version in `artifacts.json` as the base version; otherwise tell the owner to ask a claude.ai session: "Publish .orbit/design from the orbit branch". After publishing, copy the published files into `.orbit/published/`, update `artifacts.json` (version, date, sha256) and commit `orbit(design): record published version <version>`.
 
 ## Bring back changes made on claude.ai
 

@@ -1,6 +1,6 @@
 ---
 name: orbit-git-workflow
-description: Use for every change in the Orbit repo that ends in a commit, push or pull request - starting a work branch, committing, running the Orbit checks, asking the owner before pushing, and opening the PR into the current orbit/<grafana version> line.
+description: Use for every change in the Orbit repo that ends in a commit, push or pull request - starting a work branch, committing, running the Orbit checks, asking the owner before pushing, and opening the PR into the orbit branch.
 ---
 
 # Orbit git workflow
@@ -11,11 +11,11 @@ Rules: `.claude/rules/orbit-git.md`. The guard hook enforces them; this is the p
 
 ```bash
 git status --short                      # must be clean; if not, ask the owner what to do with the changes
-git switch orbit/13.3.1 && git pull --ff-only
+git switch orbit && git pull --ff-only
 git switch -c <type>/<topic>            # feat, fix, seam, design, docs, update, release, ci, tooling
 ```
 
-Use the current line: the default branch, whose version is `base` in `.orbit/seams.json` (`v13.3.1` → `orbit/13.3.1`). The examples below use `orbit/13.3.1`.
+Every task starts from `orbit`, the default branch. The Grafana version it holds is `base` in `.orbit/seams.json`.
 
 ## 2. Work
 
@@ -40,7 +40,7 @@ Add one line under `## [Unreleased]` in `.orbit/CHANGELOG.md` (Added / Changed /
 node .orbit/scripts/check-seams.mjs
 node .orbit/scripts/check-boundaries.mjs
 node .orbit/scripts/check-namespace.mjs
-node .orbit/scripts/check-title.mjs --range orbit/13.3.1..HEAD
+node .orbit/scripts/check-title.mjs --range orbit..HEAD
 node .orbit/scripts/agent-guard.test.mjs     # only if .orbit/scripts changed
 ```
 
@@ -56,7 +56,7 @@ make gen-go && git diff --exit-code pkg/server/wire_gen.go   # only if pkg/orbit
 
 ## 5. Ask, then push
 
-Show the owner, in this order: branch, commits (`git log --oneline orbit/13.3.1..HEAD`), changed files (`git diff --stat orbit/13.3.1...HEAD`), check results with ✔ ✘ ? ○. Then:
+Show the owner, in this order: branch, commits (`git log --oneline orbit..HEAD`), changed files (`git diff --stat orbit...HEAD`), check results with ✔ ✘ ? ○. Then:
 
 ```bash
 git push -u origin <type>/<topic>       # the permission prompt is the owner's approval
@@ -65,7 +65,7 @@ git push -u origin <type>/<topic>       # the permission prompt is the owner's a
 ## 6. Pull request
 
 ```bash
-gh pr create --base orbit/13.3.1 --title "orbit(<scope>): <summary>" --body-file <file>
+gh pr create --base orbit --title "orbit(<scope>): <summary>" --body-file <file>
 ```
 
 Body: what and why, IDs touched (boards, seams, ODs), checks run, what was not checked. Then stop with a **Status: Waiting for PR** block. Never merge; the owner squash-merges.
