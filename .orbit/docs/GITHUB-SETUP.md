@@ -4,14 +4,16 @@ These are repository settings, so only the owner changes them. Agents may print 
 
 ## 1. Base branch
 
+The product branch is `orbit` (revision 85). It started as `orbit/13.3.1` from Grafana's tag `v13.3.1` and was renamed:
+
 ```bash
 git remote set-url --push upstream DISABLE
 git fetch upstream tag v13.3.1 --no-tags
-git switch -c orbit/13.3.1 v13.3.1
-git push -u origin orbit/13.3.1
 ```
 
-Then merge the pull request that brings in `.orbit/`, `.claude/` and `.github/workflows/orbit-*` (see `INIT-PROMPT.md`).
+- Already done: `orbit/13.3.1` was created from `v13.3.1`, and pull requests #1 and #2 brought in `.orbit/`, `.claude/` and `.github/workflows/orbit-*`.
+- Rename it once: Settings → Branches (or the Branches page, ⋯ next to the branch) → **Rename branch** → `orbit`. GitHub moves open pull requests and redirects the old name. Git cannot hold `orbit` and `orbit/13.3.1` at the same time, so this is a rename, not a new branch.
+- On each Mac clone afterwards: `git fetch --prune origin && git branch -m orbit/13.3.1 orbit && git branch -u origin/orbit orbit && git remote set-head origin -a` (`--prune` first removes the old `origin/orbit/13.3.1`, which would block `origin/orbit`).
 
 ## 2. Turn off Grafana's workflows (keep ours)
 
@@ -27,7 +29,7 @@ Run it again after step 3, because the list follows the default branch.
 
 ## 3. Default branch and merge buttons
 
-Settings → General → Default branch → `orbit/13.3.1`. On each new Grafana release line, switch it to the new `orbit/<version>`.
+Settings → General → Default branch → `orbit`. It never changes again: a new Grafana release comes in through an `update/*` pull request into `orbit`.
 
 Settings → General → Pull Requests: allow **Squash merging** and **Merge commits**, turn off **Rebase merging**. For both squash and merge commits, set "Default commit message" to **Pull request title**, so the commit on the line keeps the `orbit(<scope>): …` title. Turn on "Automatically delete head branches".
 
@@ -35,11 +37,11 @@ Settings → General → Pull Requests: allow **Squash merging** and **Merge com
 
 | Ruleset | Target | Rules |
 | --- | --- | --- |
-| `orbit-lines` | branches `orbit/**` | Restrict deletions · Block force pushes · Require a pull request (0 approvals; merge methods squash and merge) · Require status checks: `guards` (and `frontend`, `backend`: a skipped job counts as passed) · Bypass: repository admin, only for emergencies |
+| `orbit-product` | branches `orbit` and `hotfix/**` | Restrict deletions · Block force pushes · Require a pull request (0 approvals; merge methods squash and merge) · Require status checks: `guards` (and `frontend`, `backend`: a skipped job counts as passed) · Bypass: repository admin, only for emergencies |
 | `main-mirror` | branch `main` | Restrict deletions · Block force pushes. No pull request rule, so "Sync fork" keeps working |
 | `release-tags` | tags `v*+orbit*` | Restrict deletions · Restrict updates (a release tag is never moved) |
 
-Do not turn on "Require linear history": `update/*` pull requests need a merge commit.
+Do not turn on "Require linear history": `update/*` pull requests need a merge commit (it records that `orbit` contains Grafana's tag).
 
 ## 5. Actions and packages
 
@@ -48,5 +50,5 @@ Do not turn on "Require linear history": `update/*` pull requests need a merge c
 
 ## 6. Check
 
-- Open a test pull request from `docs/test-ci` into `orbit/13.3.1`: `orbit-ci / guards` must run; no Grafana workflow may run.
+- Open a test pull request from `docs/test-ci` into `orbit`: `orbit-ci / guards` must run; no Grafana workflow may run.
 - Ask Claude Code to `git push --force` a test branch: the guard must refuse it.

@@ -1,12 +1,12 @@
-# Orbit checks on every pull request into, and push to, an orbit/<grafana version> line (e.g. orbit/13.3.1).
+# Orbit checks on every pull request into, and push to, the orbit branch and hotfix/* branches (orbit/** only until the old orbit/13.3.1 is renamed to orbit).
 # Rules: .claude/rules/orbit-git.md. Scripts: .orbit/scripts/. Grafana's own workflows are disabled in the fork.
 name: orbit-ci
 
 on:
   pull_request:
-    branches: ['orbit/**']
+    branches: ['orbit', 'orbit/**', 'hotfix/**']
   push:
-    branches: ['orbit/**']
+    branches: ['orbit', 'orbit/**', 'hotfix/**']
   workflow_dispatch:
 
 permissions:

@@ -28,7 +28,7 @@ jobs:
             if (!m) { console.error('✘ not a release tag: ' + t); process.exit(1); }
             console.log('image=' + dockerTag(t)); console.log('grafana=' + m[1]); console.log('rc=' + (m[3] ? 'true' : 'false'));
           " >> "$GITHUB_OUTPUT"
-      - name: Tag matches the line's Grafana base
+      - name: Tag matches the Grafana base of the tagged commit
         run: |
           BASE=$(node -p "require('./.orbit/seams.json').base")
           test "$BASE" = "v${{ steps.tag.outputs.grafana }}" || { echo "✘ tag is for v${{ steps.tag.outputs.grafana }}, but .orbit/seams.json base is $BASE"; exit 1; }

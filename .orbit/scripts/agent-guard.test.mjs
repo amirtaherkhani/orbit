@@ -10,7 +10,7 @@ import { fileURLToPath } from 'node:url';
 const guard = join(dirname(fileURLToPath(import.meta.url)), 'agent-guard.mjs');
 const repo = mkdtempSync(join(tmpdir(), 'orbit-guard-'));
 const g = (...a) => execFileSync('git', a, { cwd: repo, stdio: 'ignore' });
-g('init', '-q', '-b', 'orbit/13.3.1');
+g('init', '-q', '-b', 'orbit');
 g('config', 'user.email', 't@example.com');
 g('config', 'user.name', 't');
 mkdirSync(join(repo, '.orbit'));
@@ -31,9 +31,11 @@ const cases = [
   ['deny', 'Bash', { command: 'git push origin +feat/x' }, 'feat/x'],
   ['deny', 'Bash', { command: 'git push --force-with-lease' }, 'feat/x'],
   ['deny', 'Bash', { command: 'git push upstream feat/x' }, 'feat/x'],
+  ['deny', 'Bash', { command: 'git push origin orbit' }, 'feat/x'],
   ['deny', 'Bash', { command: 'git push origin orbit/13.3.1' }, 'feat/x'],
+  ['deny', 'Bash', { command: 'git push origin hotfix/13.3.1' }, 'feat/x'],
   ['deny', 'Bash', { command: 'git push origin HEAD:main' }, 'feat/x'],
-  ['deny', 'Bash', { command: 'git push' }, 'orbit/13.3.1'],
+  ['deny', 'Bash', { command: 'git push' }, 'orbit'],
   ['ask', 'Bash', { command: 'git push -u origin feat/x' }, 'feat/x'],
   ['ask', 'Bash', { command: 'git push origin v13.3.1+orbit.1' }, 'feat/x'],
   ['ask', 'Bash', { command: 'git push origin v13.3.1+orbit.2.rc.1' }, 'feat/x'],
@@ -42,19 +44,21 @@ const cases = [
   ['deny', 'Bash', { command: 'git push origin orbit/feat-x' }, 'feat/x'],
   ['deny', 'Bash', { command: 'git commit -m "orbit(shell): add dock bookmarks"' }, 'my-branch'],
   ['allow', 'Bash', { command: 'git commit -m "orbit(update): merge Grafana v13.3.2"' }, 'update/v13.3.2'],
-  ['deny', 'Bash', { command: 'git commit -m "orbit(shell): add dock"' }, 'orbit/13.3.1'],
+  ['deny', 'Bash', { command: 'git commit -m "orbit(shell): add dock"' }, 'orbit'],
+  ['deny', 'Bash', { command: 'git commit -m "orbit(fix): x y z"' }, 'hotfix/13.3.1'],
   ['deny', 'Bash', { command: 'git commit -m "add dock"' }, 'feat/x'],
   ['deny', 'Bash', { command: 'git commit -m "orbit(seam): swap import"' }, 'feat/x'],
   ['allow', 'Bash', { command: 'git commit -m "orbit(seam): SM01 swap AppChrome import"' }, 'feat/x'],
   ['allow', 'Bash', { command: 'git add -A && git commit -m "orbit(shell): add dock bookmarks"' }, 'feat/x'],
   ['deny', 'Bash', { command: 'git commit --no-verify -m "orbit(docs): x y z"' }, 'feat/x'],
-  ['deny', 'Bash', { command: 'git merge v13.3.2' }, 'orbit/13.3.1'],
+  ['deny', 'Bash', { command: 'git merge v13.3.2' }, 'orbit'],
   ['allow', 'Bash', { command: 'git merge v13.3.2' }, 'update/v13.3.2'],
   ['deny', 'Bash', { command: 'gh pr merge 12 --squash' }, 'feat/x'],
-  ['ask', 'Bash', { command: 'gh pr create --base orbit/13.3.1 --title "orbit(docs): x y z"' }, 'feat/x'],
+  ['ask', 'Bash', { command: 'gh pr create --base orbit --title "orbit(docs): x y z"' }, 'feat/x'],
   ['allow', 'Bash', { command: 'gh pr view 12' }, 'feat/x'],
   ['deny', 'Bash', { command: 'git tag -d v13.3.1+orbit.1' }, 'feat/x'],
   ['ask', 'Bash', { command: 'git reset --hard HEAD~1' }, 'feat/x'],
+  ['ask', 'Bash', { command: 'git read-tree --reset -u v13.3.2' }, 'update/v13.3.2'],
   ['deny', 'Bash', { command: "sed -i 's/a/b/' public/app/core/x.ts" }, 'feat/x'],
   ['deny', 'Bash', { command: 'echo hi > conf/defaults.ini' }, 'feat/x'],
   ['allow', 'Bash', { command: 'echo hi > public/app/orbit/x.ts' }, 'feat/x'],
