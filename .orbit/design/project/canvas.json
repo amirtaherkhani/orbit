@@ -294,6 +294,15 @@
    "w": 1440,
    "x": 6240,
    "y": 19366
+  },
+  "DockMenuFlow.dc.html": {
+   "expand": "fill",
+   "h": 950,
+   "title": "S22 \u00b7 MenuSheet: menu flow",
+   "w": 1440,
+   "x": 10920,
+   "y": 11888,
+   "is_interactive": true
   }
  },
  "createdOnFiles": {
@@ -323,8 +332,8 @@
   },
   "r3": {
    "kind": "title1",
-   "maxW": 10800,
-   "text": "3 \u00b7 Dock and MenuSheet: spec, then each sheet state, the selected app's pages and the add-bookmark popover (R07, R08 \u2192 S02, S07, S10, S19, S20)",
+   "maxW": 12360,
+   "text": "3 \u00b7 Dock and MenuSheet: spec, then each sheet state, the selected app's pages and the add-bookmark popover, then the whole menu flow (R07, R08 \u2192 S02, S07, S10, S19, S20, S22)",
    "w": 240,
    "x": 0,
    "y": 11588
@@ -379,6 +388,7 @@
   "ExtSheetAdmin.dc.html",
   "DockAppPages.dc.html",
   "DockBookmarkAdd.dc.html",
+  "DockMenuFlow.dc.html",
   "RefOverlays.dc.html",
   "ExtSwitch.dc.html",
   "ExtSheetSwitch.dc.html",

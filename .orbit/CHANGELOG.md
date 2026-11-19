@@ -6,6 +6,7 @@ Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Release names:
 ## [Unreleased]
 
 ### Added
+- Design canvas: board S22 Menu flow (Home, Menu, Apps, Page with a state switcher), a flow link on S04, S06, S08, S11 and S20, and its row in R03; for review before any product code.
 - Project files: architecture docs, design boards and builders, architecture map, guard scripts, agent rules and skills, CI workflows.
 
 ### Changed
