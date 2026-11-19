@@ -22,23 +22,31 @@ sh .orbit/design/tools/py --check
 
 The design tools are Python and always run through this launcher; never activate a virtual environment or call `python3` yourself. If the check fails, stop and show the owner the install commands it prints (Python 3.13 in `~/.venvs/orbit-design`, `playwright` 1.63, `Pillow`, Chromium). Board heights depend on the fonts of the machine: if a build on another machine changes files in `.orbit/design/project/`, do not commit them; report them to the owner.
 
-## Change a board or the map
+## Where to run it
+
+Claude Code in a Terminal session, signed in with `/login` to the owner's claude.ai account. There the `Artifact` tool reads and republishes both artifacts (checked 2026-11-19, Claude Code 2.1.327). The desktop app and the agent view do not offer it; the owner does not switch to a claude.ai chat for this.
+
+- Map: one file, `index.html`. Before republishing, read the whole live page once.
+- Canvas: made from the Design type. Only the `project/` files are ours; the type's files (`SKILL.md`, `index.html`, `artifact-type/*`) cannot be changed. Read the type's `SKILL.md` once before the first change in a session. Publish only the changed `project/` files.
+- Both refuse a publish over a newer live version: then read again, and stop and tell the owner if the live files differ from `.orbit/published/` (someone changed them on claude.ai).
+
+## Change a board or the map (owner's decision, 2026-11-19: review on the live canvas before implementation)
 
 1. Work branch `design/<topic>`.
 2. Edit the builder in `.orbit/design/tools/` (boards start from `.orbit/design/pre_lifecycle/`), never only the output: the next build would overwrite a hand edit.
-3. Build twice; the second build must change nothing (`git status` clean after it). Render and look: `sh tools/py tools/shot.py <Board>.dc.html` from `.orbit/design/`; the map: `sh .orbit/design/tools/py .orbit/map/shot_map.py`.
-4. Update the docs the change touches and add a revision note in `.orbit/docs/ARCHITECTURE.md`.
-5. Commit `orbit(design): <what>`, checks, ask, push, PR.
-
-## Publish (after the owner merged the PR)
-
-Publishing needs the claude.ai artifact tools. If this session has them (`publish_files`), publish only the changed files with the version in `artifacts.json` as the base version; otherwise tell the owner to ask a claude.ai session: "Publish .orbit/design from the orbit branch". After publishing, copy the published files into `.orbit/published/`, update `artifacts.json` (version, date, sha256) and commit `orbit(design): record published version <version>`.
+3. Build twice; the second build must change nothing. Render and look: `sh tools/py tools/shot.py <Board>.dc.html` from `.orbit/design/`; the map: `sh .orbit/design/tools/py .orbit/map/shot_map.py`.
+4. Check the live version against `.orbit/artifacts.json` (`list_files`, sha256). Different means changes on claude.ai: bring them back first (below).
+5. **Review publish**: publish only the changed files to the live artifact, from this branch. Give the owner the link and the list of changed boards, then wait. Nothing is recorded in `.orbit/published/` yet.
+6. Owner says no: fix and publish again, or put the previous files back by publishing them from `.orbit/published/`.
+7. Owner says yes: update the docs the change touches, add a revision note in `.orbit/docs/ARCHITECTURE.md`, copy the published files into `.orbit/published/`, update `.orbit/artifacts.json` (version, date, sha256), commit `orbit(design): <what>`, checks, ask, push, PR. The merge is the backup.
+8. Product code for the change starts only after that merge.
 
 ## Bring back changes made on claude.ai
 
-The owner may move boards or leave comments on claude.ai. When asked to sync: read the live file list (`list_files`), compare hashes with `artifacts.json`, copy changed files into `.orbit/published/` and, for `canvas.json` positions, into `.orbit/design/project/`, then commit on `design/sync-<date>`. Comments stay on claude.ai; list open ones in the PR body.
+The owner may move boards or leave comments on claude.ai. When asked, or when step 4 finds a difference: read the live file list (`list_files`), compare hashes with `artifacts.json`, copy changed files into `.orbit/published/` and, for `canvas.json` positions, into `.orbit/design/project/`, then commit on `design/sync-<date>`. Comments stay on claude.ai; list open ones in the PR body. A new live version number with identical files only needs the number updated in `artifacts.json`.
 
 ## Never
 
-- Publish from a branch that is not merged.
+- Record a review publish in `.orbit/published/` or `artifacts.json` before the owner said yes.
+- Publish to the type's files, or publish a file you did not read or build in this session.
 - Edit `.orbit/published/` by hand: it is a copy of what is live.
