@@ -1,0 +1,107 @@
+# Orbit checks on every pull request into, and push to, an orbit/<grafana version> line (e.g. orbit/13.3.1).
+# Rules: .claude/rules/orbit-git.md. Scripts: .orbit/scripts/. Grafana's own workflows are disabled in the fork.
+name: orbit-ci
+
+on:
+  pull_request:
+    branches: ['orbit/**']
+  push:
+    branches: ['orbit/**']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: orbit-ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  guards:
+    name: guards
+    runs-on: ubuntu-latest
+    outputs:
+      frontend: ${{ steps.changes.outputs.frontend }}
+      backend: ${{ steps.changes.outputs.backend }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          filter: tree:0 # full commit history, trees and files fetched on demand
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+      - name: Grafana base tag
+        run: |
+          BASE=$(node -p "require('./.orbit/seams.json').base")
+          SHA=$(git ls-remote https://github.com/grafana/grafana.git "refs/tags/${BASE}^{}" | cut -f1)
+          test -n "$SHA" || { echo "✘ Grafana tag $BASE not found"; exit 1; }
+          git tag -f "$BASE" "$SHA"
+          echo "BASE=$BASE" >> "$GITHUB_ENV"
+      - name: Seam allow-list and Grafana agent files
+        run: node .orbit/scripts/check-seams.mjs
+      - name: Namespace
+        run: node .orbit/scripts/check-namespace.mjs
+      - name: Import boundaries
+        run: node .orbit/scripts/check-boundaries.mjs
+      - name: Agent guard tests
+        run: node .orbit/scripts/agent-guard.test.mjs
+      - name: Pull request title
+        if: github.event_name == 'pull_request'
+        env:
+          TITLE: ${{ github.event.pull_request.title }}
+        run: node .orbit/scripts/check-title.mjs "$TITLE"
+      - name: Commit subjects
+        if: github.event_name == 'pull_request' && !startsWith(github.head_ref, 'update/')
+        env:
+          RANGE: ${{ github.event.pull_request.base.sha }}..${{ github.event.pull_request.head.sha }}
+        run: node .orbit/scripts/check-title.mjs --range "$RANGE"
+      - name: Changelog line
+        if: github.event_name == 'pull_request' && !startsWith(github.head_ref, 'update/') && !startsWith(github.head_ref, 'release/')
+        env:
+          RANGE: ${{ github.event.pull_request.base.sha }}...${{ github.event.pull_request.head.sha }}
+        run: |
+          FILES=$(git diff --name-only "$RANGE")
+          if echo "$FILES" | grep -qvE '^(\.orbit/docs/|\.orbit/design/|\.orbit/map/|\.orbit/published/|\.orbit/artifacts\.json|\.github/|\.claude/)'; then
+            echo "$FILES" | grep -qx '.orbit/CHANGELOG.md' || { echo "✘ add one line under ## [Unreleased] in .orbit/CHANGELOG.md"; exit 1; }
+          fi
+          echo "✔ changelog"
+      - id: changes
+        name: Changed areas
+        run: |
+          if [ "${{ github.event_name }}" = "pull_request" ]; then R="${{ github.event.pull_request.base.sha }}...${{ github.event.pull_request.head.sha }}"; else R="$BASE...HEAD"; fi
+          FILES=$(git diff --name-only "$R")
+          echo "frontend=$(echo "$FILES" | grep -qE '^public/app/orbit/|^public/app/routes/RoutesWrapper.tsx$' && echo true || echo false)" >> "$GITHUB_OUTPUT"
+          echo "backend=$(echo "$FILES" | grep -qE '^pkg/orbit/|^pkg/server/wire_core.go$|^pkg/services/sqlstore/migrations/migrations.go$' && echo true || echo false)" >> "$GITHUB_OUTPUT"
+
+  frontend:
+    name: frontend
+    needs: guards
+    if: needs.guards.outputs.frontend == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+      - run: corepack enable
+      - run: yarn install --immutable
+      - run: yarn typecheck
+      - run: yarn eslint public/app/orbit
+      - run: yarn jest --watchAll=false public/app/orbit
+
+  backend:
+    name: backend
+    needs: guards
+    if: needs.guards.outputs.backend == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+      - run: go test ./pkg/orbit/...
+      - name: wire_gen.go equals the generator output
+        run: make gen-go && git diff --exit-code pkg/server/wire_gen.go

@@ -1,0 +1,67 @@
+{
+ "note": "Exact copies of what is live on claude.ai. Update after every publish (orbit-artifacts-sync skill).",
+ "artifacts": [
+  {
+   "name": "Grafana UI Redesign Prototype",
+   "kind": "design canvas",
+   "slug": "f1d7d2fc-9095-468d-afaa-961ec6b8a2fd",
+   "url": "https://claude.ai/artifact/Ws6sBN15bhF8SpMd1nbUEY",
+   "version": "1794974899-a27e",
+   "published": "2026-11-18",
+   "source": ".orbit/design/project/",
+   "copy": ".orbit/published/design/project/",
+   "files": {
+    "project/AddAppFlow.dc.html": "351d9500b5e3d68357a99e30ec13dba19667671da4b934ca822c3e613b3d0f49",
+    "project/AppManage.dc.html": "e2aebc03ebfe57449761b4cf3c8284a84d839f62dee2dafa23f9f3a23956cdbe",
+    "project/AppSetup.dc.html": "da18fcd3bbc97e040219c781687375a9090a2e9be5a18914fd2c52ac182c504b",
+    "project/AppUpdate.dc.html": "b62555eb1b3e4243049d2357bc018d854f398f19344829674c017f299ee3c81d",
+    "project/AppsAdd.dc.html": "14bf0a3f52903a00086cfbdc452a3c94db8f13faab0da0b4fd617655edb433c3",
+    "project/AppsPin.dc.html": "9466adce3c1a2d37f2369cab9044d989fd57bfca62fa6cc8a728f3a5ffd9f316",
+    "project/AppsProtocol.dc.html": "0651bb4b2d6ca9566baca5ea951da67973c373db530a0e50f8fdac067abee69a",
+    "project/DockAppPages.dc.html": "48bd18761ba8b8bd136c0536a68c1fdbaec607927bbbe96d81d6f9dc3c750ad1",
+    "project/DockBookmarkAdd.dc.html": "103e46ccc7b1d6f25123b68f3a7cb3eeb44236328f93f2de0f6ae8149fd73189",
+    "project/DockDashboard.dc.html": "472abeccbf09022e607082b9ee0af2063ad747ef7732c56cb0b26473fccd8ec9",
+    "project/DockHome.dc.html": "8933664e63c973e9b1af6d746a5106a96cc1ceaebd157f845f93890e917c854e",
+    "project/DockMenu.dc.html": "2e9b2b6fee61d2b94cd405fa65c0b4ac8daf2748474201981a958cbafde6ca2c",
+    "project/DockUser.dc.html": "cac1f1434735ae8be7e05221c38dc875fc544ec78df717d3271237d3e2ec90ca",
+    "project/ExtAdd.dc.html": "be98a2d137bf75602f980f3056c953c9000f842aa74f1e3c23e2dbb2511aa909",
+    "project/ExtSheet.dc.html": "4335a8287046690cdeab89c6cd3e9907a9c540415be2bf25a9aeb4ff0d6b7825",
+    "project/ExtSheetAdmin.dc.html": "58368bd42f47817a914513023b2ffb69f9d1c32c125809f81b7d2d403c14bc22",
+    "project/ExtSheetSwitch.dc.html": "74624f3b6b3d9c22c5a87c3cdee3a5f38c413dbd15d185e0b682e137edbbdc5f",
+    "project/ExtSwitch.dc.html": "72e801b96dffb293c7a6b28b02e229874de9fb50800497678a148d21dec3603f",
+    "project/PageDashboard.dc.html": "0f833f59d54d5792627f9470cbd69a0b4216bd663c3a6ea010a129a0b39e047e",
+    "project/PageDetail.dc.html": "577f88ca137b905753201d9beb4bf874ec0b361d164f32ea6627bb63ec9d0539",
+    "project/PageList.dc.html": "18fc3806a63cf7ada1031422b6345ddab0782d74f24dadda736d85d7b573ee5f",
+    "project/PageSettings.dc.html": "6db7ca4ec9e82609f8dee9cf82bc3dc02b6ff10d8a652c5c4a5d51aad438c477",
+    "project/PageShell.dc.html": "b498a11f3587110d56409523b403180f44b5e26d21038ac329fc8f1f743ce61a",
+    "project/PageSpec.dc.html": "70b6fb8ec846f3b911a9bcc9a984809443ace05d589809aca7ef3e345c13168a",
+    "project/PageStates.dc.html": "fd92f3b5f45a53cc570d8ca6b3d93b2f59fabe52cdfbd1a640bcff483e509e7e",
+    "project/RefApps.dc.html": "31e136bab95d896050bcce7b6b9620b8c30f5b97d1106c37700e92a058373232",
+    "project/RefBreadcrumb.dc.html": "4fbf5f290cdba22a3d82cfab3ec1e0e780ed8bb54bdcefa46ad6930031c7d31b",
+    "project/RefChanges.dc.html": "756fea627ec0f41a56e89706f28913935df1f2f1131fa80a4dcea070d6ca9bdd",
+    "project/RefDock.dc.html": "58ed527844afdc534c29ecbc61a154372730780046e18f65805cbe58d5586f60",
+    "project/RefFoundations.dc.html": "56f0d0d76d5d4c0bd5aad36981bc70e787b0a93770f9cf008c7239a9ee5d3c24",
+    "project/RefFrame.dc.html": "e9ad91a7c6b97136d1cb2adace6cd530517d9a40e957cec4629eedf23191ea8a",
+    "project/RefNew.dc.html": "127c0c2d2ff55f0560cb08673c86962b6c950cac63bc1c66637b8a44286b87b3",
+    "project/RefOverlays.dc.html": "d73902dc715b445657f11d24ee52e807cacd7cb90e8fc3432bb86588010aab91",
+    "project/RefScope.dc.html": "2ffdcc7c4378a2edd88539238d58a42d83f597563bc657015a17b974fd052142",
+    "project/RefSheet.dc.html": "f7206f648cd24560a73be51d96df622b191effdd7a755f22086f2b082b255114",
+    "project/RefTokens.dc.html": "da6e8eb0673e84f9b7ca44458640e129f5478b146221c9725f08907af6cf01b2",
+    "project/canvas.json": "2ddc787115c02865e45d8a866559bbf48c3df6cd03374526b5ae810ff618eca4"
+   }
+  },
+  {
+   "name": "Grafana Architecture Map",
+   "kind": "html page",
+   "slug": "6c655dd6-2895-4ffd-9406-611f4ae91e41",
+   "url": "https://claude.ai/artifact/EPLoHu8XdqusP6VrmsUVUU",
+   "version": "1795075478-2df5",
+   "published": "2026-11-19",
+   "source": ".orbit/map/build_map.py",
+   "copy": ".orbit/published/map/index.html",
+   "files": {
+    "index.html": "b5d890a334de3c25148cd3ce06bafe2dc1d01b0585674dfad4254512139ef25d"
+   }
+  }
+ ]
+}
