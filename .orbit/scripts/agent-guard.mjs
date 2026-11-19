@@ -4,7 +4,8 @@
 // ask   = the owner must approve the call in the permission prompt.
 // Rules: .claude/rules/orbit-git.md and orbit-code.md. Tests: node .orbit/scripts/agent-guard.test.mjs
 import { readFileSync } from 'node:fs';
-import { relative, isAbsolute, resolve } from 'node:path';
+import { relative, isAbsolute, resolve, dirname, join } from 'node:path';
+import { existsSync } from 'node:fs';
 import { git, repoRoot, loadSeams, isOurs, isGuarded, isGrafanaAiFile, checkTitle, PROTECTED_BRANCH, WORK_BRANCH, WORK_TYPES, RELEASE_TAG, dockerTag } from './lib.mjs';
 
 function out(decision, reason) {
@@ -21,7 +22,9 @@ try {
   process.exit(0); // not a hook call we understand: do nothing
 }
 const cwd = input.cwd || process.env.CLAUDE_PROJECT_DIR || process.cwd();
-const root = process.env.CLAUDE_PROJECT_DIR || repoRoot(cwd);
+// The repository the session works in. A worktree (e.g. .claude/worktrees/<name>) is its own root,
+// so CLAUDE_PROJECT_DIR, which names the main checkout, is only the fallback.
+const root = git(['rev-parse', '--show-toplevel'], cwd) || process.env.CLAUDE_PROJECT_DIR || cwd;
 const tool = input.tool_name;
 const ti = input.tool_input || {};
 
@@ -31,14 +34,20 @@ function checkPath(file, how) {
     return;
   }
   const abs = isAbsolute(file) ? file : resolve(cwd, file);
-  const rel = relative(root, abs).split('\\').join('/');
-  if (rel.startsWith('..')) {
-    return; // outside the repository
+  // Judge the file against the work tree that holds it: the main checkout or one of its worktrees.
+  let dir = dirname(abs);
+  while (!existsSync(dir) && dirname(dir) !== dir) {
+    dir = dirname(dir);
   }
+  const fileRoot = git(['rev-parse', '--show-toplevel'], dir);
+  if (!fileRoot || !existsSync(join(fileRoot, '.orbit', 'seams.json'))) {
+    return; // not inside an Orbit work tree
+  }
+  const rel = relative(fileRoot, abs).split('\\').join('/');
   if (isGrafanaAiFile(rel)) {
     deny(`${rel} is one of Grafana's agent files and is never edited (OD35). Put Orbit guidance in .orbit/, public/app/orbit/ or pkg/orbit/ AGENTS.md, or in .claude/rules/orbit-*.md.`);
   }
-  const seams = loadSeams(root);
+  const seams = loadSeams(fileRoot);
   if ((seams.generated || []).includes(rel)) {
     deny(`${rel} is generated. Change the source and run the generator (make gen-go), never ${how} it by hand.`);
   }
