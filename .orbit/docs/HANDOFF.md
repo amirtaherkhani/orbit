@@ -1,6 +1,6 @@
 # Orbit handoff
 
-Read this first in a new session. It replaces the design chat on claude.ai (2026-10-31 to 2026-11-19), which cannot be moved. Details and every decision: `ARCHITECTURE.md` (revision notes 1-85).
+Read this first in a new session. It replaces the design chat on claude.ai (2026-10-31 to 2026-11-19), which cannot be moved. Details and every decision: `ARCHITECTURE.md` (revision notes 1-86).
 
 ## What Orbit is
 
@@ -44,7 +44,7 @@ Open decisions with the version that needs them: ARCHITECTURE.md section 20 (OD1
 | Grafana UI Redesign Prototype (design canvas) | https://claude.ai/artifact/Ws6sBN15bhF8SpMd1nbUEY | `.orbit/design/` |
 | Grafana Architecture Map | https://claude.ai/artifact/EPLoHu8XdqusP6VrmsUVUU | `.orbit/map/` |
 
-Publishing needs a claude.ai session with the artifact tools (`orbit-artifacts-sync` skill). Backup of changes made on claude.ai: by that skill on request; a scheduled daily copy is not set up (owner has not decided).
+Claude Code in a Terminal session (signed in with `/login`) reads and publishes both; no claude.ai chat is needed (`orbit-artifacts-sync` skill). Design changes are published to the live canvas for review first, recorded in the repo after the owner approves; changes made on claude.ai are brought back by the same skill. A scheduled daily copy is not set up.
 
 ## Known gaps
 

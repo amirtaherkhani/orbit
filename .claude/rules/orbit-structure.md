@@ -60,3 +60,5 @@ Imports point down. Only `public/app/orbit/upstream/` (L5, the anti-corruption l
 ## UI
 
 Build from `@grafana/ui` and theme tokens first; the Grafana UI Storybook is the reference. Follow the button zones (ARCHITECTURE.md 10.11), icons from Unicons or Tabler stored as `grafana:<name>` / `tabler:<name>` (10.12), and the page templates P01-P07.
+
+UI code follows the design canvas. A change to a screen is first made on the canvas, published for review and approved by the owner (`orbit-artifacts-sync`); product code for it starts after that design pull request is merged.
