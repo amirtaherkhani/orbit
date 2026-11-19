@@ -55,12 +55,12 @@
    "kind": "html page",
    "slug": "6c655dd6-2895-4ffd-9406-611f4ae91e41",
    "url": "https://claude.ai/artifact/EPLoHu8XdqusP6VrmsUVUU",
-   "version": "1795075478-2df5",
+   "version": "1795095482-b6a7",
    "published": "2026-11-19",
    "source": ".orbit/map/build_map.py",
    "copy": ".orbit/published/map/index.html",
    "files": {
-    "index.html": "b5d890a334de3c25148cd3ce06bafe2dc1d01b0585674dfad4254512139ef25d"
+    "index.html": "d3859d4f2a3bffa93276255a6e126052a3ea7180a042aac490cf4a06a6142ca8"
    }
   }
  ]
