@@ -1,4 +1,5 @@
 import os as _os; ROOT=_os.path.dirname(_os.path.dirname(_os.path.abspath(__file__)))+'/'  # .orbit/design/
+import sys
 # Last build step: make every board's canvas height fit its rendered content (scrollHeight at the canvas height),
 # then move later canvas rows down so rows keep an 80px gap. Screen boards that show a scrolling page are listed in SCROLLING.
 import asyncio,json,os,re,subprocess
@@ -10,7 +11,7 @@ async def measure(names,c):
     async with async_playwright() as p:
         b=await p.chromium.launch()
         for f in names:
-            r='/tmp/fit_'+f; subprocess.run(['python3',G+'tools/dcrender.py',P+f,r,'{}'],check=True,capture_output=True)
+            r='/tmp/fit_'+f; subprocess.run([sys.executable,G+'tools/dcrender.py',P+f,r,'{}'],check=True,capture_output=True)
             pg=await b.new_page(viewport={"width":1440,"height":c[f]['h']})
             await pg.route("**/*", lambda q: q.abort() if not q.request.url.startswith("file:") else q.continue_())
             await pg.goto("file://"+r); await pg.wait_for_timeout(250)

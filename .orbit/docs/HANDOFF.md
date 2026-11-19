@@ -13,7 +13,7 @@ A fork of Grafana OSS (`github.com/amirtaherkhani/orbit`, public) for a producti
 | Architecture (`ARCHITECTURE.md`) | ✔ Written and checked against Grafana v13.3.0; cited files compared with v13.3.1 (51 of 52 identical, one line number moved) |
 | Design canvas, 36 boards (claude.ai) | ✔ Done for this phase; source in `.orbit/design/`, live version in `.orbit/artifacts.json` |
 | Architecture map (claude.ai) | ✔ Current to revision note 83; source in `.orbit/map/` |
-| Repository rules, skills, hooks, CI | ✔ Written; guard has 43 passing tests; CI workflows not run yet |
+| Repository rules, skills, hooks, CI | ✔ Written; guard has 51 passing tests; CI workflows not run yet |
 | Product code (`public/app/orbit/`, `pkg/orbit/`) | ○ Not started. Nothing is built, type-checked or tested (RK01) |
 | GitHub settings (rulesets, default branch, Grafana workflows off) | ○ Owner, see `GITHUB-SETUP.md` |
 
@@ -50,4 +50,5 @@ Publishing needs a claude.ai session with the artifact tools (`orbit-artifacts-s
 
 - The architecture map's footer and some board tags say "v13.3.0": correct for what was checked; the line itself is now based on v13.3.1.
 - `orbit-ci.yml` has no deletable check yet, and actions are pinned to major versions, not commit SHAs.
+- Design tools need Python 3.13 with `playwright` and `Pillow` (`.orbit/docs/README.md`, Tools); they run through `sh .orbit/design/tools/py`, never with an activated environment.
 - One-off scripts in `.orbit/design/tools/oneoff/` were used once (ID rename, 2026-11-17) and are kept for the record; do not run them.

@@ -7,7 +7,7 @@ async def main():
     f=sys.argv[1]; st=sys.argv[2] if len(sys.argv)>2 else '{}'
     h=json.load(open('project/canvas.json'))['boards'][f]['h']
     r='pre_lifecycle/_b_'+f.replace('.dc','')
-    subprocess.run(['python3','tools/dcrender.py','project/'+f,r,st],check=True)
+    subprocess.run([sys.executable,'tools/dcrender.py','project/'+f,r,st],check=True)
     async with async_playwright() as p:
         b=await p.chromium.launch(); pg=await b.new_page(viewport={"width":1440,"height":h},device_scale_factor=4)
         await pg.route("**/*", lambda q: q.abort() if not q.request.url.startswith("file:") else q.continue_())

@@ -29,7 +29,7 @@ Run it again after step 3, because the list follows the default branch.
 
 Settings → General → Default branch → `orbit/13.3.1`. On each new Grafana release line, switch it to the new `orbit/<version>`.
 
-Settings → General → Pull Requests: allow **Squash merging** and **Merge commits**, turn off **Rebase merging**. Turn on "Automatically delete head branches".
+Settings → General → Pull Requests: allow **Squash merging** and **Merge commits**, turn off **Rebase merging**. For both squash and merge commits, set "Default commit message" to **Pull request title**, so the commit on the line keeps the `orbit(<scope>): …` title. Turn on "Automatically delete head branches".
 
 ## 4. Rulesets (Settings → Rules → Rulesets)
 

@@ -16,7 +16,7 @@ async def main():
     async with async_playwright() as p:
         b=await p.chromium.launch()
         for f in sorted(c):
-            r0='pre_lifecycle/_a_'+f; subprocess.run(['python3','tools/dcrender.py','project/'+f,r0,'{}'],check=True,capture_output=True)
+            r0='pre_lifecycle/_a_'+f; subprocess.run([sys.executable,'tools/dcrender.py','project/'+f,r0,'{}'],check=True,capture_output=True)
             pg=await b.new_page(viewport={"width":1440,"height":c[f]['h']})
             await pg.route("**/*", lambda r: r.abort() if not r.request.url.startswith("file:") else r.continue_())
             await pg.goto("file://"+os.path.abspath(r0)); await pg.wait_for_timeout(200)

@@ -1,0 +1,20 @@
+#!/bin/sh
+# Runs a design tool with the right Python, so nobody has to activate a virtual environment.
+# Order: $ORBIT_PYTHON, then ~/.venvs/orbit-design/bin/python, then python3.
+# Usage: sh .orbit/design/tools/py <script.py> [args]      run a tool
+#        sh .orbit/design/tools/py --check                  check that playwright and Pillow are installed
+if [ -n "$ORBIT_PYTHON" ]; then PY="$ORBIT_PYTHON"
+elif [ -x "$HOME/.venvs/orbit-design/bin/python" ]; then PY="$HOME/.venvs/orbit-design/bin/python"
+else PY=python3; fi
+if [ "$1" = "--check" ]; then
+  if "$PY" -c "import playwright, PIL" 2>/dev/null; then echo "✔ design tools use $PY (playwright and Pillow found)"; exit 0; fi
+  cat >&2 <<MSG
+✘ $PY has no playwright or Pillow. Nothing was changed. Install once (Python 3.13, outside the repository):
+  uv venv --seed ~/.venvs/orbit-design --python 3.13        (or: python3.13 -m venv ~/.venvs/orbit-design)
+  ~/.venvs/orbit-design/bin/python -m pip install playwright==1.63.0 pillow
+  ~/.venvs/orbit-design/bin/python -m playwright install chromium
+Then run the same command again. Details: .orbit/docs/README.md, section Tools.
+MSG
+  exit 1
+fi
+exec "$PY" "$@"

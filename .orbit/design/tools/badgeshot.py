@@ -9,7 +9,7 @@ async def main():
         b=await p.chromium.launch()
         for f in boards:
             h=json.load(open('project/canvas.json'))['boards'][f]['h']; r='pre_lifecycle/_b_'+f.replace('.dc','')
-            subprocess.run(['python3','tools/dcrender.py','project/'+f,r,'{}'],check=True)
+            subprocess.run([sys.executable,'tools/dcrender.py','project/'+f,r,'{}'],check=True)
             pg=await b.new_page(viewport={"width":1440,"height":h},device_scale_factor=3)
             await pg.route("**/*", lambda q: q.abort() if not q.request.url.startswith("file:") else q.continue_())
             await pg.goto("file://"+ROOT+r); await pg.wait_for_timeout(400)

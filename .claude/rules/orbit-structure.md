@@ -45,6 +45,18 @@ Each ID is unique. Boards: `R01`-`R11` reference, `S01`-`S21` screens, `P01`-`P0
 
 Imports point down. Only `public/app/orbit/upstream/` (L5, the anti-corruption layer) may import Grafana internals (`app/...`). `apps/` imports only `upstream/`; `shell/` and `pages/` import `apps/`, `upstream/`, `theme/`. Public packages (`@grafana/ui`, `@grafana/data`, ...) are fine everywhere. Checked by `node .orbit/scripts/check-boundaries.mjs`.
 
+## Tools and their languages
+
+| What | Language | How to run |
+| --- | --- | --- |
+| Product code (`public/app/orbit/`, `pkg/orbit/`) | TypeScript, Go (Grafana's standards) | Grafana's own commands (`yarn …`, `go test …`) |
+| Guards and checks (`.orbit/scripts/`) | Node (`.mjs`) | `node .orbit/scripts/<script>.mjs` |
+| Design and map builders (`.orbit/design/tools/`, `.orbit/map/`) | Python 3.13 with `playwright` 1.63, `Pillow` and Chromium | **Always through the launcher:** `sh .orbit/design/tools/py <script.py> [args]`. `build_all.sh` uses it by itself |
+
+- Never activate a virtual environment and never call `python3` directly for design tools. The launcher picks `$ORBIT_PYTHON`, then `~/.venvs/orbit-design/bin/python`, then `python3`.
+- Before design work, run `sh .orbit/design/tools/py --check`. If it fails, nothing was changed: show the owner the install commands it prints. Never install packages, browsers or Python versions yourself; the guard asks the owner first.
+- Do not port the design tools to another language: their output is the published design, and the docs describe them (owner's decision, 2026-11-19).
+
 ## UI
 
 Build from `@grafana/ui` and theme tokens first; the Grafana UI Storybook is the reference. Follow the button zones (ARCHITECTURE.md 10.11), icons from Unicons or Tabler stored as `grafana:<name>` / `tabler:<name>` (10.12), and the page templates P01-P07.
