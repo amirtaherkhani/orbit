@@ -17,6 +17,9 @@ mkdirSync(join(repo, '.orbit'));
 writeFileSync(join(repo, '.orbit', 'seams.json'), JSON.stringify({ base: 'v13.3.1', edits: [{ id: 'SM01', file: 'public/app/routes/RoutesWrapper.tsx', maxChangedLines: 2 }], generated: ['pkg/server/wire_gen.go'] }));
 g('add', '.');
 g('commit', '-q', '-m', 'init');
+// A worktree inside the checkout, as Claude Code makes them: files there are judged against the worktree.
+const wt = join(repo, '.claude', 'worktrees', 'w1');
+g('worktree', 'add', '-q', '--detach', wt);
 
 function run(tool, input, branch) {
   if (branch) {
@@ -82,6 +85,10 @@ const cases = [
   ['allow', 'Write', { file_path: join(repo, 'pkg/orbit/service.go') }, null],
   ['allow', 'Write', { file_path: join(repo, '.claude/skills/orbit-new/SKILL.md') }, null],
   ['allow', 'Write', { file_path: '/tmp/scratch.txt' }, null],
+  ['allow', 'Write', { file_path: join(wt, '.orbit/design/tools/s22/logic.js') }, null],
+  ['deny', 'Write', { file_path: join(wt, 'public/app/core/components/AppChrome/AppChrome.tsx') }, null],
+  ['ask', 'Edit', { file_path: join(wt, '.orbit/seams.json') }, null],
+  ['deny', 'Edit', { file_path: join(wt, 'AGENTS.md') }, null],
 ];
 let fail = 0;
 for (const [exp, tool, input, branch] of cases) {

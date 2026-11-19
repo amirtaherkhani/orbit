@@ -12,3 +12,4 @@ Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Release names:
 - Design tools run through `.orbit/design/tools/py`, which finds the right Python without activating an environment and stops early when `playwright` or `Pillow` is missing.
 - The agent guard asks the owner before installing packages, browsers or tool versions.
 - One product branch `orbit` instead of one branch per Grafana release. A Grafana release comes in through one `update/<tag>` pull request (merge commit); new `.orbit/scripts/list-ours.mjs`; the guard protects `orbit` and `hotfix/*` and asks before `git read-tree --reset`.
+- The agent guard judges a file against the work tree that holds it, so sessions in a Claude Code worktree (`.claude/worktrees/<name>`) can write Orbit files there; Grafana files there stay read-only.
