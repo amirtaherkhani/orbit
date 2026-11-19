@@ -37,9 +37,17 @@ Settings → General → Pull Requests: allow **Squash merging** and **Merge com
 
 | Ruleset | Target | Rules |
 | --- | --- | --- |
-| `orbit-product` | branches `orbit` and `hotfix/**` | Restrict deletions · Block force pushes · Require a pull request (0 approvals; merge methods squash and merge) · Require status checks: `guards` (and `frontend`, `backend`: a skipped job counts as passed) · Bypass: repository admin, only for emergencies |
+| `orbit-product` | branches `orbit` and `hotfix/**` | Restrict deletions · Block force pushes · Require a pull request (0 approvals; merge methods squash and merge) · Require status checks: `guards` · Bypass: repository admin, for pull requests only |
 | `main-mirror` | branch `main` | Restrict deletions · Block force pushes. No pull request rule, so "Sync fork" keeps working |
 | `release-tags` | tags `v*+orbit*` | Restrict deletions · Restrict updates (a release tag is never moved) |
+
+**Syncing `main`** (optional: updates use Grafana's tags, not `main`). GitHub's "Sync fork" button updates the branch that is open on the page, and the page opens on `orbit`. Never press it while `orbit` is shown: `orbit` has no counterpart in Grafana, so it would try to bring Grafana's `main` into `orbit` (Inferred; the `orbit-product` ruleset should block it, Not verified). Use the command, which names the branch:
+
+```bash
+gh repo sync amirtaherkhani/orbit -b main      # never with --force
+```
+
+Or switch the page to `main` first, then "Sync fork" → "Update branch".
 
 Do not turn on "Require linear history": `update/*` pull requests need a merge commit (it records that `orbit` contains Grafana's tag).
 
