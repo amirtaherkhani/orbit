@@ -84,6 +84,12 @@ for (const p of parts) {
       checkPath(a.replace(/^["']|["']$/g, ''), 'edit');
     }
   }
+  // Installing software changes the owner's machine or the dependency files: always the owner's call.
+  // Installing what the lockfile already pins (yarn install --immutable) is fine.
+  const installs = /(^|\/)(pip3?|pipx)\s+install\b|\s-m\s+pip\s+install\b|^uv\s+(pip\s+install|tool\s+install|python\s+install|add)\b|\bplaywright\s+install\b|^brew\s+(install|upgrade|reinstall)\b|^(npm|pnpm)\s+(i|install|add)\b.*(-g|--global|\S+@|\s[a-z@][\w./@-]*$)|^yarn\s+(add|global|dlx|up)\b|^(nvm|fnm)\s+install\b|^go\s+install\b|^corepack\s+(prepare|install)\b/;
+  if (installs.test(p)) {
+    ask(`"${p}" installs software or changes dependencies. The owner must approve it; for design tools, show the commands printed by "sh .orbit/design/tools/py --check" instead.`);
+  }
   if (w[0] === 'gh') {
     if (w[1] === 'pr' && w[2] === 'merge') {
       deny('merging a pull request is the owner\'s job. Report that the PR is ready and stop.');

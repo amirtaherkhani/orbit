@@ -7,3 +7,7 @@ Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Release names:
 
 ### Added
 - Project files: architecture docs, design boards and builders, architecture map, guard scripts, agent rules and skills, CI workflows.
+
+### Changed
+- Design tools run through `.orbit/design/tools/py`, which finds the right Python without activating an environment and stops early when `playwright` or `Pillow` is missing.
+- The agent guard asks the owner before installing packages, browsers or tool versions.

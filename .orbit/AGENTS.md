@@ -8,8 +8,8 @@ Read first: `.claude/rules/orbit-structure.md` and `.claude/rules/orbit-git.md`.
 | --- | --- | --- |
 | `docs/ARCHITECTURE.md` | The architecture and every decision (OD), risk (RK), seam (SM) | Edit, then add a numbered revision note at the end |
 | `docs/HANDOFF.md` | Where the project stands and what is next | Keep current when a phase ends |
-| `design/` | Source of the claude.ai design canvas | Through the builders only (`orbit-artifacts-sync`) |
-| `map/` | Source of the architecture map | `python3 map/build_map.py` |
+| `design/` | Source of the claude.ai design canvas | Through the builders only (`orbit-artifacts-sync`); Python tools run through `sh design/tools/py`, never `python3` directly |
+| `map/` | Source of the architecture map | `sh design/tools/py map/build_map.py` |
 | `published/`, `artifacts.json` | Exact copies of what is live on claude.ai | Only after publishing |
 | `scripts/` | Guard hook and CI checks | Owner approves every change; run `node scripts/agent-guard.test.mjs` |
 | `seams.json` | Allowed edits to Grafana files | Owner approves (`orbit-seam-change`) |

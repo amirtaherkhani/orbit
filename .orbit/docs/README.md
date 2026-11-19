@@ -34,7 +34,7 @@ The boards are design-canvas files, not plain web pages: they use `{{ }}` holes,
 For a static snapshot of one board in a given state (needs Node):
 
 ```sh
-python3 tools/dcrender.py project/AppsPin.dc.html out.html '{}'   # from .orbit/design/
+sh tools/py tools/dcrender.py project/AppsPin.dc.html out.html '{}'   # from .orbit/design/
 ```
 
 The last argument is a JSON object merged into the component state before `renderVals()` runs.
@@ -54,6 +54,15 @@ How to use it: `ARCHITECTURE.md`, section 4.1. Icons: section 10.12. Button posi
 
 ## Tools
 
+- **Prerequisites (once per machine):** Python 3.13 in a virtual environment outside the repository, with `playwright` 1.63, `Pillow` and Chromium, plus Node (already needed by Grafana):
+  ```sh
+  uv venv --seed ~/.venvs/orbit-design --python 3.13      # or: python3.13 -m venv ~/.venvs/orbit-design
+  ~/.venvs/orbit-design/bin/python -m pip install playwright==1.63.0 pillow
+  ~/.venvs/orbit-design/bin/python -m playwright install chromium
+  ```
+  These are the versions the published boards were built with. A newer Python (3.15) may lack ready packages, so keep 3.13 here.
+- **No activation needed:** every tool runs through `sh tools/py <script.py>`, which picks `$ORBIT_PYTHON`, then `~/.venvs/orbit-design/bin/python`, then `python3`. `sh tools/py --check` tells you whether the packages are there; `build_all.sh` runs that check first and stops before changing any file.
+- Board heights are measured in a headless browser with the machine's fonts. A build on macOS can differ by a few pixels from the published boards, which were built on Linux; do not commit such differences without checking them.
 - `tools/build_all.sh` is the only way to rebuild the generated boards. It runs, in order: `lc_s12`, `lc_flow`, `lc_s15`, `lc_r10`, `lc_refs`, `lc_misc`, `lc_s17`, `lc_od28`, `lc_post`, `lc_r12`, `tpl_build`, `lc_fit`. Each builder starts from a fixed snapshot, so the chain can run any number of times. Running one step alone is refused or gives a partial result.
 - `lifecycle_kit.py` holds the 13 statuses, their seven colour groups, icons and lifecycle buttons.
 - `lc_r12.py` applies the button zones and the `PageTreeRow` component; `tpl_build.py` builds the page templates P03-P07 and the button zone table on P01; `lc_fit.py` fits every board's height and keeps an 80px gap between canvas rows.
