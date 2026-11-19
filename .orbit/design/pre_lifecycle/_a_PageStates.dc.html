@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>P02 · Page states</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Roboto+Mono:wght@400&family=Antonio:wght@600&display=swap" rel="stylesheet"><style>
+/*ref*/
+body{margin:0}html,body{background:#050609}*{box-sizing:border-box}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;text-align:left}
+.pg{padding:48px 56px 56px;background:#050609;color:#eceef1;font:400 14px/22px 'Inter','Helvetica','Arial',sans-serif}
+.pg h1{margin:0;font:400 28px/32px 'Inter','Helvetica','Arial',sans-serif}
+.pg .lead{margin:10px 0 0;max-width:900px;color:#aeb4bd;font:400 14px/22px 'Inter','Helvetica','Arial',sans-serif}
+.pg h2{margin:40px 0 12px;font:500 16px/22px 'Inter','Helvetica','Arial',sans-serif;color:#fff}
+.pg h3{margin:0 0 4px;font:500 14px/22px 'Inter','Helvetica','Arial',sans-serif;color:#fff}
+.pg p{margin:0;color:#aeb4bd}
+.pg small{font:400 12px/18px 'Inter','Helvetica','Arial',sans-serif;color:#8d939c}
+.g2,.g3,.g4{display:grid;gap:16px}
+.g2{grid-template-columns:repeat(2,minmax(0,1fr))}.g3{grid-template-columns:repeat(3,minmax(0,1fr))}.g4{grid-template-columns:repeat(4,minmax(0,1fr))}
+.cd2{padding:16px;border-radius:6px;background:#181b1f;border:1px solid rgba(204,204,220,.12);min-width:0}
+.cd2 ul{margin:10px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:8px;color:#c9cdd3}
+.cd2 li{padding-left:14px;position:relative}.cd2 li::before{content:"";position:absolute;left:0;top:9px;width:5px;height:5px;border-radius:50%;background:#5a606a}
+.cd2 .hd2{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.rtg{display:inline-block;padding:1px 8px;border-radius:4px;font:500 12px/18px 'Inter','Helvetica','Arial',sans-serif;white-space:nowrap}
+.rtg.tc{background:#14313a;color:#58cfec}.rtg.ts{background:#262a31;color:#c9cdd3}.rtg.tr{background:#2a1f3d;color:#d4a0ff}
+.rtg.tv{background:#1c2b20;color:#6ccf8e}.rtg.ti{background:#2e2417;color:#fbad37}.rtg.tu{background:#3a1c27;color:#ff5286}.rtg.td{background:#2e2417;color:#fbad37;box-shadow:inset 0 0 0 1px #5a4326}
+.mt{width:100%;border-collapse:collapse;font:400 14px/22px 'Inter','Helvetica','Arial',sans-serif}
+.mt th{padding:8px 10px;border-bottom:1px solid rgba(204,204,220,.2);text-align:left;font:500 12px/18px 'Inter','Helvetica','Arial',sans-serif;color:#9fa7b3;white-space:nowrap}
+.mt td{padding:9px 10px;border-bottom:1px solid rgba(204,204,220,.12);vertical-align:top;color:#c9cdd3}
+.mt td:first-child{color:#eceef1}
+.mt.fx{table-layout:fixed}.mt.fx td{overflow-wrap:anywhere}.mt.fx code{white-space:normal;overflow-wrap:anywhere}
+.mt code,.cd2 code,.pg p code,.rf-note code{font:500 12px/18px 'Roboto Mono',monospace;color:#e8eaed;background:#1d2026;padding:2px 6px;border-radius:4px;white-space:nowrap}
+.mt .num{font-variant-numeric:tabular-nums;white-space:nowrap}
+.rfsw{display:inline-block;width:16px;height:16px;border-radius:4px;border:1px solid rgba(204,204,220,.3);vertical-align:-4px;margin-right:8px}
+.rf-note{margin-top:14px;padding:12px 14px;border-radius:6px;background:#14161a;border:1px solid rgba(204,204,220,.12);color:#aeb4bd}
+.rf-note b{color:#fff;font-weight:500}
+.rf-stage{position:relative;border-radius:10px;border:1px solid rgba(204,204,220,.12);background:#090a0d;padding:28px;display:flex;align-items:center;justify-content:center;min-width:0;--hac:#58cfec;--hbg:#1d353f;--htx:#dcdcdc}
+.rf-stage.bk{background:repeating-linear-gradient(135deg,#17202b 0 16px,#223246 16px 32px)}
+.rf-stage.col{flex-direction:column;align-items:stretch;gap:14px}
+.rf-stage .dk{position:relative;bottom:auto;margin:0;align-self:auto}
+.rf-stage .wsm,.rf-stage .um,.rf-stage .am,.rf-stage .mzdd{position:relative;left:auto;right:auto;top:auto;bottom:auto;width:auto;max-width:100%}
+.rf-stage .sh3,.rf-stage .sh2{position:relative;left:auto;bottom:auto;transform:none;width:100%}
+.rf-stage .t{width:100%}
+.rf-lab{margin:0 0 8px;font:500 12px/18px 'Inter','Helvetica','Arial',sans-serif;color:#9fa7b3}
+.rf-hov{position:relative;background:var(--bg,var(--hbg));color:var(--htx);border-radius:0 6px 6px 0}
+.rf-hov::before{content:"";position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--ac,var(--hac))}
+.dk .mods .rf-hov{background:rgba(61,113,217,.30);color:#fff}.dk .mods .rf-hov::before{background:#6e9fff}
+.rf-cell{display:flex;flex-direction:column;gap:10px;align-items:flex-start;min-width:0}
+.rf-cell .dk{align-self:flex-start}
+.rf-pat{background:repeating-linear-gradient(135deg,rgba(204,204,220,.05) 0 10px,transparent 10px 20px)}
+</style>
+</helmet>
+<div class="pg" style="min-height:1026px"><h1>Page states</h1><p class="lead">Loading, empty, not found and error. These are Grafana components; the reference shows where they sit in the shell and how copy should read. Illustrations stay Grafana’s default per variant and are drawn as a placeholder.</p><div class="g2" style="margin-top:28px"><div class="cd2"><div class="hd2"><h3 style="margin:0">Loading</h3><span class="rtg tv">Verified in v13.3.0</span></div><div class="rf-stage rf-pat" style="min-height:260px;flex-direction:column;gap:12px;background-color:#181b1f"><div style="font:400 14px/22px Inter,sans-serif;color:#9fa7b3">Loading ...</div></div><p style="margin-top:10px"><code>PageLoader</code> via <code>Page.Contents isLoading</code>: centred, 80px from the top, text “Loading ...”. Keep it inside the body so the chrome stays interactive.</p></div><div class="cd2"><div class="hd2"><h3 style="margin:0">Empty</h3><span class="rtg tv">Verified in v13.3.0</span></div><div class="rf-stage rf-pat" style="min-height:260px;flex-direction:column;gap:12px;background-color:#181b1f"><div style="width:120px;height:80px;border-radius:6px;border:1px dashed rgba(204,204,220,.3);display:grid;place-items:center;font:500 12px/18px Inter,sans-serif;color:#8d939c">Grafana image</div><div style="font:500 20px/28px Inter,sans-serif;color:#eceef1;text-align:center">You haven’t created any dashboards yet</div><div style="color:#9fa7b3;text-align:center;font:400 14px/22px Inter,sans-serif">Create one, or import a dashboard from a file.</div><button type="button" class="p" style="background:#3d71d9;border-color:#3d71d9;color:#fff">New dashboard</button></div><p style="margin-top:10px"><code>EmptyState variant="call-to-action"</code>: image, <code>h4</code> message, secondary text, one button. Copy says what is missing and the next action.</p></div><div class="cd2"><div class="hd2"><h3 style="margin:0">Not found</h3><span class="rtg tv">Verified in v13.3.0</span></div><div class="rf-stage rf-pat" style="min-height:260px;flex-direction:column;gap:12px;background-color:#181b1f"><div style="width:120px;height:80px;border-radius:6px;border:1px dashed rgba(204,204,220,.3);display:grid;place-items:center;font:500 12px/18px Inter,sans-serif;color:#8d939c">Grafana image</div><div style="font:500 20px/28px Inter,sans-serif;color:#eceef1;text-align:center">This page doesn’t exist</div><div style="color:#9fa7b3;text-align:center;font:400 14px/22px Inter,sans-serif">The link may be old or you may not have access.</div><button type="button" class="p" style="background:#3d71d9;border-color:#3d71d9;color:#fff">Go to Home</button></div><p style="margin-top:10px"><code>PageNotFound</code> renders <code>Page navId="home" layout=Canvas</code> with <code>EntityNotFound</code>.</p></div><div class="cd2"><div class="hd2"><h3 style="margin:0">Error</h3><span class="rtg tv">Verified in v13.3.0</span></div><div class="rf-stage rf-pat" style="min-height:260px;flex-direction:column;gap:12px;background-color:#181b1f"><div style="width:100%;max-width:520px;border-radius:6px;background:rgba(209,14,92,.12);border:1px solid rgba(255,82,134,.5);padding:12px 16px;color:#eceef1;font:400 14px/22px Inter,sans-serif"><b style="font-weight:500;color:#ff5286">Couldn’t load alert rules</b><br>The request timed out. Try again, or check the data source.</div></div><p style="margin-top:10px"><code>Alert</code> with <code>title</code> and severity, default error. Say what failed and what to try; no apology.</p></div></div><div class="rf-note"><b>Not decided.</b> Error pages for a whole route (permission denied, server error) were not read. These states are Grafana’s and stay unchanged; the drawings above are illustrations, not a restyle.</div></div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1026}}'>
+class Component extends DCLogic {
+renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>P01 · Page contract</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Roboto+Mono:wght@400&family=Antonio:wght@600&display=swap" rel="stylesheet"><style>
+/*ref*/
+body{margin:0}html,body{background:#050609}*{box-sizing:border-box}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;text-align:left}
+.pg{padding:48px 56px 56px;background:#050609;color:#eceef1;font:400 14px/22px 'Inter','Helvetica','Arial',sans-serif}
+.pg h1{margin:0;font:400 28px/32px 'Inter','Helvetica','Arial',sans-serif}
+.pg .lead{margin:10px 0 0;max-width:900px;color:#aeb4bd;font:400 14px/22px 'Inter','Helvetica','Arial',sans-serif}
+.pg h2{margin:40px 0 12px;font:500 16px/22px 'Inter','Helvetica','Arial',sans-serif;color:#fff}
+.pg h3{margin:0 0 4px;font:500 14px/22px 'Inter','Helvetica','Arial',sans-serif;color:#fff}
+.pg p{margin:0;color:#aeb4bd}
+.pg small{font:400 12px/18px 'Inter','Helvetica','Arial',sans-serif;color:#8d939c}
+.g2,.g3,.g4{display:grid;gap:16px}
+.g2{grid-template-columns:repeat(2,minmax(0,1fr))}.g3{grid-template-columns:repeat(3,minmax(0,1fr))}.g4{grid-template-columns:repeat(4,minmax(0,1fr))}
+.cd2{padding:16px;border-radius:6px;background:#181b1f;border:1px solid rgba(204,204,220,.12);min-width:0}
+.cd2 ul{margin:10px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:8px;color:#c9cdd3}
+.cd2 li{padding-left:14px;position:relative}.cd2 li::before{content:"";position:absolute;left:0;top:9px;width:5px;height:5px;border-radius:50%;background:#5a606a}
+.cd2 .hd2{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.rtg{display:inline-block;padding:1px 8px;border-radius:4px;font:500 12px/18px 'Inter','Helvetica','Arial',sans-serif;white-space:nowrap}
+.rtg.tc{background:#14313a;color:#58cfec}.rtg.ts{background:#262a31;color:#c9cdd3}.rtg.tr{background:#2a1f3d;color:#d4a0ff}
+.rtg.tv{background:#1c2b20;color:#6ccf8e}.rtg.ti{background:#2e2417;color:#fbad37}.rtg.tu{background:#3a1c27;color:#ff5286}.rtg.td{background:#2e2417;color:#fbad37;box-shadow:inset 0 0 0 1px #5a4326}
+.mt{width:100%;border-collapse:collapse;font:400 14px/22px 'Inter','Helvetica','Arial',sans-serif}
+.mt th{padding:8px 10px;border-bottom:1px solid rgba(204,204,220,.2);text-align:left;font:500 12px/18px 'Inter','Helvetica','Arial',sans-serif;color:#9fa7b3;white-space:nowrap}
+.mt td{padding:9px 10px;border-bottom:1px solid rgba(204,204,220,.12);vertical-align:top;color:#c9cdd3}
+.mt td:first-child{color:#eceef1}
+.mt.fx{table-layout:fixed}.mt.fx td{overflow-wrap:anywhere}.mt.fx code{white-space:normal;overflow-wrap:anywhere}
+.mt code,.cd2 code,.pg p code,.rf-note code{font:500 12px/18px 'Roboto Mono',monospace;color:#e8eaed;background:#1d2026;padding:2px 6px;border-radius:4px;white-space:nowrap}
+.mt .num{font-variant-numeric:tabular-nums;white-space:nowrap}
+.rfsw{display:inline-block;width:16px;height:16px;border-radius:4px;border:1px solid rgba(204,204,220,.3);vertical-align:-4px;margin-right:8px}
+.rf-note{margin-top:14px;padding:12px 14px;border-radius:6px;background:#14161a;border:1px solid rgba(204,204,220,.12);color:#aeb4bd}
+.rf-note b{color:#fff;font-weight:500}
+.rf-stage{position:relative;border-radius:10px;border:1px solid rgba(204,204,220,.12);background:#090a0d;padding:28px;display:flex;align-items:center;justify-content:center;min-width:0;--hac:#58cfec;--hbg:#1d353f;--htx:#dcdcdc}
+.rf-stage.bk{background:repeating-linear-gradient(135deg,#17202b 0 16px,#223246 16px 32px)}
+.rf-stage.col{flex-direction:column;align-items:stretch;gap:14px}
+.rf-stage .dk{position:relative;bottom:auto;margin:0;align-self:auto}
+.rf-stage .wsm,.rf-stage .um,.rf-stage .am,.rf-stage .mzdd{position:relative;left:auto;right:auto;top:auto;bottom:auto;width:auto;max-width:100%}
+.rf-stage .sh3,.rf-stage .sh2{position:relative;left:auto;bottom:auto;transform:none;width:100%}
+.rf-stage .t{width:100%}
+.rf-lab{margin:0 0 8px;font:500 12px/18px 'Inter','Helvetica','Arial',sans-serif;color:#9fa7b3}
+.rf-hov{position:relative;background:var(--bg,var(--hbg));color:var(--htx);border-radius:0 6px 6px 0}
+.rf-hov::before{content:"";position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--ac,var(--hac))}
+.dk .mods .rf-hov{background:rgba(61,113,217,.30);color:#fff}.dk .mods .rf-hov::before{background:#6e9fff}
+.rf-cell{display:flex;flex-direction:column;gap:10px;align-items:flex-start;min-width:0}
+.rf-cell .dk{align-self:flex-start}
+.rf-pat{background:repeating-linear-gradient(135deg,rgba(204,204,220,.05) 0 10px,transparent 10px 20px)}
+</style>
+</helmet>
+<div class="pg" style="min-height:1692px"><h1>Page contract</h1><p class="lead">What every page in the fork inherits from the shell and what stays Grafana’s. The four page boards that follow draw these regions in the real chrome with a labelled placeholder for Grafana content.</p><h2>Regions</h2><table class="mt"><thead><tr><th>Region</th><th>Owner</th><th>Rule</th></tr></thead><tbody><tr><td>Top bar</td><td><span class="rtg tc">Custom</span></td><td>Always visible</td></tr><tr><td>Breadcrumb</td><td><span class="rtg tc">Custom</span></td><td>Built from nav models</td></tr><tr><td>Page header</td><td><span class="rtg ts">Grafana</span></td><td>Standard layout only</td></tr><tr><td>Tabs</td><td><span class="rtg ts">Grafana</span></td><td>When <code>pageNav.children</code> exists</td></tr><tr><td>Body</td><td><span class="rtg ts">Grafana</span></td><td>Placeholder in these reference pages</td></tr><tr><td>Dock</td><td><span class="rtg tc">Custom</span></td><td>Floats above the body</td></tr></tbody></table><h2>Layouts</h2><p class="lead" style="margin:0 0 10px">From <code>Page.tsx</code> in Grafana v13.3.0.</p><table class="mt fx"><colgroup><col style="width:11%"><col style="width:31%"><col style="width:24%"><col style="width:14%"><col style="width:20%"></colgroup><thead><tr><th>Layout</th><th>Regions</th><th>Spacing and background</th><th>Scroll</th><th>Used by</th></tr></thead><tbody><tr><td>Standard</td><td>Header (title, subtitle, info, actions), tabs when the page has children, then content</td><td>Padding 16, 32 from md up. Page background</td><td><code>NativeScrollbar</code></td><td>Settings, lists, forms</td></tr><tr><td>Canvas</td><td>Content only. No header and no tabs</td><td>Padding 16. Canvas background</td><td><code>NativeScrollbar</code></td><td>Dashboards (DashboardScenePage)</td></tr><tr><td>Custom</td><td>Children only. The page owns everything</td><td>None</td><td>—</td><td>Dashboards (DashboardSceneRenderer)</td></tr><tr><td>Home</td><td>Like Standard on a gradient background</td><td>Max width 1440, centred</td><td><code>NativeScrollbar</code></td><td>Home page</td></tr></tbody></table><h2>Page props</h2><table class="mt fx"><colgroup><col style="width:22%"><col style="width:26%"><col style="width:40%"><col style="width:12%"></colgroup><thead><tr><th>Prop</th><th>Purpose</th><th>Region</th><th>Status</th></tr></thead><tbody><tr><td>navId, navModel, pageNav</td><td>Chrome section and page nav</td><td>Feeds the breadcrumb through <code>chrome.update</code></td><td><span class="rtg tv">Verified in v13.3.0</span></td></tr><tr><td>renderTitle, onEditTitle</td><td>Custom or editable title</td><td>Header region</td><td><span class="rtg tv">Verified in v13.3.0</span></td></tr><tr><td>subTitle, info</td><td>Line under the title and metadata beside it</td><td>Header region</td><td><span class="rtg tv">Verified in v13.3.0</span></td></tr><tr><td>actions</td><td>Buttons in the header, right side</td><td>Header region. Not the same as chrome <code>actions</code></td><td><span class="rtg tv">Verified in v13.3.0</span></td></tr><tr><td>layout</td><td>One of the four layouts above</td><td>Decides which regions exist</td><td><span class="rtg tv">Verified in v13.3.0</span></td></tr><tr><td>background</td><td>Overrides the default for the layout</td><td>Marked as to be removed in a comment</td><td><span class="rtg tv">Verified in v13.3.0</span></td></tr></tbody></table><h2>Spacing and behaviour</h2><table class="mt fx"><colgroup><col style="width:24%"><col style="width:34%"><col style="width:10%"><col style="width:32%"></colgroup><thead><tr><th>Topic</th><th>Value</th><th>Status</th><th>Note</th></tr></thead><tbody><tr><td>Page padding inside the inner panel</td><td>Grafana Standard adds 16 (32 from md) inside a panel that already has 16</td><td><span class="rtg td">Decision needed</span></td><td>Total would be 32 or 48 from the panel edge. Choose whether the shell or the page owns the gutter.</td></tr><tr><td>Header bottom margin</td><td>16</td><td><span class="rtg tv">Verified in v13.3.0</span></td><td>PageHeader</td></tr><tr><td>Tabs bottom padding</td><td>24</td><td><span class="rtg tv">Verified in v13.3.0</span></td><td>PageTabs</td></tr><tr><td>Dock clearance</td><td>58 + 17 = 75 at the bottom edge</td><td><span class="rtg ti">Inferred</span></td><td>Content, sticky save bars and toasts must not sit under the floating dock. A bottom padding of about 80 is a proposal, not measured on a long page.</td></tr><tr><td>Page scrolling</td><td>Grafana scrolls the page content with <code>NativeScrollbar</code> inside the layout</td><td><span class="rtg tv">Verified in v13.3.0</span></td><td>The frame itself does not scroll in the prototype. Which element scrolls in the fork is not verified.</td></tr><tr><td>Container query</td><td>The page wrapper sets <code>container: page / inline-size</code></td><td><span class="rtg tv">Verified in v13.3.0</span></td><td>Pages can react to their own width instead of the viewport.</td></tr></tbody></table></div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1692}}'>
+class Component extends DCLogic {
+renderVals() { return {}; }
+}
+</script>
+</body>
+</html>
