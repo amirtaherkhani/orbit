@@ -1,0 +1,5 @@
+design/pre_lifecycle/_r_*
+__pycache__/
+*.pyc
+shots/
+chk_*.png

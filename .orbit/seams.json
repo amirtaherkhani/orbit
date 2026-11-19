@@ -1,0 +1,10 @@
+{
+  "base": "v13.3.1",
+  "edits": [
+    { "id": "SM01", "file": "public/app/routes/RoutesWrapper.tsx", "maxChangedLines": 2 },
+    { "id": "SM06", "file": "i18next.config.ts", "maxChangedLines": 1 },
+    { "id": "SM13", "file": "pkg/server/wire_core.go", "maxChangedLines": 2 },
+    { "id": "SM14", "file": "pkg/services/sqlstore/migrations/migrations.go", "maxChangedLines": 2 }
+  ],
+  "generated": ["pkg/server/wire_gen.go"]
+}
