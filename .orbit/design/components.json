@@ -359,7 +359,8 @@
     "Bookmarks loading (skeleton)",
     "Add slot hover",
     "Add slot open ('+' turns into a close mark)",
-    "Menu open (Menu item selected)"
+    "Menu open (Menu item selected)",
+    "App without a logo: its initial in the tile instead of the icon"
    ],
    "events": [
     "Workspace button → toggles AppSwitcher",
@@ -382,7 +383,8 @@
    "open": [
     "Which item is selected on a page that is not bookmarked (R07)",
     "Overflow below desktop width; reorder; motion (R07)"
-   ]
+   ],
+   "board": "CmpDock.dc.html"
   },
   {
    "name": "MenuSheet",
