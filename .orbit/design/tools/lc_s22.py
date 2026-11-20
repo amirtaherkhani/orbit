@@ -39,6 +39,11 @@ def add_icons(who,prefix,svgs):
     i=s.index(f'<sc-if value="{{{{ {who}.i_clock }}}}"'); j=end_of(s,i)
     s=s[:j]+''.join(f'{hole(f"{who}.i_{prefix}{n}","false")}{svg}</sc-if>' for n,svg in enumerate(svgs))+s[j:]
 add_icons('p','r',[x[0] for x in rail]); add_icons('t','t',[x[0] for x in tl])
+# Administration's General tiles (S10) keep their own icons, as a0-a5 in tools/s22/mock.js
+adm=open(ROOT+'pre_lifecycle/ExtSheetAdmin.dc.html').read(); adm=adm[adm.index('<div class="mzs"'):]
+atl=re.findall(r'<span class="tl">(<svg.*?</svg>)</span>\s*<b>([^<]+)</b>',adm,flags=re.S)[:6]
+assert [x[1] for x in atl]==['Default preferences','Statistics and licensing','Settings','Organizations','Migrate to Grafana Cloud','Provisioning'],atl
+add_icons('t','a',[x[0] for x in atl])
 
 # 2. Tiles: a click opens the page, arrows move focus (N9); the grid takes the keys
 one('onClick="{{ t.focus }}"','id="{{ t.id }}" onFocus="{{ t.focus }}" onClick="{{ t.open }}"')
@@ -117,6 +122,12 @@ FONT="color:#eceef1;font:400 14px/22px 'Inter','Helvetica','Arial',sans-serif"
 a='<div class="sh3" role="dialog" aria-label="Menu" onKeyDown="{{ sheetKey }}">'; assert sheet.startswith(a)
 sheet=f'<div class="sh3" role="dialog" aria-label="Menu" onKeyDown="{{{{ sheetKey }}}}" style="{FONT};{{{{ pos }}}}">'+sheet[len(a):]
 sheet=sheet.replace('id="s22-rsw"','id="ms-rsw"')
+# group tabs (S10 Administration: General / Plugins and data / Access) between the header and the tiles; arrows move between tabs
+TABS=('<sc-if value="{{ hasGroups }}" hint-placeholder-val="{{ false }}"><div class="mzs" role="tablist" aria-label="{{ pageName }} groups" onKeyDown="{{ tabKey }}">'
+      '<sc-for list="{{ groups }}" as="g" hint-placeholder-count="3"><button type="button" id="{{ g.id }}" class="{{ g.cls }}" role="tab" aria-selected="{{ g.sel }}" onClick="{{ g.pick }}">'
+      '<span>{{ g.label }}</span><em>{{ g.count }}</em></button></sc-for></div></sc-if>')
+x='<sc-if value="{{ loading }}" hint-placeholder-val="{{ false }}"><div class="mzg">'; assert sheet.count(x)==1
+sheet=sheet.replace(x,TABS+x)
 SPROPS={k:{"editor":None} for k in ['app','bm','loading','viewer','appsOpen','page','focus','anchored','onPickApp','onToggle','onOpen','onClose','onToggleApps']}
 SPROPS['$preview']={"width":1112,"height":500}
 head=s[:s.index('</helmet>')+9].replace('<title>Menu flow</title>','<title>Menu sheet</title>')

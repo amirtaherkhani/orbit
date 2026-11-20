@@ -244,6 +244,7 @@ componentWillUnmount() { clearTimeout(this.loadTimer); }
 
 
 
+
 apps() {
 return {
 monitoring: { name: 'Monitoring', icon: 'mon', ac: '#58cfec', bg: '#1d353f', sub: 'Grafana · 6 pages', pages: [
@@ -252,7 +253,10 @@ monitoring: { name: 'Monitoring', icon: 'mon', ac: '#58cfec', bg: '#1d353f', sub
 { n: 'Drilldown', ic: 'r2', dk: 'list', count: 4, subs: null },
 { n: 'Alerting', ic: 'r3', dk: 'bell', count: 6, subs: null },
 { n: 'Connections', ic: 'r4', dk: 'list', count: 2, subs: null },
-{ n: 'Administration', ic: 'r5', dk: 'list', count: 12, subs: null, adm: true }] },
+{ n: 'Administration', ic: 'r5', dk: 'list', adm: true, groups: [
+{ n: 'General', subs: [['Default preferences', 'a0', 'Theme, home dashboard and timezone'], ['Statistics and licensing', 'a1', 'Usage numbers and license details'], ['Settings', 'a2', 'Server configuration'], ['Organizations', 'a3', 'Create and switch organizations'], ['Migrate to Grafana Cloud', 'a4', 'Move this instance to the cloud'], ['Provisioning', 'a5', 'Resources managed from files or Git']] },
+{ n: 'Plugins and data', count: 2, subs: null },
+{ n: 'Access', count: 4, subs: null }] }] },
 management: { name: 'Management', icon: 'mgmt', ac: '#e0b46a', bg: '#2f2819', sub: 'Production line · 3 pages', pages: [
 { n: 'Overview', ic: 'chart', subs: [['Line status', 'chart', 'Live status of each station on the line'], ['Shifts', 'clock', 'Output and stops per shift'], ['Alarms', 'bell', 'Open alarms on the line']] },
 { n: 'Reports', ic: 'doc', subs: [['Daily', 'doc', 'Yesterday per station'], ['Weekly', 'doc', 'This week against the plan'], ['Monthly', 'doc', 'Month summary for managers'], ['Export', 'list', 'Download reports as CSV or PDF']] },
@@ -289,7 +293,7 @@ const DK = ['chart', 'doc', 'cube', 'list', 'clock', 'bell', 'pl', 'lp', 'ex'];
 const dockBms = [];
 cur.pages.filter((x) => !(viewer && x.adm)).forEach((x) => {
 if (bm[app + '/' + x.n]) dockBms.push({ label: x.n, icon: x.dk || x.ic });
-(x.subs || []).forEach(([l, ic, d, k]) => { if (bm[app + '/' + x.n + '/' + l]) dockBms.push({ label: x.n + ' › ' + l, icon: k || ic }); });
+(x.groups ? [].concat(...x.groups.map((g) => g.subs || [])) : x.subs || []).forEach(([l, ic, d, k]) => { if (bm[app + '/' + x.n + '/' + l]) dockBms.push({ label: x.n + ' › ' + l, icon: k || ic }); });
 });
 dockBms.forEach((b) => { if (DK.indexOf(b.icon) < 0) b.icon = 'list'; });
 const crumb = opened ? { a: A[opened.app].name, p: opened.page, s: opened.sub || '' } : { a: '', p: '', s: '' };
