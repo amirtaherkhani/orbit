@@ -7,6 +7,9 @@
 set -e
 cd "$(dirname "$0")/.."
 sh tools/py --check
-for t in lc_s12 lc_flow lc_s15 lc_r10 lc_refs lc_misc lc_s17 lc_od28 lc_post lc_r12 lc_s22 lc_components lc_ids tpl_build lc_fit; do
-  [ -f tools/$t.py ] && sh tools/py tools/$t.py > /dev/null && echo "ok $t"
+for t in lc_s12 lc_flow lc_s15 lc_r10 lc_refs lc_misc lc_s17 lc_od28 lc_post lc_r12 lc_s22 lc_components lc_ids tpl_build lc_compose lc_fit; do
+  # a failing step stops the build: '&&' alone hides the failure from 'set -e'
+  [ -f tools/$t.py ] || continue
+  sh tools/py tools/$t.py > /dev/null || { echo "FAILED $t"; exit 1; }
+  echo "ok $t"
 done
