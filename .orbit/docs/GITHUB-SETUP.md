@@ -41,6 +41,8 @@ Settings → General → Pull Requests: allow **Squash merging** and **Merge com
 | `main-mirror` | branch `main` | Restrict deletions · Block force pushes. No pull request rule, so "Sync fork" keeps working |
 | `release-tags` | tags `v*+orbit*` | Restrict deletions · Restrict updates (a release tag is never moved) |
 
+**Worktrees (desktop app).** Merge only on GitHub. Never press the desktop app's merge or "apply" button for a worktree session: it merges into the local `orbit`, which then differs from GitHub (the ruleset refuses to push it). Fix: `git switch orbit && git reset --hard origin/orbit`.
+
 **Syncing `main`** (optional: updates use Grafana's tags, not `main`). GitHub's "Sync fork" button updates the branch that is open on the page, and the page opens on `orbit`. Never press it while `orbit` is shown: `orbit` has no counterpart in Grafana, so it would try to bring Grafana's `main` into `orbit` (Inferred; the `orbit-product` ruleset should block it, Not verified). Use the command, which names the branch:
 
 ```bash

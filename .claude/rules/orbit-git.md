@@ -17,8 +17,14 @@ These rules are enforced. `.orbit/scripts/agent-guard.mjs` runs before every she
 | `<type>/<topic>` | Short-lived work branch, one pull request | You |
 
 - Work branch types: `feat`, `fix`, `seam`, `design`, `docs`, `update`, `release`, `ci`, `tooling`. Topic in lowercase with hyphens: `feat/dock-bookmarks`, `update/v13.3.2`, `release/v13.3.1-orbit.1`.
-- Start every task from `orbit`: `git switch orbit && git pull --ff-only && git switch -c feat/<topic>`.
+- Start every task from the newest `origin/orbit`, never from a local copy: `git fetch origin && git switch -c feat/<topic> origin/orbit`. The session start hook already fast-forwards the owner's main checkout when it is clean and on `orbit`.
 - Never commit on `main`, `orbit`, `hotfix/*` or a detached HEAD.
+
+## Worktrees
+
+- A session may run in a worktree (`.claude/worktrees/<name>`, made by the Claude desktop app). It is only a separate folder for one work branch; `orbit` stays checked out in the main checkout.
+- Work in a worktree ends like any other: commit on the work branch, ask, push it, open a pull request into `orbit`. The owner merges on GitHub.
+- Never merge a work branch into `orbit` locally, and never suggest the desktop app's merge or "apply" button: a local merge leaves the local `orbit` different from GitHub, and the ruleset refuses to push it.
 
 ## Commits
 

@@ -10,7 +10,6 @@ Formats: `.claude/rules/orbit-git.md` (Tags and releases). Only when the owner a
 ## 1. Work out the number
 
 ```bash
-git switch orbit && git pull --ff-only
 git fetch origin --tags
 node -e "console.log(JSON.parse(require('fs').readFileSync('.orbit/seams.json')).base)"   # Grafana base, e.g. v13.3.1
 git tag --list 'v13.3.1+orbit.*' --sort=-v:refname | head -5
@@ -18,7 +17,7 @@ git tag --list 'v13.3.1+orbit.*' --sort=-v:refname | head -5
 
 - Next release: `n` = highest released `n` for this Grafana base + 1 (1 after a Grafana update). The tag's Grafana version is always `base` in `.orbit/seams.json` of the tagged commit.
 - Release candidate: same coming `n`, `m` = highest `.rc.<m>` for it + 1.
-- Check that the base tag is merged: `git merge-base --is-ancestor v13.3.1 HEAD`.
+- Check that the base tag is merged: `git merge-base --is-ancestor v13.3.1 origin/orbit`.
 
 ## 2. Release pull request (skip for a release candidate)
 
@@ -31,8 +30,8 @@ On `release/v13.3.1-orbit.1`:
 ## 3. Tag (after the owner merged the release PR; a release candidate can also be tagged on an `update/*` branch to test a new Grafana version)
 
 ```bash
-git switch orbit && git pull --ff-only
-git tag -a v13.3.1+orbit.1 -m "Orbit v13.3.1+orbit.1 (Grafana v13.3.1, Orbit API 0.2.0)"
+git fetch origin
+git tag -a v13.3.1+orbit.1 origin/orbit -m "Orbit v13.3.1+orbit.1 (Grafana v13.3.1, Orbit API 0.2.0)"
 git push origin v13.3.1+orbit.1          # the owner approves; this starts orbit-release.yml
 ```
 

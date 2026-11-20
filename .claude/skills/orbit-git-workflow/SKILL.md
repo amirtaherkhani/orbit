@@ -11,8 +11,8 @@ Rules: `.claude/rules/orbit-git.md`. The guard hook enforces them; this is the p
 
 ```bash
 git status --short                      # must be clean; if not, ask the owner what to do with the changes
-git switch orbit && git pull --ff-only
-git switch -c <type>/<topic>            # feat, fix, seam, design, docs, update, release, ci, tooling
+git fetch origin
+git switch -c <type>/<topic> origin/orbit   # feat, fix, seam, design, docs, update, release, ci, tooling; works in a worktree too
 ```
 
 Every task starts from `orbit`, the default branch. The Grafana version it holds is `base` in `.orbit/seams.json`.
