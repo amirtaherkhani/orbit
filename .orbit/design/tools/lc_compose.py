@@ -62,4 +62,15 @@ for f in TOP_BOARDS:
     except AssertionError as e: raise SystemExit(f'lc_compose: {f} draws a TopBar that is not the standard one ({e})')
     s=s[:i]+f'<dc-import name="CmpTopBar" {pr} hint-size="1412px,64px"></dc-import>'.replace('  ',' ')+s[j:]
     open(P+f+'.dc.html','w').write(s)
+# MenuSheet (C06): the static sheet states mount the shared sheet with the page or the open app list they show.
+# The guard is the header text each board shows; the bookmark count now comes from the shared mock bookmarks.
+SHEETS={'DockMenu':('Explore · no sub pages','page="Explore"'),'ExtSheet':('Dashboards · sub pages',''),'ExtSheetSwitch':('<div class="mzdd"','apps-open="true"')}
+for f,(must,props) in SHEETS.items():
+    s=open(P+f+'.dc.html').read()
+    i=s.find('<div class="sh3"')
+    if i<0 or 'name="CmpMenuSheet"' in s: continue
+    j=div_block(s,i)
+    if must not in s[i:j] or 'Monitoring' not in s[i:j]: raise SystemExit(f'lc_compose: {f} draws a MenuSheet that is not the expected state ({must})')
+    s=s[:i]+f'<dc-import name="CmpMenuSheet" anchored="true" {props} hint-size="1080px,470px"></dc-import>'.replace('  ',' ')+s[j:]
+    open(P+f+'.dc.html','w').write(s)
 print('compose ok')

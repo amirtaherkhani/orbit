@@ -53,6 +53,28 @@ EMPTY=(hole('empty','false')+'<div class="mempty2"><b style="font-weight:500;col
  +hole('tilesNote','false')+'<div class="mempty2">{{ tilesNote }}</div></sc-if>')
 s,n=re.subn(r'<sc-if value="\{\{ empty \}\}"[^>]*>\s*<div class="mempty2">.*?</div>\s*</sc-if>',lambda m:EMPTY,s,flags=re.S); assert n==1,n
 
+# 3b. MenuSheet merge decisions (owner, 2026-11-20), so S22 draws what S02, S07 and S14 draw:
+# app tiles show the app's icon, its first letter when it has none; the app list holds the selector apps only ("3 in selector");
+# a page without sub pages shows a notice instead of a tile of itself.
+snap=open(ROOT+'pre_lifecycle/ExtSheetSwitch.dc.html').read(); k=snap.index('<div class="mzdd"')
+APPIC=re.findall(r'<button type="button" role="menuitem" class="mzo[^"]*" style="[^"]*"><span class="tl" style="[^"]*">(<svg.*?</svg>)</span>',snap[k:k+20000],flags=re.S)[:3]
+assert len(APPIC)==3
+def appicons(pre): return ''.join(hole(f'{pre}i_{n}','false')+v+'</sc-if>' for n,v in zip(['mon','mgmt','mnt'],APPIC))
+TL='display:grid;place-items:center;flex:none;width:{w}px;height:{w}px;border-radius:6px;'
+one('<button type="button" class="rsw" aria-haspopup="menu" aria-expanded="{{ openStr }}" aria-label="App: {{ appName }}" onClick="{{ toggle }}"><span class="tl mtl" style="{{ tileStyle }}">{{ initial }}</span>',
+    '<button type="button" class="rsw" aria-haspopup="menu" aria-expanded="{{ openStr }}" aria-label="App: {{ appName }}" onClick="{{ toggle }}">'
+    +hole('hasIcon','true')+f'<span class="tl" style="{TL.format(w=30)}{{{{ tileStyle }}}}">'+appicons('')+'</span></sc-if>'
+    +hole('noIcon','false')+'<span class="tl mtl" style="{{ tileStyle }}">{{ initial }}</span></sc-if>')
+one('<span class="tl mtl2" style="{{ ap.tileStyle }}">{{ ap.initial }}</span>',
+    hole('ap.hasIcon','true')+f'<span class="tl" style="{TL.format(w=28)}{{{{ ap.tileStyle }}}}">'+appicons('ap.')+'</span></sc-if>'
+    +hole('ap.noIcon','false')+'<span class="tl mtl2" style="{{ ap.tileStyle }}">{{ ap.initial }}</span></sc-if>')
+one('<div class="mzcap"><span>Apps</span><span>Pick one to see its pages</span></div>','<div class="mzcap"><span>Apps</span><span>{{ selCount }} in selector</span></div>')
+PAGEIC=dict(re.findall(r'<sc-if value="\{\{ p\.i_(\w+) \}\}" hint-placeholder-val="\{\{ false \}\}">(<svg.*?</svg>)</sc-if>',s,flags=re.S))
+NOTICE=(hole('noticePage','false')+'<div class="mzem"><span class="tl">'+''.join(hole('pi_'+k,'false')+v+'</sc-if>' for k,v in PAGEIC.items())
+        +'</span><span><b>{{ pageName }} has no sub pages</b>It opens straight away. Pages with a number, like Dashboards or Administration, list their sub pages here.</span></div></sc-if>')
+i=s.index('<div class="mzg" role="group" aria-label="Sub pages"'); j=s.index('</sc-for>',i)+len('</sc-for>')
+s=s[:j]+NOTICE+s[j:]
+
 # 4. The sheet is a dialog that opens and closes: scrim for a click outside, Esc on the sheet and on the dock (N8)
 m=re.search(r'<div class="sh3" role="dialog" aria-label="Menu">',s); i=m.start(); j=s.index('<nav class="dk"')
 sheet=s[i:j].rstrip(); assert sheet.endswith('</div>')
@@ -81,7 +103,32 @@ CSS=(lca+'\n.s22s{position:absolute;inset:0;z-index:3;border-radius:inherit}'
  '\n.s22p{min-height:320px;display:grid;place-items:center;border-radius:6px;border:1px dashed rgba(204,204,220,.3);background:repeating-linear-gradient(135deg,rgba(204,204,220,.05) 0 10px,transparent 10px 20px);color:#9fa7b3}\n')
 one('</style>\n</helmet>',CSS+'</style>\n</helmet>')
 a=s.index('class Component extends DCLogic'); b=s.index('</script>',a)
-s=s[:a]+open(T+'logic.js').read()+s[b:]
+# 7c. C06 MenuSheet (owner, 2026-11-20): the sheet becomes a shared component. S22 mounts it and the Dock (C01) and keeps only the
+# shared state; both logics get the same mock data (tools/s22/mock.js).
+MOCK=re.sub(r'^//.*$','',open(T+'mock.js').read(),flags=re.M)
+def logic(f): return open(T+f).read().replace('/*MOCK*/',MOCK)
+def div_end(t,i):
+    d=0
+    for m in re.finditer(r'<div\b|</div>',t[i:]):
+        d+=1 if m.group(0)=='<div' else -1
+        if d==0: return i+m.end()
+i=s.index('<div class="sh3"'); j=div_end(s,i); sheet=s[i:j]
+FONT="color:#eceef1;font:400 14px/22px 'Inter','Helvetica','Arial',sans-serif"
+a='<div class="sh3" role="dialog" aria-label="Menu" onKeyDown="{{ sheetKey }}">'; assert sheet.startswith(a)
+sheet=f'<div class="sh3" role="dialog" aria-label="Menu" onKeyDown="{{{{ sheetKey }}}}" style="{FONT};{{{{ pos }}}}">'+sheet[len(a):]
+sheet=sheet.replace('id="s22-rsw"','id="ms-rsw"')
+SPROPS={k:{"editor":None} for k in ['app','bm','loading','viewer','appsOpen','page','focus','anchored','onPickApp','onToggle','onOpen','onClose','onToggleApps']}
+SPROPS['$preview']={"width":1112,"height":500}
+head=s[:s.index('</helmet>')+9].replace('<title>Menu flow</title>','<title>Menu sheet</title>')
+open(P+'CmpMenuSheet.dc.html','w').write(head+'\n'+sheet+"\n</x-dc>\n<script type=\"text/x-dc\" data-dc-script data-props='"+json.dumps(SPROPS,separators=(',',':'))+"'>\n"+logic('sheet.js')+"</script>\n</body>\n</html>\n")
+subprocess.run([sys.executable,ROOT+'tools/cmp_css.py','CmpMenuSheet.dc.html'],check=True,capture_output=True)
+s=s[:i]+('<dc-import name="CmpMenuSheet" anchored="true" app="{{ app }}" bm="{{ bm }}" loading="{{ loading }}" viewer="{{ viewer }}" apps-open="{{ appsOpen }}" '
+         'on-pick-app="{{ pickApp }}" on-toggle="{{ toggleBm }}" on-open="{{ openPage }}" on-close="{{ closeMenu }}" on-toggle-apps="{{ toggleApps }}" hint-size="1080px,470px"></dc-import>')+s[j:]
+i=s.index('<nav class="dk"'); j=s.index('</nav>',i)+6
+s=s[:i]+('<dc-import name="CmpDock" active-app="{{ dockApp }}" bookmarks="{{ dockBms }}" selected="none" open-overlay="{{ dockOverlay }}" loading="{{ loading }}" '
+         'menu-id="s22-menu" on-menu="{{ toggleMenu }}" on-apps="{{ toggleApps }}" on-key="{{ sheetKey }}" hint-size="760px,58px"></dc-import>')+s[j:]
+a=s.index('class Component extends DCLogic'); b=s.index('</script>',a)
+s=s[:a]+logic('logic.js')+s[b:]
 open(P+OUT,'w').write(s)
 subprocess.run(['node',T+'check.js'],check=True)
 
@@ -99,6 +146,9 @@ cj=json.load(open(P+'canvas.json')); c=cj['boards']
 if OUT not in c:
     c[OUT]={'expand':'fill','h':900,'title':'S22 · MenuSheet: menu flow','w':1440,'x':10920,'y':11888,'is_interactive':True}
     o=cj['order']; o.insert(o.index('DockBookmarkAdd.dc.html')+1,OUT)
+if 'CmpMenuSheet.dc.html' not in c:
+    c['CmpMenuSheet.dc.html']={'h':500,'title':'C06 · MenuSheet: component','w':1112,'x':6240,'y':12260,'is_interactive':True}
+    o=cj['order']; o.insert(o.index('CmpAppSwitcher.dc.html')+1,'CmpMenuSheet.dc.html')
 r3=cj['notes']['r3']
 if 'S22' not in r3['text']:
     old='the add-bookmark popover (R07, R08 → S02, S07, S10, S19, S20)'; assert old in r3['text'],r3['text']
