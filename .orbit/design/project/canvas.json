@@ -127,7 +127,7 @@
   },
   "RefScope.dc.html": {
    "expand": "fill",
-   "h": 7950,
+   "h": 8010,
    "title": "R03 \u00b7 Scope map and naming",
    "w": 1440,
    "x": 3120,
@@ -311,6 +311,13 @@
    "w": 1440,
    "x": 7800,
    "y": 0
+  },
+  "CmpDock.dc.html": {
+   "h": 80,
+   "title": "C01 \u00b7 Dock: component",
+   "w": 820,
+   "x": 6240,
+   "y": 11480
   }
  },
  "createdOnFiles": {
@@ -390,6 +397,7 @@
   "RefBreadcrumb.dc.html",
   "DockHome.dc.html",
   "DockDashboard.dc.html",
+  "CmpDock.dc.html",
   "RefDock.dc.html",
   "RefSheet.dc.html",
   "DockMenu.dc.html",
