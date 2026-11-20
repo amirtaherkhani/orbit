@@ -36,6 +36,7 @@ Open decisions with the version that needs them: ARCHITECTURE.md section 20 (OD1
 - Never expose secrets. Never claim work that was not done.
 - Buttons follow Grafana's own layout (zones in 10.11). Icons: Unicons plus Tabler (10.12). Components from `@grafana/ui`, checked against the Grafana UI Storybook.
 - Git: commit on work branches, ask before every push, never merge (`.claude/rules/orbit-git.md`).
+- Owner, desktop app: a worktree session ends with a pull request; never press the app's merge or "apply" button. If it was pressed: `git switch orbit && git reset --hard origin/orbit` in the main checkout. After a merge on GitHub nothing is needed locally: the next session fast-forwards the main checkout.
 
 ## Artifacts on claude.ai
 

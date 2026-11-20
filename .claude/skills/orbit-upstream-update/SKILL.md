@@ -22,8 +22,8 @@ Report to the owner: which seam files changed upstream, and release-note items t
 ## 1. Update branch
 
 ```bash
-git switch orbit && git pull --ff-only
-git switch -c update/v13.3.2
+git fetch origin
+git switch -c update/v13.3.2 origin/orbit
 OLD=$(node -p "require('./.orbit/seams.json').base")     # v13.3.1
 node .orbit/scripts/list-ours.mjs > /tmp/orbit-ours.list # BEFORE read-tree: it removes our scripts from the disk
 ```
