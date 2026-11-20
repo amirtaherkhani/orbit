@@ -6,7 +6,7 @@ import os as _os; ROOT=_os.path.dirname(_os.path.dirname(_os.path.abspath(__file
 import re
 P=ROOT+'project/'
 DOCK_ITEMS={'Home':'home','Dashboards':'dashboards','Bookmarks':'bookmarks','Starred':'starred','Alerting':'alerting','Menu':'menu'}
-DOCK_BOARDS=['PageShell','PageDashboard','PageSettings','PageList','PageDetail','RefDock','DockMenu','DockDashboard','DockUser','ExtSheet','ExtAdd',
+DOCK_BOARDS=['ExtSwitch','PageShell','PageDashboard','PageSettings','PageList','PageDetail','RefDock','DockMenu','DockDashboard','DockUser','ExtSheet','ExtAdd',
              'ExtSheetAdmin','AppsPin','AppsAdd','ExtSheetSwitch','AppManage','AppSetup','AddAppFlow','AppUpdate']
 
 def dock_props(nav):
@@ -15,9 +15,12 @@ def dock_props(nav):
     assert '<span class="k" style="font-size:12px">App</span>Monitoring' in t,'app'
     ws=re.search(r'<button[^>]*class="n ws[^"]*"[^>]*>',t).group(0)
     on=re.findall(r'class="n on"[^>]*>([^<]*)<',t)
-    if 'class="n ws on"' in ws: assert not on; return 'apps'
+    extra=''
+    if '<div class="wsm"' in t:  # the AppSwitcher (C05) is open above the workspace button
+        assert 'aria-expanded="true" style="background:#262a31"' in ws,'open switcher'; extra=' open-overlay="apps"'
+    if 'class="n ws on"' in ws: assert not on; return 'apps'+extra
     assert len(on)<=1,on
-    return DOCK_ITEMS[on[0]] if on else 'none'
+    return (DOCK_ITEMS[on[0]] if on else 'none')+extra
 
 for f in DOCK_BOARDS:
     s=open(P+f+'.dc.html').read()
@@ -27,7 +30,7 @@ for f in DOCK_BOARDS:
     j=s.index('</nav>',i)+6
     try: sel=dock_props(s[i:j])
     except AssertionError as e: raise SystemExit(f'lc_compose: {f} draws a Dock that is not the standard one ({e}); update the Dock component or this list')
-    s=s[:i]+f'<dc-import name="CmpDock" selected="{sel}" hint-size="760px,58px"></dc-import>'+s[j:]
+    s=s[:i]+f'<dc-import name="CmpDock" selected="{sel.split()[0]}"{sel[len(sel.split()[0]):]} hint-size="760px,58px"></dc-import>'+s[j:]
     open(P+f+'.dc.html','w').write(s)
 # TopBar (C02): open overlay (UserMenu C03, AddMenu C04), image avatar and the board link are the props
 TOP_BOARDS=['AddAppFlow','AppManage','AppSetup','AppUpdate','AppsAdd','AppsPin','DockAppPages','DockDashboard','DockBookmarkAdd','DockHome','DockMenu',
