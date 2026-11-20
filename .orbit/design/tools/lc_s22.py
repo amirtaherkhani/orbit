@@ -73,26 +73,11 @@ CR=('<nav class="cb" aria-label="Breadcrumb"><button type="button" class="ap">{{
 PAGE=('<section class="pn" style="grid-column:span 12"><div class="pt">{{ openedTitle }}</div><div class="s22p"><span>Grafana content for {{ openedDesc }}</span></div></section>')
 s=s[:i]+m.group(0)+hole('isHome','true')+nav+'</sc-if>'+hole('isPage','false')+CR+'</sc-if></div>'+hole('isHome','true')+home+'</sc-if>'+hole('isPage','false')+PAGE+'</sc-if>'+s[k_main:]
 
-# 6. State switcher and screen strip above the device frame (N3)
-BAR=('<div class="s22c" role="group" aria-label="Prototype controls"><span class="s22l">State</span><div class="s22g" role="group" aria-label="State">'
- '<sc-for list="{{ states }}" as="st" hint-placeholder-count="3"><button type="button" class="{{ st.cls }}" aria-pressed="{{ st.on }}" onClick="{{ st.pick }}">{{ st.label }}</button></sc-for></div>'
- '<span class="s22l s22r">Screen</span><ol class="s22f"><sc-for list="{{ steps }}" as="sp" hint-placeholder-count="4"><li><button type="button" class="{{ sp.cls }}" aria-current="{{ sp.cur }}" onClick="{{ sp.go }}"><b>{{ sp.n }}</b>{{ sp.label }}</button></li></sc-for></ol></div>')
-one('<div class="a"><div class="s">','<div class="a">'+BAR+'<div class="s">')
-
 # 7. Title, styles, logic
 one('<title>Menu, app dropdown open</title>','<title>Menu flow</title>')
-# The frame keeps Home's natural height on every screen, so it does not jump. 873, not 872: lc_fit rewrites every min-height:872px
-# when a board grows, which would make this board grow again on each build.
-one('.s{min-height:872px;','.s{min-height:873px;')
 lca=''.join(re.findall(r'\.p\.lca[^{}]*\{[^}]*\}',open(P+'AppsAdd.dc.html').read()))
 assert '.a-setup' in lca
 CSS=(lca+'\n.s22s{position:absolute;inset:0;z-index:3;border-radius:inherit}'
- '\n.s22c{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:0 0 12px;padding:0 8px}'
- "\n.s22l{font:500 12px/18px 'Inter','Helvetica','Arial',sans-serif;color:#9fa7b3}.s22r{margin-left:16px}"
- '\n.s22g{display:inline-flex}.s22f{display:flex;gap:6px;margin:0;padding:0;list-style:none}'
- "\n.s22b{min-height:36px;padding:0 14px;border-radius:6px;border:1px solid rgba(204,204,220,.2);background:#14161a;color:#c9cdd3;font:500 13px/20px 'Inter','Helvetica','Arial',sans-serif}"
- '\n.s22g .s22b{border-radius:0;margin-left:-1px}.s22g .s22b:first-child{border-radius:6px 0 0 6px;margin-left:0}.s22g .s22b:last-child{border-radius:0 6px 6px 0}'
- '\n.s22b.on{background:#1d353f;border-color:#58cfec;color:#fff}.s22b:hover,.s22b:focus-visible{border-color:#58cfec;outline:0}.s22b b{margin-right:6px;font-weight:500;color:#58cfec}'
  '\n.s22p{min-height:320px;display:grid;place-items:center;border-radius:6px;border:1px dashed rgba(204,204,220,.3);background:repeating-linear-gradient(135deg,rgba(204,204,220,.05) 0 10px,transparent 10px 20px);color:#9fa7b3}\n')
 one('</style>\n</helmet>',CSS+'</style>\n</helmet>')
 a=s.index('class Component extends DCLogic'); b=s.index('</script>',a)
@@ -104,7 +89,7 @@ subprocess.run(['node',T+'check.js'],check=True)
 r=open(P+'RefScope.dc.html').read()
 if 'S22 · MenuSheet' not in r:
     b=r.index('</tr>',r.index('S20 · DockBookmarkAdd'))+5
-    row=('<tr><td>S22 · MenuSheet: menu flow</td><td><span class="rtg tc">Custom</span></td><td>The menu as one flow with one shared state: Home, Menu, Apps, Page. A state switcher shows Admin, Viewer (no permission) and an app with no pages yet. '
+    row=('<tr><td>S22 · MenuSheet: menu flow</td><td><span class="rtg tc">Custom</span></td><td>The menu as one flow with one shared state: Home, Menu, Apps, Page. Every state is reached by a real click, for example Energy in the app list shows an app with no pages yet. '
          'Esc and a click outside close the menu, opening a page closes it, and focus returns to the Menu button. A tile click opens the page; the arrow keys only move focus. Monitoring has no loading state and uses the same bookmarks as the other apps. '
          'S02, S07 and S19 stay as static references</td><td><span style="color:#8d939c">None</span></td></tr>')
     open(P+'RefScope.dc.html','w').write(r[:b]+row+r[b:])

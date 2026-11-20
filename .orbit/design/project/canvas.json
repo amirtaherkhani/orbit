@@ -8,7 +8,7 @@
    "title": "S15 \u00b7 AppManageView: manage app",
    "w": 1440,
    "x": 7800,
-   "y": 19366,
+   "y": 23336,
    "is_interactive": true
   },
   "AppsAdd.dc.html": {
@@ -18,7 +18,7 @@
    "title": "S12 \u00b7 AppsView: all apps",
    "w": 1440,
    "x": 1560,
-   "y": 19366
+   "y": 23336
   },
   "AppsPin.dc.html": {
    "expand": "fill",
@@ -26,7 +26,7 @@
    "title": "S11 \u00b7 DockPagesView: bookmark pages",
    "w": 1440,
    "x": 0,
-   "y": 28176,
+   "y": 33266,
    "is_interactive": true
   },
   "AppsProtocol.dc.html": {
@@ -35,7 +35,7 @@
    "title": "S13 \u00b7 AppManifest: ui block draft (spec)",
    "w": 1440,
    "x": 9360,
-   "y": 19366
+   "y": 23336
   },
   "DockDashboard.dc.html": {
    "expand": "fill",
@@ -43,7 +43,7 @@
    "title": "S03 \u00b7 Dashboard: AppShell + Grafana dashboard sample",
    "w": 1440,
    "x": 4680,
-   "y": 7520
+   "y": 11480
   },
   "DockHome.dc.html": {
    "expand": "fill",
@@ -51,7 +51,7 @@
    "title": "S01 \u00b7 Home: AppShell + Grafana home sample",
    "w": 1440,
    "x": 3120,
-   "y": 7520
+   "y": 11480
   },
   "DockMenu.dc.html": {
    "expand": "fill",
@@ -59,7 +59,7 @@
    "title": "S02 \u00b7 MenuSheet: open, section without sub pages",
    "w": 1440,
    "x": 3120,
-   "y": 11888
+   "y": 15848
   },
   "DockUser.dc.html": {
    "expand": "fill",
@@ -67,7 +67,7 @@
    "title": "S04 \u00b7 UserMenu: open",
    "w": 1440,
    "x": 6240,
-   "y": 15858
+   "y": 19828
   },
   "ExtAdd.dc.html": {
    "expand": "fill",
@@ -75,7 +75,7 @@
    "title": "S08 \u00b7 AddMenu: open",
    "w": 1440,
    "x": 4680,
-   "y": 15858
+   "y": 19828
   },
   "ExtSheet.dc.html": {
    "expand": "fill",
@@ -83,7 +83,7 @@
    "title": "S07 \u00b7 MenuSheet: sub page tiles (Dashboards)",
    "w": 1440,
    "x": 4680,
-   "y": 11888
+   "y": 15848
   },
   "ExtSheetAdmin.dc.html": {
    "expand": "fill",
@@ -91,7 +91,7 @@
    "title": "S10 \u00b7 MenuSheet: group tabs (Administration)",
    "w": 1440,
    "x": 6240,
-   "y": 11888
+   "y": 15848
   },
   "ExtSheetSwitch.dc.html": {
    "expand": "fill",
@@ -99,7 +99,7 @@
    "title": "S14 \u00b7 MenuSheet: app dropdown open",
    "w": 1440,
    "x": 3120,
-   "y": 15858
+   "y": 19828
   },
   "ExtSwitch.dc.html": {
    "expand": "fill",
@@ -107,7 +107,7 @@
    "title": "S06 \u00b7 AppSwitcher: open",
    "w": 1440,
    "x": 1560,
-   "y": 15858
+   "y": 19828
   },
   "RefChanges.dc.html": {
    "expand": "fill",
@@ -127,7 +127,7 @@
   },
   "RefScope.dc.html": {
    "expand": "fill",
-   "h": 6900,
+   "h": 7950,
    "title": "R03 \u00b7 Scope map and naming",
    "w": 1440,
    "x": 3120,
@@ -151,43 +151,43 @@
   },
   "RefFrame.dc.html": {
    "expand": "fill",
-   "h": 3820,
+   "h": 4130,
    "title": "R06 \u00b7 AppShell: frame, TopBar, AppBreadcrumb, UserAvatar",
    "w": 1440,
    "x": 0,
-   "y": 7520
+   "y": 11480
   },
   "RefDock.dc.html": {
    "expand": "fill",
-   "h": 2180,
+   "h": 2460,
    "title": "R07 \u00b7 Dock",
    "w": 1440,
    "x": 0,
-   "y": 11888
+   "y": 15848
   },
   "RefSheet.dc.html": {
    "expand": "fill",
-   "h": 3570,
+   "h": 3900,
    "title": "R08 \u00b7 MenuSheet anatomy",
    "w": 1440,
    "x": 1560,
-   "y": 11888
+   "y": 15848
   },
   "RefOverlays.dc.html": {
    "expand": "fill",
-   "h": 2940,
+   "h": 3370,
    "title": "R09 \u00b7 Overlays: MenuSheet, AppSwitcher, UserMenu, AddMenu",
    "w": 1440,
    "x": 0,
-   "y": 15858
+   "y": 19828
   },
   "RefApps.dc.html": {
    "expand": "fill",
-   "h": 8730,
+   "h": 9850,
    "title": "R10 \u00b7 Apps, app lifecycle and bookmarks",
    "w": 1440,
    "x": 0,
-   "y": 19366
+   "y": 23336
   },
   "PageSpec.dc.html": {
    "expand": "fill",
@@ -195,7 +195,7 @@
    "title": "P01 \u00b7 Page contract",
    "w": 1440,
    "x": 0,
-   "y": 30556
+   "y": 35646
   },
   "PageStates.dc.html": {
    "expand": "fill",
@@ -203,7 +203,7 @@
    "title": "P02 \u00b7 Page states",
    "w": 1440,
    "x": 1560,
-   "y": 30556
+   "y": 35646
   },
   "PageShell.dc.html": {
    "expand": "fill",
@@ -211,7 +211,7 @@
    "title": "P03 \u00b7 Page template: Standard",
    "w": 1440,
    "x": 3120,
-   "y": 30556
+   "y": 35646
   },
   "PageDashboard.dc.html": {
    "expand": "fill",
@@ -219,7 +219,7 @@
    "title": "P04 \u00b7 Page template: Dashboard (Canvas)",
    "w": 1440,
    "x": 4680,
-   "y": 30556
+   "y": 35646
   },
   "PageSettings.dc.html": {
    "expand": "fill",
@@ -227,7 +227,7 @@
    "title": "P05 \u00b7 Page template: Settings and Admin",
    "w": 1440,
    "x": 6240,
-   "y": 30556
+   "y": 35646
   },
   "PageList.dc.html": {
    "expand": "fill",
@@ -235,7 +235,7 @@
    "title": "P06 \u00b7 Page template: List",
    "w": 1440,
    "x": 7800,
-   "y": 30556
+   "y": 35646
   },
   "AppSetup.dc.html": {
    "expand": "fill",
@@ -243,7 +243,7 @@
    "title": "S16 \u00b7 AppLifecycleView: setup, validate, enable, migrate",
    "w": 1440,
    "x": 4680,
-   "y": 19366
+   "y": 23336
   },
   "AddAppFlow.dc.html": {
    "expand": "fill",
@@ -251,7 +251,7 @@
    "title": "S18 \u00b7 AppLifecycleView: initialize and review",
    "w": 1440,
    "x": 3120,
-   "y": 19366
+   "y": 23336
   },
   "DockAppPages.dc.html": {
    "expand": "fill",
@@ -259,7 +259,7 @@
    "title": "S19 \u00b7 MenuSheet: pages of the selected app",
    "w": 1440,
    "x": 7800,
-   "y": 11888,
+   "y": 15848,
    "is_interactive": true
   },
   "DockBookmarkAdd.dc.html": {
@@ -268,16 +268,16 @@
    "title": "S20 \u00b7 DockBookmarkAdd: add a bookmark from the dock",
    "w": 1440,
    "x": 9360,
-   "y": 11888,
+   "y": 15848,
    "is_interactive": true
   },
   "RefBreadcrumb.dc.html": {
    "expand": "fill",
-   "h": 1940,
+   "h": 2060,
    "title": "R11 \u00b7 AppBreadcrumb: component",
    "w": 1440,
    "x": 1560,
-   "y": 7520
+   "y": 11480
   },
   "PageDetail.dc.html": {
    "expand": "fill",
@@ -285,7 +285,7 @@
    "title": "P07 \u00b7 Page template: Detail with info panel",
    "w": 1440,
    "x": 9360,
-   "y": 30556
+   "y": 35646
   },
   "AppUpdate.dc.html": {
    "expand": "fill",
@@ -293,16 +293,24 @@
    "title": "S21 \u00b7 AppLifecycleView: after an update",
    "w": 1440,
    "x": 6240,
-   "y": 19366
+   "y": 23336
   },
   "DockMenuFlow.dc.html": {
    "expand": "fill",
-   "h": 950,
+   "h": 900,
    "title": "S22 \u00b7 MenuSheet: menu flow",
    "w": 1440,
    "x": 10920,
-   "y": 11888,
+   "y": 15848,
    "is_interactive": true
+  },
+  "RefComponents.dc.html": {
+   "expand": "fill",
+   "h": 11400,
+   "title": "R12 \u00b7 Component catalog",
+   "w": 1440,
+   "x": 7800,
+   "y": 0
   }
  },
  "createdOnFiles": {
@@ -316,8 +324,8 @@
  "notes": {
   "r1": {
    "kind": "title1",
-   "maxW": 7680,
-   "text": "1 \u00b7 Start here: what changes, what is new, scope, tokens, foundations (R01\u2013R05; R03 explains every ID and tag)",
+   "maxW": 9240,
+   "text": "1 \u00b7 Start here: what changes, what is new, scope, tokens, foundations (R01\u2013R05; R12 lists every component; R03 explains every ID and tag)",
    "w": 240,
    "x": 0,
    "y": -300
@@ -336,7 +344,7 @@
    "text": "3 \u00b7 Dock and MenuSheet: spec, then each sheet state, the selected app's pages and the add-bookmark popover, then the whole menu flow (R07, R08 \u2192 S02, S07, S10, S19, S20, S22)",
    "w": 240,
    "x": 0,
-   "y": 11588
+   "y": 15548
   },
   "r4": {
    "kind": "title1",
@@ -344,7 +352,7 @@
    "text": "4 \u00b7 Overlays: switching apps, adding, user menu (R09 \u2192 S06, S14, S08, S04). Compare S06 with S14",
    "w": 240,
    "x": 0,
-   "y": 15558
+   "y": 19518
   },
   "r5": {
    "kind": "title1",
@@ -352,7 +360,7 @@
    "text": "5 \u00b7 App lifecycle in flow order: spec, all apps with their status, initialize and review, setup to enable, after an update, manage, manifest (R10 \u2192 S12, S18, S16, S21, S15, S13)",
    "w": 240,
    "x": 0,
-   "y": 19066
+   "y": 23036
   },
   "r6": {
    "kind": "title1",
@@ -360,7 +368,7 @@
    "text": "6 \u00b7 Bookmarks: bookmark an app's pages and sub pages; the dock shows the active app's bookmarks (S11, spec in R10 and R07)",
    "w": 240,
    "x": 0,
-   "y": 27546
+   "y": 31516
   },
   "r7": {
    "kind": "title1",
@@ -368,7 +376,7 @@
    "text": "7 \u00b7 Page templates: Grafana content inside the custom shell (P01\u2013P07)",
    "w": 240,
    "x": 0,
-   "y": 30256
+   "y": 35346
   }
  },
  "order": [
@@ -377,6 +385,7 @@
   "RefScope.dc.html",
   "RefTokens.dc.html",
   "RefFoundations.dc.html",
+  "RefComponents.dc.html",
   "RefFrame.dc.html",
   "RefBreadcrumb.dc.html",
   "DockHome.dc.html",
