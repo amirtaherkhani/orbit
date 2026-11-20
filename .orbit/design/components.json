@@ -496,7 +496,8 @@
    ],
    "open": [
     "Limit of apps in the selector (R10)"
-   ]
+   ],
+   "board": "CmpAppSwitcher.dc.html"
   },
   {
    "name": "UserMenu",
