@@ -27,6 +27,13 @@ if (root !== main) {
   lines.push(`This session works in a worktree (${root}). It ends with: push the work branch, open a pull request into orbit. Never merge into orbit locally.`);
 }
 lines.push(...notes);
+// Worktrees whose branch is gone on GitHub (auto-deleted after a merge) may be finished. Only a hint: the script checks for real.
+const gone = (git(['worktree', 'list', '--porcelain'], main) || '').split('\n\n').slice(1)
+  .map((b) => (b.match(/^branch refs\/heads\/(.+)$/m) || [])[1])
+  .filter((br) => br && git(['config', `branch.${br}.merge`], main) && !git(['rev-parse', '--verify', '--quiet', `refs/remotes/origin/${br}`], main));
+if (gone.length) {
+  lines.push(`Worktrees whose branch is gone on GitHub (probably merged): ${gone.join(', ')}. Tell the owner: node .orbit/scripts/clean-worktrees.mjs lists what is safe to remove.`);
+}
 process.stdout.write(lines.join('\n') + '\n');
 
 // Bring the owner's main checkout up to date with origin/orbit, so the guard, rules and skills of the next session are current.

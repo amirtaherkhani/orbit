@@ -85,6 +85,8 @@ const cases = [
   ['allow', 'Write', { file_path: join(repo, 'pkg/orbit/service.go') }, null],
   ['allow', 'Write', { file_path: join(repo, '.claude/skills/orbit-new/SKILL.md') }, null],
   ['allow', 'Write', { file_path: '/tmp/scratch.txt' }, null],
+  ['allow', 'Bash', { command: 'node .orbit/scripts/clean-worktrees.mjs' }, 'feat/x'],
+  ['ask', 'Bash', { command: 'node .orbit/scripts/clean-worktrees.mjs --apply' }, 'feat/x'],
   ['allow', 'Write', { file_path: join(wt, '.orbit/design/tools/s22/logic.js') }, null],
   ['deny', 'Write', { file_path: join(wt, 'public/app/core/components/AppChrome/AppChrome.tsx') }, null],
   ['ask', 'Edit', { file_path: join(wt, '.orbit/seams.json') }, null],

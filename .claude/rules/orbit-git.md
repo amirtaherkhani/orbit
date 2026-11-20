@@ -25,6 +25,7 @@ These rules are enforced. `.orbit/scripts/agent-guard.mjs` runs before every she
 - A session may run in a worktree (`.claude/worktrees/<name>`, made by the Claude desktop app). It is only a separate folder for one work branch; `orbit` stays checked out in the main checkout.
 - Work in a worktree ends like any other: commit on the work branch, ask, push it, open a pull request into `orbit`. The owner merges on GitHub.
 - Never merge a work branch into `orbit` locally, and never suggest the desktop app's merge or "apply" button: a local merge leaves the local `orbit` different from GitHub, and the ruleset refuses to push it.
+- Finished worktrees are removed with `node .orbit/scripts/clean-worktrees.mjs`: it lists only clean worktrees whose exact commit was merged in a pull request on GitHub; `--apply` removes them and is the owner's decision. Never remove a worktree with uncommitted or unpushed work.
 
 ## Commits
 

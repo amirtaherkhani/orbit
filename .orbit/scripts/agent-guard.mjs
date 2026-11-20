@@ -71,6 +71,9 @@ if (['Edit', 'Write', 'MultiEdit', 'NotebookEdit'].includes(tool)) {
 if (tool !== 'Bash') {
   process.exit(0);
 }
+if (/clean-worktrees\.mjs\b[^;&|]*--apply/.test(ti.command || '')) {
+  ask('Removing worktrees and their branches is the owner\'s decision. Run the script without --apply first and show the list.');
+}
 
 // ------------------------------------------------------------------ shell commands
 const cmd = String(ti.command || '');
