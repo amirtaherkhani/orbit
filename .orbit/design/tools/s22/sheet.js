@@ -17,21 +17,24 @@ const viewer = !!p.viewer; const loading = !!p.loading; const cur = A[app];
 const shown = cur.pages.filter((x) => !(viewer && x.adm));
 if (this.seenApp !== app) {  // a new app starts on its first page, or on the page a static screen names
 this.seenApp = app; const ix = shown.findIndex((x) => x.n === p.page);
-this.state.page = ix < 0 ? 0 : ix; this.state.focus = p.focus ? +p.focus : 0;
+this.state.page = ix < 0 ? 0 : ix; this.state.group = 0; this.state.focus = p.focus ? +p.focus : 0;
 }
-const { page, focus } = this.state;
-const ICONS = ['chart', 'doc', 'cube', 'list', 'clock', 'bell', 'r0', 'r1', 'r2', 'r3', 'r4', 'r5', 't0', 't1', 't2', 't3', 't4'];
+const { page, group, focus } = this.state;
+const ICONS = ['chart', 'doc', 'cube', 'list', 'clock', 'bell', 'r0', 'r1', 'r2', 'r3', 'r4', 'r5', 't0', 't1', 't2', 't3', 't4', 'a0', 'a1', 'a2', 'a3', 'a4', 'a5'];
 const icon = (o, ic) => { ICONS.forEach((k) => { o['i_' + k] = ic === k; }); return o; };
 const withIcon = (o, a) => { o.hasIcon = !!a.icon; o.noIcon = !a.icon; ['mon', 'mgmt', 'mnt'].forEach((k) => { o['i_' + k] = a.icon === k; }); return o; };
 const pg = shown[page];
+const cnt = (x) => (x.subs ? x.subs.length : x.count);
+const total = (x) => (x.groups ? x.groups.reduce((n, g) => n + cnt(g), 0) : cnt(x));
+const src = pg && pg.groups ? pg.groups[group] : pg;  // tiles come from the open group tab (S10), or from the page itself
 const vars = '--ac:' + cur.ac + ';--bg:' + cur.bg;
 const flip = (k) => { if (p.onToggle) p.onToggle(k); else this.setState({ bm: Object.assign({}, bm, { [k]: !bm[k] }) }); };
 const pickApp = (id) => { if (p.onPickApp) p.onPickApp(id); else this.setState({ app: id, apps: false }); };
 const open = (sub) => { if (pg && p.onOpen) p.onOpen(app, pg.n, sub); };
-const pages = shown.map((x, i) => icon({ label: x.n, count: x.subs ? x.subs.length : x.count, hasSubs: x.subs === null || x.subs.length > 0, vars,
-cur: i === page ? 'true' : 'false', cls: i === page ? 'rn on acx' : 'rn', pick: () => this.setState({ page: i, focus: 0 }) }, x.ic));
-const isPage = !!pg && pg.subs !== null && pg.subs.length === 0;
-const subs = !pg || pg.subs === null || isPage ? [] : pg.subs;
+const pages = shown.map((x, i) => icon({ label: x.n, count: total(x), hasSubs: !!x.groups || x.subs === null || x.subs.length > 0, vars,
+cur: i === page ? 'true' : 'false', cls: i === page ? 'rn on acx' : 'rn', pick: () => this.setState({ page: i, group: 0, focus: 0 }) }, x.ic));
+const isPage = !!pg && !pg.groups && pg.subs !== null && pg.subs.length === 0;
+const subs = !src || src.subs === null || isPage ? [] : src.subs;
 const pageKey = pg ? app + '/' + pg.n : ''; const pgOn = !!bm[pageKey];
 const tiles = subs.map(([label, ic, desc], i) => { const k = pageKey + '/' + label; const on = !!bm[k];
 return icon({ id: 'ms-t' + i, label, desc, vars, canBk: true, cls: i === focus ? 'mzt on acx' : 'mzt', cur: i === focus ? 'page' : 'false',
@@ -42,12 +45,14 @@ const appList = Object.keys(A).filter((id) => A[id].inSelector !== false).map((i
 cls: id === app ? 'mzo cur' : 'mzo', vars: '--bg:' + A[id].bg + ';--ac:' + A[id].ac, tileStyle: 'background:' + A[id].bg + ';color:' + A[id].ac, ckStyle: 'color:' + A[id].ac, pick: () => pickApp(id) }, A[id]));
 const ft = subs[focus];
 const hasPages = cur.pages.length > 0;
-const note = pg && pg.subs === null ? pg.count + ' sub pages. They are not drawn on this board.' : '';
+const note = src && src.subs === null ? cnt(src) + ' sub pages. They are not drawn on this board.' : '';
 const keyOf = (e) => (e && e.key) || '';
 const stop = (e) => { if (e && e.preventDefault) e.preventDefault(); };
+const groups = pg && pg.groups ? pg.groups.map((g, i) => ({ id: 'ms-g' + i, label: g.n, count: cnt(g), cls: i === group ? 'mzb on' : 'mzb',
+sel: i === group ? 'true' : 'false', pick: () => this.setState({ group: i, focus: 0 }) })) : [];
 return Object.assign(withIcon(piFlags, cur), {
 pos: p.anchored ? '' : 'position:relative;left:auto;bottom:auto;transform:none;margin:16px',
-selCount: appList.length, noticePage: isPage, apps: appList, pages, tiles, loading, ready: !loading,
+hasGroups: groups.length > 0, groups, selCount: appList.length, noticePage: isPage, apps: appList, pages, tiles, loading, ready: !loading,
 open: appsOpen, openStr: appsOpen ? 'true' : 'false', toggle: () => { if (p.onToggleApps) p.onToggleApps(); else this.setState({ apps: !appsOpen }); },
 sheetKey: (e) => { if (keyOf(e) === 'Escape' && p.onClose) { stop(e); p.onClose(); } },
 // arrows only move the highlight and the focus; opening is a click or Enter on the tile (N9)
@@ -57,12 +62,15 @@ else if (k === 'ArrowLeft' || k === 'ArrowUp') f = Math.max(0, focus - 1);
 else if (k === 'b' || k === 'B') { stop(e); tiles[focus].toggleBk(); return; }
 else return;
 stop(e); this.setState({ focus: f }); this.focusEl('ms-t' + f); },
+// tablist: the arrows move between the group tabs
+tabKey: (e) => { const k = keyOf(e); const n = groups.length; if (!n || (k !== 'ArrowRight' && k !== 'ArrowLeft')) return;
+stop(e); const g = (group + (k === 'ArrowRight' ? 1 : n - 1)) % n; this.setState({ group: g, focus: 0 }); this.focusEl('ms-g' + g); },
 canSetup: !viewer, cantSetup: viewer, tilesNote: note,
 empty: !hasPages, hasPages, appName: cur.name, initial: cur.name[0], tileStyle: 'background:' + cur.bg + ';color:' + cur.ac,
 pgBk: pgOn, pgNotBk: !pgOn, pgBkCls: pgOn ? 'mzpb on' : 'mzpb', pgBkStr: pgOn ? 'true' : 'false', pgBkText: pgOn ? 'Page bookmarked' : 'Bookmark page',
 pgBkAria: pg ? (pgOn ? 'Remove the bookmark of ' + pg.n : 'Bookmark the page ' + pg.n) : '', togglePg: () => { if (pg) flip(pageKey); },
 openPg: () => open(null),
-pageName: pg ? pg.n : cur.name, subLabel: !pg ? 'no pages yet' : pg.subs === null ? 'sub pages' : pg.subs.length ? 'sub pages' : 'no sub pages', subCount: pg ? (pg.subs ? (pg.subs.length || '') : pg.count) : '',
+pageName: pg ? pg.n : cur.name, subLabel: !pg ? 'no pages yet' : total(pg) ? 'sub pages' : 'no sub pages', subCount: pg ? (total(pg) || '') : '',
 bmCount: Object.keys(bm).filter((k) => bm[k] && k.indexOf(app + '/') === 0).length,
 footName: ft ? ft[0] : (pg ? pg.n : cur.name), footDesc: ft ? ft[2] : (pg ? (isPage ? (pg.d || 'It opens straight away') : note) : 'Its pages show here once setup is done'), footHere: ft ? 'You are here' : ''
 });

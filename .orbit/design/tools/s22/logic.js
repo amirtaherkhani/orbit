@@ -29,7 +29,7 @@ const DK = ['chart', 'doc', 'cube', 'list', 'clock', 'bell', 'pl', 'lp', 'ex'];
 const dockBms = [];
 cur.pages.filter((x) => !(viewer && x.adm)).forEach((x) => {
 if (bm[app + '/' + x.n]) dockBms.push({ label: x.n, icon: x.dk || x.ic });
-(x.subs || []).forEach(([l, ic, d, k]) => { if (bm[app + '/' + x.n + '/' + l]) dockBms.push({ label: x.n + ' › ' + l, icon: k || ic }); });
+(x.groups ? [].concat(...x.groups.map((g) => g.subs || [])) : x.subs || []).forEach(([l, ic, d, k]) => { if (bm[app + '/' + x.n + '/' + l]) dockBms.push({ label: x.n + ' › ' + l, icon: k || ic }); });
 });
 dockBms.forEach((b) => { if (DK.indexOf(b.icon) < 0) b.icon = 'list'; });
 const crumb = opened ? { a: A[opened.app].name, p: opened.page, s: opened.sub || '' } : { a: '', p: '', s: '' };
