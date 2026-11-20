@@ -36,7 +36,6 @@ t.v().gridKey(key('ArrowRight')); t.flush(); focused.length = 0;
 t.v().tiles[1].open(); t.flush(); v = t.v();
 assert.ok(!v.menuOpen && v.isPage && !v.isHome, 'opening closes the menu');
 assert.equal(v.crumbPage, 'Dashboards'); assert.equal(v.crumbSub, 'Snapshots'); assert.equal(focused.pop(), 's22-menu');
-t.v().steps[0].go(); assert.ok(t.v().isHome, 'Home step resets the opened page');
 
 // B bookmarks the highlighted tile; a page with no sub pages bookmarks itself
 t = fresh(); t.v().tiles[0].toggleBk(); assert.ok(!t.c.state.bm['monitoring/Dashboards/Playlists']);
@@ -46,13 +45,10 @@ t.v().pages[1].pick(); assert.equal(t.v().tiles[0].canBk, false); t.v().gridKey(
 // pages whose sub pages are not drawn say so, and keep the page bookmark
 t.v().pages[2].pick(); v = t.v(); assert.equal(v.tiles.length, 0); assert.ok(/not drawn/.test(v.tilesNote) && v.hasPages);
 
-// N3 + N10: states switch; Viewer hides Administration and Continue setup; an app with no pages says so
-t = fresh(); t.v().states[2].pick(); v = t.v();
-assert.ok(v.empty && !v.hasPages && v.canSetup && v.menuOpen, 'No pages yet: empty app, Continue setup shown');
-assert.deepEqual(v.states.map((s) => s.on), [false, false, true]);
-t.v().states[1].pick(); v = t.v(); assert.ok(v.empty && v.cantSetup && !v.canSetup, 'Viewer: no Continue setup');
-assert.deepEqual(v.states.map((s) => s.on), [false, true, false]);
-t.v().states[0].pick(); v = t.v(); assert.equal(v.appName, 'Monitoring'); assert.equal(v.pages.length, 6);
-t.v().states[1].pick(); v = t.v(); assert.equal(v.pages.length, 5, 'Viewer: Administration is hidden');
+// N10: picking Energy in the app list shows an app with no pages yet; the viewer role is mock data and hides Administration and Continue setup
+t = fresh(); t.v().toggleMenu(); t.v().apps.find((a) => a.name === 'Energy').pick(); t.flush(); v = t.v();
+assert.ok(v.empty && !v.hasPages && v.canSetup && v.menuOpen, 'Energy: no pages yet, Continue setup shown');
+t.c.state.viewer = true; v = t.v(); assert.ok(v.empty && v.cantSetup && !v.canSetup, 'Viewer: no Continue setup');
+t.c.pickApp('monitoring'); v = t.v(); assert.equal(v.pages.length, 5, 'Viewer: Administration is hidden');
 assert.ok(!v.pages.some((p) => p.label === 'Administration'));
 console.log('s22 logic ok');

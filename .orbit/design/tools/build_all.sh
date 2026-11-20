@@ -7,6 +7,6 @@
 set -e
 cd "$(dirname "$0")/.."
 sh tools/py --check
-for t in lc_s12 lc_flow lc_s15 lc_r10 lc_refs lc_misc lc_s17 lc_od28 lc_post lc_r12 lc_s22 lc_ids tpl_build lc_fit; do
+for t in lc_s12 lc_flow lc_s15 lc_r10 lc_refs lc_misc lc_s17 lc_od28 lc_post lc_r12 lc_s22 lc_components lc_ids tpl_build lc_fit; do
   [ -f tools/$t.py ] && sh tools/py tools/$t.py > /dev/null && echo "ok $t"
 done

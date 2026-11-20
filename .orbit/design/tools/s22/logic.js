@@ -73,14 +73,6 @@ const note = pg && pg.subs === null ? pg.count + ' sub pages. They are not drawn
 const keyOf = (e) => (e && e.key) || '';
 const stop = (e) => { if (e && e.preventDefault) e.preventDefault(); };
 const crumb = opened ? { a: A[opened.app].name, p: opened.page, s: opened.sub || '' } : { a: '', p: '', s: '' };
-const first = () => { if (opened) return opened; if (pg) return { app, page: pg.n, sub: pg.subs && pg.subs.length ? pg.subs[0][0] : null }; return { app: 'monitoring', page: 'Dashboards', sub: 'Playlists' }; };
-const screen = menu && apps ? 'apps' : menu ? 'menu' : opened ? 'page' : 'home';
-const go = { home: () => this.setState({ menu: false, apps: false, opened: null }), menu: () => this.setState({ menu: true, apps: false }), apps: () => this.setState({ menu: true, apps: true }),
-page: () => { const o = first(); this.setState({ app: o.app, opened: o, menu: false, apps: false }); } };
-const steps = [['home', '1', 'Home'], ['menu', '2', 'Menu'], ['apps', '3', 'Apps'], ['page', '4', 'Page']].map(([id, n, label]) => ({ n, label, go: go[id], cur: screen === id ? 'step' : 'false', cls: screen === id ? 's22b on' : 's22b' }));
-const mode = (v, a) => ({ viewer: v, page: 0, focus: 0, menu: true, apps: false, loading: false, app: a });
-const states = [['Admin', !viewer && hasPages, () => this.setState(mode(false, hasPages ? app : 'monitoring'))], ['Viewer', viewer, () => this.setState(mode(true, app))], ['No pages yet', !viewer && !hasPages, () => this.setState(mode(false, 'energy'))]]
-.map(([label, on, pick]) => ({ label, on, pick, cls: on ? 's22b on' : 's22b' }));
 return {
 apps: appList, pages, tiles, dockBms, dockVars: '--mac:' + cur.ac + ';--mbg:' + cur.ac + '1a;--mbd:' + cur.ac + '47;--mhv:' + cur.ac + '38', loadingStr: loading ? 'true' : 'false', loading, ready: !loading,
 open: apps, openStr: apps ? 'true' : 'false', toggle: () => this.toggleApps(),
@@ -94,7 +86,7 @@ else if (k === 'b' || k === 'B') { stop(e); if (isPage) flip(pageKey, pgOn); els
 else return;
 stop(e); this.setState({ focus: f }); this.focusEl('s22-t' + f); },
 isHome: !opened, isPage: !!opened, crumbApp: crumb.a, crumbPage: crumb.p, crumbSub: crumb.s, openedTitle: crumb.s || crumb.p, openedDesc: opened ? crumb.a + ' · ' + crumb.p + (crumb.s ? ' · ' + crumb.s : '') : '',
-states, steps, canSetup: !viewer, cantSetup: viewer, tilesNote: note,
+canSetup: !viewer, cantSetup: viewer, tilesNote: note,
 empty: !hasPages, hasPages, appName: cur.name, initial: cur.name[0], tileStyle: 'background:' + cur.bg + ';color:' + cur.ac,
 pgBk: pgOn, pgNotBk: !pgOn, pgBkCls: pgOn ? 'mzpb on' : 'mzpb', pgBkStr: pgOn ? 'true' : 'false', pgBkText: pgOn ? 'Page bookmarked' : 'Bookmark page',
 pgBkAria: pg ? (pgOn ? 'Remove the bookmark of ' + pg.n : 'Bookmark the page ' + pg.n) : '', togglePg: () => { if (pg) flip(pageKey, pgOn); },
