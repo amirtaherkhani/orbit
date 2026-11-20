@@ -110,7 +110,7 @@ json.dump(cj,open(P+'canvas.json','w'),indent=1)
 LINK=('<a data-s22 href="DockMenuFlow.dc.html" style="flex:none;white-space:nowrap;color:#6ccfdc;font:500 12px/18px \'Inter\',\'Helvetica\',\'Arial\',sans-serif">Flow: S22 · Menu flow</a>')
 for f in ['DockUser','ExtSwitch','ExtAdd','AppsPin','DockBookmarkAdd']:
     t=open(P+f+'.dc.html').read()
-    if 'data-s22' in t: continue
+    if 'data-s22' in t or 'name="CmpTopBar"' in t: continue  # a composed board carries the link as a TopBar prop (lc_compose)
     x='<span style="flex:1"></span><button type="button" class="p" aria-label="Search"'; assert t.count(x)==1,f
     open(P+f+'.dc.html','w').write(t.replace(x,'<span style="flex:1"></span>'+LINK+'<button type="button" class="p" aria-label="Search"'))
 print('s22 ok')

@@ -29,4 +29,34 @@ for f in DOCK_BOARDS:
     except AssertionError as e: raise SystemExit(f'lc_compose: {f} draws a Dock that is not the standard one ({e}); update the Dock component or this list')
     s=s[:i]+f'<dc-import name="CmpDock" selected="{sel}" hint-size="760px,58px"></dc-import>'+s[j:]
     open(P+f+'.dc.html','w').write(s)
+# TopBar (C02): open overlay (UserMenu C03, AddMenu C04), image avatar and the board link are the props
+TOP_BOARDS=['AddAppFlow','AppManage','AppSetup','AppUpdate','AppsAdd','AppsPin','DockAppPages','DockDashboard','DockBookmarkAdd','DockHome','DockMenu',
+            'DockUser','DockMenuFlow','ExtAdd','ExtSheet','ExtSheetSwitch','ExtSheetAdmin','ExtSwitch','PageDashboard','PageList','PageDetail',
+            'PageSettings','PageShell','RefFrame']
+def div_block(s,i):
+    d=0
+    for m in re.finditer(r'<div\b|</div>',s[i:]):
+        d+=1 if m.group(0)=='<div' else -1
+        if d==0: return i+m.end()
+def top_props(t):
+    assert 'Search…' in t and '31 October' in t,'clock or search'
+    a=[]
+    m=re.search(r'<a data-s22 href="([^"]+)"[^>]*>([^<]+)</a>',t)
+    if m: a+=[f'link-href="{m.group(1)}"',f'link-label="{m.group(2)}"']
+    if '<div class="um"' in t: a.append('open-overlay="user"')
+    elif '<div class="am"' in t: a.append('open-overlay="add"')
+    im=re.search(r'<img src="([^"]+)" alt="" width="28"',t)
+    if im: a.append(f'avatar="{im.group(1)}"')
+    else: assert '>AD</span>' in t,'avatar'
+    return ' '.join(a)
+for f in TOP_BOARDS:
+    s=open(P+f+'.dc.html').read()
+    i=s.find('<div class="t">')
+    if i<0 or 'name="CmpTopBar"' in s: continue
+    j=div_block(s,i)
+    if '{{' in s[i:j]: continue  # a top bar wired to the board's own logic stays until that logic moves into the component
+    try: pr=top_props(s[i:j])
+    except AssertionError as e: raise SystemExit(f'lc_compose: {f} draws a TopBar that is not the standard one ({e})')
+    s=s[:i]+f'<dc-import name="CmpTopBar" {pr} hint-size="1412px,64px"></dc-import>'.replace('  ',' ')+s[j:]
+    open(P+f+'.dc.html','w').write(s)
 print('compose ok')

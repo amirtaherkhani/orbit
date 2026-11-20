@@ -220,7 +220,8 @@
    ],
    "open": [
     "Help, page actions, extensions, invite, sign in and assistant have no place yet (OD5, R06)"
-   ]
+   ],
+   "board": "CmpTopBar.dc.html"
   },
   {
    "name": "Clock",
@@ -535,7 +536,8 @@
    ],
    "open": [
     "Items are the prototype's; Grafana builds them from the profile nav node (R09)"
-   ]
+   ],
+   "board": "CmpUserMenu.dc.html"
   },
   {
    "name": "AddMenu",
@@ -572,7 +574,8 @@
    ],
    "open": [
     "Items not compared with Grafana's QuickAdd (R09)"
-   ]
+   ],
+   "board": "CmpAddMenu.dc.html"
   },
   {
    "name": "DockBookmarkAdd",
