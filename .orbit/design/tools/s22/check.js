@@ -1,4 +1,5 @@
-// Self-check of the S22 logic (decisions N6-N10). Run by tools/lc_s22.py; exits non-zero on the first failure.
+// Self-check of the S22 page logic and the C06 MenuSheet logic (decisions N6-N10 and the MenuSheet merge, 2026-11-20).
+// Run by tools/lc_s22.py; exits non-zero on the first failure.
 const assert = require('assert');
 const fs = require('fs');
 const timers = []; const focused = [];
@@ -6,49 +7,54 @@ global.setTimeout = (f) => { timers.push(f); return timers.length; };
 global.clearTimeout = () => {};
 global.document = { getElementById: (id) => ({ focus: () => focused.push(id) }) };
 class DCLogic { constructor(p) { this.props = p || {}; this.state = {}; } setState(x) { Object.assign(this.state, x); } }
-const Component = new Function('DCLogic', fs.readFileSync(__dirname + '/logic.js', 'utf8') + '\nreturn Component;')(DCLogic);
-const fresh = () => { timers.length = 0; focused.length = 0; const c = new Component({}); return { c, v: () => c.renderVals(), flush: () => { while (timers.length) timers.shift()(); } }; };
+const mock = fs.readFileSync(__dirname + '/mock.js', 'utf8').replace(/^\/\/.*$/gm, '');
+const load = (f) => new Function('DCLogic', fs.readFileSync(__dirname + '/' + f, 'utf8').replace('/*MOCK*/', mock) + '\nreturn Component;')(DCLogic);
+const Page = load('logic.js'); const Sheet = load('sheet.js');
+const flush = () => { while (timers.length) timers.shift()(); };
 const key = (k) => ({ key: k, preventDefault() {} });
+const page = () => { timers.length = 0; focused.length = 0; const c = new Page({}); return { c, v: () => c.renderVals() }; };
+// a sheet wired to a page, as S22 mounts it
+const wired = (pg) => { const pv = pg.v(); return new Sheet({ app: pv.app, bm: pv.bm, loading: pv.loading, viewer: pv.viewer, appsOpen: pv.appsOpen,
+  onPickApp: pv.pickApp, onToggle: pv.toggleBm, onOpen: pv.openPage, onClose: pv.closeMenu, onToggleApps: pv.toggleApps, anchored: true }); };
 
-// start: Home, menu closed, Monitoring live on the shared bookmark set, no loading (N6, N7)
-let t = fresh(); let v = t.v();
-assert.ok(v.isHome && !v.menuOpen && !v.loading, 'starts on Home, menu closed');
-assert.equal(v.mnStyle, '', 'the page is sharp while the menu is closed');
-assert.equal(v.pages.length, 6); assert.equal(v.tiles.length, 5);
+// page: Home, menu closed; Monitoring live on the shared bookmark set, never loading (N6, N7)
+let t = page(); let v = t.v();
+assert.ok(v.isHome && !v.menuOpen && !v.loading && v.mnStyle === '', 'starts on Home, menu closed, page sharp');
 assert.deepEqual(v.dockBms.map((d) => d.label), ['Dashboards › Playlists', 'Dashboards › Library panels', 'Explore']);
-t.c.pickApp('management'); assert.equal(t.v().loading, true, 'other apps show loading'); t.flush(); assert.equal(t.v().loading, false);
+t.c.pickApp('management'); assert.equal(t.v().loading, true, 'other apps show loading'); flush(); assert.equal(t.v().loading, false);
 t.c.pickApp('monitoring'); assert.equal(t.v().loading, false, 'Monitoring never loads'); assert.equal(timers.length, 0);
-t.c.state.bm['monitoring/Dashboards/Snapshots'] = true; assert.equal(t.v().dockBms.length, 4, 'Monitoring bookmarks use the same bm');
+t.v().toggleBm('monitoring/Dashboards/Snapshots'); assert.equal(t.v().dockBms.length, 4, 'one bookmark set for every app');
 
-// N8: Esc closes the menu and focus returns to the Menu button; so does a click outside
-t = fresh(); t.v().toggleMenu(); assert.ok(t.v().menuOpen); t.flush(); assert.equal(focused.pop(), 's22-t0', 'focus enters the menu');
-t.v().sheetKey(key('Escape')); t.flush(); assert.ok(!t.v().menuOpen); assert.equal(focused.pop(), 's22-menu');
-t.v().toggleMenu(); t.v().closeMenu(); t.flush(); assert.ok(!t.v().menuOpen); assert.equal(focused.pop(), 's22-menu');
-t.v().toggleMenu(); t.v().sheetKey(key('a')); assert.ok(t.v().menuOpen, 'other keys do not close');
+// N8: Esc (dock or sheet) and a click outside close the menu; focus returns to the Menu button
+t = page(); t.v().toggleMenu(); assert.ok(t.v().menuOpen && t.v().dockOverlay === 'menu'); flush(); assert.equal(focused.pop(), 'ms-t0', 'focus enters the menu');
+wired(t).renderVals().sheetKey(key('Escape')); flush(); assert.ok(!t.v().menuOpen); assert.equal(focused.pop(), 's22-menu');
+t.v().toggleMenu(); t.v().sheetKey(key('Escape')); flush(); assert.ok(!t.v().menuOpen, 'Esc on the dock closes too'); assert.equal(focused.pop(), 's22-menu');
+t.v().toggleMenu(); t.v().closeMenu(); flush(); assert.ok(!t.v().menuOpen); assert.equal(focused.pop(), 's22-menu');
+t.v().toggleMenu(); wired(t).renderVals().sheetKey(key('a')); assert.ok(t.v().menuOpen, 'other keys do not close');
 
-// N9: arrows only move the highlight and focus; a tile click opens the page, closes the menu, returns focus (N8)
-t = fresh(); t.v().toggleMenu(); focused.length = 0;
-t.v().gridKey(key('ArrowRight')); t.flush(); assert.equal(t.c.state.focus, 1); assert.equal(focused.pop(), 's22-t1');
-t.v().gridKey(key('ArrowRight')); t.v().gridKey(key('ArrowLeft')); assert.equal(t.c.state.focus, 1);
-t.v().gridKey(key('ArrowLeft')); t.v().gridKey(key('ArrowLeft')); assert.equal(t.c.state.focus, 0, 'clamped at the first tile');
-assert.equal(t.c.state.opened, null, 'arrows never open a page'); assert.ok(t.v().menuOpen);
-t.v().gridKey(key('ArrowRight')); t.flush(); focused.length = 0;
-t.v().tiles[1].open(); t.flush(); v = t.v();
-assert.ok(!v.menuOpen && v.isPage && !v.isHome, 'opening closes the menu');
-assert.equal(v.crumbPage, 'Dashboards'); assert.equal(v.crumbSub, 'Snapshots'); assert.equal(focused.pop(), 's22-menu');
+// N9: in the sheet, arrows only move the highlight and focus; a tile click opens the page, closes the menu, returns focus
+t = page(); t.v().toggleMenu(); let s = wired(t); focused.length = 0;
+s.renderVals().gridKey(key('ArrowRight')); flush(); assert.equal(s.state.focus, 1); assert.equal(focused.pop(), 'ms-t1');
+s.renderVals().gridKey(key('ArrowLeft')); s.renderVals().gridKey(key('ArrowLeft')); assert.equal(s.state.focus, 0, 'clamped at the first tile');
+assert.equal(t.c.state.opened, null, 'arrows never open a page');
+s.renderVals().tiles[1].open(); flush(); v = t.v();
+assert.ok(!v.menuOpen && v.isPage && v.crumbPage === 'Dashboards' && v.crumbSub === 'Snapshots', 'opening closes the menu'); assert.equal(focused.pop(), 's22-menu');
 
-// B bookmarks the highlighted tile; a page with no sub pages bookmarks itself
-t = fresh(); t.v().tiles[0].toggleBk(); assert.ok(!t.c.state.bm['monitoring/Dashboards/Playlists']);
-t.v().gridKey(key('b')); assert.ok(t.c.state.bm['monitoring/Dashboards/Playlists'], 'B toggles the focused tile');
-t.v().pages[1].pick(); assert.equal(t.v().tiles[0].canBk, false); t.v().gridKey(key('B')); assert.ok(!t.c.state.bm['monitoring/Explore']);
+// B and the tile toggle write the page's bookmark set
+t = page(); s = wired(t); s.renderVals().tiles[0].toggleBk(); assert.ok(!t.c.state.bm['monitoring/Dashboards/Playlists']);
+s = wired(t); s.renderVals().gridKey(key('b')); assert.ok(t.c.state.bm['monitoring/Dashboards/Playlists'], 'B toggles the highlighted tile');
 
-// pages whose sub pages are not drawn say so, and keep the page bookmark
-t.v().pages[2].pick(); v = t.v(); assert.equal(v.tiles.length, 0); assert.ok(/not drawn/.test(v.tilesNote) && v.hasPages);
+// merge decisions: a page without sub pages shows a notice; the app list holds the selector apps; apps show their icon
+s = new Sheet({}); s.renderVals().pages[1].pick(); v = s.renderVals();
+assert.ok(v.noticePage && v.tiles.length === 0, 'Explore shows a notice'); assert.equal(v.footDesc, 'Query and inspect your data without a dashboard');
+v.togglePg(); assert.ok(!s.state.bm['monitoring/Explore'], 'the page bookmark still works');
+assert.deepEqual(v.apps.map((a) => a.name), ['Monitoring', 'Management', 'Maintenance']); assert.equal(v.selCount, 3);
+assert.ok(v.hasIcon && v.i_mon && v.apps.every((a) => a.hasIcon), 'apps with a logo show it');
+v = new Sheet({ page: 'Drilldown' }).renderVals(); assert.ok(/not drawn/.test(v.tilesNote) && v.hasPages, 'a static screen can name the page');
+assert.ok(new Sheet({ appsOpen: true }).renderVals().open, 'a static screen can open the app list');
 
-// N10: picking Energy in the app list shows an app with no pages yet; the viewer role is mock data and hides Administration and Continue setup
-t = fresh(); t.v().toggleMenu(); t.v().apps.find((a) => a.name === 'Energy').pick(); t.flush(); v = t.v();
-assert.ok(v.empty && !v.hasPages && v.canSetup && v.menuOpen, 'Energy: no pages yet, Continue setup shown');
-t.c.state.viewer = true; v = t.v(); assert.ok(v.empty && v.cantSetup && !v.canSetup, 'Viewer: no Continue setup');
-t.c.pickApp('monitoring'); v = t.v(); assert.equal(v.pages.length, 5, 'Viewer: Administration is hidden');
-assert.ok(!v.pages.some((p) => p.label === 'Administration'));
+// N10: an app with no pages yet says so; a viewer (mock role) gets no Continue setup and no Administration
+v = new Sheet({ app: 'energy' }).renderVals(); assert.ok(v.empty && !v.hasPages && v.canSetup && v.noIcon, 'Energy: no pages yet, letter tile');
+v = new Sheet({ app: 'energy', viewer: true }).renderVals(); assert.ok(v.cantSetup && !v.canSetup, 'Viewer: no Continue setup');
+v = new Sheet({ viewer: true }).renderVals(); assert.ok(!v.pages.some((x) => x.label === 'Administration'), 'Viewer: Administration is hidden');
 console.log('s22 logic ok');

@@ -450,7 +450,8 @@
    "open": [
     "Tab order: rail first or tiles first (R08)",
     "Group tab names: 'Access' or Grafana's 'Users and access' (R08, decision needed)"
-   ]
+   ],
+   "board": "CmpMenuSheet.dc.html"
   },
   {
    "name": "AppSwitcher",
