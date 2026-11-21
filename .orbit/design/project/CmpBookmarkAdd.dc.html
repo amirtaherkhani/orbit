@@ -59,7 +59,7 @@ kbd{font:500 12px/18px 'Inter','Helvetica','Arial',sans-serif;padding:2px 6px;bo
 <a href="AppsPin.dc.html" class="bml" title="Opens Bookmarks (S11 · DockPagesView) for {{ appName }}">Manage bookmarks<svg class="i gf" viewBox="0 0 24 24" aria-hidden="true"><path d="M18,10.82a1,1,0,0,0-1,1V19a1,1,0,0,1-1,1H5a1,1,0,0,1-1-1V8A1,1,0,0,1,5,7h7.18a1,1,0,0,0,0-2H5A3,3,0,0,0,2,8V19a3,3,0,0,0,3,3H16a3,3,0,0,0,3-3V11.82A1,1,0,0,0,18,10.82Zm3.92-8.2a1,1,0,0,0-.54-.54A1,1,0,0,0,21,2H15a1,1,0,0,0,0,2h3.59L8.29,14.29a1,1,0,0,0,0,1.42,1,1,0,0,0,1.42,0L20,5.41V9a1,1,0,0,0,2,0V3A1,1,0,0,0,21.92,2.62Z"/></svg></a></footer>
 <div class="bkh"><span><kbd>↑</kbd> <kbd>↓</kbd> move</span><span><kbd>←</kbd> <kbd>→</kbd> collapse, expand</span><span><kbd>Enter</kbd> bookmark</span><span><kbd>Esc</kbd> close</span></div></div>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props='{"anchored":{"editor":null},"app":{"editor":null},"bm":{"editor":null},"onToggle":{"editor":null},"onClose":{"editor":null},"limit":{"editor":"number","default":6},"$preview":{"width":492,"height":500}}'>
+<script type="text/x-dc" data-dc-script data-props='{"anchored":{"editor":null},"app":{"editor":null},"bm":{"editor":null},"onToggle":{"editor":null},"onClose":{"editor":null},"limit":{"editor":"int","default":6,"min":1,"max":12},"$preview":{"width":492,"height":500}}'>
 class Component extends DCLogic {
 // DockBookmarkAdd (R07, R10, R12): popover of the dock '+' slot. The shared state comes from props: app (an app id, useActiveApp),
 // bm (useBookmarks), onToggle, onClose. The popover keeps only its view: filter, search, the open page and the row just added.
