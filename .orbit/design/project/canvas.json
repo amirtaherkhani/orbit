@@ -354,6 +354,14 @@
    "x": 6240,
    "y": 15690,
    "is_interactive": true
+  },
+  "CmpBookmarkAdd.dc.html": {
+   "h": 500,
+   "title": "C07 \u00b7 DockBookmarkAdd: component",
+   "w": 492,
+   "x": 7560,
+   "y": 19120,
+   "is_interactive": true
   }
  },
  "createdOnFiles": {
@@ -439,6 +447,7 @@
   "CmpAddMenu.dc.html",
   "CmpAppSwitcher.dc.html",
   "CmpMenuSheet.dc.html",
+  "CmpBookmarkAdd.dc.html",
   "RefDock.dc.html",
   "RefSheet.dc.html",
   "DockMenu.dc.html",

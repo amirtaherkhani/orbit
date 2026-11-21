@@ -586,7 +586,7 @@
    "summary": "Popover of the dock '+' slot: the active app's pages as a tree with their sub pages and bookmark toggles, a search, and the dock capacity.",
    "code": "<code>shell/dock/BookmarkPopover.tsx</code>",
    "spec": "R07, R10",
-   "screens": "S20",
+   "screens": "S20, S22",
    "replaces": "none (new)",
    "parts": [
     "Header: app, capacity 'n of 6'",
@@ -624,7 +624,8 @@
    ],
    "open": [
     "Bookmark limit per app is a proposal (R10)"
-   ]
+   ],
+   "board": "CmpBookmarkAdd.dc.html"
   },
   {
    "name": "OverlaySurface",

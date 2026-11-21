@@ -75,6 +75,18 @@ for f,(must,props) in SHEETS.items():
     if any(m not in s[i:j] for m in (must if isinstance(must,tuple) else (must,))+('Monitoring',)): raise SystemExit(f'lc_compose: {f} draws a MenuSheet that is not the expected state ({must})')
     s=s[:i]+f'<dc-import name="CmpMenuSheet" anchored="true" {props} hint-size="1080px,470px"></dc-import>'.replace('  ',' ')+s[j:]
     open(P+f+'.dc.html','w').write(s)
+T=ROOT+'tools/s22/'
+MOCK=re.sub(r'^//.*$','',open(T+'mock.js').read(),flags=re.M)
+def page_logic(board,app,menu=False,adding=False):
+    # the S22 page logic (tools/s22/logic.js) with this board's start state
+    L=open(T+'logic.js').read().replace('/*MOCK*/',MOCK)
+    a="this.state = { viewer: false, menu: false, apps: false, opened: null, app: 'monitoring',"; assert L.count(a)==1,'S22 start state'
+    b="adding: false, fresh: null };"; assert L.count(b)==1,'S22 start state'
+    L=L.replace(a,a.replace('menu: false',f'menu: {str(menu).lower()}').replace("'monitoring'",f"'{app}'")).replace(b,f"adding: {str(adding).lower()}, fresh: null }};")
+    return L.replace('class Component extends DCLogic {\n',f'class Component extends DCLogic {{\n// {board} runs the S22 page logic with its own start state (lc_compose.py).\n',1)
+def set_logic(s,js):
+    a=s.index('class Component extends DCLogic'); b=s.index('</script>',a); return s[:a]+js+s[b:]
+DOCK_BM='bm="{{ bm }}" on-add-bookmark="{{ toggleAdd }}" on-toggle-bookmark="{{ toggleBm }}" '
 # S19 (DockAppPages) is swapped last: lc_s22 derives S22 from the uncomposed S19 earlier in the same build (lc_misc rebuilds it each time).
 # It keeps its own state with the S22 page logic, started on Management with the menu open. Neither component gets a close
 # callback, so the menu stays open on this board; picking apps, pages and bookmarks works as in S22.
@@ -87,12 +99,21 @@ if 'name="CmpMenuSheet"' not in s:
     s=s[:i]+('<dc-import name="CmpMenuSheet" anchored="true" app="{{ app }}" bm="{{ bm }}" loading="{{ loading }}" viewer="{{ viewer }}" apps-open="{{ appsOpen }}" '
              'on-pick-app="{{ pickApp }}" on-toggle="{{ toggleBm }}" on-toggle-apps="{{ toggleApps }}" hint-size="1080px,470px"></dc-import>'
              '<dc-import name="CmpDock" active-app="{{ dockApp }}" bookmarks="{{ dockBms }}" selected="none" open-overlay="{{ dockOverlay }}" loading="{{ loading }}" '
-             'on-apps="{{ toggleApps }}" hint-size="760px,58px"></dc-import>')+s[l:]
-    T=ROOT+'tools/s22/'
-    L=open(T+'logic.js').read().replace('/*MOCK*/',re.sub(r'^//.*$','',open(T+'mock.js').read(),flags=re.M))
-    a="this.state = { viewer: false, menu: false, apps: false, opened: null, app: 'monitoring',"; assert L.count(a)==1,'S22 start state'
-    L=L.replace(a,a.replace('menu: false','menu: true').replace("'monitoring'","'management'")).replace(
-        'class Component extends DCLogic {\n','class Component extends DCLogic {\n// S19 runs the S22 page logic, started on Management with the menu open (lc_compose.py).\n',1)
-    a=s.index('class Component extends DCLogic'); b=s.index('</script>',a)
-    open(P+f+'.dc.html','w').write(s[:a]+L+s[b:])
+             +DOCK_BM+'on-apps="{{ toggleApps }}" hint-size="760px,58px"></dc-import>')+s[l:]
+    open(P+f+'.dc.html','w').write(set_logic(s,page_logic('S19','management',menu=True)))
+# C07 DockBookmarkAdd: its markup lives in the board, its logic in tools/s22/bookmark.js with the shared mock data.
+# shortcut: the board's stylesheet was trimmed once by cmp_css; a class bookmark.js starts to use later needs its rule copied from S20
+f='CmpBookmarkAdd'; s=open(P+f+'.dc.html').read()
+open(P+f+'.dc.html','w').write(set_logic(s,open(T+'bookmark.js').read().replace('/*MOCK*/',MOCK)))
+# S20 (DockBookmarkAdd) mounts C01, which opens C07 from its '+' slot; the board keeps its own state: Management, popover open.
+# Only the dock and the popover are shared; its Management page behind them stays as drawn. The logic is refreshed every build.
+f='DockBookmarkAdd'; s=open(P+f+'.dc.html').read()
+if 'name="CmpDock"' not in s:
+    i=s.find('<nav class="dk"'); j=s.find('</nav>',i)
+    must=['<div class="bpo"',"this.state = { open: true, filter: 'all', q: '', bms: ['Overview/Line status', 'Reports/Weekly']",
+          "const CAP = 6; const app = { name: 'Management'","['Overview', 'chart', 'Production line overview'","['Reports', 'doc', 'Shift and production reports'","['3D view', 'cube', 'Machines in the plant model'"]
+    if i<0 or j<0 or any(m not in s for m in must): raise SystemExit('lc_compose: S20 DockBookmarkAdd is not the expected popover state; update this swap')
+    s=s[:i]+('<dc-import name="CmpDock" active-app="{{ dockApp }}" bookmarks="{{ dockBms }}" selected="none" open-overlay="{{ dockOverlay }}" loading="{{ loading }}" '
+             +DOCK_BM+'on-key="{{ sheetKey }}" hint-size="760px,58px"></dc-import>')+s[j+6:]
+open(P+f+'.dc.html','w').write(set_logic(s,page_logic('S20','management',adding=True)))
 print('compose ok')

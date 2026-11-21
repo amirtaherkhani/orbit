@@ -15,9 +15,9 @@ monitoring: { name: 'Monitoring', icon: 'mon', ac: '#58cfec', bg: '#1d353f', sub
 { n: 'Plugins and data', count: 2, subs: null },
 { n: 'Access', count: 4, subs: null }] }] },
 management: { name: 'Management', icon: 'mgmt', ac: '#e0b46a', bg: '#2f2819', sub: 'Production line · 3 pages', pages: [
-{ n: 'Overview', ic: 'chart', subs: [['Line status', 'chart', 'Live status of each station on the line'], ['Shifts', 'clock', 'Output and stops per shift'], ['Alarms', 'bell', 'Open alarms on the line']] },
-{ n: 'Reports', ic: 'doc', subs: [['Daily', 'doc', 'Yesterday per station'], ['Weekly', 'doc', 'This week against the plan'], ['Monthly', 'doc', 'Month summary for managers'], ['Export', 'list', 'Download reports as CSV or PDF']] },
-{ n: '3D view', ic: 'cube', subs: [] }] },
+{ n: 'Overview', ic: 'chart', d: 'Production line overview', subs: [['Line status', 'chart', 'Live status of each station on the line'], ['Shifts', 'clock', 'Output and stops per shift'], ['Alarms', 'bell', 'Open alarms on the line']] },
+{ n: 'Reports', ic: 'doc', d: 'Shift and production reports', subs: [['Daily', 'doc', 'Yesterday per station'], ['Weekly', 'doc', 'This week against the plan'], ['Monthly', 'doc', 'Month summary for managers'], ['Export', 'list', 'Download reports as CSV or PDF']] },
+{ n: '3D view', ic: 'cube', d: 'Machines in the plant model', subs: [] }] },
 maintenance: { name: 'Maintenance', icon: 'mnt', ac: '#5794f2', bg: '#17233b', sub: 'Work orders · 2 pages', isNew: true, pages: [
 { n: 'Work orders', ic: 'list', subs: [['Open', 'list', 'Work orders not closed yet'], ['Planned', 'clock', 'Planned maintenance by date'], ['Closed', 'doc', 'Closed work orders']] },
 { n: 'Downtime', ic: 'clock', subs: [['By cause', 'chart', 'Downtime minutes by cause'], ['By machine', 'cube', 'Downtime minutes by machine']] }] },
