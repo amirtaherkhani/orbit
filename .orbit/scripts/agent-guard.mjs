@@ -29,11 +29,11 @@ const tool = input.tool_name;
 const ti = input.tool_input || {};
 
 // ------------------------------------------------------------------ file edits
-function checkPath(file, how) {
+function checkPath(file, how, base = cwd) {
   if (!file) {
     return;
   }
-  const abs = isAbsolute(file) ? file : resolve(cwd, file);
+  const abs = isAbsolute(file) ? file : resolve(base, file);
   // Judge the file against the work tree that holds it: the main checkout or one of its worktrees.
   let dir = dirname(abs);
   while (!existsSync(dir) && dirname(dir) !== dir) {
@@ -84,16 +84,27 @@ const onProtected = PROTECTED_BRANCH.test(branch) || branch === 'HEAD';
 const parts = cmd.split(/\n|&&|\|\||;|\|/).map((s) => s.trim()).filter(Boolean);
 const words = (s) => s.match(/"[^"]*"|'[^']*'|\S+/g) || [];
 
-for (const p of parts) {
+// Follow `cd`/`pushd` inside the command, so `cd .orbit/design && … > project/x` is judged from .orbit/design.
+let dir = cwd;
+for (const raw of parts) {
+  const p = raw.replace(/^\(+\s*/, '');
   const w = words(p);
+  const cd = p.match(/^(?:cd|pushd)\s+("[^"]*"|'[^']*'|[^\s)]+)/);
+  if (cd) {
+    const to = cd[1].replace(/^["']|["']$/g, '').replace(/^~(?=\/|$)/, process.env.HOME || '~');
+    if (to !== '-') {
+      dir = resolve(dir, to);
+    }
+    continue;
+  }
   // file writes through the shell into Grafana files
   const redir = p.match(/(?:^|\s)>{1,2}\s*([^\s|&;]+)/);
   if (redir && !redir[1].startsWith('/dev/') && !redir[1].startsWith('&')) {
-    checkPath(redir[1].replace(/^["']|["']$/g, ''), 'write');
+    checkPath(redir[1].replace(/^["']|["']$/g, ''), 'write', dir);
   }
   if (/^(sed|perl)\b/.test(p) && /\s-i\b|\s-pi\b|\s-i\.|--in-place/.test(p)) {
     for (const a of w.slice(1).filter((x) => !x.startsWith('-') && /[./]/.test(x) && !/^['"]?s[/|#]/.test(x))) {
-      checkPath(a.replace(/^["']|["']$/g, ''), 'edit');
+      checkPath(a.replace(/^["']|["']$/g, ''), 'edit', dir);
     }
   }
   // Installing software changes the owner's machine or the dependency files: always the owner's call.
