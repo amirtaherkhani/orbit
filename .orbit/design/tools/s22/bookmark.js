@@ -44,8 +44,9 @@ const tab = (t) => ({ cls: filter === t ? 'sel' : '', sel: filter === t ? 'true'
 const vars = '--mac:' + app.ac + ';--mbg:' + app.ac + '1a;--mbd:' + app.ac + '47;--mhv:' + app.ac + '38';
 const close = () => { if (p.onClose) p.onClose(); };
 return {
-pos: p.anchored ? '' : 'position:relative;left:auto;right:auto;bottom:auto;transform:none;margin:16px',
-appName: app.name, initial: app.name[0], tileStyle: 'background:' + app.bg + ';color:' + app.ac, popVars: vars,
+// one hole for the whole style: an attribute that starts and ends with a hole is read as a single path by the canvas
+popStyle: vars + (p.anchored ? '' : ';position:relative;left:auto;right:auto;bottom:auto;transform:none;margin:16px'),
+appName: app.name, initial: app.name[0], tileStyle: 'background:' + app.bg + ';color:' + app.ac,
 glyph: !!app.icon, noGlyph: !app.icon, i_mon: app.icon === 'mon', i_mgmt: app.icon === 'mgmt', i_mnt: app.icon === 'mnt',
 close, key: (e) => { if (e && e.key === 'Escape') { if (e.preventDefault) e.preventDefault(); close(); } },
 rows, total, noneLeft: !qq && filter === 'bm' && count === 0, noMatch: !!qq && rows.length === 0, q: q || '', hasQ: !!q,
