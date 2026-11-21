@@ -133,6 +133,25 @@ if 'name="CmpDockPages"' not in s:
     s=s.replace('<dc-import name="CmpDock" selected="menu" hint-size="760px,58px"></dc-import>','<dc-import name="CmpDock" active-app="{{ dockApp }}" bookmarks="{{ dockBms }}" '
                 'selected="menu" open-overlay="{{ dockOverlay }}" loading="{{ loading }}" '+DOCK_BM+'on-key="{{ sheetKey }}" hint-size="760px,58px"></dc-import>')
 open(P+f+'.dc.html','w').write(set_logic(s,page_logic('S11','monitoring')))
+# S12 components (C12 AppsView, C13 AppCard, C14 AppPreviewPanel, C15 StatusChip, C16 LifecycleActionButton). The status model comes
+# from lifecycle_kit.py, the source of the Python-built lifecycle boards (S15-S21), so a status reads the same everywhere.
+import json,sys
+sys.path.insert(0,ROOT+'tools')
+import lifecycle_kit as K
+STATUS='const S = '+json.dumps({x[0]:{'label':x[1],'icon':x[2],'tone':x[3],'desc':x[4]} for x in K.STATUS},ensure_ascii=False)+';'
+for f,js in [('CmpAppsView','appsview.js'),('CmpAppCard','appcard.js'),('CmpAppPreview','apppanel.js'),('CmpStatusChip','statuschip.js'),('CmpLcButton','lcbutton.js')]:
+    s=open(P+f+'.dc.html').read(); open(P+f+'.dc.html','w').write(set_logic(s,open(T+js).read().replace('/*MOCK*/',MOCK).replace('/*STATUS*/',STATUS)))
+s=open(P+'CmpStatusChip.dc.html').read()
+miss=[x[2] for x in K.STATUS if K.SV % K.ICON[x[2]] not in s]
+if miss: raise SystemExit(f'lc_compose: C15 StatusChip does not draw the lifecycle icons {sorted(set(miss))} of lifecycle_kit.py; add them to its board')
+# S12 (AppsAdd) is rebuilt by lc_s12.py every build, so it is swapped every build: C12 AppsView replaces its header, cards and panel.
+f='AppsAdd'; s=open(P+f+'.dc.html').read()
+if 'name="CmpAppsView"' not in s:  # already swapped when lc_compose runs on its own
+  i=s.find('<section style="grid-column:span 12;display:flex;align-items:flex-end'); k=s.find('<div style="grid-column:span 12;display:grid;grid-template-columns:minmax(0,1fr) 360px')
+  must=['>All 5</button>','Production line overview, reports and 3D view.','aria-label="Status: Review required"','Step 3 of 6','<aside class="pv" aria-label="Maintenance: details and pages">']
+  if i<0 or k<0 or any(m not in s for m in must): raise SystemExit('lc_compose: S12 AppsAdd is not the expected Apps page; update this swap')
+  s=s[:i]+'<div style="grid-column:span 12;min-width:0"><dc-import name="CmpAppsView" embedded="true" hint-size="100%,1100px"></dc-import></div>'+s[div_block(s,k):]
+open(P+f+'.dc.html','w').write(set_logic(s,'class Component extends DCLogic {\n// S12 mounts C12 AppsView, which keeps its own filter and selection (lc_compose.py).\nrenderVals() { return {}; }\n}\n'))
 # The canvas reads an attribute that starts and ends with a hole as ONE path ("{{ a }};{{ b }}" -> undefined), while dcrender
 # interpolates it, so the local screenshots never show the bug (C07 was blank on the canvas). Fail the build instead.
 import glob

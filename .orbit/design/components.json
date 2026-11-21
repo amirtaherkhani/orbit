@@ -784,7 +784,8 @@
    ],
    "states": [
     "One per colour group: neutral, in progress, needs attention, setup, ready, enabled, failed"
-   ]
+   ],
+   "board": "CmpStatusChip.dc.html"
   },
   {
    "name": "AppCard",
@@ -822,7 +823,8 @@
     "AppStatus",
     "LifecycleActionButton",
     "StatusChip"
-   ]
+   ],
+   "board": "CmpAppCard.dc.html"
   },
   {
    "name": "AppStatus",
@@ -865,7 +867,8 @@
    ],
    "open": [
     "Exact labels, recovery actions (R10)"
-   ]
+   ],
+   "board": "CmpStatusChip.dc.html"
   },
   {
    "name": "LifecycleActionButton",
@@ -891,7 +894,8 @@
    ],
    "events": [
     "Click → runs the step or opens its view"
-   ]
+   ],
+   "board": "CmpLcButton.dc.html"
   },
   {
    "name": "AppPreviewPanel",
@@ -921,7 +925,8 @@
    ],
    "uses": [
     "StatusChip"
-   ]
+   ],
+   "board": "CmpAppPreview.dc.html"
   },
   {
    "name": "LifecycleStepper",
@@ -1155,7 +1160,8 @@
     "AppCard",
     "AppPreviewPanel",
     "PageTemplate"
-   ]
+   ],
+   "board": "CmpAppsView.dc.html"
   },
   {
    "name": "AppLifecycleView",
