@@ -12,21 +12,28 @@ import { git, repoRoot, PROTECTED_BRANCH } from './lib.mjs';
 const apply = process.argv.includes('--apply');
 const here = realpathSync(repoRoot(process.cwd()));
 const list = git(['worktree', 'list', '--porcelain'], here) || '';
-const trees = list.split('\n\n').filter(Boolean).map((block) => {
-  const t = {};
-  for (const line of block.split('\n')) {
-    const [k, ...v] = line.split(' ');
-    t[k] = v.join(' ') || true;
-  }
-  return { path: t.worktree, head: t.HEAD, branch: (t.branch || '').replace('refs/heads/', ''), main: false };
-});
+const trees = list
+  .split('\n\n')
+  .filter(Boolean)
+  .map((block) => {
+    const t = {};
+    for (const line of block.split('\n')) {
+      const [k, ...v] = line.split(' ');
+      t[k] = v.join(' ') || true;
+    }
+    return { path: t.worktree, head: t.HEAD, branch: (t.branch || '').replace('refs/heads/', ''), main: false };
+  });
 if (trees.length) {
   trees[0].main = true; // git lists the main checkout first
 }
 
 function mergedPullRequests(branch) {
   try {
-    const out = execFileSync('gh', ['pr', 'list', '--state', 'merged', '--head', branch, '--json', 'number,headRefOid'], { cwd: here, encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'], timeout: 30000 });
+    const out = execFileSync(
+      'gh',
+      ['pr', 'list', '--state', 'merged', '--head', branch, '--json', 'number,headRefOid'],
+      { cwd: here, encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'], timeout: 30000 }
+    );
     return JSON.parse(out);
   } catch {
     return null;
@@ -66,7 +73,9 @@ for (const t of trees) {
 }
 
 if (!apply) {
-  console.log(safe.length ? `\nRun with --apply to remove ${safe.length} worktree(s) and their branches.` : '\nNothing to remove.');
+  console.log(
+    safe.length ? `\nRun with --apply to remove ${safe.length} worktree(s) and their branches.` : '\nNothing to remove.'
+  );
   process.exit(0);
 }
 for (const t of safe) {

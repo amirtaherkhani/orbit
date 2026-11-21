@@ -13,7 +13,7 @@ A fork of Grafana OSS (`github.com/amirtaherkhani/orbit`, public) for a producti
 | Architecture (`ARCHITECTURE.md`) | ✔ Written and checked against Grafana v13.3.0; cited files compared with v13.3.1 (51 of 52 identical, one line number moved) |
 | Design canvas, 36 boards (claude.ai) | ✔ Done for this phase; source in `.orbit/design/`, live version in `.orbit/artifacts.json` |
 | Architecture map (claude.ai) | ✔ Current to revision note 85 (version `1795095482-b6a7`); source in `.orbit/map/` |
-| Repository rules, skills, hooks, CI | ✔ In `orbit` (PR #1, #2); guard has 61 passing tests; `orbit-ci / guards` ran green on PR #1 and #2 |
+| Repository rules, skills, hooks, CI | ✔ In `orbit` (PR #1, #2); guard has 64 passing tests; `orbit-ci / guards` ran green on PR #1 and #2 |
 | Branch model | One product branch `orbit` (revision 85); Grafana releases come in by `update/<tag>` pull requests with a merge commit |
 | Product code (`public/app/orbit/`, `pkg/orbit/`) | ○ Not started. Nothing is built, type-checked or tested (RK01) |
 | GitHub settings | ✔ Done 2026-11-19: Grafana workflows off · merge buttons (squash and merge commit, PR title as message, rebase off, head branches deleted) · `orbit/13.3.1` renamed to `orbit`, default branch `orbit` · rulesets `orbit-product`, `main-mirror`, `release-tags` |
