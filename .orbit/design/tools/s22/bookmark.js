@@ -8,15 +8,15 @@ componentWillUnmount() { clearTimeout(this._t); }
 renderVals() {
 const p = this.props; const CAP = +p.limit || 6; const A = this.apps();
 const id = A[p.app] ? p.app : 'management'; const app = A[id]; const pre = id + '/';
-const bm = (p.onToggle ? p.bm : this.state.bm || p.bm) || this.mockBookmarks();
+const bm = (p.onToggle ? p.bm : this.state.bm || p.bm) || this.mockBookmarks(); const hidden = p.hidden || this.mockHidden();
 const ICONS = ['chart', 'doc', 'cube', 'list', 'clock', 'bell'];
 const icon = (o, ic) => { const k = ICONS.indexOf(ic) >= 0 ? ic : 'list'; ICONS.forEach((x) => { o['i_' + x] = k === x; }); return o; };
 // shortcut: Monitoring's own rail icons (r0-r5, t0-t4, a0-a5) show as the list icon here; draw them when the prototype needs it
-const PAGES = app.pages.map((x) => [x.n, x.ic, x.d || '', x.groups ? [].concat(...x.groups.map((g) => g.subs || [])) : x.subs || []]);
+const PAGES = app.pages.map((x) => [x.n, x.ic, x.d || '', x.groups ? [].concat(...x.groups.map((g) => g.subs)) : x.subs]);
 const { filter, last, q } = this.state; const exp = this.state.exp || (PAGES[0] ? { [PAGES[0][0]]: true } : {});
 const qq = (q || '').trim().toLowerCase();
 // a bookmark key is "app/Page" or "app/Page/Sub page" (tools/s22/mock.js); the app home is not bookmarkable
-const isOn = (k) => !!bm[pre + k]; const count = Object.keys(bm).filter((k) => bm[k] && k.indexOf(pre) === 0).length; const full = count >= CAP;
+const isOn = (k) => !!bm[pre + k]; const count = Object.keys(bm).filter((k) => bm[k] && !hidden[k] && k.indexOf(pre) === 0).length; const full = count >= CAP;
 const flip = (k) => { if (p.onToggle) p.onToggle(pre + k); else this.setState({ bm: Object.assign({}, bm, { [pre + k]: !bm[pre + k] }) }); };
 const add = (k) => { if (isOn(k) || full) return; flip(k); this.setState({ last: k });
 clearTimeout(this._t); this._t = setTimeout(() => this.setState({ last: null }), 1300); };
@@ -32,13 +32,13 @@ hasCtx: !!parent && !parentShown, ctx: parent || '', isSub: !!parent && parentSh
 canExp, noExp: !canExp, isOpen, isClosed: !isOpen, expStr: canExp ? (isOpen ? 'true' : 'false') : 'false',
 expLabel: (isOpen ? 'Collapse ' : 'Expand ') + l, expand: () => this.setState({ exp: isOpen ? {} : { [l]: true } }),
 cls: 'brw' + (parent && parentShown ? ' sub' : '') + (on ? ' on' : '') + (dis ? ' dis' : '') + (k === last ? ' fresh' : ''), pressed: on ? 'true' : 'false', disStr: dis ? 'true' : 'false',
-state: on ? 'In dock' : '', aria: (on ? 'Remove ' : 'Add ') + (parent ? parent + ' › ' : '') + l + (on ? ' from' : ' to') + ' the dock bookmarks',
+state: on ? (hidden[pre + k] ? 'Bookmarked' : 'In dock') : '', aria: (on ? 'Remove ' : 'Add ') + (parent ? parent + ' › ' : '') + l + (on ? ' from' : ' to') + ' the dock bookmarks',
 toggle: () => (on ? remove(k) : add(k)) }, ic); };
 const rows = []; let total = 0;
 PAGES.forEach(([g, gic, gd, subs]) => { total += 1 + subs.length;
 const pageShown = match(g, g + ' ' + gd);
 if (pageShown) rows.push(row(g, g, gic, [gd, subs.length ? subs.length + ' sub pages' : ''].filter(Boolean).join(' · '), null, false, subs.length));
-if (flat || (pageShown && !!exp[g])) subs.forEach(([l, ic, d]) => { const k = g + '/' + l; if (match(k, g + ' ' + l + ' ' + d)) rows.push(row(k, l, ic, d, g, pageShown && !flat, 0)); }); });
+if (flat || (pageShown && !!exp[g])) subs.forEach(({ n: l, ic, d }) => { const k = g + '/' + l; if (match(k, g + ' ' + l + ' ' + d)) rows.push(row(k, l, ic, d, g, pageShown && !flat, 0)); }); });
 const pips = []; for (let i = 0; i < CAP; i++) pips.push({ cls: i < count ? (last && i === count - 1 ? 'pnw' : 'on') : '' });
 const tab = (t) => ({ cls: filter === t ? 'sel' : '', sel: filter === t ? 'true' : 'false', pick: () => this.setState({ filter: t }) });
 const vars = '--mac:' + app.ac + ';--mbg:' + app.ac + '1a;--mbd:' + app.ac + '47;--mhv:' + app.ac + '38';

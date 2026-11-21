@@ -50,7 +50,7 @@ assert.ok(v.noticePage && v.tiles.length === 0, 'Explore shows a notice'); asser
 v.togglePg(); assert.ok(!s.state.bm['monitoring/Explore'], 'the page bookmark still works');
 assert.deepEqual(v.apps.map((a) => a.name), ['Monitoring', 'Management', 'Maintenance']); assert.equal(v.selCount, 3);
 assert.ok(v.hasIcon && v.i_mon && v.apps.every((a) => a.hasIcon), 'apps with a logo show it');
-v = new Sheet({ page: 'Drilldown' }).renderVals(); assert.ok(/not drawn/.test(v.tilesNote) && v.hasPages, 'a static screen can name the page');
+v = new Sheet({ page: 'Drilldown' }).renderVals(); assert.ok(v.tiles.length === 4 && !v.tilesNote, 'a static screen can name the page; every sub page is drawn');
 assert.ok(new Sheet({ appsOpen: true }).renderVals().open, 'a static screen can open the app list');
 
 // N10: an app with no pages yet says so; a viewer (mock role) gets no Continue setup and no Administration
@@ -60,7 +60,7 @@ v = new Sheet({ viewer: true }).renderVals(); assert.ok(!v.pages.some((x) => x.l
 // S10: Administration's group tabs; tiles come from the open group, a group not drawn shows the note
 s = new Sheet({ page: 'Administration' }); v = s.renderVals();
 assert.deepEqual(v.groups.map((g) => g.label + ' ' + g.count), ['General 6', 'Plugins and data 2', 'Access 4']); assert.equal(v.subCount, 12);
-assert.equal(v.tiles.length, 6); v.groups[2].pick(); v = s.renderVals(); assert.ok(!v.tiles.length && /^4 sub pages/.test(v.tilesNote), 'Access is not drawn');
+assert.equal(v.tiles.length, 6); v.groups[2].pick(); v = s.renderVals(); assert.deepEqual(v.tiles.map((x) => x.label), ['Users', 'Teams', 'Service accounts', 'Authentication']);
 v.tabKey(key('ArrowRight')); assert.equal(s.state.group, 0, 'arrows wrap around the tabs');
 
 // C07 DockBookmarkAdd and the '+' overlay (S20): one overlay at a time, toggles write the page's set, a new bookmark lands in the dock
@@ -75,4 +75,8 @@ v = bk().renderVals(); v.key(key('Escape')); assert.equal(t.v().dockOverlay, 'no
 ['management/Overview', 'management/Reports', 'management/3D view'].forEach((k) => t.v().toggleBm(k));
 v = bk().renderVals(); assert.ok(v.full && v.count === 6); assert.equal(v.rows[3].label, 'Alarms'); v.rows[3].toggle(); assert.ok(!t.c.state.bm['management/Overview/Alarms'], 'a full dock adds nothing');
 const b = new Bk({}); b.setState({ q: 'week' }); v = b.renderVals(); assert.deepEqual(v.rows.map((r) => r.ctx + '|' + r.label), ['Reports|Weekly'], 'search is flat with the page name');
+// one mock for every board (S11 merged): Settings is bookmarked but kept out of the dock; Quality is outside the selector
+t = page(); v = t.v(); assert.ok(t.c.state.bm['monitoring/Administration/Settings'] && !v.dockBms.some((d) => /Settings/.test(d.label)), 'a hidden bookmark stays out of the dock');
+assert.equal(new Sheet({}).renderVals().bmCount, 4, 'the menu counts every bookmark of the app');
+v = new Bk({ app: 'monitoring' }).renderVals(); assert.equal(v.count, 3, 'the popover counts dock places, not hidden bookmarks');
 console.log('s22 logic ok');

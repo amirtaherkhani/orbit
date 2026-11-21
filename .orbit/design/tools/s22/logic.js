@@ -3,7 +3,7 @@ class Component extends DCLogic {
 // mounted components: C01 Dock (with C07 DockBookmarkAdd) and C06 MenuSheet. One overlay is open at a time. The sheet keeps only its current page and tile.
 constructor(props) {
 super(props);
-this.state = { viewer: false, menu: false, apps: false, opened: null, app: 'monitoring', loading: false, bm: this.mockBookmarks(), adding: false, fresh: null };
+this.state = { viewer: false, menu: false, apps: false, opened: null, app: 'monitoring', loading: false, bm: this.mockBookmarks(), hidden: this.mockHidden(), adding: false, fresh: null };
 }
 componentWillUnmount() { clearTimeout(this.loadTimer); clearTimeout(this.freshTimer); }
 /*MOCK*/
@@ -28,12 +28,13 @@ this.setState({ app: id, apps: false, loading: id !== 'monitoring' });
 if (id !== 'monitoring') this.loadTimer = setTimeout(() => this.setState({ loading: false }), 650);
 }
 renderVals() {
-const A = this.apps(); const { viewer, menu, apps, opened, app, loading, bm, adding, fresh } = this.state; const cur = A[app];
+const A = this.apps(); const { viewer, menu, apps, opened, app, loading, bm, hidden, adding, fresh } = this.state; const cur = A[app];
 const DK = ['chart', 'doc', 'cube', 'list', 'clock', 'bell', 'pl', 'lp', 'ex'];
 const dockBms = [];
 cur.pages.filter((x) => !(viewer && x.adm)).forEach((x) => {
-if (bm[app + '/' + x.n]) dockBms.push({ label: x.n, icon: x.dk || x.ic, fresh: fresh === app + '/' + x.n });
-(x.groups ? [].concat(...x.groups.map((g) => g.subs || [])) : x.subs || []).forEach(([l, ic, d, k]) => { if (bm[app + '/' + x.n + '/' + l]) dockBms.push({ label: x.n + ' › ' + l, icon: k || ic, fresh: fresh === app + '/' + x.n + '/' + l }); });
+const inDock = (k) => bm[k] && !hidden[k];
+if (inDock(app + '/' + x.n)) dockBms.push({ label: x.n, icon: x.dk || x.ic, fresh: fresh === app + '/' + x.n });
+(x.groups ? [].concat(...x.groups.map((g) => g.subs)) : x.subs).forEach((t) => { const k = app + '/' + x.n + '/' + t.n; if (inDock(k)) dockBms.push({ label: x.n + ' › ' + t.n, icon: t.dk || t.ic, fresh: fresh === k }); });
 });
 dockBms.forEach((b) => { if (DK.indexOf(b.icon) < 0) b.icon = 'list'; });
 const crumb = opened ? { a: A[opened.app].name, p: opened.page, s: opened.sub || '' } : { a: '', p: '', s: '' };
