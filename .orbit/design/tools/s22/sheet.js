@@ -36,7 +36,7 @@ cur: i === page ? 'true' : 'false', cls: i === page ? 'rn on acx' : 'rn', pick: 
 const isPage = !!pg && !pg.groups && pg.subs !== null && pg.subs.length === 0;
 const subs = !src || src.subs === null || isPage ? [] : src.subs;
 const pageKey = pg ? app + '/' + pg.n : ''; const pgOn = !!bm[pageKey];
-const tiles = subs.map(([label, ic, desc], i) => { const k = pageKey + '/' + label; const on = !!bm[k];
+const tiles = subs.map(({ n: label, ic, d: desc }, i) => { const k = pageKey + '/' + label; const on = !!bm[k];
 return icon({ id: 'ms-t' + i, label, desc, vars, canBk: true, cls: i === focus ? 'mzt on acx' : 'mzt', cur: i === focus ? 'page' : 'false',
 bk: on, notBk: !on, bkCls: on ? 'mzbk on' : 'mzbk', bkPressed: on ? 'true' : 'false', bkLabel: (on ? 'Remove ' : 'Add ') + label + (on ? ' from bookmarks' : ' to bookmarks'),
 focus: () => { if (focus !== i) this.setState({ focus: i }); }, open: () => open(label), toggleBk: () => flip(k) }, ic); });
@@ -72,7 +72,7 @@ pgBkAria: pg ? (pgOn ? 'Remove the bookmark of ' + pg.n : 'Bookmark the page ' +
 openPg: () => open(null),
 pageName: pg ? pg.n : cur.name, subLabel: !pg ? 'no pages yet' : total(pg) ? 'sub pages' : 'no sub pages', subCount: pg ? (total(pg) || '') : '',
 bmCount: Object.keys(bm).filter((k) => bm[k] && k.indexOf(app + '/') === 0).length,
-footName: ft ? ft[0] : (pg ? pg.n : cur.name), footDesc: ft ? ft[2] : (pg ? (isPage ? (pg.d || 'It opens straight away') : note) : 'Its pages show here once setup is done'), footHere: ft ? 'You are here' : ''
+footName: ft ? ft.n : (pg ? pg.n : cur.name), footDesc: ft ? ft.d : (pg ? (isPage ? (pg.d || 'It opens straight away') : note) : 'Its pages show here once setup is done'), footHere: ft ? 'You are here' : ''
 });
 }
 }
