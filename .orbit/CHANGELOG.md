@@ -16,3 +16,4 @@ Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Release names:
 - Session start fetches `origin/orbit` and fast-forwards the owner's main checkout when it is clean and on `orbit`; work branches start from `origin/orbit`; rules for worktree sessions (pull request only, no local merge).
 - `clean-worktrees.mjs` lists worktrees whose exact commit was merged on GitHub and removes them with `--apply` (the guard asks); session start points to it when a worktree's branch is gone.
 - The guard follows `cd` and `pushd` inside a shell command, so a write such as `cd .orbit/design && … > project/x` is judged from `.orbit/design`.
+- Work branches are pushed and their pull requests into `orbit` opened without asking, once every check passes; PR titles are checked by the guard. Tags, releases, settings and merges still need the owner.

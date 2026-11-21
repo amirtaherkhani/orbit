@@ -23,7 +23,7 @@ These rules are enforced. `.orbit/scripts/agent-guard.mjs` runs before every she
 ## Worktrees
 
 - A session may run in a worktree (`.claude/worktrees/<name>`, made by the Claude desktop app). It is only a separate folder for one work branch; `orbit` stays checked out in the main checkout.
-- Work in a worktree ends like any other: commit on the work branch, ask, push it, open a pull request into `orbit`. The owner merges on GitHub.
+- Work in a worktree ends like any other: commit on the work branch, run the checks, push it, open a pull request into `orbit`. The owner merges on GitHub.
 - Never merge a work branch into `orbit` locally, and never suggest the desktop app's merge or "apply" button: a local merge leaves the local `orbit` different from GitHub, and the ruleset refuses to push it.
 - Finished worktrees are removed with `node .orbit/scripts/clean-worktrees.mjs`: it lists only clean worktrees whose exact commit was merged in a pull request on GitHub; `--apply` removes them and is the owner's decision. Never remove a worktree with uncommitted or unpushed work.
 
@@ -37,9 +37,10 @@ These rules are enforced. `.orbit/scripts/agent-guard.mjs` runs before every she
 
 ## Push and pull requests
 
-- Before a push, run the checks (`orbit-git-workflow` skill), then show the owner: branch, commits, changed files, check results. Push only after the owner approves; the push prompt is that approval.
+- Push and pull requests are automatic for work branches (owner's decision, 2026-11-21; for Orbit work branches this replaces the "ask before git push" gate in Grafana's AGENTS.md). When the work is done: run the checks (`orbit-git-workflow` skill), and only if every check passes, push the work branch to `origin` and open the pull request into `orbit`, without asking. Then report: branch, commits, changed files, check results, PR link.
+- A failing check stops it: fix it or report it, never push red. Everything else still waits for the owner: pushing anything that is not a work branch, tags and releases, repository settings, and every merge.
 - Never force-push, never push to `upstream`, `main`, `orbit` or `hotfix/*`, never push `--tags`.
-- Open a pull request into `orbit` (or the `hotfix/*` branch the owner named) with `gh pr create`, after approval. Title in commit format, since pull requests are **squash-merged** and the title becomes the commit (except `update/*`, see below).
+- Open the pull request into `orbit` (or the `hotfix/*` branch the owner named) with `gh pr create --base orbit --title …`. Title in commit format, since pull requests are **squash-merged** and the title becomes the commit (except `update/*`, see below).
 - Every pull request adds one line under `## [Unreleased]` in `.orbit/CHANGELOG.md`, unless it changes only docs or CI.
 - Never merge. Merging is the owner's job. When checks are green, say the pull request is ready and stop.
 

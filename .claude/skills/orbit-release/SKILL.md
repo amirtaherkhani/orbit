@@ -25,7 +25,7 @@ On `release/v13.3.1-orbit.1`:
 - `.orbit/CHANGELOG.md`: move `## [Unreleased]` items under `## [v13.3.1+orbit.1] - <YYYY-MM-DD>`, leave an empty Unreleased.
 - `.orbit/VERSION`: raise the Orbit API version by the rule (major, minor, patch; `0.x` until v1).
 - `.orbit/COMPAT.md`: add a row: fork release, Grafana base, Orbit API version, lowest `ui.json` `schemaVersion`.
-- Commit `orbit(release): v13.3.1+orbit.1`, run the checks, ask, push, PR. Squash merge by the owner.
+- Commit `orbit(release): v13.3.1+orbit.1`, run the checks, then push and PR (automatic when the checks pass). Squash merge by the owner; the tag push still asks.
 
 ## 3. Tag (after the owner merged the release PR; a release candidate can also be tagged on an `update/*` branch to test a new Grafana version)
 

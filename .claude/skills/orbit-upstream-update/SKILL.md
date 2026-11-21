@@ -65,4 +65,4 @@ A release candidate can be tagged on the update branch before it reaches `orbit`
 
 ## 5. Pull request
 
-Ask before pushing, then `gh pr create --base orbit --title "orbit(update): merge Grafana v13.3.2"`. The body must say: **merge with "Create a merge commit", do not squash**. The merge commit is what tells Git that `orbit` contains Grafana's tag. After the merge, release `v13.3.2+orbit.1` with `orbit-release`. Nothing else changes.
+When every check passes, push and run `gh pr create --base orbit --title "orbit(update): merge Grafana v13.3.2"`. The body must say: **merge with "Create a merge commit", do not squash**. The merge commit is what tells Git that `orbit` contains Grafana's tag. After the merge, release `v13.3.2+orbit.1` with `orbit-release`. Nothing else changes.
