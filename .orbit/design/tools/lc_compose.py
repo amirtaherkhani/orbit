@@ -75,4 +75,24 @@ for f,(must,props) in SHEETS.items():
     if any(m not in s[i:j] for m in (must if isinstance(must,tuple) else (must,))+('Monitoring',)): raise SystemExit(f'lc_compose: {f} draws a MenuSheet that is not the expected state ({must})')
     s=s[:i]+f'<dc-import name="CmpMenuSheet" anchored="true" {props} hint-size="1080px,470px"></dc-import>'.replace('  ',' ')+s[j:]
     open(P+f+'.dc.html','w').write(s)
+# S19 (DockAppPages) is swapped last: lc_s22 derives S22 from the uncomposed S19 earlier in the same build (lc_misc rebuilds it each time).
+# It keeps its own state with the S22 page logic, started on Management with the menu open. Neither component gets a close
+# callback, so the menu stays open on this board; picking apps, pages and bookmarks works as in S22.
+f='DockAppPages'; s=open(P+f+'.dc.html').read()
+if 'name="CmpMenuSheet"' not in s:
+    i=s.find('<div class="sh3"'); j=div_block(s,i) if i>=0 else -1; k=s.find('<nav class="dk"')
+    must=["this.state = { app: 'management', page: 0, focus: 0, open: false",'{{ isMon }}','Energy is not enabled yet','{{ dockVars }}','<button type="button" class="n on">']
+    if i<0 or k!=j or any(m not in s for m in must): raise SystemExit('lc_compose: S19 DockAppPages is not the expected menu state; update this swap')
+    l=s.index('</nav>',k)+6
+    s=s[:i]+('<dc-import name="CmpMenuSheet" anchored="true" app="{{ app }}" bm="{{ bm }}" loading="{{ loading }}" viewer="{{ viewer }}" apps-open="{{ appsOpen }}" '
+             'on-pick-app="{{ pickApp }}" on-toggle="{{ toggleBm }}" on-toggle-apps="{{ toggleApps }}" hint-size="1080px,470px"></dc-import>'
+             '<dc-import name="CmpDock" active-app="{{ dockApp }}" bookmarks="{{ dockBms }}" selected="none" open-overlay="{{ dockOverlay }}" loading="{{ loading }}" '
+             'on-apps="{{ toggleApps }}" hint-size="760px,58px"></dc-import>')+s[l:]
+    T=ROOT+'tools/s22/'
+    L=open(T+'logic.js').read().replace('/*MOCK*/',re.sub(r'^//.*$','',open(T+'mock.js').read(),flags=re.M))
+    a="this.state = { viewer: false, menu: false, apps: false, opened: null, app: 'monitoring',"; assert L.count(a)==1,'S22 start state'
+    L=L.replace(a,a.replace('menu: false','menu: true').replace("'monitoring'","'management'")).replace(
+        'class Component extends DCLogic {\n','class Component extends DCLogic {\n// S19 runs the S22 page logic, started on Management with the menu open (lc_compose.py).\n',1)
+    a=s.index('class Component extends DCLogic'); b=s.index('</script>',a)
+    open(P+f+'.dc.html','w').write(s[:a]+L+s[b:])
 print('compose ok')
