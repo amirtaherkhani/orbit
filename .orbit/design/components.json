@@ -993,7 +993,8 @@
    ],
    "open": [
     "How 'route responds' is tested (R02)"
-   ]
+   ],
+   "board": "CmpChecksList.dc.html"
   },
   {
    "name": "AppVersionInfo",
@@ -1018,7 +1019,8 @@
    ],
    "data": [
     "Plugin info and catalog via upstream/"
-   ]
+   ],
+   "board": "CmpVersionInfo.dc.html"
   },
   {
    "name": "PageCard",
@@ -1250,7 +1252,8 @@
    ],
    "open": [
     "Who may disable or uninstall (R02)"
-   ]
+   ],
+   "board": "CmpAppManage.dc.html"
   },
   {
    "name": "DockPagesView",

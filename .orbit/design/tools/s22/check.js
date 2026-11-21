@@ -109,4 +109,13 @@ v = new AP({ app: 'quality' }).renderVals(); assert.ok(v.noTree && v.segs[1].cls
 v = new SC({ kind: 'icon', status: 'review' }).renderVals(); assert.ok(v.isIcon && v.cls === 'lst g-a' && v.i_review && !v.i_enabled);
 v = new LB({ status: 'setupwip' }).renderVals(); assert.ok(v.isLink && v.href === 'AppSetup.dc.html' && v.cls === 'p lca a-setup' && v.label === 'Continue setup');
 v = new LB({ status: 'notinit' }).renderVals(); assert.ok(v.isBtn && v.cls === 'p lca a-init');
+// S15 manage page: C17 view (shared bookmarks, owner 2026-11-21), C18 checks list, C19 version info
+const MV = load('manageview.js'); const CL = load('checks.js'); const VI = load('versioninfo.js');
+const mv = new MV({}); v = mv.renderVals(); assert.ok(v.name === 'Management' && v.bmText === '0 of 3 bookmarked' && v.p2.drStyle === '' && v.p0.drStyle === 'display:none');
+assert.deepEqual([v.p0.who, v.p1.subs, v.p2.subs, v.p2.check], ['Viewer', 4, 'None', 'Warning']); v.p0.toggle(); assert.equal(mv.renderVals().bmText, '1 of 3 bookmarked', 'the table toggles the bookmark');
+assert.deepEqual(v.tabs.map((x) => x.label + (x.hasCount ? ' ' + x.count : '')), ['Overview', 'Pages 3', 'Access', 'Data sources 2', 'Health 1']);
+t = page(); const mw = new MV({ bm: t.v().bm, onToggle: t.v().toggleBm }); mw.renderVals().p2.toggle(); assert.ok(t.c.state.bm['management/3D view'], 'S15 writes the shared bookmarks');
+v = new CL({}).renderVals(); assert.ok(v.summary && v.nOk === '4 passed' && v.nWarn === '1 warning' && v.rows[4].hasFix && v.rows[4].cls === 'ck warn');
+v = new CL({ checks: [{ st: 'fail', t: 'x', d: 'y' }] }).renderVals(); assert.ok(!v.summary && v.rows[0].icls === 'ci fail' && !v.rows[0].hasSrc);
+v = new VI({}).renderVals(); assert.ok(v.hasUpd && v.upd === '0.1.1' && v.prev === '0.0.9 → 0.1.0' && v.needs === '>=13.0.0 <14');
 console.log('s22 logic ok');
