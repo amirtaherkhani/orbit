@@ -57,4 +57,22 @@ assert.ok(new Sheet({ appsOpen: true }).renderVals().open, 'a static screen can 
 v = new Sheet({ app: 'energy' }).renderVals(); assert.ok(v.empty && !v.hasPages && v.canSetup && v.noIcon, 'Energy: no pages yet, letter tile');
 v = new Sheet({ app: 'energy', viewer: true }).renderVals(); assert.ok(v.cantSetup && !v.canSetup, 'Viewer: no Continue setup');
 v = new Sheet({ viewer: true }).renderVals(); assert.ok(!v.pages.some((x) => x.label === 'Administration'), 'Viewer: Administration is hidden');
+// S10: Administration's group tabs; tiles come from the open group, a group not drawn shows the note
+s = new Sheet({ page: 'Administration' }); v = s.renderVals();
+assert.deepEqual(v.groups.map((g) => g.label + ' ' + g.count), ['General 6', 'Plugins and data 2', 'Access 4']); assert.equal(v.subCount, 12);
+assert.equal(v.tiles.length, 6); v.groups[2].pick(); v = s.renderVals(); assert.ok(!v.tiles.length && /^4 sub pages/.test(v.tilesNote), 'Access is not drawn');
+v.tabKey(key('ArrowRight')); assert.equal(s.state.group, 0, 'arrows wrap around the tabs');
+
+// C07 DockBookmarkAdd and the '+' overlay (S20): one overlay at a time, toggles write the page's set, a new bookmark lands in the dock
+const Bk = load('bookmark.js');
+t = page(); t.v().toggleAdd(); assert.equal(t.v().dockOverlay, 'bookmark'); t.v().toggleMenu(); assert.ok(t.v().menuOpen && t.v().dockOverlay === 'menu', 'the menu closes the popover');
+t = page(); t.c.pickApp('management'); flush(); t.v().toggleAdd();
+const bk = () => { const pv = t.v(); return new Bk({ app: pv.dockApp.id, bm: pv.bm, onToggle: pv.toggleBm, onClose: pv.toggleAdd, anchored: true }); };
+v = bk().renderVals(); assert.equal(v.count, 2); assert.deepEqual(v.rows.map((r) => r.label), ['Overview', 'Line status', 'Shifts', 'Alarms', 'Reports', '3D view']);
+v.rows[2].toggle(); assert.ok(t.c.state.bm['management/Overview/Shifts']); assert.ok(t.v().dockBms.some((d) => d.label === 'Overview › Shifts' && d.fresh), 'lands in the dock');
+flush(); assert.ok(!t.v().dockBms.some((d) => d.fresh), 'the landing mark clears');
+v = bk().renderVals(); v.key(key('Escape')); assert.equal(t.v().dockOverlay, 'none', 'Esc closes the popover');
+['management/Overview', 'management/Reports', 'management/3D view'].forEach((k) => t.v().toggleBm(k));
+v = bk().renderVals(); assert.ok(v.full && v.count === 6); assert.equal(v.rows[3].label, 'Alarms'); v.rows[3].toggle(); assert.ok(!t.c.state.bm['management/Overview/Alarms'], 'a full dock adds nothing');
+const b = new Bk({}); b.setState({ q: 'week' }); v = b.renderVals(); assert.deepEqual(v.rows.map((r) => r.ctx + '|' + r.label), ['Reports|Weekly'], 'search is flat with the page name');
 console.log('s22 logic ok');
