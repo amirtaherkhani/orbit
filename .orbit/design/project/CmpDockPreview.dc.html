@@ -43,6 +43,8 @@ class Component extends DCLogic {
 
 
 
+
+
 apps() {
 const P = (id, n, ic, bi, dk, d, route, more) => Object.assign({ id, n, ic, bi, dk, d, route, iconName: n }, more);
 return {
@@ -82,7 +84,7 @@ P('admin', 'Administration', 'r5', 'admin', 'list', 'Users, teams, plugins and s
     P('teams', 'Teams', 'r5', 'admin', 'list', 'Groups of users', '/org/teams'),
     P('sa', 'Service accounts', 'r5', 'admin', 'list', 'Accounts for tools and scripts', '/org/serviceaccounts'),
     P('auth', 'Authentication', 'r5', 'admin', 'list', 'Sign-in providers', '/admin/authentication')] }] })] },
-management: { name: 'Management', icon: 'mgmt', ac: '#e0b46a', bg: '#2f2819', sub: 'Production line · 3 pages', home: 'Overview', pages: [
+management: { name: 'Management', icon: 'mgmt', ac: '#e0b46a', bg: '#2f2819', sub: 'Production line · 3 pages', home: 'Overview', lc: { v: '0.1.0', st: 'enabled', upd: '0.1.1', d: 'Production line overview, reports and 3D view.', places: true }, pages: [
 P('overview', 'Overview', 'chart', 'overview', 'chart', 'Production line overview', '/a/acme-management-app/overview', { iconName: 'Chart', subs: [
   P('line', 'Line status', 'chart', 'overview', 'chart', 'Live status of each station on the line', '/a/acme-management-app/overview/line-status'),
   P('shifts', 'Shifts', 'clock', 'clock', 'clock', 'Output and stops per shift', '/a/acme-management-app/overview/shifts'),
@@ -93,17 +95,20 @@ P('reports', 'Reports', 'doc', 'reports', 'doc', 'Shift and production reports',
   P('monthly', 'Monthly', 'doc', 'reports', 'doc', 'Month summary for managers', '/a/acme-management-app/reports/monthly'),
   P('export', 'Export', 'list', 'list', 'list', 'Download reports as CSV or PDF', '/a/acme-management-app/reports/export')] }),
 P('cube', '3D view', 'cube', 'cube', 'cube', 'Machines in the plant model', '/a/acme-management-app/3d-view', { iconName: 'Cube', subs: [] })] },
-maintenance: { name: 'Maintenance', icon: 'mnt', ac: '#5794f2', bg: '#17233b', sub: 'Work orders · 2 pages', isNew: true, home: 'Work orders', pages: [
-P('orders', 'Work orders', 'list', 'list', 'list', 'Open, planned and closed work orders', '/a/acme-maintenance-app/orders', { iconName: 'List', subs: [
+maintenance: { name: 'Maintenance', icon: 'mnt', ac: '#5794f2', bg: '#17233b', sub: 'Work orders · 2 pages', isNew: true, home: 'Work orders', lc: { v: '0.3.2', st: 'enabled', note: 'enabled 09:10', at: 'Today 09:10', d: 'Work orders, machine downtime and service history.' }, pages: [
+P('orders', 'Work orders', 'list', 'list', 'list', 'Open, planned and closed work orders', '/a/acme-maintenance-app/orders', { iconName: 'List', kind: 'List', subs: [
   P('open', 'Open', 'list', 'list', 'list', 'Work orders not closed yet', '/a/acme-maintenance-app/orders/open'),
   P('planned', 'Planned', 'clock', 'clock', 'clock', 'Planned maintenance by date', '/a/acme-maintenance-app/orders/planned'),
   P('closed', 'Closed', 'doc', 'doc', 'doc', 'Closed work orders', '/a/acme-maintenance-app/orders/closed')] }),
-P('downtime', 'Downtime', 'clock', 'clock', 'clock', 'Downtime minutes by cause and machine', '/a/acme-maintenance-app/downtime', { iconName: 'Clock', subs: [
+P('downtime', 'Downtime', 'clock', 'clock', 'clock', 'Downtime minutes by cause and machine', '/a/acme-maintenance-app/downtime', { iconName: 'Clock', kind: 'Dashboard', subs: [
   P('cause', 'By cause', 'chart', 'overview', 'chart', 'Downtime minutes by cause', '/a/acme-maintenance-app/downtime/by-cause'),
   P('machine', 'By machine', 'cube', 'cube', 'cube', 'Downtime minutes by machine', '/a/acme-maintenance-app/downtime/by-machine')] })] },
-quality: { name: 'Quality', inSelector: false, ac: '#b877d9', bg: '#2a1f33', sub: 'Inspections · 1 page', home: 'Inspections', pages: [
-P('insp', 'Inspections', 'list', 'check', 'list', 'Inspection results per batch', '/a/acme-quality-app/inspections', { iconName: 'Check', subs: [] })] },
-energy: { name: 'Energy', inSelector: false, enabled: false, ac: '#f2cc0c', bg: '#2e2a14', sub: 'No pages yet', home: 'Setup', pages: [] }
+quality: { name: 'Quality', inSelector: false, enabled: false, ac: '#73bf69', bg: '#1b2a1d', sub: 'Review required', home: 'Inspections', pages: [],
+lc: { v: '1.0.1', st: 'review', step: 2, n: 4, d: 'Inspection results and defect tracking.' } },
+energy: { name: 'Energy', inSelector: false, enabled: false, ac: '#f2cc0c', bg: '#2e2a14', sub: 'No pages yet', home: 'Setup', pages: [],
+lc: { v: '0.2.0', st: 'setupwip', step: 3, n: 2, note: 'discovered 08:52', d: 'Power use per machine and per shift.' } },
+safety: { name: 'Safety', inSelector: false, enabled: false, ac: '#c9cdd3', bg: '#262a31', sub: 'Not initialized', home: 'Home', pages: [],
+lc: { v: '0.4.0', st: 'notinit', step: 1, n: 3, note: 'discovered 09:05', d: 'Incident reports and safety walks.' } }
 };
 }
 
@@ -117,7 +122,7 @@ return out;
 }
 mockBookmarks() {
 return { 'monitoring/Dashboards/Playlists': true, 'monitoring/Dashboards/Library panels': true, 'monitoring/Explore': true, 'monitoring/Administration/Settings': true,
-'management/Overview/Line status': true, 'management/Reports/Weekly': true, 'maintenance/Work orders/Open': true, 'maintenance/Downtime': true, 'quality/Inspections': true };
+'management/Overview/Line status': true, 'management/Reports/Weekly': true, 'maintenance/Work orders/Open': true, 'maintenance/Downtime': true };
 }
 
 mockHidden() {
