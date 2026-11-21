@@ -932,7 +932,7 @@
    "name": "LifecycleStepper",
    "group": "Shared parts",
    "status": "Specified",
-   "summary": "Vertical list of the six steps: done, current, locked.",
+   "summary": "Vertical list of the six steps: done, current, locked. Built as part of AppLifecycleView (C20): the current step’s content sits inside the list (owner, 2026-11-21).",
    "code": "<code>apps/lifecycle/</code>",
    "spec": "R10",
    "screens": "S16, S18, S21",
@@ -959,7 +959,8 @@
    ],
    "open": [
     "@grafana/ui has no stepper (R10)"
-   ]
+   ],
+   "board": "CmpLifecycle.dc.html"
   },
   {
    "name": "ChecksList",
@@ -1209,7 +1210,8 @@
    ],
    "open": [
     "Server-side gates (R10)"
-   ]
+   ],
+   "board": "CmpLifecycle.dc.html"
   },
   {
    "name": "AppManageView",

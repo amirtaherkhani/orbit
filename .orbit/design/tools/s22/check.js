@@ -115,7 +115,13 @@ const mv = new MV({}); v = mv.renderVals(); assert.ok(v.name === 'Management' &&
 assert.deepEqual([v.p0.who, v.p1.subs, v.p2.subs, v.p2.check], ['Viewer', 4, 'None', 'Warning']); v.p0.toggle(); assert.equal(mv.renderVals().bmText, '1 of 3 bookmarked', 'the table toggles the bookmark');
 assert.deepEqual(v.tabs.map((x) => x.label + (x.hasCount ? ' ' + x.count : '')), ['Overview', 'Pages 3', 'Access', 'Data sources 2', 'Health 1']);
 t = page(); const mw = new MV({ bm: t.v().bm, onToggle: t.v().toggleBm }); mw.renderVals().p2.toggle(); assert.ok(t.c.state.bm['management/3D view'], 'S15 writes the shared bookmarks');
-v = new CL({}).renderVals(); assert.ok(v.summary && v.nOk === '4 passed' && v.nWarn === '1 warning' && v.rows[4].hasFix && v.rows[4].cls === 'ck warn');
+v = new CL({}).renderVals(); assert.deepEqual(v.sums.map((x) => x.text), ['4 passed', '1 warning', '0 failed']); assert.ok(v.summary && v.rows[4].hasFix && v.rows[4].cls === 'ck warn' && v.lastRun === 'Last run today 09:14' && v.runIcon);
 v = new CL({ checks: [{ st: 'fail', t: 'x', d: 'y' }] }).renderVals(); assert.ok(!v.summary && v.rows[0].icls === 'ci fail' && !v.rows[0].hasSrc);
 v = new VI({}).renderVals(); assert.ok(v.hasUpd && v.upd === '0.1.1' && v.prev === '0.0.9 → 0.1.0' && v.needs === '>=13.0.0 <14');
+// C20 AppLifecycleView in three modes; their check lists through C18 (S18 shows only the states that occur, with not-run rows)
+const LV = load('lifecycle.js'); v = new LV({ mode: 'update' }).renderVals(); assert.ok(v.isUpdate && !v.isReview && v.update.checks.length === 6 && v.update.last === 'Rechecked 07:05');
+v = new LV({}).renderVals(); assert.ok(v.isReview && v.review.run === 'Run again');
+v = new CL({ checks: v.review.checks, summary: true, lastRun: v.review.last, runLabel: v.review.run }).renderVals();
+assert.deepEqual(v.sums.map((x) => x.text), ['6 passed', '1 warning', '1 not available']); assert.ok(!v.runIcon && v.rows[5].icls === 'ci idle' && v.rows[5].label === 'Not run');
+assert.equal(new LV({ mode: 'setup' }).renderVals().setup.checks.filter((c) => c.st === 'idle').length, 4);
 console.log('s22 logic ok');

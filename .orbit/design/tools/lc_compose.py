@@ -165,6 +165,15 @@ if 'name="CmpAppManage"' not in s:  # already swapped when lc_compose runs on it
   s=s.replace('<dc-import name="CmpDock" selected="apps" hint-size="760px,58px"></dc-import>','<dc-import name="CmpDock" active-app="{{ dockApp }}" bookmarks="{{ dockBms }}" '
               'selected="apps" open-overlay="{{ dockOverlay }}" loading="{{ loading }}" '+DOCK_BM+'on-key="{{ sheetKey }}" hint-size="760px,58px"></dc-import>')
 open(P+f+'.dc.html','w').write(set_logic(s,page_logic('S15','monitoring')))
+# C20 AppLifecycleView: one component in three modes (owner, 2026-11-21). S18, S16 and S21 mount it with their mode.
+f='CmpLifecycle'; s=open(P+f+'.dc.html').read(); open(P+f+'.dc.html','w').write(set_logic(s,open(T+'lifecycle.js').read().replace('/*MOCK*/',MOCK)))
+for f,mode,guard in [('AddAppFlow','review','acme-quality-app · v1.0.1'),('AppSetup','setup','acme-energy-app · v0.2.0'),('AppUpdate','update','acme-maintenance-app · v0.4.0')]:
+    s=open(P+f+'.dc.html').read()
+    if 'name="CmpLifecycle"' in s: continue  # already swapped when lc_compose runs on its own
+    i=s.find('<section style="grid-column:span 12;display:flex;align-items:center;justify-content:space-between'); k=s.find('<div style="grid-column:span 12;display:grid;grid-template-columns:minmax(0,1fr) 360px')
+    if i<0 or k<0 or guard not in s or '<ul class="ckl">' not in s: raise SystemExit(f'lc_compose: {f} is not the expected lifecycle page ({mode}); update this swap')
+    s=s[:i]+f'<div style="grid-column:span 12;min-width:0"><dc-import name="CmpLifecycle" embedded="true" mode="{mode}" hint-size="100%,1600px"></dc-import></div>'+s[div_block(s,k):]
+    open(P+f+'.dc.html','w').write(s)
 # The canvas reads an attribute that starts and ends with a hole as ONE path ("{{ a }};{{ b }}" -> undefined), while dcrender
 # interpolates it, so the local screenshots never show the bug (C07 was blank on the canvas). Fail the build instead.
 import glob
