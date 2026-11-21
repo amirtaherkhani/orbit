@@ -38,7 +38,7 @@ Claude Code in a Terminal session, signed in with `/login` to the owner's claude
 4. Check the live version against `.orbit/artifacts.json` (`list_files`, sha256). Different means changes on claude.ai: bring them back first (below).
 5. **Review publish**: publish only the changed files to the live artifact, from this branch. Give the owner the link and the list of changed boards, then wait. Nothing is recorded in `.orbit/published/` yet.
 6. Owner says no: fix and publish again, or put the previous files back by publishing them from `.orbit/published/`.
-7. Owner says yes: update the docs the change touches, add a revision note in `.orbit/docs/ARCHITECTURE.md`, copy the published files into `.orbit/published/`, update `.orbit/artifacts.json` (version, date, sha256), commit `orbit(design): <what>`, checks, ask, push, PR. The merge is the backup.
+7. Owner says yes: update the docs the change touches, add a revision note in `.orbit/docs/ARCHITECTURE.md`, copy the published files into `.orbit/published/`, update `.orbit/artifacts.json` (version, date, sha256), commit `orbit(design): <what>`, checks, then push and PR (automatic when the checks pass). The merge is the backup.
 8. Product code for the change starts only after that merge.
 
 ## Bring back changes made on claude.ai

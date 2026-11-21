@@ -12,8 +12,6 @@
       "Bash(git filter-repo:*)"
     ],
     "ask": [
-      "Bash(git push:*)",
-      "Bash(gh pr create:*)",
       "Bash(gh release:*)",
       "Bash(gh workflow:*)",
       "Bash(gh api:*)"
@@ -23,7 +21,10 @@
     "SessionStart": [
       {
         "hooks": [
-          { "type": "command", "command": "node \"$CLAUDE_PROJECT_DIR/.orbit/scripts/session-start.mjs\"" }
+          {
+            "type": "command",
+            "command": "node \"$CLAUDE_PROJECT_DIR/.orbit/scripts/session-start.mjs\""
+          }
         ]
       }
     ],
@@ -31,13 +32,19 @@
       {
         "matcher": "Bash",
         "hooks": [
-          { "type": "command", "command": "node \"$CLAUDE_PROJECT_DIR/.orbit/scripts/agent-guard.mjs\"" }
+          {
+            "type": "command",
+            "command": "node \"$CLAUDE_PROJECT_DIR/.orbit/scripts/agent-guard.mjs\""
+          }
         ]
       },
       {
         "matcher": "Edit|Write|MultiEdit|NotebookEdit",
         "hooks": [
-          { "type": "command", "command": "node \"$CLAUDE_PROJECT_DIR/.orbit/scripts/agent-guard.mjs\"" }
+          {
+            "type": "command",
+            "command": "node \"$CLAUDE_PROJECT_DIR/.orbit/scripts/agent-guard.mjs\""
+          }
         ]
       }
     ]

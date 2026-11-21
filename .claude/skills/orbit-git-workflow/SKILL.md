@@ -1,6 +1,6 @@
 ---
 name: orbit-git-workflow
-description: Use for every change in the Orbit repo that ends in a commit, push or pull request - starting a work branch, committing, running the Orbit checks, asking the owner before pushing, and opening the PR into the orbit branch.
+description: Use for every change in the Orbit repo that ends in a commit, push or pull request - starting a work branch, committing, running the Orbit checks, and pushing and opening the PR into the orbit branch once every check passes.
 ---
 
 # Orbit git workflow
@@ -34,7 +34,7 @@ Scopes: seam, shell, apps, pages, acl, backend, design, docs, ci, release, updat
 
 Add one line under `## [Unreleased]` in `.orbit/CHANGELOG.md` (Added / Changed / Fixed), unless the PR is docs or CI only.
 
-## 4. Check (all must pass before asking to push)
+## 4. Check (all must pass before the push)
 
 ```bash
 node .orbit/scripts/check-seams.mjs
@@ -54,12 +54,12 @@ go test ./pkg/orbit/...
 make gen-go && git diff --exit-code pkg/server/wire_gen.go   # only if pkg/orbit wiring changed
 ```
 
-## 5. Ask, then push
+## 5. Push (automatic when every check passed)
 
-Show the owner, in this order: branch, commits (`git log --oneline orbit..HEAD`), changed files (`git diff --stat orbit...HEAD`), check results with ✔ ✘ ? ○. Then:
+No question to the owner for a work branch (owner's decision, 2026-11-21). A failing check stops here.
 
 ```bash
-git push -u origin <type>/<topic>       # the permission prompt is the owner's approval
+git push -u origin <type>/<topic>
 ```
 
 ## 6. Pull request
@@ -68,7 +68,7 @@ git push -u origin <type>/<topic>       # the permission prompt is the owner's a
 gh pr create --base orbit --title "orbit(<scope>): <summary>" --body-file <file>
 ```
 
-Body: what and why, IDs touched (boards, seams, ODs), checks run, what was not checked. Then stop with a **Status: Waiting for PR** block. Never merge; the owner squash-merges.
+Body: what and why, IDs touched (boards, seams, ODs), checks run, what was not checked. Then report branch, commits (`git log --oneline origin/orbit..HEAD`), changed files (`git diff --stat origin/orbit...HEAD`), check results with ✔ ✘ ? ○ and the PR link, and stop with a **Status: Waiting for PR** block. Never merge; the owner squash-merges.
 
 ## When something is blocked
 

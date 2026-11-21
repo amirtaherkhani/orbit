@@ -107,7 +107,20 @@ for (const p of parts) {
       deny('merging a pull request is the owner\'s job. Report that the PR is ready and stop.');
     }
     if (w[1] === 'pr' && w[2] === 'create') {
-      ask('opening a pull request needs the owner\'s approval. Show the summary first.');
+      // Owner's decision (2026-11-21): a pull request into orbit or hotfix/* with a valid title opens without asking.
+      const val = (names) => {
+        const i = w.findIndex((x) => names.includes(x));
+        return i >= 0 && w[i + 1] ? w[i + 1].replace(/^["']|["']$/g, '') : null;
+      };
+      const base = val(['--base', '-B']);
+      const title = val(['--title', '-t']);
+      if (!base || !/^(orbit|hotfix\/.+)$/.test(base)) {
+        ask('a pull request goes into orbit (or a hotfix/* branch the owner named). Name it with --base.');
+      }
+      const bad = title === null ? 'no --title given.' : checkTitle(title);
+      if (bad) {
+        deny(`pull request title: ${bad}`);
+      }
     }
     const readOnly = ['list', 'view', 'status', 'diff', 'checks'];
     if ((w[1] === 'release' || w[1] === 'repo' || ['secret', 'variable', 'ruleset', 'workflow'].includes(w[1])) && !readOnly.includes(w[2]) && w[2] !== 'clone') {
@@ -157,7 +170,10 @@ for (const p of parts) {
     if (tagRefs.length) {
       ask(`pushing ${tagRefs.join(', ')} starts the release workflow (image ${tagRefs.map(dockerTag).join(', ')}). The owner must approve it.`);
     }
-    ask(`push of ${targets.join(', ')} to ${args[0] || 'origin'}: show the owner the summary (commits, files, checks) and wait for approval.`);
+    // Owner's decision (2026-11-21): work branches push without asking, after the checks pass. Anything else still asks.
+    if ((args[0] || 'origin') !== 'origin' || !targets.every((t) => WORK_BRANCH.test(t))) {
+      ask(`push of ${targets.join(', ')} to ${args[0] || 'origin'}: not a work branch on origin, so the owner decides.`);
+    }
   }
   if (sub === 'commit') {
     if (onProtected) {
