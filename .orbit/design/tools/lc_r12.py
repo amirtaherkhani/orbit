@@ -46,7 +46,7 @@ for f in ['AddAppFlow.dc.html','AppSetup.dc.html']:
 
 # S11: edit panel = task panel. Grafana drawer forms: primary first, left-aligned; Reset to default last, after a gap.
 f='AppsPin.dc.html'; s=rd(f)
-if '<div class="pft"><sc-if value="{{ show_edit }}" hint-placeholder-val="{{ false }}"><button type="button" class="p w"' not in s:
+if 'name="CmpDockPages"' not in s and '<div class="pft"><sc-if value="{{ show_edit }}" hint-placeholder-val="{{ false }}"><button type="button" class="p w"' not in s:
     m=re.search(r'<div class="pft">(<sc-if value="\{\{ show_edit \}\}"[^>]*><button[^>]*class="p gh2 rs".*?</sc-if>)<span style="flex:1"></span><sc-if value="\{\{ show_edit \}\}"[^>]*>(<button type="button" class="p gh2" onClick="\{\{ toDetails \}\}">Cancel</button>)(<button type="button" class="p w" onClick="\{\{ toDetails \}\}">Save</button>)</sc-if>(<sc-if value="\{\{ show_details \}\}".*?</sc-if>)</div>',s,re.S); assert m
     op='<sc-if value="{{ show_edit }}" hint-placeholder-val="{{ false }}">'
     s=s.replace(m.group(0),'<div class="pft">'+op+m.group(3)+m.group(2)+'</sc-if>'+m.group(4)+'<span style="flex:1"></span>'+m.group(1)+'</div>')
