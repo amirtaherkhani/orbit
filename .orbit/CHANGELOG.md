@@ -14,3 +14,4 @@ Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Release names:
 - One product branch `orbit` instead of one branch per Grafana release. A Grafana release comes in through one `update/<tag>` pull request (merge commit); new `.orbit/scripts/list-ours.mjs`; the guard protects `orbit` and `hotfix/*` and asks before `git read-tree --reset`.
 - The agent guard judges a file against the work tree that holds it, so sessions in a Claude Code worktree (`.claude/worktrees/<name>`) can write Orbit files there; Grafana files there stay read-only.
 - Session start fetches `origin/orbit` and fast-forwards the owner's main checkout when it is clean and on `orbit`; work branches start from `origin/orbit`; rules for worktree sessions (pull request only, no local merge).
+- `clean-worktrees.mjs` lists worktrees whose exact commit was merged on GitHub and removes them with `--apply` (the guard asks); session start points to it when a worktree's branch is gone.
