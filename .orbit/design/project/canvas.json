@@ -8,7 +8,7 @@
    "title": "S15 \u00b7 AppManageView: manage app",
    "w": 1440,
    "x": 7800,
-   "y": 34706,
+   "y": 34836,
    "is_interactive": true
   },
   "AppsAdd.dc.html": {
@@ -18,7 +18,7 @@
    "title": "S12 \u00b7 AppsView: all apps",
    "w": 1440,
    "x": 1560,
-   "y": 34706
+   "y": 34836
   },
   "AppsPin.dc.html": {
    "expand": "fill",
@@ -26,7 +26,7 @@
    "title": "S11 \u00b7 DockPagesView: bookmark pages",
    "w": 1440,
    "x": 0,
-   "y": 44636,
+   "y": 44766,
    "is_interactive": true
   },
   "AppsProtocol.dc.html": {
@@ -35,7 +35,7 @@
    "title": "S13 \u00b7 AppManifest: ui block draft (spec)",
    "w": 1440,
    "x": 9360,
-   "y": 34706
+   "y": 34836
   },
   "DockDashboard.dc.html": {
    "expand": "fill",
@@ -59,7 +59,7 @@
    "title": "S02 \u00b7 MenuSheet: open, section without sub pages",
    "w": 1440,
    "x": 3120,
-   "y": 27218
+   "y": 27348
   },
   "DockUser.dc.html": {
    "expand": "fill",
@@ -67,7 +67,7 @@
    "title": "S04 \u00b7 UserMenu: open",
    "w": 1440,
    "x": 6240,
-   "y": 31198
+   "y": 31328
   },
   "ExtAdd.dc.html": {
    "expand": "fill",
@@ -75,7 +75,7 @@
    "title": "S08 \u00b7 AddMenu: open",
    "w": 1440,
    "x": 4680,
-   "y": 31198
+   "y": 31328
   },
   "ExtSheet.dc.html": {
    "expand": "fill",
@@ -83,7 +83,7 @@
    "title": "S07 \u00b7 MenuSheet: sub page tiles (Dashboards)",
    "w": 1440,
    "x": 4680,
-   "y": 27218
+   "y": 27348
   },
   "ExtSheetAdmin.dc.html": {
    "expand": "fill",
@@ -91,7 +91,7 @@
    "title": "S10 \u00b7 MenuSheet: group tabs (Administration)",
    "w": 1440,
    "x": 6240,
-   "y": 27218
+   "y": 27348
   },
   "ExtSheetSwitch.dc.html": {
    "expand": "fill",
@@ -99,7 +99,7 @@
    "title": "S14 \u00b7 MenuSheet: app dropdown open",
    "w": 1440,
    "x": 3120,
-   "y": 31198
+   "y": 31328
   },
   "ExtSwitch.dc.html": {
    "expand": "fill",
@@ -107,7 +107,7 @@
    "title": "S06 \u00b7 AppSwitcher: open",
    "w": 1440,
    "x": 1560,
-   "y": 31198
+   "y": 31328
   },
   "RefChanges.dc.html": {
    "expand": "fill",
@@ -163,7 +163,7 @@
    "title": "R07 \u00b7 Dock",
    "w": 1440,
    "x": 0,
-   "y": 27218
+   "y": 27348
   },
   "RefSheet.dc.html": {
    "expand": "fill",
@@ -171,7 +171,7 @@
    "title": "R08 \u00b7 MenuSheet anatomy",
    "w": 1440,
    "x": 1560,
-   "y": 27218
+   "y": 27348
   },
   "RefOverlays.dc.html": {
    "expand": "fill",
@@ -179,7 +179,7 @@
    "title": "R09 \u00b7 Overlays: MenuSheet, AppSwitcher, UserMenu, AddMenu",
    "w": 1440,
    "x": 0,
-   "y": 31198
+   "y": 31328
   },
   "RefApps.dc.html": {
    "expand": "fill",
@@ -187,7 +187,7 @@
    "title": "R10 \u00b7 Apps, app lifecycle and bookmarks",
    "w": 1440,
    "x": 0,
-   "y": 34706
+   "y": 34836
   },
   "PageSpec.dc.html": {
    "expand": "fill",
@@ -195,7 +195,7 @@
    "title": "P01 \u00b7 Page contract",
    "w": 1440,
    "x": 0,
-   "y": 47016
+   "y": 47146
   },
   "PageStates.dc.html": {
    "expand": "fill",
@@ -203,7 +203,7 @@
    "title": "P02 \u00b7 Page states",
    "w": 1440,
    "x": 1560,
-   "y": 47016
+   "y": 47146
   },
   "PageShell.dc.html": {
    "expand": "fill",
@@ -211,7 +211,7 @@
    "title": "P03 \u00b7 Page template: Standard",
    "w": 1440,
    "x": 3120,
-   "y": 47016
+   "y": 47146
   },
   "PageDashboard.dc.html": {
    "expand": "fill",
@@ -219,7 +219,7 @@
    "title": "P04 \u00b7 Page template: Dashboard (Canvas)",
    "w": 1440,
    "x": 4680,
-   "y": 47016
+   "y": 47146
   },
   "PageSettings.dc.html": {
    "expand": "fill",
@@ -227,7 +227,7 @@
    "title": "P05 \u00b7 Page template: Settings and Admin",
    "w": 1440,
    "x": 6240,
-   "y": 47016
+   "y": 47146
   },
   "PageList.dc.html": {
    "expand": "fill",
@@ -235,7 +235,7 @@
    "title": "P06 \u00b7 Page template: List",
    "w": 1440,
    "x": 7800,
-   "y": 47016
+   "y": 47146
   },
   "AppSetup.dc.html": {
    "expand": "fill",
@@ -243,7 +243,7 @@
    "title": "S16 \u00b7 AppLifecycleView: setup, validate, enable, migrate",
    "w": 1440,
    "x": 4680,
-   "y": 34706
+   "y": 34836
   },
   "AddAppFlow.dc.html": {
    "expand": "fill",
@@ -251,7 +251,7 @@
    "title": "S18 \u00b7 AppLifecycleView: initialize and review",
    "w": 1440,
    "x": 3120,
-   "y": 34706
+   "y": 34836
   },
   "DockAppPages.dc.html": {
    "expand": "fill",
@@ -259,7 +259,7 @@
    "title": "S19 \u00b7 MenuSheet: pages of the selected app",
    "w": 1440,
    "x": 7800,
-   "y": 27218,
+   "y": 27348,
    "is_interactive": true
   },
   "DockBookmarkAdd.dc.html": {
@@ -268,7 +268,7 @@
    "title": "S20 \u00b7 DockBookmarkAdd: add a bookmark from the dock",
    "w": 1440,
    "x": 9360,
-   "y": 27218,
+   "y": 27348,
    "is_interactive": true
   },
   "RefBreadcrumb.dc.html": {
@@ -285,7 +285,7 @@
    "title": "P07 \u00b7 Page template: Detail with info panel",
    "w": 1440,
    "x": 9360,
-   "y": 47016
+   "y": 47146
   },
   "AppUpdate.dc.html": {
    "expand": "fill",
@@ -293,7 +293,7 @@
    "title": "S21 \u00b7 AppLifecycleView: after an update",
    "w": 1440,
    "x": 6240,
-   "y": 34706
+   "y": 34836
   },
   "DockMenuFlow.dc.html": {
    "expand": "fill",
@@ -301,7 +301,7 @@
    "title": "S22 \u00b7 MenuSheet: menu flow",
    "w": 1440,
    "x": 10920,
-   "y": 27218,
+   "y": 27348,
    "is_interactive": true
   },
   "RefComponents.dc.html": {
@@ -324,21 +324,21 @@
    "title": "C02 \u00b7 TopBar: component",
    "w": 1412,
    "x": 6240,
-   "y": 23010
+   "y": 23140
   },
   "CmpUserMenu.dc.html": {
    "h": 400,
    "title": "C03 \u00b7 UserMenu: component",
    "w": 320,
    "x": 6240,
-   "y": 23170
+   "y": 23300
   },
   "CmpAddMenu.dc.html": {
    "h": 300,
    "title": "C04 \u00b7 AddMenu: component",
    "w": 320,
    "x": 6640,
-   "y": 23170
+   "y": 23300
   },
   "CmpAppSwitcher.dc.html": {
    "h": 330,
@@ -361,6 +361,38 @@
    "w": 492,
    "x": 7560,
    "y": 19120,
+   "is_interactive": true
+  },
+  "CmpDockPages.dc.html": {
+   "h": 660,
+   "title": "C08 \u00b7 DockPagesView: component",
+   "w": 1440,
+   "x": 8160,
+   "y": 19700,
+   "is_interactive": true
+  },
+  "CmpPageCard.dc.html": {
+   "h": 380,
+   "title": "C09 \u00b7 PageCard: component",
+   "w": 472,
+   "x": 6240,
+   "y": 19700,
+   "is_interactive": true
+  },
+  "CmpPagePanel.dc.html": {
+   "h": 780,
+   "title": "C10 \u00b7 PagePanel: component",
+   "w": 432,
+   "x": 6800,
+   "y": 19700,
+   "is_interactive": true
+  },
+  "CmpDockPreview.dc.html": {
+   "h": 670,
+   "title": "C11 \u00b7 DockPreview: component",
+   "w": 432,
+   "x": 9680,
+   "y": 19700,
    "is_interactive": true
   }
  },
@@ -395,7 +427,7 @@
    "text": "3 \u00b7 Dock and MenuSheet: spec, then each sheet state, the selected app's pages and the add-bookmark popover, then the whole menu flow (R07, R08 \u2192 S02, S07, S10, S19, S20, S22)",
    "w": 240,
    "x": 0,
-   "y": 26918
+   "y": 27048
   },
   "r4": {
    "kind": "title1",
@@ -403,7 +435,7 @@
    "text": "4 \u00b7 Overlays: switching apps, adding, user menu (R09 \u2192 S06, S14, S08, S04). Compare S06 with S14",
    "w": 240,
    "x": 0,
-   "y": 30888
+   "y": 31018
   },
   "r5": {
    "kind": "title1",
@@ -411,7 +443,7 @@
    "text": "5 \u00b7 App lifecycle in flow order: spec, all apps with their status, initialize and review, setup to enable, after an update, manage, manifest (R10 \u2192 S12, S18, S16, S21, S15, S13)",
    "w": 240,
    "x": 0,
-   "y": 34406
+   "y": 34536
   },
   "r6": {
    "kind": "title1",
@@ -419,7 +451,7 @@
    "text": "6 \u00b7 Bookmarks: bookmark an app's pages and sub pages; the dock shows the active app's bookmarks (S11, spec in R10 and R07)",
    "w": 240,
    "x": 0,
-   "y": 42886
+   "y": 43016
   },
   "r7": {
    "kind": "title1",
@@ -427,7 +459,7 @@
    "text": "7 \u00b7 Page templates: Grafana content inside the custom shell (P01\u2013P07)",
    "w": 240,
    "x": 0,
-   "y": 46716
+   "y": 46846
   }
  },
  "order": [
@@ -448,6 +480,10 @@
   "CmpAppSwitcher.dc.html",
   "CmpMenuSheet.dc.html",
   "CmpBookmarkAdd.dc.html",
+  "CmpDockPages.dc.html",
+  "CmpPageCard.dc.html",
+  "CmpPagePanel.dc.html",
+  "CmpDockPreview.dc.html",
   "RefDock.dc.html",
   "RefSheet.dc.html",
   "DockMenu.dc.html",

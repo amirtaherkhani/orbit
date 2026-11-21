@@ -5,7 +5,7 @@ const fs = require('fs');
 const timers = []; const focused = [];
 global.setTimeout = (f) => { timers.push(f); return timers.length; };
 global.clearTimeout = () => {};
-global.document = { getElementById: (id) => ({ focus: () => focused.push(id) }) };
+global.document = { getElementById: (id) => ({ focus: () => focused.push(id) }), addEventListener: () => {}, removeEventListener: () => {}, querySelectorAll: () => [] };
 class DCLogic { constructor(p) { this.props = p || {}; this.state = {}; } setState(x) { Object.assign(this.state, x); } }
 const mock = fs.readFileSync(__dirname + '/mock.js', 'utf8').replace(/^\/\/.*$/gm, '');
 const load = (f) => new Function('DCLogic', fs.readFileSync(__dirname + '/' + f, 'utf8').replace('/*MOCK*/', mock) + '\nreturn Component;')(DCLogic);
@@ -79,4 +79,18 @@ const b = new Bk({}); b.setState({ q: 'week' }); v = b.renderVals(); assert.deep
 t = page(); v = t.v(); assert.ok(t.c.state.bm['monitoring/Administration/Settings'] && !v.dockBms.some((d) => /Settings/.test(d.label)), 'a hidden bookmark stays out of the dock');
 assert.equal(new Sheet({}).renderVals().bmCount, 4, 'the menu counts every bookmark of the app');
 v = new Bk({ app: 'monitoring' }).renderVals(); assert.equal(v.count, 3, 'the popover counts dock places, not hidden bookmarks');
+// S11 bookmarks page: C08 view, C09 card, C10 panel, C11 preview on the shared mock; S11 wires them to the page's bookmark state
+global.window = {};
+const View = load('dockpages.js'); const Card = load('pagecard.js'); const Panel = load('pagepanel.js'); const Prev = load('dockpreview.js');
+v = new View({}).renderVals(); assert.deepEqual(v.segs.map((x) => x.label), ['All 53', 'Bookmarked 9', 'Available 44']);
+assert.deepEqual(v.items.filter((x) => x.isHead).map((x) => x.name), ['Monitoring', 'Management', 'Maintenance', 'Quality']);
+assert.ok(/4 bookmarked · 3 of 6 in the dock$/.test(v.items[0].meta), 'Settings is bookmarked, not in the dock');
+v = new Card({}).renderVals().c; assert.ok(v.subsOpen && v.subsList.length === 5 && v.subText === '5 sub pages · 2 bookmarked');
+v = new Card({ page: 'monitoring/Administration', expanded: true }).renderVals().c;
+assert.deepEqual(v.subsList.filter((x) => x.isGrp).map((x) => x.name), ['General', 'Plugins and data', 'Access'], 'group names head their rows');
+const pn = new Panel({ sel: 'monitoring/Administration/Settings' }); v = pn.renderVals().p;
+assert.ok(v.bkStr === 'true' && v.dockStr === 'false' && v.menuPath === 'Monitoring › Administration › General › Settings');
+v.toggleDock(); assert.equal(pn.renderVals().p.dockStr, 'true', 'Show in the dock works on its own board');
+assert.deepEqual(new Prev({}).renderVals().dpGroups.map((g) => g.name + ' ' + g.count), ['Monitoring 3 in the dock', 'Management 2 in the dock', 'Maintenance 2 in the dock', 'Quality 1 in the dock']);
+t = page(); t.v().toggleHidden('monitoring/Administration/Settings'); assert.ok(t.v().dockBms.some((d) => d.label === 'Administration › Settings'), 'S11: Show in the dock reaches the dock');
 console.log('s22 logic ok');

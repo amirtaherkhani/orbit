@@ -16,6 +16,8 @@ openMenu() { this.setState({ menu: true, apps: false, adding: false }); this.foc
 closeMenu() { this.setState({ menu: false, apps: false }); this.focusEl('s22-menu'); }
 openPage(app, page, sub) { this.setState({ menu: false, apps: false, opened: { app, page, sub } }); this.focusEl('s22-menu'); }
 toggleApps() { const { menu, apps } = this.state; this.setState({ menu: true, apps: menu ? !apps : true, adding: false }); }
+// "Show in the dock" (S11): a hidden bookmark stays in Bookmarks and the menu, not in the dock
+toggleHidden(k) { this.setState({ hidden: Object.assign({}, this.state.hidden, { [k]: !this.state.hidden[k] }) }); }
 toggleAdd() { this.setState({ adding: !this.state.adding, menu: false, apps: false }); }
 // a bookmark just added lands in the dock with a short animation (S20)
 toggleBm(k) { const on = !this.state.bm[k]; this.setState({ bm: Object.assign({}, this.state.bm, { [k]: on }), fresh: on ? k : null });
@@ -40,7 +42,7 @@ dockBms.forEach((b) => { if (DK.indexOf(b.icon) < 0) b.icon = 'list'; });
 const crumb = opened ? { a: A[opened.app].name, p: opened.page, s: opened.sub || '' } : { a: '', p: '', s: '' };
 const keyOf = (e) => (e && e.key) || '';
 return {
-app, bm, loading, viewer, appsOpen: apps, menuOpen: menu,
+app, bm, hidden, loading, viewer, toggleHidden: (k) => this.toggleHidden(k), appsOpen: apps, menuOpen: menu,
 dockApp: { id: app, name: cur.name, icon: cur.icon, ac: cur.ac, bg: cur.bg }, dockBms, dockOverlay: menu ? 'menu' : adding ? 'bookmark' : 'none',
 pickApp: (id) => this.pickApp(id), toggleBm: (k) => this.toggleBm(k), toggleAdd: () => this.toggleAdd(),
 openPage: (a, p, s) => this.openPage(a, p, s), closeMenu: () => this.closeMenu(), toggleApps: () => this.toggleApps(),

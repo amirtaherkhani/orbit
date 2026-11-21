@@ -1052,7 +1052,8 @@
    ],
    "uses": [
     "CardToggle"
-   ]
+   ],
+   "board": "CmpPageCard.dc.html"
   },
   {
    "name": "PagePanel",
@@ -1086,7 +1087,8 @@
    "data": [
     "navbar.bookmarkUrls",
     "user storage orbit-bookmarks"
-   ]
+   ],
+   "board": "CmpPagePanel.dc.html"
   },
   {
    "name": "DockPreview",
@@ -1110,7 +1112,8 @@
    ],
    "data": [
     "useBookmarks"
-   ]
+   ],
+   "board": "CmpDockPreview.dc.html"
   },
   {
    "name": "AppsView",
@@ -1289,7 +1292,8 @@
    ],
    "open": [
     "Per user or per organisation (R10, decision needed)"
-   ]
+   ],
+   "board": "CmpDockPages.dc.html"
   },
   {
    "name": "useActiveApp",

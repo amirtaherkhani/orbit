@@ -116,6 +116,23 @@ if 'name="CmpDock"' not in s:
     s=s[:i]+('<dc-import name="CmpDock" active-app="{{ dockApp }}" bookmarks="{{ dockBms }}" selected="none" open-overlay="{{ dockOverlay }}" loading="{{ loading }}" '
              +DOCK_BM+'on-key="{{ sheetKey }}" hint-size="760px,58px"></dc-import>')+s[j+6:]
 open(P+f+'.dc.html','w').write(set_logic(s,page_logic('S20','management',adding=True)))
+# S11 components (C08 DockPagesView, C09 PageCard, C10 PagePanel, C11 DockPreview): markup in their boards, logic in tools/s22/*.js
+# with the shared mock data, refreshed every build.
+for f,js in [('CmpDockPages','dockpages.js'),('CmpPageCard','pagecard.js'),('CmpPagePanel','pagepanel.js'),('CmpDockPreview','dockpreview.js')]:
+    s=open(P+f+'.dc.html').read(); open(P+f+'.dc.html','w').write(set_logic(s,open(T+js).read().replace('/*MOCK*/',MOCK)))
+# S11 (AppsPin) mounts C08 and runs the S22 page logic, so its dock shows the bookmarks the page changes. Its breadcrumb stays.
+# The wrapper spans the 12 columns of .mn: a dc-import element would otherwise sit in one grid cell.
+f='AppsPin'; s=open(P+f+'.dc.html').read()
+if 'name="CmpDockPages"' not in s:
+    i=s.find('<section style="grid-column:span 12;display:flex;align-items:flex-end'); k=s.find('<div class="s11sc"')
+    must=["sel: 'explore', app: 'all', seg: 'all'","'dash/pl': 1",'<aside class="pv pgp"','<section class="pv dpv"','>Bookmarks</h2>',
+          '<dc-import name="CmpDock" selected="menu" hint-size="760px,58px"></dc-import>']
+    if i<0 or k<0 or any(m not in s for m in must): raise SystemExit('lc_compose: S11 AppsPin is not the expected bookmarks page; update this swap')
+    s=s[:i]+('<div style="grid-column:span 12;min-width:0"><dc-import name="CmpDockPages" embedded="true" bm="{{ bm }}" hidden="{{ hidden }}" on-toggle="{{ toggleBm }}" '
+             'on-toggle-dock="{{ toggleHidden }}" hint-size="100%,560px"></dc-import></div>')+s[div_block(s,k):]
+    s=s.replace('<dc-import name="CmpDock" selected="menu" hint-size="760px,58px"></dc-import>','<dc-import name="CmpDock" active-app="{{ dockApp }}" bookmarks="{{ dockBms }}" '
+                'selected="menu" open-overlay="{{ dockOverlay }}" loading="{{ loading }}" '+DOCK_BM+'on-key="{{ sheetKey }}" hint-size="760px,58px"></dc-import>')
+open(P+f+'.dc.html','w').write(set_logic(s,page_logic('S11','monitoring')))
 # The canvas reads an attribute that starts and ends with a hole as ONE path ("{{ a }};{{ b }}" -> undefined), while dcrender
 # interpolates it, so the local screenshots never show the bug (C07 was blank on the canvas). Fail the build instead.
 import glob
