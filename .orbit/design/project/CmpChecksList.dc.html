@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Checks list</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Roboto+Mono:wght@400&family=Antonio:wght@600&display=swap" rel="stylesheet"><style>
+body{margin:0}html,body{background:#050609}*{box-sizing:border-box}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;text-align:left}
+.a{min-height:1460px;padding:14px;background:#050609;color:#eceef1;font:400 14px/22px 'Inter','Helvetica','Arial',sans-serif}
+.p{display:inline-flex;align-items:center;gap:8px;min-height:36px;padding:0 14px;border-radius:6px;border:1px solid rgba(204,204,220,.12);background:#1f2227;color:#e2e4e8;font:500 14px/22px 'Inter','Helvetica','Arial',sans-serif}
+.i{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}.mu{color:#9fa7b3;font-size:12px}
+.cs{padding:6px 14px 6px 46px;font-size:14px;color:#aeb4bd;border-radius:6px}
+kbd{font:500 12px/18px 'Inter','Helvetica','Arial',sans-serif;padding:2px 6px;border-radius:4px;border:1px solid rgba(204,204,220,.2);background:#23262c;color:#c9cdd3}
+.p.gh2{background:transparent;border-color:rgba(204,204,220,.2)}@keyframes clkb{50%{opacity:.25}}@media (prefers-reduced-motion:reduce){.clk .ckc{animation:none}}.p[disabled]{opacity:.45;cursor:not-allowed}.ckc .cs,.mt2 .cs{padding:0}/*configcheck*/.ckh{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:10px 12px;border-radius:6px;background:#14161a;border:1px solid rgba(204,204,220,.12)}.ckc{display:flex;gap:14px;flex-wrap:wrap}.cs{display:inline-flex;align-items:center;gap:6px;font:500 12px/18px 'Inter','Helvetica','Arial',sans-serif;color:#c9cdd3}.ckm{display:flex;align-items:center;gap:10px}.p.sm{height:30px;min-height:30px;padding:0 12px;gap:6px;white-space:nowrap;flex:none}.ckl{list-style:none;margin:10px 0 0;padding:0;display:flex;flex-direction:column}.ck{display:grid;grid-template-columns:20px minmax(0,1fr) auto;gap:12px;align-items:start;padding:10px 0;border-top:1px solid rgba(204,204,220,.08)}.ck:first-child{border-top:0}.ckb{display:flex;flex-direction:column;gap:2px;min-width:0}.ckb b{font:500 14px/22px 'Inter','Helvetica','Arial',sans-serif;color:#eceef1}.ckb span{font:400 12px/18px 'Inter','Helvetica','Arial',sans-serif;color:#aeb4bd}.ckb small{font:400 12px/18px 'Roboto Mono',monospace;color:#8d939c}.cka{display:flex;align-items:center;gap:8px}.ci{width:20px;height:20px;border-radius:50%;display:grid;place-items:center;flex:none;margin-top:1px}.ci.ok{background:#1c2b20;color:#73bf69;box-shadow:inset 0 0 0 1px rgba(115,191,105,.45)}.ci.warn{background:#2e2417;color:#fbad37;box-shadow:inset 0 0 0 1px rgba(251,173,55,.5);border-radius:5px}.ci.fail{background:#3a1c27;color:#ff5286;box-shadow:inset 0 0 0 1px rgba(255,82,134,.5);border-radius:4px;transform:rotate(45deg)}.ci.fail svg{transform:rotate(-45deg)}.cs .ci{width:16px;height:16px;margin:0}.cs .ci svg{width:10px;height:10px}/*userhover*/button[aria-label="User menu"]{transition:background-color .12s}button[aria-label="User menu"]:hover,button[aria-label="User menu"]:focus-visible{background:rgba(204,204,220,.08)!important;outline:0}/*slothover: add slot hover = darker shade of the app accent, solid accent border, accent icon*/.dk .n.slot:not(.on):not(.opn):hover,.dk .n.slot:not(.on):not(.opn):focus-visible,.dk .mods .n.slot:not(.on):not(.opn):hover,.dk .mods .n.slot:not(.on):not(.opn):focus-visible,.dk .mods .n.slot.hv{background:color-mix(in srgb,var(--mac,#6e9fff) 38%,#0b0c0e);border:1px solid var(--mac,#6e9fff);color:var(--mac,#6e9fff);border-radius:6px}
+</style>
+</helmet>
+<div style="{{ rootStyle }}"><sc-if value="{{ summary }}" hint-placeholder-val="{{ true }}"><div class="ckh"><div class="ckc"><span class="cs ok"><span class="ci ok" role="img" aria-label="Passed"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg></span>{{ nOk }}</span><span class="cs warn"><span class="ci warn" role="img" aria-label="Warning"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 7v6"></path><path d="M12 17h.01"></path></svg></span>{{ nWarn }}</span><span class="cs fail"><span class="ci fail" role="img" aria-label="Failed"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"></path><path d="M6 6l12 12"></path></svg></span>{{ nFail }}</span></div><div class="ckm"><span class="mu">Last run {{ lastRun }}</span><button type="button" class="p gh2 sm" onClick="{{ run }}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" style="width:16px;height:16px"><path d="M21 12a9 9 0 1 1-2.64-6.36"></path><path d="M21 3v6h-6"></path></svg>Run check</button></div></div></sc-if><ul class="ckl"><sc-for list="{{ rows }}" as="c" hint-placeholder-count="4"><li class="{{ c.cls }}"><span class="{{ c.icls }}" role="img" aria-label="{{ c.label }}"><sc-if value="{{ c.i_ok }}" hint-placeholder-val="{{ true }}"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg></sc-if><sc-if value="{{ c.i_warn }}" hint-placeholder-val="{{ false }}"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 7v6"></path><path d="M12 17h.01"></path></svg></sc-if><sc-if value="{{ c.i_fail }}" hint-placeholder-val="{{ false }}"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"></path><path d="M6 6l12 12"></path></svg></sc-if></span><div class="ckb"><b>{{ c.t }}</b><span>{{ c.d }}</span><sc-if value="{{ c.hasSrc }}" hint-placeholder-val="{{ false }}"><small>{{ c.src }}</small></sc-if></div><sc-if value="{{ c.hasFix }}" hint-placeholder-val="{{ false }}"><div class="cka"><button type="button" class="p gh2 sm">{{ c.fix }}</button></div></sc-if></li></sc-for></ul></div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"embedded":{"editor":null},"checks":{"editor":null},"summary":{"editor":null},"lastRun":{"editor":null},"onRun":{"editor":null},"$preview":{"width":652,"height":470}}'>
+class Component extends DCLogic {
+// ChecksList (R10, R12; R03 calls it ConfigCheck): results of initialization checks, setup validation, health and page checks.
+// Props: checks [{ st: ok | warn | fail, t, d, src, fix }], summary (counts, last run, Run check), lastRun, onRun. The defaults are
+// Management's health checks from tools/s22/mock.js.
+
+
+
+
+
+
+
+
+
+apps() {
+const P = (id, n, ic, bi, dk, d, route, more) => Object.assign({ id, n, ic, bi, dk, d, route, iconName: n }, more);
+return {
+monitoring: { name: 'Monitoring', icon: 'mon', ac: '#58cfec', bg: '#1d353f', sub: 'Grafana · 6 pages', home: 'Home', pages: [
+P('dash', 'Dashboards', 'r0', 'dash', 'chart', 'Browse, search and organise dashboards', '/dashboards', { iconName: 'Apps', subs: [
+  P('pl', 'Playlists', 't0', 'pl', 'pl', 'Rotate dashboards on a TV or kiosk screen', '/playlists'),
+  P('snap', 'Snapshots', 't1', 'dash', 'list', 'Saved copies of a dashboard at one moment', '/dashboard/snapshots'),
+  P('lp', 'Library panels', 't2', 'lp', 'lp', 'Panels you reuse across several dashboards', '/library-panels'),
+  P('pub', 'Shared dashboards', 't3', 'dash', 'list', 'Dashboards open through a public link', '/dashboard/public'),
+  P('del', 'Recently deleted', 't4', 'dash', 'clock', 'Bring back dashboards that were removed', '/dashboard/recently-deleted')] }),
+P('explore', 'Explore', 'r1', 'explore', 'ex', 'Query and inspect your data without a dashboard', '/explore', { iconName: 'Compass', subs: [] }),
+P('drill', 'Drilldown', 'r2', 'drill', 'list', 'Metrics, logs, traces and profiles without writing queries', '/drilldown', { subs: [
+  P('metrics', 'Metrics', 'r2', 'drill', 'list', 'Browse metrics without PromQL', '/a/grafana-metricsdrilldown-app/drilldown'),
+  P('logs', 'Logs', 'r2', 'drill', 'list', 'Browse logs without LogQL', '/a/grafana-lokiexplore-app/explore'),
+  P('traces', 'Traces', 'r2', 'drill', 'list', 'Browse traces without TraceQL', '/a/grafana-exploretraces-app/explore'),
+  P('profiles', 'Profiles', 'r2', 'drill', 'list', 'Browse profiles without queries', '/a/grafana-pyroscope-app/explore')] }),
+P('alert', 'Alerting', 'r3', 'alert', 'bell', 'Alert rules, contact points and notification history', '/alerting', { iconName: 'Bell', subs: [
+  P('rules', 'Alert rules', 'r3', 'list', 'bell', 'Rules that decide when an alert fires', '/alerting/list'),
+  P('cp', 'Contact points', 'r3', 'alert', 'bell', 'Where notifications go', '/alerting/notifications'),
+  P('pol', 'Notification policies', 'r3', 'alert', 'bell', 'How alerts are routed', '/alerting/routes'),
+  P('sil', 'Silences', 'r3', 'alert', 'bell', 'Muted notifications', '/alerting/silences'),
+  P('grp', 'Active notifications', 'r3', 'alert', 'bell', 'Alerts that are firing now', '/alerting/groups'),
+  P('set', 'Settings', 'r5', 'admin', 'list', 'Alertmanager settings', '/alerting/admin')] }),
+P('conn', 'Connections', 'r4', 'conn', 'list', 'Data sources and plugins', '/connections', { iconName: 'Plug', subs: [
+  P('add', 'Add new connection', 'r4', 'conn', 'list', 'Connect a new data source', '/connections/add-new-connection'),
+  P('ds', 'Data sources', 'r4', 'conn', 'list', 'Data sources you have connected', '/connections/datasources')] }),
+P('admin', 'Administration', 'r5', 'admin', 'list', 'Users, teams, plugins and server settings', '/admin', { iconName: 'Cog', adm: true, groups: [
+  { n: 'General', subs: [P('prefs', 'Default preferences', 'a0', 'admin', 'list', 'Theme, home dashboard and timezone', '/org'),
+    P('stats', 'Statistics and licensing', 'a1', 'admin', 'list', 'Usage numbers and license details', '/admin/upgrading'),
+    P('settings', 'Settings', 'a2', 'admin', 'list', 'Server configuration', '/admin/settings'),
+    P('orgs', 'Organizations', 'a3', 'admin', 'list', 'Create and switch organizations', '/admin/orgs'),
+    P('migrate', 'Migrate to Grafana Cloud', 'a4', 'admin', 'list', 'Move this instance to the cloud', '/admin/migrate-to-cloud'),
+    P('prov', 'Provisioning', 'a5', 'admin', 'list', 'Resources managed from files or Git', '/admin/provisioning')] },
+  { n: 'Plugins and data', subs: [P('plugins', 'Plugins', 'r5', 'admin', 'list', 'Install and update plugins', '/plugins'),
+    P('corr', 'Correlations', 'r5', 'admin', 'list', 'Links between data sources', '/datasources/correlations')] },
+  { n: 'Access', subs: [P('users', 'Users', 'r5', 'admin', 'list', 'Everyone who can sign in', '/admin/users'),
+    P('teams', 'Teams', 'r5', 'admin', 'list', 'Groups of users', '/org/teams'),
+    P('sa', 'Service accounts', 'r5', 'admin', 'list', 'Accounts for tools and scripts', '/org/serviceaccounts'),
+    P('auth', 'Authentication', 'r5', 'admin', 'list', 'Sign-in providers', '/admin/authentication')] }] })] },
+management: { name: 'Management', icon: 'mgmt', ac: '#e0b46a', bg: '#2f2819', sub: 'Production line · 3 pages', home: 'Overview', lc: { v: '0.1.0', st: 'enabled', upd: '0.1.1', d: 'Production line overview, reports and 3D view.', places: true, manage: { since: '28 October',
+health: 'OK', healthAt: '09:14', init: 'Accepted', initAt: '28 Oct', setup: 'Valid', migr: 'Up to date', needs: '>=13.0.0 <14', orbit: '>=1.0.0 <2',
+prev: '0.0.9', updNote: '28 Oct, checks passed by themselves', checked: 'Today 09:14', lastRun: 'today 09:14', checks: [
+{ st: 'ok', t: 'Enabled for this organisation', d: 'On since 28 October.', src: 'GET /api/plugins/acme-management-app/settings' },
+{ st: 'ok', t: 'App loads without error', d: 'Health check answered in 120 ms.', src: 'GET /api/plugins/acme-management-app/health' },
+{ st: 'ok', t: 'Manifest ui block', d: 'accent, show and 3 pages are valid.', src: 'ui.json' },
+{ st: 'ok', t: 'Accent is readable', d: '#e0b46a on the tile meets 4.5:1.' },
+{ st: 'warn', t: 'Pages', d: '3D view has a warning. See the Pages table.', fix: 'Show' }] } }, pages: [
+P('overview', 'Overview', 'chart', 'overview', 'chart', 'Production line overview', '/a/acme-management-app/overview', { iconName: 'Chart', who: 'Viewer', check: 'ok', subs: [
+  P('line', 'Line status', 'chart', 'overview', 'chart', 'Live status of each station on the line', '/a/acme-management-app/overview/line-status'),
+  P('shifts', 'Shifts', 'clock', 'clock', 'clock', 'Output and stops per shift', '/a/acme-management-app/overview/shifts'),
+  P('alarms', 'Alarms', 'bell', 'alert', 'bell', 'Open alarms on the line', '/a/acme-management-app/overview/alarms')] }),
+P('reports', 'Reports', 'doc', 'reports', 'doc', 'Shift and production reports', '/a/acme-management-app/reports', { iconName: 'Document', who: 'Viewer', check: 'ok', subs: [
+  P('daily', 'Daily', 'doc', 'reports', 'doc', 'Yesterday per station', '/a/acme-management-app/reports/daily'),
+  P('weekly', 'Weekly', 'doc', 'reports', 'doc', 'This week against the plan', '/a/acme-management-app/reports/weekly'),
+  P('monthly', 'Monthly', 'doc', 'reports', 'doc', 'Month summary for managers', '/a/acme-management-app/reports/monthly'),
+  P('export', 'Export', 'list', 'list', 'list', 'Download reports as CSV or PDF', '/a/acme-management-app/reports/export')] }),
+P('cube', '3D view', 'cube', 'cube', 'cube', 'Machines in the plant model', '/a/acme-management-app/3d-view', { iconName: 'Cube', who: 'Editor', check: 'warn', subs: [], checks: [
+{ st: 'ok', t: 'Route responds', d: 'The app renders a page at this path.', src: '/a/acme-management-app/3d-view' },
+{ st: 'ok', t: 'In the nav tree for you', d: 'Listed under plugin-page-acme-management-app.' },
+{ st: 'ok', t: 'Who can open', d: 'Editor and above. 2 Viewers in this org cannot see it.' },
+{ st: 'warn', t: 'Manifest page entry', d: 'No description, so the card shows the name only.', src: 'ui.pages.3d-view.description', fix: 'Open manifest draft' }] })] },
+maintenance: { name: 'Maintenance', icon: 'mnt', ac: '#5794f2', bg: '#17233b', sub: 'Work orders · 2 pages', isNew: true, home: 'Work orders', lc: { v: '0.3.2', st: 'enabled', note: 'enabled 09:10', at: 'Today 09:10', d: 'Work orders, machine downtime and service history.' }, pages: [
+P('orders', 'Work orders', 'list', 'list', 'list', 'Open, planned and closed work orders', '/a/acme-maintenance-app/orders', { iconName: 'List', kind: 'List', subs: [
+  P('open', 'Open', 'list', 'list', 'list', 'Work orders not closed yet', '/a/acme-maintenance-app/orders/open'),
+  P('planned', 'Planned', 'clock', 'clock', 'clock', 'Planned maintenance by date', '/a/acme-maintenance-app/orders/planned'),
+  P('closed', 'Closed', 'doc', 'doc', 'doc', 'Closed work orders', '/a/acme-maintenance-app/orders/closed')] }),
+P('downtime', 'Downtime', 'clock', 'clock', 'clock', 'Downtime minutes by cause and machine', '/a/acme-maintenance-app/downtime', { iconName: 'Clock', kind: 'Dashboard', subs: [
+  P('cause', 'By cause', 'chart', 'overview', 'chart', 'Downtime minutes by cause', '/a/acme-maintenance-app/downtime/by-cause'),
+  P('machine', 'By machine', 'cube', 'cube', 'cube', 'Downtime minutes by machine', '/a/acme-maintenance-app/downtime/by-machine')] })] },
+quality: { name: 'Quality', inSelector: false, enabled: false, ac: '#73bf69', bg: '#1b2a1d', sub: 'Review required', home: 'Inspections', pages: [],
+lc: { v: '1.0.1', st: 'review', step: 2, n: 4, d: 'Inspection results and defect tracking.' } },
+energy: { name: 'Energy', inSelector: false, enabled: false, ac: '#f2cc0c', bg: '#2e2a14', sub: 'No pages yet', home: 'Setup', pages: [],
+lc: { v: '0.2.0', st: 'setupwip', step: 3, n: 2, note: 'discovered 08:52', d: 'Power use per machine and per shift.' } },
+safety: { name: 'Safety', inSelector: false, enabled: false, ac: '#c9cdd3', bg: '#262a31', sub: 'Not initialized', home: 'Home', pages: [],
+lc: { v: '0.4.0', st: 'notinit', step: 1, n: 3, note: 'discovered 09:05', d: 'Incident reports and safety walks.' } }
+};
+}
+
+mockItems() {
+const A = this.apps(); const out = [];
+Object.keys(A).forEach((a) => A[a].pages.forEach((g) => {
+const subs = g.groups ? [].concat(...g.groups.map((x) => x.subs.map((s) => Object.assign({ grp: x.n }, s)))) : g.subs;
+out.push(Object.assign({}, g, { key: a + '/' + g.n, app: a, parent: null, nSubs: subs.length }));
+subs.forEach((s) => out.push(Object.assign({}, s, { key: a + '/' + g.n + '/' + s.n, app: a, parent: g.n, grp: s.grp || '', nSubs: 0 }))); }));
+return out;
+}
+mockBookmarks() {
+return { 'monitoring/Dashboards/Playlists': true, 'monitoring/Dashboards/Library panels': true, 'monitoring/Explore': true, 'monitoring/Administration/Settings': true,
+'management/Overview/Line status': true, 'management/Reports/Weekly': true, 'maintenance/Work orders/Open': true, 'maintenance/Downtime': true };
+}
+
+mockHidden() {
+return { 'monitoring/Administration/Settings': true };
+}
+
+renderVals() {
+const p = this.props; const m = this.apps().management.lc.manage;
+const list = p.checks || m.checks; const summary = p.summary === undefined ? !p.checks : !!p.summary;
+// class names spelled out, so the board keeps their rules
+const CLS = { ok: 'ck ok', warn: 'ck warn', fail: 'ck fail' }; const ICLS = { ok: 'ci ok', warn: 'ci warn', fail: 'ci fail' }; const LABEL = { ok: 'Passed', warn: 'Warning', fail: 'Failed' };
+const rows = list.map((c) => ({ cls: CLS[c.st], icls: ICLS[c.st], label: LABEL[c.st], t: c.t, d: c.d, src: c.src || '', hasSrc: !!c.src, fix: c.fix || '', hasFix: !!c.fix,
+i_ok: c.st === 'ok', i_warn: c.st === 'warn', i_fail: c.st === 'fail' }));
+const n = (k) => list.filter((c) => c.st === k).length;
+return { rows, summary, nOk: n('ok') + ' passed', nWarn: n('warn') + (n('warn') === 1 ? ' warning' : ' warnings'), nFail: n('fail') + ' failed', lastRun: p.lastRun || m.lastRun,
+run: () => { if (p.onRun) p.onRun(); }, rootStyle: p.embedded ? '' : "width:620px;margin:16px;color:#eceef1;font:400 14px/22px 'Inter','Helvetica','Arial',sans-serif" };
+}
+}
+</script>
+</body>
+</html>

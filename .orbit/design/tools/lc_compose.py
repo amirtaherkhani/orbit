@@ -152,6 +152,19 @@ if 'name="CmpAppsView"' not in s:  # already swapped when lc_compose runs on its
   if i<0 or k<0 or any(m not in s for m in must): raise SystemExit('lc_compose: S12 AppsAdd is not the expected Apps page; update this swap')
   s=s[:i]+'<div style="grid-column:span 12;min-width:0"><dc-import name="CmpAppsView" embedded="true" hint-size="100%,1100px"></dc-import></div>'+s[div_block(s,k):]
 open(P+f+'.dc.html','w').write(set_logic(s,'class Component extends DCLogic {\n// S12 mounts C12 AppsView, which keeps its own filter and selection (lc_compose.py).\nrenderVals() { return {}; }\n}\n'))
+# S15 components (C17 AppManageView, C18 ChecksList, C19 AppVersionInfo). S15 (AppManage) is rebuilt by lc_s15.py every build, so it
+# is swapped every build; it runs the S22 page logic so its Pages table toggles the shared bookmarks (owner, 2026-11-21).
+for f,js in [('CmpAppManage','manageview.js'),('CmpChecksList','checks.js'),('CmpVersionInfo','versioninfo.js')]:
+    s=open(P+f+'.dc.html').read(); open(P+f+'.dc.html','w').write(set_logic(s,open(T+js).read().replace('/*MOCK*/',MOCK)))
+f='AppManage'; s=open(P+f+'.dc.html').read()
+if 'name="CmpAppManage"' not in s:  # already swapped when lc_compose runs on its own
+  i=s.find('<section style="grid-column:span 12;display:flex;align-items:center;justify-content:space-between'); k=s.find('<div style="grid-column:span 12;display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:14px;align-items:start">')
+  must=['acme-management-app · v0.1.0','<span class="cnt">2 of 3 bookmarked</span>','<b>Check for 3D view</b>','<div><h4>Version</h4>','<dc-import name="CmpDock" selected="apps" hint-size="760px,58px"></dc-import>']
+  if i<0 or k<0 or any(m not in s for m in must): raise SystemExit('lc_compose: S15 AppManage is not the expected manage page; update this swap')
+  s=s[:i]+('<div style="grid-column:span 12;min-width:0"><dc-import name="CmpAppManage" embedded="true" bm="{{ bm }}" on-toggle="{{ toggleBm }}" hint-size="100%,1000px"></dc-import></div>')+s[div_block(s,k):]
+  s=s.replace('<dc-import name="CmpDock" selected="apps" hint-size="760px,58px"></dc-import>','<dc-import name="CmpDock" active-app="{{ dockApp }}" bookmarks="{{ dockBms }}" '
+              'selected="apps" open-overlay="{{ dockOverlay }}" loading="{{ loading }}" '+DOCK_BM+'on-key="{{ sheetKey }}" hint-size="760px,58px"></dc-import>')
+open(P+f+'.dc.html','w').write(set_logic(s,page_logic('S15','monitoring')))
 # The canvas reads an attribute that starts and ends with a hole as ONE path ("{{ a }};{{ b }}" -> undefined), while dcrender
 # interpolates it, so the local screenshots never show the bug (C07 was blank on the canvas). Fail the build instead.
 import glob

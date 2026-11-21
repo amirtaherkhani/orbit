@@ -288,6 +288,8 @@ componentWillUnmount() { clearTimeout(this.loadTimer); clearTimeout(this.freshTi
 
 
 
+
+
 apps() {
 const P = (id, n, ic, bi, dk, d, route, more) => Object.assign({ id, n, ic, bi, dk, d, route, iconName: n }, more);
 return {
@@ -327,17 +329,28 @@ P('admin', 'Administration', 'r5', 'admin', 'list', 'Users, teams, plugins and s
     P('teams', 'Teams', 'r5', 'admin', 'list', 'Groups of users', '/org/teams'),
     P('sa', 'Service accounts', 'r5', 'admin', 'list', 'Accounts for tools and scripts', '/org/serviceaccounts'),
     P('auth', 'Authentication', 'r5', 'admin', 'list', 'Sign-in providers', '/admin/authentication')] }] })] },
-management: { name: 'Management', icon: 'mgmt', ac: '#e0b46a', bg: '#2f2819', sub: 'Production line · 3 pages', home: 'Overview', lc: { v: '0.1.0', st: 'enabled', upd: '0.1.1', d: 'Production line overview, reports and 3D view.', places: true }, pages: [
-P('overview', 'Overview', 'chart', 'overview', 'chart', 'Production line overview', '/a/acme-management-app/overview', { iconName: 'Chart', subs: [
+management: { name: 'Management', icon: 'mgmt', ac: '#e0b46a', bg: '#2f2819', sub: 'Production line · 3 pages', home: 'Overview', lc: { v: '0.1.0', st: 'enabled', upd: '0.1.1', d: 'Production line overview, reports and 3D view.', places: true, manage: { since: '28 October',
+health: 'OK', healthAt: '09:14', init: 'Accepted', initAt: '28 Oct', setup: 'Valid', migr: 'Up to date', needs: '>=13.0.0 <14', orbit: '>=1.0.0 <2',
+prev: '0.0.9', updNote: '28 Oct, checks passed by themselves', checked: 'Today 09:14', lastRun: 'today 09:14', checks: [
+{ st: 'ok', t: 'Enabled for this organisation', d: 'On since 28 October.', src: 'GET /api/plugins/acme-management-app/settings' },
+{ st: 'ok', t: 'App loads without error', d: 'Health check answered in 120 ms.', src: 'GET /api/plugins/acme-management-app/health' },
+{ st: 'ok', t: 'Manifest ui block', d: 'accent, show and 3 pages are valid.', src: 'ui.json' },
+{ st: 'ok', t: 'Accent is readable', d: '#e0b46a on the tile meets 4.5:1.' },
+{ st: 'warn', t: 'Pages', d: '3D view has a warning. See the Pages table.', fix: 'Show' }] } }, pages: [
+P('overview', 'Overview', 'chart', 'overview', 'chart', 'Production line overview', '/a/acme-management-app/overview', { iconName: 'Chart', who: 'Viewer', check: 'ok', subs: [
   P('line', 'Line status', 'chart', 'overview', 'chart', 'Live status of each station on the line', '/a/acme-management-app/overview/line-status'),
   P('shifts', 'Shifts', 'clock', 'clock', 'clock', 'Output and stops per shift', '/a/acme-management-app/overview/shifts'),
   P('alarms', 'Alarms', 'bell', 'alert', 'bell', 'Open alarms on the line', '/a/acme-management-app/overview/alarms')] }),
-P('reports', 'Reports', 'doc', 'reports', 'doc', 'Shift and production reports', '/a/acme-management-app/reports', { iconName: 'Document', subs: [
+P('reports', 'Reports', 'doc', 'reports', 'doc', 'Shift and production reports', '/a/acme-management-app/reports', { iconName: 'Document', who: 'Viewer', check: 'ok', subs: [
   P('daily', 'Daily', 'doc', 'reports', 'doc', 'Yesterday per station', '/a/acme-management-app/reports/daily'),
   P('weekly', 'Weekly', 'doc', 'reports', 'doc', 'This week against the plan', '/a/acme-management-app/reports/weekly'),
   P('monthly', 'Monthly', 'doc', 'reports', 'doc', 'Month summary for managers', '/a/acme-management-app/reports/monthly'),
   P('export', 'Export', 'list', 'list', 'list', 'Download reports as CSV or PDF', '/a/acme-management-app/reports/export')] }),
-P('cube', '3D view', 'cube', 'cube', 'cube', 'Machines in the plant model', '/a/acme-management-app/3d-view', { iconName: 'Cube', subs: [] })] },
+P('cube', '3D view', 'cube', 'cube', 'cube', 'Machines in the plant model', '/a/acme-management-app/3d-view', { iconName: 'Cube', who: 'Editor', check: 'warn', subs: [], checks: [
+{ st: 'ok', t: 'Route responds', d: 'The app renders a page at this path.', src: '/a/acme-management-app/3d-view' },
+{ st: 'ok', t: 'In the nav tree for you', d: 'Listed under plugin-page-acme-management-app.' },
+{ st: 'ok', t: 'Who can open', d: 'Editor and above. 2 Viewers in this org cannot see it.' },
+{ st: 'warn', t: 'Manifest page entry', d: 'No description, so the card shows the name only.', src: 'ui.pages.3d-view.description', fix: 'Open manifest draft' }] })] },
 maintenance: { name: 'Maintenance', icon: 'mnt', ac: '#5794f2', bg: '#17233b', sub: 'Work orders · 2 pages', isNew: true, home: 'Work orders', lc: { v: '0.3.2', st: 'enabled', note: 'enabled 09:10', at: 'Today 09:10', d: 'Work orders, machine downtime and service history.' }, pages: [
 P('orders', 'Work orders', 'list', 'list', 'list', 'Open, planned and closed work orders', '/a/acme-maintenance-app/orders', { iconName: 'List', kind: 'List', subs: [
   P('open', 'Open', 'list', 'list', 'list', 'Work orders not closed yet', '/a/acme-maintenance-app/orders/open'),
