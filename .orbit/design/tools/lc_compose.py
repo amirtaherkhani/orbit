@@ -116,4 +116,9 @@ if 'name="CmpDock"' not in s:
     s=s[:i]+('<dc-import name="CmpDock" active-app="{{ dockApp }}" bookmarks="{{ dockBms }}" selected="none" open-overlay="{{ dockOverlay }}" loading="{{ loading }}" '
              +DOCK_BM+'on-key="{{ sheetKey }}" hint-size="760px,58px"></dc-import>')+s[j+6:]
 open(P+f+'.dc.html','w').write(set_logic(s,page_logic('S20','management',adding=True)))
+# The canvas reads an attribute that starts and ends with a hole as ONE path ("{{ a }};{{ b }}" -> undefined), while dcrender
+# interpolates it, so the local screenshots never show the bug (C07 was blank on the canvas). Fail the build instead.
+import glob
+bad=[(_os.path.basename(g),m) for g in glob.glob(P+'*.dc.html') for m in re.findall(r'[\w-]+="\{\{[^"]*\}\}[^"]*\{\{[^"]*\}\}"',open(g).read())]
+if bad: raise SystemExit(f'lc_compose: attribute with more than one hole that starts and ends with a hole; use one hole: {bad[:3]}')
 print('compose ok')
