@@ -23,3 +23,6 @@ Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Release names:
 
 ### Fixed
 - Design canvas: the dock sits at the bottom centre again on every screen and page board; a host div around the C01 Dock import carries its placement (`lc_compose.py`).
+- Design canvas: every menu tile has an icon again (Drilldown, Alerting, Connections, Plugins and data sub pages show their section's icon); the build fails when a page has no tile icon.
+- Design canvas: the C07 bookmark popover footer shows a short "In dock 2/6" above the progress pips, with Manage bookmarks on the right.
+- Design canvas: R07 and R12 document the dock Starred button: it opens Grafana's starred dashboards list, `/dashboards?starred`.

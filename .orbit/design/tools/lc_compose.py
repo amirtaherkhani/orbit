@@ -177,6 +177,10 @@ for f,mode,guard in [('AddAppFlow','review','acme-quality-app · v1.0.1'),('AppS
 # The canvas reads an attribute that starts and ends with a hole as ONE path ("{{ a }};{{ b }}" -> undefined), while dcrender
 # interpolates it, so the local screenshots never show the bug (C07 was blank on the canvas). Fail the build instead.
 import glob
+# every page and sub page icon in the mock data needs a tile icon in C06 (the Drilldown and Alerting tiles were blank)
+ms=open(P+'CmpMenuSheet.dc.html').read()
+miss=sorted({i for i in re.findall(r"P\('\w+', '[^']*', '(\w+)'",open(T+'mock.js').read()) if '{{ t.i_'+i+' }}' not in ms})
+if miss: raise SystemExit(f'lc_compose: C06 MenuSheet draws no tile icon for {miss}; add them to its board')
 # C01 centres itself with rules on its own .dk, which do not reach the <dc-import> host in the board's flex column, so the dock sat
 # at the left edge on the canvas. A host div carries the placement; S23 (lc_proto) turns it into its own .s23dk.
 DKH='.dkh{align-self:center;margin-top:auto;position:sticky;bottom:18px;z-index:5;display:flex;justify-content:center}'

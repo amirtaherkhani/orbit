@@ -366,6 +366,7 @@
    "events": [
     "Workspace button → toggles AppSwitcher",
     "Fixed item or bookmark → navigates, closes any overlay",
+    "Starred → Grafana's starred dashboards list, /dashboards?starred (Browse dashboards filtered to starred); no Orbit page",
     "Add slot → toggles DockBookmarkAdd",
     "Menu → toggles MenuSheet",
     "Tab moves left to right",
