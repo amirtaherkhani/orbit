@@ -160,8 +160,8 @@ if OUT not in c:
 if 'CmpMenuSheet.dc.html' not in c:
     c['CmpMenuSheet.dc.html']={'h':500,'title':'C06 · MenuSheet: component','w':1112,'x':6240,'y':12260,'is_interactive':True}
     o=cj['order']; o.insert(o.index('CmpAppSwitcher.dc.html')+1,'CmpMenuSheet.dc.html')
-r3=cj['notes']['r3']
-if 'S22' not in r3['text']:
+r3=cj['notes'].get('r3')  # gone once lc_pages has made the canvas pages
+if r3 and 'S22' not in r3['text']:
     old='the add-bookmark popover (R07, R08 → S02, S07, S10, S19, S20)'; assert old in r3['text'],r3['text']
     r3['text']=r3['text'].replace(old,'the add-bookmark popover, then the whole menu flow (R07, R08 → S02, S07, S10, S19, S20, S22)'); r3['maxW']=12360
 json.dump(cj,open(P+'canvas.json','w'),indent=1)
