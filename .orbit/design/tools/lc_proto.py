@@ -28,7 +28,7 @@ VIEWS=(hole('vDash','false')+dash+'</sc-if>'
 k=s.index('</main>'); s=s[:k]+VIEWS+s[k:]
 # 2. The dock routes: its items open views, the app button opens C05 AppSwitcher, whose Apps row opens the Apps page
 one('selected="none" open-overlay="{{ dockOverlay }}"','selected="{{ dockSel }}" open-overlay="{{ dockOverlay }}"')
-one('on-apps="{{ toggleApps }}" on-key="{{ sheetKey }}"','on-apps="{{ toggleSwitcher }}" on-apps-page="{{ appsPage }}" on-pick-app="{{ pickApp }}" on-navigate="{{ navigate }}" on-key="{{ sheetKey }}"')
+one('on-apps="{{ toggleSwitcher }}" on-pick-app="{{ pickApp }}" on-key="{{ sheetKey }}"','on-apps="{{ toggleSwitcher }}" on-apps-page="{{ appsPage }}" on-pick-app="{{ pickApp }}" on-navigate="{{ navigate }}" on-key="{{ sheetKey }}"')
 # the dock stays at the bottom centre of the window on every view, also on views taller than the board (owner, 2026-11-22)
 i=s.index('<dc-import name="CmpDock"'); j=s.index('</dc-import>',i)+12; s=s[:i]+'<div class="s23dk">'+s[i:j]+'</div>'+s[j:]
 # 3. Title, stylesheet (S22's, plus the rules of the screens whose views it shows: S03, S11, S12, S15, S16, S18, S21), logic

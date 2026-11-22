@@ -99,7 +99,7 @@ if 'name="CmpMenuSheet"' not in s:
     s=s[:i]+('<dc-import name="CmpMenuSheet" anchored="true" app="{{ app }}" bm="{{ bm }}" loading="{{ loading }}" viewer="{{ viewer }}" apps-open="{{ appsOpen }}" '
              'on-pick-app="{{ pickApp }}" on-toggle="{{ toggleBm }}" on-toggle-apps="{{ toggleApps }}" hint-size="1080px,470px"></dc-import>'
              '<dc-import name="CmpDock" active-app="{{ dockApp }}" bookmarks="{{ dockBms }}" selected="none" open-overlay="{{ dockOverlay }}" loading="{{ loading }}" '
-             +DOCK_BM+'on-apps="{{ toggleApps }}" hint-size="760px,58px"></dc-import>')+s[l:]
+             +DOCK_BM+'on-apps="{{ toggleSwitcher }}" on-pick-app="{{ pickApp }}" hint-size="760px,58px"></dc-import>')+s[l:]
     open(P+f+'.dc.html','w').write(set_logic(s,page_logic('S19','management',menu=True)))
 # C07 DockBookmarkAdd: its markup lives in the board, its logic in tools/s22/bookmark.js with the shared mock data.
 # shortcut: the board's stylesheet was trimmed once by cmp_css; a class bookmark.js starts to use later needs its rule copied from S20
