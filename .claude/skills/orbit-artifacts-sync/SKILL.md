@@ -9,7 +9,7 @@ The repo is the source. claude.ai shows and shares the result.
 
 | Artifact | Source in the repo | Built by | Live copy |
 | --- | --- | --- | --- |
-| Design canvas "Grafana UI Redesign Prototype" | `.orbit/design/project/` (36 boards + `canvas.json`) | `sh .orbit/design/tools/build_all.sh` | `.orbit/published/design/project/` |
+| Design canvas "Grafana UI Redesign Prototype" | `.orbit/design/project/` (59 boards + `canvas.json`) | `sh .orbit/design/tools/build_all.sh` | `.orbit/published/design/project/` |
 | "Grafana Architecture Map" | `.orbit/map/build_map.py` | `sh .orbit/design/tools/py .orbit/map/build_map.py` | `.orbit/published/map/index.html` |
 
 Slugs, URLs, last published versions and file hashes: `.orbit/artifacts.json`.

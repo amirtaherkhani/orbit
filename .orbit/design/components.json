@@ -1,0 +1,1460 @@
+{
+ "about": "Shared components of the Orbit custom UI: one contract per component (props, states, events and keys, data, what it uses). Source of R12 · Component catalog and of the \"Components on this board\" sections on R06-R11 and the naming table on R03; built by tools/lc_components.py. Code paths are under public/app/orbit/. Edit this file, then run tools/build_all.sh.",
+ "statuses": {
+  "Specified": "Contract written, not built yet",
+  "Decided": "An owner decision fixes it",
+  "Proposal": "Proposed, needs the owner"
+ },
+ "title": "Component catalog",
+ "intro": "Every shared component of the custom UI, with its contract: props, states, events and keys, data, and what it uses. Each screen board drew its own copy of a component and its own behaviour; here they are merged into one component each, so agents can build them one by one and the prototype can put them together. Source: <code>.orbit/design/components.json</code> (the same data, for agents). Names follow R03; code paths follow ARCHITECTURE.md section 8.",
+ "fit": "The shell is always on screen; overlays open from it one at a time; views fill the page inside the shell. Four hooks hold the shared state, so a click in one component changes the others: <code>useActiveApp</code>, <code>useBookmarks</code>, <code>useApps</code>, <code>useOverlay</code>.",
+ "groups": [
+  {
+   "name": "Shell",
+   "lead": "The frame around every page: top bar, breadcrumb, dock. Always on screen."
+  },
+  {
+   "name": "Overlays",
+   "lead": "Opened from the shell; one at a time, on the shared glass surface."
+  },
+  {
+   "name": "Shared parts",
+   "lead": "Small components used by several shell parts and views."
+  },
+  {
+   "name": "Views",
+   "lead": "Pages of the Apps Manager and the bookmarks page, built from the parts."
+  },
+  {
+   "name": "Shared state",
+   "lead": "Hooks that every component reads; they are what connects the components in one app."
+  },
+  {
+   "name": "Data contracts",
+   "lead": "Data the UI reads, not UI."
+  },
+  {
+   "name": "Page templates",
+   "lead": "Layouts that put Grafana content inside the shell."
+  }
+ ],
+ "order": [
+  "AppShell",
+  "TopBar",
+  "Clock",
+  "UserAvatar",
+  "AppBreadcrumb",
+  "Dock",
+  "MenuSheet",
+  "AppSwitcher",
+  "UserMenu",
+  "AddMenu",
+  "DockBookmarkAdd",
+  "OverlaySurface",
+  "PageTile",
+  "CardToggle",
+  "FilterTabs",
+  "StatusChip",
+  "AppsView",
+  "AppCard",
+  "AppStatus",
+  "LifecycleActionButton",
+  "AppPreviewPanel",
+  "AppLifecycleView",
+  "LifecycleStepper",
+  "ChecksList",
+  "AppManageView",
+  "AppVersionInfo",
+  "DockPagesView",
+  "PageCard",
+  "PagePanel",
+  "DockPreview",
+  "useActiveApp",
+  "useBookmarks",
+  "useApps",
+  "useOverlay",
+  "AppManifest",
+  "PageTemplate"
+ ],
+ "boards": {
+  "R06": [
+   "AppShell",
+   "TopBar",
+   "Clock",
+   "UserAvatar",
+   "AppBreadcrumb"
+  ],
+  "R07": [
+   "Dock",
+   "DockBookmarkAdd",
+   "useActiveApp"
+  ],
+  "R08": [
+   "MenuSheet",
+   "PageTile",
+   "CardToggle",
+   "FilterTabs"
+  ],
+  "R09": [
+   "MenuSheet",
+   "AppSwitcher",
+   "UserMenu",
+   "AddMenu",
+   "OverlaySurface",
+   "useOverlay"
+  ],
+  "R10": [
+   "AppSwitcher",
+   "DockBookmarkAdd",
+   "CardToggle",
+   "FilterTabs",
+   "StatusChip",
+   "AppsView",
+   "AppCard",
+   "AppStatus",
+   "LifecycleActionButton",
+   "AppPreviewPanel",
+   "AppLifecycleView",
+   "LifecycleStepper",
+   "ChecksList",
+   "AppManageView",
+   "AppVersionInfo",
+   "DockPagesView",
+   "PageCard",
+   "PagePanel",
+   "DockPreview",
+   "useActiveApp",
+   "useBookmarks",
+   "useApps"
+  ],
+  "R11": [
+   "AppBreadcrumb"
+  ]
+ },
+ "components": [
+  {
+   "name": "AppShell",
+   "group": "Shell",
+   "status": "Specified",
+   "summary": "Outer frame, shell and inner panel. Holds the TopBar, the breadcrumb row, the page content and the Dock, and the layer where overlays open.",
+   "code": "<code>shell/AppShell.tsx</code>",
+   "spec": "R06",
+   "screens": "S01, S03, S22, P03, P04, P05, P06, P07",
+   "replaces": "AppChrome layout",
+   "parts": [
+    "Frame .a (1440x900, padding 14)",
+    "Shell .s (padding 12/14/14, radius 40)",
+    "Inner panel .r (padding 16, radius 32)",
+    "App accent marker (3x36 bar beside the breadcrumb)",
+    "Overlay layer"
+   ],
+   "props": [
+    "children: ReactNode, the page content",
+    "activeApp: App, sets the accent tokens --hac --hbg --htx",
+    "overlay: OverlayId | null, which overlay is open (from useOverlay)"
+   ],
+   "states": [
+    "Default",
+    "Overlay open: the page behind is blurred and dimmed (blur 4px, brightness .45) only while the MenuSheet is open"
+   ],
+   "events": [
+    "Route change → close any open overlay"
+   ],
+   "data": [
+    "useActiveApp for the accent",
+    "useOverlay for the open overlay"
+   ],
+   "uses": [
+    "TopBar",
+    "AppBreadcrumb",
+    "Dock",
+    "MenuSheet",
+    "AppSwitcher",
+    "UserMenu",
+    "AddMenu",
+    "DockBookmarkAdd"
+   ],
+   "open": [
+    "Height: top bar 63 + breadcrumb 36 differs from Grafana's 40 or 48 header; anything that measures the header must be checked (R06)"
+   ]
+  },
+  {
+   "name": "TopBar",
+   "group": "Shell",
+   "status": "Specified",
+   "summary": "Top row of the shell: logo, Clock, search trigger, AddMenu trigger and the UserAvatar that opens the UserMenu.",
+   "code": "<code>shell/TopBar.tsx</code>",
+   "spec": "R06",
+   "screens": "S01, S04, S08",
+   "replaces": "SingleTopBar",
+   "parts": [
+    "Logo 44x44",
+    "Clock",
+    "Search trigger 230x36 with the key hint",
+    "Add button 60x36 with caret",
+    "UserAvatar"
+   ],
+   "props": [
+    "user: { name, login, avatarUrl }",
+    "openOverlay: OverlayId | null"
+   ],
+   "states": [
+    "Default",
+    "AddMenu open (Add button pressed)",
+    "UserMenu open (2px accent ring on the avatar)"
+   ],
+   "events": [
+    "Search → opens Grafana's command palette",
+    "Add → toggles AddMenu",
+    "Avatar → toggles UserMenu",
+    "Ctrl or Cmd + K opens search, as in Grafana"
+   ],
+   "data": [
+    "Current user from upstream/"
+   ],
+   "uses": [
+    "Clock",
+    "UserAvatar",
+    "AddMenu",
+    "UserMenu"
+   ],
+   "open": [
+    "Help, page actions, extensions, invite, sign in and assistant have no place yet (OD5, R06)"
+   ],
+   "board": "CmpTopBar.dc.html"
+  },
+  {
+   "name": "Clock",
+   "group": "Shell",
+   "status": "Specified",
+   "summary": "Date and time block in the TopBar for factory-floor screens.",
+   "code": "<code>shell/Clock.tsx</code>",
+   "spec": "R05, R06",
+   "screens": "S01",
+   "replaces": "none (new)",
+   "parts": [
+    "Date (weekday, day month)",
+    "Digits 46px with blinking colon",
+    "AM/PM",
+    "Minute progress bar"
+   ],
+   "props": [
+    "now: Date",
+    "hour12: boolean"
+   ],
+   "states": [
+    "Default",
+    "Reduced motion: the colon does not blink"
+   ],
+   "data": [
+    "Browser time zone"
+   ]
+  },
+  {
+   "name": "UserAvatar",
+   "group": "Shell",
+   "status": "Specified",
+   "summary": "The current user's image; the first letters of first and last name when there is no image.",
+   "code": "<code>shell/UserAvatar.tsx</code>",
+   "spec": "R06",
+   "screens": "S04",
+   "replaces": "ProfileButton image",
+   "parts": [
+    "Image 28px round",
+    "Initials fallback",
+    "Accent ring while the UserMenu is open"
+   ],
+   "props": [
+    "user: { name, avatarUrl }",
+    "size: 28 | 32",
+    "active: boolean, the menu is open"
+   ],
+   "states": [
+    "Image",
+    "Initials",
+    "Hover (faint round fill)",
+    "Active (2px accent ring)"
+   ],
+   "events": [
+    "Click → toggles UserMenu",
+    "Enter or Space opens the UserMenu"
+   ],
+   "data": [
+    "contextSrv user via upstream/"
+   ]
+  },
+  {
+   "name": "AppBreadcrumb",
+   "group": "Shell",
+   "status": "Specified",
+   "summary": "Chevron breadcrumb row: app chip, page, sub page. The caret on the last crumb lists its siblings.",
+   "code": "<code>shell/AppBreadcrumb.tsx</code>",
+   "spec": "R06, R11",
+   "screens": "S01, S22",
+   "replaces": "Breadcrumbs, BreadcrumbItem",
+   "parts": [
+    "App chip (app icon and accent)",
+    "Crumb (36 high, chevron shape)",
+    "Current crumb (light fill, caret)",
+    "Collapsed levels '...'",
+    "Sibling menu (230 wide)"
+   ],
+   "props": [
+    "crumbs: { text, href }[] from buildBreadcrumbs",
+    "app: App, for the chip",
+    "siblings: { text, href, current }[]"
+   ],
+   "states": [
+    "Core page",
+    "Deep dashboard path",
+    "App page",
+    "App sub page",
+    "Collapsed",
+    "Sibling menu open"
+   ],
+   "events": [
+    "Crumb → navigates",
+    "Caret → opens the sibling menu",
+    "'...' → shows the hidden levels",
+    "Crumbs are links in tab order",
+    "Enter or Space on the caret or '...' opens its menu",
+    "Esc closes it"
+   ],
+   "data": [
+    "buildBreadcrumbs(sectionNav, pageNav, homeNav) via upstream/"
+   ],
+   "uses": [
+    "OverlaySurface"
+   ],
+   "open": [
+    "Collapse threshold and which levels stay (R11, decision needed)"
+   ]
+  },
+  {
+   "name": "Dock",
+   "group": "Shell",
+   "status": "Specified",
+   "summary": "Floating bar at the bottom: workspace button, fixed items, the active app's bookmarks, the add-bookmark slot and the Menu item.",
+   "code": "<code>shell/dock/</code>",
+   "spec": "R07",
+   "screens": "S01, S19, S20, S22",
+   "replaces": "MegaMenu (docked)",
+   "parts": [
+    "Workspace button (app tile, 'App', app name, caret)",
+    "Fixed items: Home, Dashboards, Bookmarks, Starred, Alerting",
+    "Bookmarks group of the active app (accent tokens --mac --mbg --mbd --mhv)",
+    "Add-bookmark slot (dashed '+')",
+    "Menu item"
+   ],
+   "props": [
+    "activeApp: App",
+    "bookmarks: Bookmark[] of the active app with showInDock",
+    "selected: route of the current page",
+    "openOverlay: OverlayId | null",
+    "loading: boolean, while another app's pages load"
+   ],
+   "states": [
+    "Default",
+    "Item hover or focus (tinted fill, 2px bar)",
+    "Item selected (label shown)",
+    "Bookmarks loading (skeleton)",
+    "Add slot hover",
+    "Add slot open ('+' turns into a close mark)",
+    "Menu open (Menu item selected)",
+    "App without a logo: its initial in the tile instead of the icon"
+   ],
+   "events": [
+    "Workspace button → toggles AppSwitcher",
+    "Fixed item or bookmark → navigates, closes any overlay",
+    "Add slot → toggles DockBookmarkAdd",
+    "Menu → toggles MenuSheet",
+    "Tab moves left to right",
+    "Esc while an overlay is open closes it and returns focus to the item that opened it (N8)"
+   ],
+   "data": [
+    "useBookmarks",
+    "useActiveApp",
+    "useOverlay"
+   ],
+   "uses": [
+    "AppSwitcher",
+    "DockBookmarkAdd",
+    "MenuSheet"
+   ],
+   "open": [
+    "Which item is selected on a page that is not bookmarked (R07)",
+    "Overflow below desktop width; reorder; motion (R07)"
+   ],
+   "board": "CmpDock.dc.html"
+  },
+  {
+   "name": "MenuSheet",
+   "group": "Overlays",
+   "status": "Specified",
+   "summary": "Sheet above the dock: a rail with the active app's pages, the current page's sub pages as tiles, a header and a footer with key hints. Six screen boards each drew one state of it; this entry merges them.",
+   "code": "<code>shell/menu-sheet/</code>",
+   "spec": "R08, R09",
+   "screens": "S02, S07, S10, S14, S19, S22",
+   "replaces": "MegaMenu, AppChromeMenu",
+   "parts": [
+    "Rail with the app button (opens AppSwitcher in the sheet)",
+    "Rail row: icon, name, count, chevron",
+    "Header: 'Page",
+    "sub pages' and count, page bookmark toggle, Bookmarks link with count, Open page",
+    "Group tabs (Administration only)",
+    "Tile grid, 6 columns (PageTile)",
+    "Footer: focused tile name and description, 'You are here', key hints"
+   ],
+   "props": [
+    "app: App",
+    "pages: Page[] the user may open",
+    "page: index of the current rail row",
+    "focus: index of the focused tile",
+    "loading: boolean",
+    "canSetup: boolean, the user may continue the app's setup"
+   ],
+   "states": [
+    "Section with sub pages (S07)",
+    "Section without sub pages: the page is its own tile (S02)",
+    "Group tabs (S10)",
+    "App dropdown open (S14)",
+    "Another app selected, loading skeleton (S19)",
+    "App with no pages: 'No pages yet' and Continue setup, the button only for users who may set it up (N10)",
+    "Sub pages not available"
+   ],
+   "events": [
+    "Rail row → shows its sub pages",
+    "Tile click → opens the page, closes the sheet, focus returns to Menu (N8, N9)",
+    "Open &lt;page&gt; → opens the page, closes the sheet",
+    "Bookmark toggle → adds or removes the bookmark at once",
+    "Bookmarks → opens DockPagesView (/bookmarks)",
+    "Click outside → closes the sheet, focus returns to Menu (N8)",
+    "Picking another app → loads its pages with a skeleton; Monitoring never shows loading (N6)",
+    "Arrow keys move focus between tiles; they never open (N9)",
+    "Enter opens the focused tile",
+    "B toggles the bookmark of the focused tile, not while typing",
+    "Esc closes the sheet and returns focus to Menu; stop propagation so Grafana's own Esc does not also run (R08)"
+   ],
+   "data": [
+    "useActiveApp",
+    "useApps (pages from the nav tree or app includes)",
+    "useBookmarks"
+   ],
+   "uses": [
+    "OverlaySurface",
+    "AppSwitcher",
+    "PageTile",
+    "CardToggle",
+    "FilterTabs"
+   ],
+   "open": [
+    "Tab order: rail first or tiles first (R08)",
+    "Group tab names: 'Access' or Grafana's 'Users and access' (R08, decision needed)"
+   ],
+   "board": "CmpMenuSheet.dc.html"
+  },
+  {
+   "name": "AppSwitcher",
+   "group": "Overlays",
+   "status": "Specified",
+   "summary": "List of enabled apps to choose the active app. One component in two places: above the dock workspace button and inside the MenuSheet rail.",
+   "code": "<code>shell/app-switcher/</code>",
+   "spec": "R09, R10",
+   "screens": "S06, S14, S19, S22",
+   "replaces": "none (new)",
+   "parts": [
+    "Caption 'Apps",
+    "Pick one to see its pages'",
+    "App row: tile in the app accent, name, subtitle, 'New' on the most recently enabled app, check on the active app",
+    "Apps row: link to the Apps page (/apps)"
+   ],
+   "props": [
+    "apps: App[] enabled for the user",
+    "activeApp: App",
+    "placement: 'dock' | 'sheet'"
+   ],
+   "states": [
+    "Default",
+    "Row hover or focus",
+    "Active app (check)",
+    "App with no pages ('No pages yet' subtitle)"
+   ],
+   "events": [
+    "App row → sets the active app (useActiveApp), closes the list",
+    "Same app → closes the list",
+    "Apps row → opens AppsView (/apps)",
+    "Click outside or Esc → closes, focus returns to the button that opened it",
+    "Up and Down move between rows",
+    "Enter picks",
+    "Esc closes"
+   ],
+   "data": [
+    "useApps",
+    "useActiveApp"
+   ],
+   "uses": [
+    "OverlaySurface"
+   ],
+   "open": [
+    "Limit of apps in the selector (R10)"
+   ],
+   "board": "CmpAppSwitcher.dc.html"
+  },
+  {
+   "name": "UserMenu",
+   "group": "Overlays",
+   "status": "Specified",
+   "summary": "Profile menu under the avatar.",
+   "code": "<code>shell/user-menu/</code>",
+   "spec": "R09",
+   "screens": "S04",
+   "replaces": "ProfileButton dropdown",
+   "parts": [
+    "Header: avatar 32, name, login",
+    "Items: Profile, Notification history, Change password, Change theme, Enable kiosk mode, Latest from the blog",
+    "Sign out"
+   ],
+   "props": [
+    "user: { name, login, avatarUrl }",
+    "items: from the profile nav node"
+   ],
+   "states": [
+    "Open",
+    "Item hover or focus"
+   ],
+   "events": [
+    "Item → navigates or runs its action, closes the menu",
+    "Click outside or Esc → closes, focus returns to the avatar",
+    "Up and Down move",
+    "Enter runs",
+    "Esc closes"
+   ],
+   "data": [
+    "Profile nav node and kiosk toggle via upstream/"
+   ],
+   "uses": [
+    "OverlaySurface",
+    "UserAvatar"
+   ],
+   "open": [
+    "Items are the prototype's; Grafana builds them from the profile nav node (R09)"
+   ],
+   "board": "CmpUserMenu.dc.html"
+  },
+  {
+   "name": "AddMenu",
+   "group": "Overlays",
+   "status": "Specified",
+   "summary": "Create actions under the Add button.",
+   "code": "<code>shell/add-menu/</code>",
+   "spec": "R09",
+   "screens": "S08",
+   "replaces": "QuickAdd dropdown",
+   "parts": [
+    "Group 'Dashboards': New dashboard, Import dashboard",
+    "Group 'Alerting': New alert rule"
+   ],
+   "props": [
+    "items: create actions from the nav tree"
+   ],
+   "states": [
+    "Open",
+    "Item hover or focus"
+   ],
+   "events": [
+    "Item → navigates to the create page, closes the menu",
+    "Click outside or Esc → closes, focus returns to Add",
+    "Up and Down move",
+    "Enter runs",
+    "Esc closes"
+   ],
+   "data": [
+    "Nav items with isCreateAction via upstream/"
+   ],
+   "uses": [
+    "OverlaySurface"
+   ],
+   "open": [
+    "Items not compared with Grafana's QuickAdd (R09)"
+   ],
+   "board": "CmpAddMenu.dc.html"
+  },
+  {
+   "name": "DockBookmarkAdd",
+   "group": "Overlays",
+   "status": "Specified",
+   "summary": "Popover of the dock '+' slot: the active app's pages as a tree with their sub pages and bookmark toggles, a search, and the dock capacity.",
+   "code": "<code>shell/dock/BookmarkPopover.tsx</code>",
+   "spec": "R07, R10",
+   "screens": "S20, S22",
+   "replaces": "none (new)",
+   "parts": [
+    "Header: app, capacity 'n of 6'",
+    "Search and filter",
+    "Page tree: chevron, one indent level, one page open at a time",
+    "Bookmark toggle per page and sub page",
+    "Dock-is-full warning",
+    "Manage bookmarks link"
+   ],
+   "props": [
+    "app: App",
+    "bookmarks: Bookmark[]",
+    "limit: number (proposal 6)"
+   ],
+   "states": [
+    "Open",
+    "Filtered by search",
+    "Page expanded",
+    "Dock full"
+   ],
+   "events": [
+    "Toggle → adds or removes the bookmark; it lands in the dock group at once",
+    "Manage bookmarks → opens DockPagesView",
+    "x, click outside or Esc → closes, focus returns to the slot",
+    "Esc closes",
+    "Typing goes to the search field"
+   ],
+   "data": [
+    "useBookmarks",
+    "useApps"
+   ],
+   "uses": [
+    "OverlaySurface",
+    "CardToggle"
+   ],
+   "open": [
+    "Bookmark limit per app is a proposal (R10)"
+   ],
+   "board": "CmpBookmarkAdd.dc.html"
+  },
+  {
+   "name": "OverlaySurface",
+   "group": "Shared parts",
+   "status": "Proposal",
+   "summary": "The glass surface and the open and close rules every overlay shares. Each overlay board drew the surface on its own; the rules were open on R09 and decided for the menu in N8.",
+   "code": "<code>shell/overlay/OverlaySurface.tsx</code> <span class=\"rtg ti\">Proposal</span>",
+   "spec": "R09, R04",
+   "screens": "S04, S06, S08, S14, S20, S22",
+   "replaces": "none (new)",
+   "parts": [
+    "Glass surface: rgba(30,33,39,.62), blur 20, saturate 140%, radius 10, 1px top highlight",
+    "Opaque fallback without backdrop-filter"
+   ],
+   "props": [
+    "id: OverlayId",
+    "anchor: element that opened it",
+    "onClose: () =&gt; void"
+   ],
+   "states": [
+    "Open",
+    "Reduced transparency (solid fill)"
+   ],
+   "events": [
+    "Click outside → closes",
+    "Opening another overlay → closes this one (one overlay at a time)",
+    "Closing → focus returns to the anchor",
+    "Esc closes and stops propagation"
+   ],
+   "data": [
+    "useOverlay"
+   ],
+   "open": [
+    "Focus trap, scroll lock, position near edges (R09, to define)",
+    "prefers-reduced-transparency (R09)"
+   ]
+  },
+  {
+   "name": "PageTile",
+   "group": "Shared parts",
+   "status": "Specified",
+   "summary": "One sub page in the MenuSheet grid: icon tile, name, bookmark toggle.",
+   "code": "<code>shell/menu-sheet/PageTile.tsx</code> <span class=\"rtg ti\">Proposal</span>",
+   "spec": "R08",
+   "screens": "S07, S10, S19, S22",
+   "replaces": "MegaMenuItem",
+   "parts": [
+    "Tile 131x116",
+    "Icon 38x38",
+    "Name",
+    "CardToggle 24x24 at the top left"
+   ],
+   "props": [
+    "page: Page",
+    "bookmarked: boolean",
+    "focused: boolean",
+    "current: boolean, the page on screen"
+   ],
+   "states": [
+    "Default",
+    "Hover or focus",
+    "Focused (accent fill)",
+    "Bookmarked",
+    "Current page"
+   ],
+   "events": [
+    "Click → opens the page (N9)",
+    "Focus → becomes the focused tile, the footer shows its description",
+    "Toggle → bookmark at once",
+    "Enter opens",
+    "B toggles the bookmark"
+   ],
+   "data": [
+    "Nav item text and icon"
+   ],
+   "uses": [
+    "CardToggle"
+   ]
+  },
+  {
+   "name": "CardToggle",
+   "group": "Shared parts",
+   "status": "Decided",
+   "summary": "The one bookmark toggle: on tiles, page cards, sub page rows, the popover tree and, with a label, in the MenuSheet header. Acts at once.",
+   "code": "<code>apps/CardToggle.tsx</code>",
+   "spec": "R08, R10",
+   "screens": "S07, S11, S19, S20, S22",
+   "replaces": "none (new)",
+   "parts": [
+    "Icon-only button (tile 24, card 32x28, row 22)",
+    "Labelled variant: 'Bookmark page' / 'Page bookmarked'"
+   ],
+   "props": [
+    "pressed: boolean",
+    "label: string, names the page",
+    "variant: 'tile' | 'card' | 'row' | 'header'",
+    "onToggle: () =&gt; void"
+   ],
+   "states": [
+    "Available (outline)",
+    "Bookmarked (filled; green on cards, accent on tiles)",
+    "Hover or focus"
+   ],
+   "events": [
+    "Click → toggles the bookmark; never selects or opens the card",
+    "Enter or Space toggles"
+   ],
+   "data": [
+    "useBookmarks"
+   ]
+  },
+  {
+   "name": "FilterTabs",
+   "group": "Shared parts",
+   "status": "Specified",
+   "summary": "Segmented tabs with counts: All / Enabled / Needs action, All / Bookmarked / Available, and the MenuSheet group tabs.",
+   "code": "<code>apps/FilterTabs.tsx</code> <span class=\"rtg ti\">Proposal</span>",
+   "spec": "R08, R10",
+   "screens": "S10, S11, S12",
+   "replaces": "none (new)",
+   "parts": [
+    "Segment 30 or 32 high, radius 4",
+    "Count per segment"
+   ],
+   "props": [
+    "options: { id, label, count }[]",
+    "value: id",
+    "onChange: (id) =&gt; void"
+   ],
+   "states": [
+    "Selected",
+    "Hover or focus"
+   ],
+   "events": [
+    "Segment → filters the list",
+    "role tablist: Left and Right move, Enter selects"
+   ]
+  },
+  {
+   "name": "StatusChip",
+   "group": "Shared parts",
+   "status": "Specified",
+   "summary": "The one badge box (22 high): lifecycle status chip, 'New', update chip, step pills.",
+   "code": "<code>apps/lifecycle/StatusChip.tsx</code> <span class=\"rtg ti\">Proposal</span>",
+   "spec": "R10",
+   "screens": "S12, S15, S16, S18, S21",
+   "replaces": "none (new)",
+   "parts": [
+    "Icon 14",
+    "Label 12/18 500"
+   ],
+   "props": [
+    "kind: 'status' | 'new' | 'update' | 'step'",
+    "tone: one of the seven colour groups",
+    "label: string"
+   ],
+   "states": [
+    "One per colour group: neutral, in progress, needs attention, setup, ready, enabled, failed"
+   ],
+   "board": "CmpStatusChip.dc.html"
+  },
+  {
+   "name": "AppCard",
+   "group": "Shared parts",
+   "status": "Specified",
+   "summary": "One app on the Apps page: identity, status icon, description, meta row, the buttons for its status.",
+   "code": "<code>apps/AppCard.tsx</code> <span class=\"rtg ti\">Proposal</span>",
+   "spec": "R10",
+   "screens": "S12",
+   "replaces": "none (new)",
+   "parts": [
+    "Tile 40 in the app accent",
+    "Name and version",
+    "AppStatus icon at the top right (not a button)",
+    "Description",
+    "Meta: page count, status name, update chip, In dock and In the menu icons",
+    "Action row: LifecycleActionButton(s), 'Step n of 6'"
+   ],
+   "props": [
+    "app: App",
+    "selected: boolean"
+   ],
+   "states": [
+    "One per lifecycle status (13)",
+    "Selected (fill #1d353f)"
+   ],
+   "events": [
+    "Card → select",
+    "Button → its action"
+   ],
+   "data": [
+    "useApps"
+   ],
+   "uses": [
+    "AppStatus",
+    "LifecycleActionButton",
+    "StatusChip"
+   ],
+   "board": "CmpAppCard.dc.html"
+  },
+  {
+   "name": "AppStatus",
+   "group": "Shared parts",
+   "status": "Decided",
+   "summary": "The lifecycle status model and its icon: 13 statuses, 7 colour groups, the buttons and gates per status.",
+   "code": "<code>apps/lifecycle/</code>",
+   "spec": "R10",
+   "screens": "S12, S15, S16, S18",
+   "replaces": "none (new)",
+   "parts": [
+    "Status icon 28x28 (role img, tooltip)",
+    "StatusChip",
+    "Buttons per status"
+   ],
+   "props": [
+    "status: LifecycleStatus"
+   ],
+   "states": [
+    "Not initialized",
+    "Initializing",
+    "Review required",
+    "Setup required",
+    "Setup in progress",
+    "Validation in progress",
+    "Migration required",
+    "Migration in progress",
+    "Ready to enable",
+    "Enabled",
+    "Disabled",
+    "Action required / Failed",
+    "Updating / Uninstalling"
+   ],
+   "data": [
+    "Lifecycle state in pkg/orbit (OD23)"
+   ],
+   "uses": [
+    "StatusChip",
+    "LifecycleActionButton"
+   ],
+   "open": [
+    "Exact labels, recovery actions (R10)"
+   ],
+   "board": "CmpStatusChip.dc.html"
+  },
+  {
+   "name": "LifecycleActionButton",
+   "group": "Shared parts",
+   "status": "Decided",
+   "summary": "Outline button for a lifecycle step, in the colour of its action type. Open, Manage and View progress stay neutral.",
+   "code": "<code>apps/lifecycle/</code>",
+   "spec": "R10",
+   "screens": "S12, S15, S16, S18, S21, S22",
+   "replaces": "none (new)",
+   "parts": [
+    "Outline 30 high on a card, radius 6, label 14/22 500"
+   ],
+   "props": [
+    "action: 'initialize' | 'review' | 'setup' | 'migrate' | 'enable' | 'recover' | 'neutral'",
+    "label: string",
+    "disabled: boolean"
+   ],
+   "states": [
+    "Default (fill 10%, border 45%)",
+    "Hover or focus (fill 20%, border 100%)",
+    "Disabled (no fill, border 25%, text 70%)"
+   ],
+   "events": [
+    "Click → runs the step or opens its view"
+   ],
+   "board": "CmpLcButton.dc.html"
+  },
+  {
+   "name": "AppPreviewPanel",
+   "group": "Shared parts",
+   "status": "Specified",
+   "summary": "Read-only panel of the selected app on the Apps page.",
+   "code": "<code>apps/AppPreviewPanel.tsx</code> <span class=\"rtg ti\">Proposal</span>",
+   "spec": "R10",
+   "screens": "S12",
+   "replaces": "none (new)",
+   "parts": [
+    "Identity",
+    "Status chip",
+    "Six-segment lifecycle strip, 'Step n of 6'",
+    "Details grid",
+    "Tree of registered pages"
+   ],
+   "props": [
+    "app: App"
+   ],
+   "states": [
+    "Selected app",
+    "Nothing selected"
+   ],
+   "data": [
+    "useApps"
+   ],
+   "uses": [
+    "StatusChip"
+   ],
+   "board": "CmpAppPreview.dc.html"
+  },
+  {
+   "name": "LifecycleStepper",
+   "group": "Shared parts",
+   "status": "Specified",
+   "summary": "Vertical list of the six steps: done, current, locked. Built as part of AppLifecycleView (C20): the current step’s content sits inside the list (owner, 2026-11-21).",
+   "code": "<code>apps/lifecycle/</code>",
+   "spec": "R10",
+   "screens": "S16, S18, S21",
+   "replaces": "Wizard/Stepper.tsx pattern (provisioning)",
+   "parts": [
+    "Step number 28",
+    "Title",
+    "Lock pill on later steps"
+   ],
+   "props": [
+    "steps: { id, label, state: 'done' | 'current' | 'locked' }[]",
+    "current: id"
+   ],
+   "states": [
+    "Done (green check)",
+    "Current (number on primary blue)",
+    "Locked (grey, lock pill)"
+   ],
+   "events": [
+    "Done step → shows its result"
+   ],
+   "uses": [
+    "StatusChip"
+   ],
+   "open": [
+    "@grafana/ui has no stepper (R10)"
+   ],
+   "board": "CmpLifecycle.dc.html"
+  },
+  {
+   "name": "ChecksList",
+   "group": "Shared parts",
+   "status": "Specified",
+   "summary": "Results of initialization checks, setup validation, health and page checks. R03 calls it ConfigCheck.",
+   "code": "<code>apps/check/</code>",
+   "spec": "R10",
+   "screens": "S15, S16, S18",
+   "replaces": "none (new)",
+   "parts": [
+    "Summary bar: counts, last run, Run check",
+    "Row: mark 20, title, detail, source, fix button"
+   ],
+   "props": [
+    "checks: Check[]",
+    "onRun: () =&gt; void"
+   ],
+   "states": [
+    "Passed (green check, circle)",
+    "Warning (amber !, rounded square)",
+    "Failed (pink x, diamond)",
+    "Not run or Not available (dashed ring)"
+   ],
+   "events": [
+    "Run check → runs again",
+    "Fix → opens the setup section that fixes it"
+   ],
+   "data": [
+    "Check runner (apps/check/)"
+   ],
+   "open": [
+    "How 'route responds' is tested (R02)"
+   ],
+   "board": "CmpChecksList.dc.html"
+  },
+  {
+   "name": "AppVersionInfo",
+   "group": "Shared parts",
+   "status": "Decided",
+   "summary": "Version block: Installed, Latest, Needs Grafana, This Grafana, Last checked. Information only. R03 calls it AppUpdates.",
+   "code": "<code>apps/updates/</code>",
+   "spec": "R10",
+   "screens": "S15",
+   "replaces": "none (new)",
+   "parts": [
+    "Rows",
+    "One line of help"
+   ],
+   "props": [
+    "app: App"
+   ],
+   "states": [
+    "Up to date",
+    "Newer available",
+    "Incompatible"
+   ],
+   "data": [
+    "Plugin info and catalog via upstream/"
+   ],
+   "board": "CmpVersionInfo.dc.html"
+  },
+  {
+   "name": "PageCard",
+   "group": "Shared parts",
+   "status": "Specified",
+   "summary": "Compact page card on the bookmarks page with its sub page expander.",
+   "code": "<code>apps/bookmarks/</code>",
+   "spec": "R10",
+   "screens": "S11",
+   "replaces": "none (new)",
+   "parts": [
+    "Tile 32, name, route",
+    "Description and status icons (In dock, In the menu)",
+    "Icon row: Open, pen, CardToggle",
+    "Expander 'n sub pages",
+    "m bookmarked' with sub page rows"
+   ],
+   "props": [
+    "page: Page",
+    "selected: boolean",
+    "expanded: boolean"
+   ],
+   "states": [
+    "Default",
+    "Selected",
+    "Editing (pen on accent)",
+    "Expanded"
+   ],
+   "events": [
+    "Card → select",
+    "Row → selects that sub page",
+    "Click outside → closes the expander"
+   ],
+   "data": [
+    "useBookmarks"
+   ],
+   "uses": [
+    "CardToggle"
+   ],
+   "board": "CmpPageCard.dc.html"
+  },
+  {
+   "name": "PagePanel",
+   "group": "Shared parts",
+   "status": "Specified",
+   "summary": "Details and Edit bookmark of the selected page.",
+   "code": "<code>apps/bookmarks/</code>",
+   "spec": "R10",
+   "screens": "S11",
+   "replaces": "none (new)",
+   "parts": [
+    "Page picker",
+    "Identity",
+    "TabsBar: Details, Edit bookmark",
+    "Footer: Edit, or Reset to default, Cancel, Save"
+   ],
+   "props": [
+    "page: Page",
+    "tab: 'details' | 'edit'"
+   ],
+   "states": [
+    "Details",
+    "Edit bookmark",
+    "Dirty"
+   ],
+   "events": [
+    "Save → stores dock, label, show name, icon, position",
+    "Reset to default",
+    "Cancel"
+   ],
+   "data": [
+    "navbar.bookmarkUrls",
+    "user storage orbit-bookmarks"
+   ],
+   "board": "CmpPagePanel.dc.html"
+  },
+  {
+   "name": "DockPreview",
+   "group": "Shared parts",
+   "status": "Specified",
+   "summary": "What the dock will show, per app, from the same state as the cards.",
+   "code": "<code>apps/bookmarks/</code>",
+   "spec": "R10",
+   "screens": "S11",
+   "replaces": "none (new)",
+   "parts": [
+    "Group per app: accent dot, name, 'N in the dock'",
+    "Rows 'Page › Sub page'"
+   ],
+   "props": [
+    "bookmarks: Bookmark[]",
+    "activeApp: App"
+   ],
+   "states": [
+    "Default"
+   ],
+   "data": [
+    "useBookmarks"
+   ],
+   "board": "CmpDockPreview.dc.html"
+  },
+  {
+   "name": "AppsView",
+   "group": "Views",
+   "status": "Specified",
+   "summary": "The Apps page (/apps): every installed app plugin with its lifecycle status and the buttons for that status.",
+   "code": "<code>apps/AppsView.tsx</code>",
+   "spec": "R10",
+   "screens": "S12",
+   "replaces": "none (new)",
+   "parts": [
+    "Page header with Check for updates",
+    "FilterTabs: All / Enabled / Needs action",
+    "Search",
+    "AppCard grid, 3 columns",
+    "AppPreviewPanel 360",
+    "Help card 'Not in the list?'"
+   ],
+   "props": [
+    "apps: App[] from useApps"
+   ],
+   "states": [
+    "Default",
+    "Card selected",
+    "Filtered",
+    "No apps"
+   ],
+   "events": [
+    "Card → selects it, the preview shows it",
+    "Card button → runs or opens the lifecycle step (AppLifecycleView) or Manage (AppManageView)",
+    "Open → the app's home page"
+   ],
+   "data": [
+    "useApps",
+    "lifecycle status per app (OD23)"
+   ],
+   "uses": [
+    "FilterTabs",
+    "AppCard",
+    "AppPreviewPanel",
+    "PageTemplate"
+   ],
+   "board": "CmpAppsView.dc.html"
+  },
+  {
+   "name": "AppLifecycleView",
+   "group": "Views",
+   "status": "Specified",
+   "summary": "One page per app (/apps/&lt;id&gt;/setup) that takes it from Not initialized to Enabled in six steps; also the edit mode of setup and the view after an update.",
+   "code": "<code>apps/AppLifecycleView.tsx</code>",
+   "spec": "R10",
+   "screens": "S16, S18, S21",
+   "replaces": "none (new)",
+   "parts": [
+    "LifecycleStepper",
+    "Step content: Review (ChecksList), Setup (six sections), Validate, Enable, Migrate",
+    "'What changed' after an update",
+    "Right panel 360"
+   ],
+   "props": [
+    "app: App",
+    "mode: 'first-run' | 'edit' | 'after-update'"
+   ],
+   "states": [
+    "Step Initialize, Review, Setup, Validate, Enable, Migrate",
+    "Edit mode: only Setup and Validate open",
+    "After update cases A-D (R10)",
+    "Maintenance mode"
+   ],
+   "events": [
+    "Accept and continue to setup → Setup",
+    "Save and validate → Validate",
+    "Enable → Enabled, migration starts when pending",
+    "Retry after a failure"
+   ],
+   "data": [
+    "Lifecycle state (OD23)",
+    "Checks (apps/check/)"
+   ],
+   "uses": [
+    "LifecycleStepper",
+    "ChecksList",
+    "LifecycleActionButton",
+    "StatusChip",
+    "PageTemplate"
+   ],
+   "open": [
+    "Server-side gates (R10)"
+   ],
+   "board": "CmpLifecycle.dc.html"
+  },
+  {
+   "name": "AppManageView",
+   "group": "Views",
+   "status": "Specified",
+   "summary": "Manage one enabled or disabled app (/apps/&lt;id&gt;): status and health, where it appears, pages, access, data sources, actions.",
+   "code": "<code>apps/AppManageView.tsx</code>",
+   "spec": "R10",
+   "screens": "S15",
+   "replaces": "none (new)",
+   "parts": [
+    "Tabs: Overview, Pages, Access, Data sources, Health",
+    "Right panel: About, AppVersionInfo, Who can act",
+    "Actions: Open setup, Disable or Enable, Uninstall"
+   ],
+   "props": [
+    "app: App"
+   ],
+   "states": [
+    "One per tab",
+    "Enabled",
+    "Disabled",
+    "Updated note"
+   ],
+   "events": [
+    "Tab → shows it",
+    "Open setup → AppLifecycleView in edit mode",
+    "Disable, Enable, Uninstall → runs the operation"
+   ],
+   "data": [
+    "useApps",
+    "plugin settings via upstream/"
+   ],
+   "uses": [
+    "ChecksList",
+    "AppVersionInfo",
+    "LifecycleActionButton",
+    "StatusChip",
+    "PageTemplate"
+   ],
+   "open": [
+    "Who may disable or uninstall (R02)"
+   ],
+   "board": "CmpAppManage.dc.html"
+  },
+  {
+   "name": "DockPagesView",
+   "group": "Views",
+   "status": "Specified",
+   "summary": "The bookmarks page (/bookmarks): bookmark pages and sub pages of every app and decide what the dock shows.",
+   "code": "<code>apps/DockPagesView.tsx</code>",
+   "spec": "R10",
+   "screens": "S11",
+   "replaces": "none (new)",
+   "parts": [
+    "App combobox",
+    "FilterTabs: All / Bookmarked / Available",
+    "PageCard grid, 2 columns, under sticky app headers",
+    "PagePanel 400",
+    "DockPreview under it"
+   ],
+   "props": [
+    "apps: App[]",
+    "bookmarks: Bookmark[]"
+   ],
+   "states": [
+    "Card selected (Details)",
+    "Editing a bookmark (Edit bookmark tab)",
+    "Sub pages expanded"
+   ],
+   "events": [
+    "Card → selects it, opens Details",
+    "Pen → opens Edit bookmark",
+    "Toggle → bookmark at once",
+    "Open → opens the page",
+    "Save → writes the bookmark details"
+   ],
+   "data": [
+    "useBookmarks",
+    "useApps"
+   ],
+   "uses": [
+    "FilterTabs",
+    "PageCard",
+    "PagePanel",
+    "DockPreview",
+    "CardToggle",
+    "PageTemplate"
+   ],
+   "open": [
+    "Per user or per organisation (R10, decision needed)"
+   ],
+   "board": "CmpDockPages.dc.html"
+  },
+  {
+   "name": "useActiveApp",
+   "group": "Shared state",
+   "status": "Specified",
+   "summary": "The active app: set by the AppSwitcher, read by the dock, the sheet, the breadcrumb chip and the accent tokens.",
+   "code": "<code>apps/useActiveApp.ts</code>",
+   "spec": "R07, R10",
+   "screens": "S19, S22",
+   "replaces": "none (new)",
+   "props": [
+    "returns { app, setApp, loading }"
+   ],
+   "states": [
+    "Monitoring (Grafana's own sections)",
+    "An app plugin",
+    "Loading another app's pages (never for Monitoring, N6)"
+   ],
+   "events": [
+    "setApp(id) → every component that reads it updates"
+   ],
+   "data": [
+    "URL /a/&lt;app-id&gt;/ or the last choice"
+   ]
+  },
+  {
+   "name": "useBookmarks",
+   "group": "Shared state",
+   "status": "Specified",
+   "summary": "One bookmark store for every app, Monitoring included (N7). Every toggle reads and writes it, so the dock, sheet, popover and bookmarks page always agree.",
+   "code": "<code>apps/useBookmarks.ts</code>",
+   "spec": "R10",
+   "screens": "S11, S19, S20, S22",
+   "replaces": "usePinnedItems",
+   "props": [
+    "returns { bookmarks, isBookmarked(url), toggle(url), details(url), save(url, details) }"
+   ],
+   "events": [
+    "toggle → written to navbar.bookmarkUrls and shown in the dock at once"
+   ],
+   "data": [
+    "navbar.bookmarkUrls (user preferences)",
+    "user storage orbit-bookmarks for dock, label, show name, added, source"
+   ],
+   "open": [
+    "Per user or per organisation (R10)"
+   ]
+  },
+  {
+   "name": "useApps",
+   "group": "Shared state",
+   "status": "Specified",
+   "summary": "Apps with their pages, sub pages, accent and lifecycle status.",
+   "code": "<code>apps/useApps.ts</code>",
+   "spec": "R10, S13",
+   "screens": "S12, S19",
+   "replaces": "plugin-page nav sections",
+   "props": [
+    "returns { apps, byId(id), pages(app) }"
+   ],
+   "data": [
+    "Nav tree and plugin.json includes via upstream/",
+    "AppManifest ui block",
+    "Lifecycle status (OD23)"
+   ],
+   "uses": [
+    "AppManifest"
+   ]
+  },
+  {
+   "name": "useOverlay",
+   "group": "Shared state",
+   "status": "Proposal",
+   "summary": "Which overlay is open, so only one is open at a time and focus can return to its trigger.",
+   "code": "<code>shell/useOverlay.ts</code> <span class=\"rtg ti\">Proposal</span>",
+   "spec": "R09",
+   "screens": "S04, S06, S08, S14, S20, S22",
+   "replaces": "none (new)",
+   "props": [
+    "returns { open, toggle(id, anchor), close() }"
+   ],
+   "states": [
+    "None",
+    "MenuSheet",
+    "AppSwitcher",
+    "UserMenu",
+    "AddMenu",
+    "DockBookmarkAdd",
+    "Breadcrumb siblings"
+   ],
+   "events": [
+    "toggle(id) → opens id and closes any other",
+    "close() → focus returns to the anchor"
+   ]
+  },
+  {
+   "name": "AppManifest",
+   "group": "Data contracts",
+   "status": "Proposal",
+   "summary": "App fields the UI reads: name, description, version, logo, includes (pages and sub pages) and the new ui block (accent, show, page descriptions).",
+   "code": "<code>apps/manifest/</code>",
+   "spec": "S13",
+   "screens": "S13",
+   "replaces": "plugin.json, partly new",
+   "props": [
+    "ui.accent",
+    "ui.show { menu, dock }",
+    "ui.pages.&lt;path&gt;.description"
+   ],
+   "data": [
+    "plugin.json and ui.json"
+   ],
+   "open": [
+    "Where the ui block lives; self-tests and migrations contract (S13)"
+   ]
+  },
+  {
+   "name": "PageTemplate",
+   "group": "Page templates",
+   "status": "Specified",
+   "summary": "Layouts over Grafana's Page inside the shell: Standard, Dashboard, Settings and Admin, List, Detail with info panel; with the button zones and page states.",
+   "code": "<code>pages/</code>",
+   "spec": "P01, P02",
+   "screens": "P03, P04, P05, P06, P07",
+   "replaces": "Page (composed, not replaced)",
+   "parts": [
+    "Header (title, subtitle, actions in zone 1)",
+    "Tabs when the page has children",
+    "Body",
+    "Right info panel (Detail)"
+   ],
+   "props": [
+    "layout: 'standard' | 'dashboard' | 'settings' | 'list' | 'detail'",
+    "navId, pageNav",
+    "actions",
+    "info"
+   ],
+   "states": [
+    "Loading",
+    "Empty",
+    "Not found",
+    "Error (P02)"
+   ],
+   "data": [
+    "upstream Page via upstream/page.ts"
+   ],
+   "open": [
+    "Who owns the gutter inside the inner panel (P01, decision needed)",
+    "Dock clearance at the bottom (P01)"
+   ]
+  }
+ ]
+}

@@ -12,9 +12,10 @@ B = lambda t: f'<b style="font-weight:500;color:#eceef1">{t}</b>'
 tag = lambda c, t: f'<span class="rtg {c}">{t}</span>'
 
 IDS = [
-    ('R', 'Reference board: the spec a screen follows', 'R01–R11', 'R10 · Apps, app lifecycle and bookmarks', 'Design canvas'),
-    ('S', 'Screen board: one state of one view', 'S01–S21 (no S05, S09, S17)', 'S16 · AppLifecycleView: setup, validate, enable, migrate', 'Design canvas'),
+    ('R', 'Reference board: the spec a screen follows', 'R01–R12', 'R10 · Apps, app lifecycle and bookmarks', 'Design canvas'),
+    ('S', 'Screen board: one state of one view', 'S01–S23 (no S05, S09, S17)', 'S16 · AppLifecycleView: setup, validate, enable, migrate', 'Design canvas'),
     ('P', 'Page template board', 'P01–P07', 'P07 · Page template: Detail with info panel', 'Design canvas, last row'),
+    ('C', 'Component board: one shared component (R12), mounted by screens with dc-import', 'C01–C20', 'C01 · Dock: component', 'Design canvas, Components'),
     ('SM', 'Seam: a point where the fork touches Grafana', 'SM01–SM14', 'SM01 · the import in RoutesWrapper.tsx', 'ARCHITECTURE.md 6, .orbit/seams.json'),
     ('RK', 'Risk: something not proven yet, with the check that proves it', 'RK01–RK24', 'RK10 · StrictMode on main', 'ARCHITECTURE.md 15'),
     ('OD', 'Decision: open, decided or withdrawn', 'OD1–OD35', 'OD23 · lifecycle state in pkg/orbit', 'ARCHITECTURE.md 20'),

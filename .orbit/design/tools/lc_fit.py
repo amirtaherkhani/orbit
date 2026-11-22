@@ -34,18 +34,21 @@ for f,v in c.items():
         old=int(m.group(1)); new=v['h']
         s=s.replace(f'"height":{old}',f'"height":{new}').replace(f'min-height:{old}px',f'min-height:{new}px').replace(f'min-height:{old-28}px',f'min-height:{new-28}px')
         open(P+f,'w').write(s); print('sync',f,old,'->',new)
-# keep an 80px gap between rows
-rows=sorted({v['y'] for v in c.values()})
-i=0
-while i < len(rows)-1:
-    y=rows[i]; bottom=max(v['y']+v['h'] for v in c.values() if v['y']==y); ny=rows[i+1]
-    if bottom+80>ny:
-        d=bottom+80-ny
-        for v in c.values():
-            if v['y']>=ny: v['y']+=d
-        for n in (cj.get('notes') or {}).values():
-            if isinstance(n,dict) and n.get('y',-1)>=ny: n['y']+=d
-        print('row',ny,'moved',d)
-        rows=sorted({v['y'] for v in c.values()})
-    i+=1
+# keep an 80px gap between rows, page by page (lc_pages: each page has its own rows)
+first=(cj.get('pages') or [{}])[0].get('id')
+pg=lambda o: o.get('page') or first
+for pid in {pg(v) for v in c.values()}:
+    on=[v for v in c.values() if pg(v)==pid]; notes=[n for n in (cj.get('notes') or {}).values() if isinstance(n,dict) and pg(n)==pid]
+    rows=sorted({v['y'] for v in on}); i=0
+    while i < len(rows)-1:
+        y=rows[i]; bottom=max(v['y']+v['h'] for v in on if v['y']==y); ny=rows[i+1]
+        if bottom+80>ny:
+            d=bottom+80-ny
+            for v in on:
+                if v['y']>=ny: v['y']+=d
+            for n in notes:
+                if n.get('y',-1)>=ny-300: n['y']+=d  # the row's title sits 300px above it
+            print('row',pid,ny,'moved',d)
+            rows=sorted({v['y'] for v in on})
+        i+=1
 json.dump(cj,open(P+'canvas.json','w'),indent=1)

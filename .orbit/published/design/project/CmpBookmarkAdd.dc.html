@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Bookmark popover</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Roboto+Mono:wght@400&family=Antonio:wght@600&display=swap" rel="stylesheet"><style>
+body{margin:0}html,body{background:#050609}*{box-sizing:border-box}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;text-align:left}
+.a{min-height:900px;padding:14px;background:#050609;color:#eceef1;font:400 14px/22px 'Inter','Helvetica','Arial',sans-serif}
+.i{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+kbd{font:500 12px/18px 'Inter','Helvetica','Arial',sans-serif;padding:2px 6px;border-radius:4px;border:1px solid rgba(204,204,220,.2);background:#23262c;color:#c9cdd3}
+.i.gf{fill:currentColor;stroke:none}@keyframes clkb{50%{opacity:.25}}.mtl{display:grid;place-items:center;flex:none;width:30px;height:30px;border-radius:6px;font:600 13px/1 Inter,sans-serif}.msi{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}@keyframes msh{to{background-position:-200% 0}}/*userhover*/button[aria-label="User menu"]{transition:background-color .12s}button[aria-label="User menu"]:hover,button[aria-label="User menu"]:focus-visible{background:rgba(204,204,220,.08)!important;outline:0}
+/*slothover: add slot hover = darker shade of the app accent, solid accent border, accent icon*/.dk .n.slot:not(.on):not(.opn):hover,.dk .n.slot:not(.on):not(.opn):focus-visible,.dk .mods .n.slot:not(.on):not(.opn):hover,.dk .mods .n.slot:not(.on):not(.opn):focus-visible,.dk .mods .n.slot.hv{background:color-mix(in srgb,var(--mac,#6e9fff) 38%,#0b0c0e);border:1px solid var(--mac,#6e9fff);color:var(--mac,#6e9fff);border-radius:6px}
+/*bmadd: popover of the dock add slot (S20). Built on Grafana Toggletip: background.elevated, border.weak, radius 6, padding 2*/
+.mods{position:relative}
+@keyframes bmland{0%{transform:translateY(-70px) scale(.55);opacity:0}60%{opacity:1}100%{transform:none}}@keyframes bmring{0%{opacity:0}35%{opacity:1}100%{opacity:0;transform:scale(1.35)}}
+.bpo::before{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;background:linear-gradient(180deg,rgba(255,255,255,.05),transparent 38%)}.bpo>*{position:relative}.bpo>.bpa{position:absolute}.bpo{position:absolute;right:-150px;bottom:calc(100% + 20px);width:460px;display:flex;flex-direction:column;gap:14px;padding:16px;border-radius:10px;background:rgba(30,33,39,.62);-webkit-backdrop-filter:blur(20px) saturate(140%);backdrop-filter:blur(20px) saturate(140%);border:1px solid rgba(204,204,220,.14);box-shadow:inset 0 1px 0 rgba(255,255,255,.07),0 24px 60px #000c;color:#ccccdc;font:400 14px/22px 'Inter','Helvetica','Arial',sans-serif;z-index:20;animation:bpin .16s ease-out;cursor:default;text-align:left}
+@keyframes bpin{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.bpa{position:absolute;bottom:-7px;right:160px;width:12px;height:12px;background:rgba(30,33,39,.62);-webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px);border-right:1px solid rgba(204,204,220,.14);border-bottom:1px solid rgba(204,204,220,.14);transform:rotate(45deg)}
+.bph{display:flex;align-items:center;gap:12px}.bpt{flex:1;display:flex;flex-direction:column;line-height:1.3}.bpt b{font-weight:500;color:#fff;font-size:16px}.bpt span{color:#9fa7b3;font-size:12px}
+.bpx{width:28px;height:28px;border-radius:6px;display:grid;place-items:center;color:#9fa7b3}.bpx:hover{background:rgba(204,204,220,.1);color:#fff}.bpx .i{width:16px;height:16px}
+.bht,.brt{width:32px;height:32px;border-radius:6px;display:grid;place-items:center;flex:none;background:#2a2e35;color:#c9cdd3}.bht .i,.brt .i{width:16px;height:16px}
+.bhn,.brn{flex:1;min-width:0;display:flex;flex-direction:column;line-height:1.35}.bhn b,.brn b{font-weight:500;color:#fff;display:flex;align-items:center;gap:8px}.bhn span,.brn span{color:#9fa7b3;font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bfl{display:flex;gap:8px;align-items:center}.bfq{flex:1;min-width:0;height:100%;border:0;outline:0;background:none;color:#eceef1;font:400 14px/22px 'Inter','Helvetica','Arial',sans-serif;padding:0}.bfq::placeholder{color:#8d939c}.bfq::-webkit-search-cancel-button{display:none}.bfi:focus-within{border-color:var(--mac);box-shadow:0 0 0 1px var(--mac)}.bfx{width:20px;height:20px;border-radius:4px;display:grid;place-items:center;color:#9fa7b3;flex:none}.bfx:hover{color:#fff;background:rgba(204,204,220,.1)}.bfx .i{width:12px;height:12px}.bln{font-style:normal}.bln mark:empty{display:none}.bln mark{background:var(--mhv);color:#fff;border-radius:3px;padding:0 1px}.bfc{color:var(--mac);font:inherit;padding:0}.bfi{min-width:0;flex:1;display:flex;align-items:center;gap:8px;height:32px;padding:0 8px;border-radius:6px;border:1px solid rgba(204,204,220,.16);background:rgba(10,11,14,.35);color:#8d939c}.bfi .i{width:14px;height:14px}
+.brg{display:flex;padding:2px;border-radius:6px;border:1px solid rgba(204,204,220,.12);background:rgba(10,11,14,.3)}.brg button{height:26px;padding:0 10px;border-radius:4px;font-size:12px;color:#9fa7b3;white-space:nowrap}.brg button em{font-style:normal;color:#7b8087;margin-left:2px}.brg .sel{background:rgba(204,204,220,.12);color:#fff}.brg .sel em{color:var(--mac)}
+.bal{display:flex;gap:10px;padding:10px 12px;border-radius:6px;background:rgba(255,152,48,.1);border:1px solid rgba(255,152,48,.35);color:#ccccdc;font-size:12px;line-height:1.45}.bal b{display:block;color:#fff;font-size:14px;font-weight:500}.bal .i{width:16px;height:16px;color:#ff9830;flex:none;margin-top:2px}
+.bls{display:flex;flex-direction:column;gap:2px;max-height:236px;overflow:auto;margin:0 -6px;padding:0 6px}
+.brw{display:flex;align-items:center;gap:12px;padding:6px 8px;border-radius:6px;width:100%;transition:background .12s}.brw:hover{background:rgba(204,204,220,.08)}.brw:focus-visible{outline:2px solid var(--mac);outline-offset:-2px}
+.brw.on .brt{background:var(--mhv);color:var(--mac)}.brk{width:28px;height:28px;display:grid;place-items:center;border-radius:6px;color:#9fa7b3;flex:none}.brk .i{width:16px;height:16px}.brw:hover .brk{color:#fff}.brw.on .brk{color:var(--mac)}
+.brs{font-size:12px;color:var(--mac);white-space:nowrap}.brw.dis{opacity:.4;cursor:not-allowed}.brw.dis:hover{background:none}
+.brw.fresh{animation:bfresh 1.2s ease-out}@keyframes bfresh{0%{background:var(--mhv)}100%{background:transparent}}
+.bem{display:flex;gap:10px;align-items:flex-start;padding:16px 8px;color:#9fa7b3;font-size:12px}.bem b{display:block;color:#fff;font-size:14px;font-weight:500}.bem .i{width:16px;height:16px;color:var(--mac);margin-top:2px}
+.bpf{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-top:12px;border-top:1px solid rgba(204,204,220,.12);font-size:12px;color:#9fa7b3;min-height:45px}
+.bcap{white-space:nowrap;display:flex;align-items:center;gap:8px}.bpp{display:flex;gap:3px}.bpp i{width:14px;height:6px;border-radius:3px;background:rgba(204,204,220,.16);transition:background .2s}.bpp i.on{background:var(--mac)}.bpp i.pnw{background:var(--mac);box-shadow:0 0 0 2px var(--mbd)}
+.bml{display:inline-flex;align-items:center;gap:6px;color:#6ccfdc;font-size:12px;text-decoration:none;cursor:pointer}.bml .i{width:12px;height:12px}
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){.bpo,.bpa{background:#1e2127}}
+/*bmhover: every hover in the popover follows the app accent*/.bpx:hover,.bfx:hover{background:var(--mhv);color:var(--mac)}.brw:hover{background:var(--mbg);box-shadow:inset 0 0 0 1px var(--mbd)}.brw:hover .brt{background:var(--mhv);color:var(--mac)}.brw:hover .brk{color:var(--mac);background:var(--mhv)}.brw.dis:hover{background:none;box-shadow:none}.brw.dis:hover .brt{background:#2a2e35;color:#c9cdd3}.brw.dis:hover .brk{color:#9fa7b3;background:none}.brg button:not(.sel):hover{background:var(--mbg);color:var(--mac)}.bml{color:var(--mac)}.bml:hover{text-decoration:underline;text-underline-offset:3px}.bfc:hover{text-decoration:underline}.bfi:hover{border-color:var(--mbd)}
+@media (prefers-reduced-motion:reduce){.dk .mods .n.bland,.dk .mods .n.bland::after,.bpo,.brw.fresh{animation:none}.dk .mods .n.slot svg{transition:none}}
+.bkh{display:flex;gap:14px;font-size:11px;color:#7b8087;margin-top:-6px}.bkh kbd{font:500 10px/16px 'Roboto Mono',monospace;padding:0 4px;border-radius:3px;border:1px solid rgba(204,204,220,.2);color:#9fa7b3}
+/*bmtree: Grafana NestedFolderList pattern - Indent (spacing 2 = 16px per level), IconButton angle-right / angle-down, role tree / treeitem*/
+.brw{position:relative;gap:4px;padding:2px 8px 2px 4px}.brm{flex:1;min-width:0;display:flex;align-items:center;gap:12px;padding:4px 0;text-align:left;border-radius:4px}.brm:focus-visible{outline:2px solid var(--mac);outline-offset:2px}
+.bch{width:24px;height:24px;flex:none;display:grid;place-items:center;border-radius:4px;color:#9fa7b3}.bch .i{width:16px;height:16px}.bch:hover{background:var(--mhv);color:var(--mac)}.bchs{width:24px;flex:none}.bin2{width:16px;flex:none}
+.brw.sub .brt{width:26px;height:26px}.brw.sub .brt .i{width:14px;height:14px}.brw.sub .brn b{font-size:13px}.bctx{color:#8d939c;font-weight:400;margin-right:4px}.brw:not(.sub) .brn b{font-weight:600}
+</style>
+</helmet>
+<div class="bpo" role="dialog" aria-label="Bookmark a {{ appName }} page" onKeyDown="{{ key }}" style="{{ popStyle }}"><span class="bpa" aria-hidden="true"></span>
+<header class="bph"><span class="mtl" style="{{ tileStyle }}"><sc-if value="{{ glyph }}" hint-placeholder-val="{{ true }}"><sc-if value="{{ i_mon }}" hint-placeholder-val="{{ false }}"><svg class="i gf" viewBox="0 0 24 24" aria-hidden="true"><path d="M21,11H17.06a.78.78,0,0,0-.21,0l-.17,0a1.3,1.3,0,0,0-.15.1,1.67,1.67,0,0,0-.16.12,1,1,0,0,0-.09.13,1.32,1.32,0,0,0-.12.2v0l-1.6,4.41L10.39,4.66a1,1,0,0,0-1.88,0L6.2,11H3a1,1,0,0,0,0,2H6.92L7.15,13l.15,0a.86.86,0,0,0,.16-.1,1.67,1.67,0,0,0,.16-.12l.09-.13a1,1,0,0,0,.12-.2v0L9.45,7.92l4.16,11.42a1,1,0,0,0,.94.66h0a1,1,0,0,0,.94-.66L17.79,13H21a1,1,0,0,0,0-2Z"/></svg></sc-if><sc-if value="{{ i_mgmt }}" hint-placeholder-val="{{ false }}"><svg class="i gf" viewBox="0 0 24 24" aria-hidden="true"><path d="M2.5,8.86l9,5.2a1,1,0,0,0,1,0l9-5.2A1,1,0,0,0,22,8a1,1,0,0,0-.5-.87l-9-5.19a1,1,0,0,0-1,0l-9,5.19A1,1,0,0,0,2,8,1,1,0,0,0,2.5,8.86ZM12,4l7,4-7,4L5,8Zm8.5,7.17L12,16,3.5,11.13a1,1,0,0,0-1.37.37,1,1,0,0,0,.37,1.36l9,5.2a1,1,0,0,0,1,0l9-5.2a1,1,0,0,0,.37-1.36A1,1,0,0,0,20.5,11.13Zm0,4L12,20,3.5,15.13a1,1,0,0,0-1.37.37,1,1,0,0,0,.37,1.36l9,5.2a1,1,0,0,0,1,0l9-5.2a1,1,0,0,0,.37-1.36A1,1,0,0,0,20.5,15.13Z"/></svg></sc-if><sc-if value="{{ i_mnt }}" hint-placeholder-val="{{ false }}"><svg class="i gf" viewBox="0 0 24 24" aria-hidden="true"><path d="M21.71,15.58l-4.52-4.51a6.85,6.85,0,0,0,.14-1.4A7.67,7.67,0,0,0,6.42,2.72a1,1,0,0,0-.57.74,1,1,0,0,0,.28.88l4.35,4.34-1.8,1.8L4.34,6.13a1,1,0,0,0-.88-.27,1,1,0,0,0-.74.56,7.67,7.67,0,0,0,7,10.91,6.85,6.85,0,0,0,1.4-.14l4.51,4.52a1,1,0,0,0,1.42,0,1,1,0,0,0,0-1.42l-4.9-4.9a1,1,0,0,0-.95-.26,5.88,5.88,0,0,1-1.48.2A5.67,5.67,0,0,1,4,9.67a6,6,0,0,1,.08-1L8,12.6a1,1,0,0,0,1.42,0L12.6,9.39A1,1,0,0,0,12.6,8L8.71,4.08a6.12,6.12,0,0,1,1-.08,5.67,5.67,0,0,1,5.66,5.67,5.88,5.88,0,0,1-.2,1.48,1,1,0,0,0,.26.95l4.9,4.9a1,1,0,0,0,1.42-1.42Z"/></svg></sc-if></sc-if><sc-if value="{{ noGlyph }}" hint-placeholder-val="{{ false }}">{{ initial }}</sc-if></span><span class="bpt"><b>Bookmark a {{ appName }} page</b><span>Pages and sub pages, for the dock and Bookmarks</span></span><button type="button" class="bpx" aria-label="Close" onClick="{{ close }}"><svg class="i gf" viewBox="0 0 24 24" aria-hidden="true"><path d="M13.41,12l4.3-4.29a1,1,0,1,0-1.42-1.42L12,10.59,7.71,6.29A1,1,0,0,0,6.29,7.71L10.59,12l-4.3,4.29a1,1,0,0,0,0,1.42,1,1,0,0,0,1.42,0L12,13.41l4.29,4.3a1,1,0,0,0,1.42,0,1,1,0,0,0,0-1.42Z"/></svg></button></header>
+<div class="bfl"><label class="bfi"><svg class="i gf" viewBox="0 0 24 24" aria-hidden="true"><path d="M21.71,20.29,18,16.61A9,9,0,1,0,16.61,18l3.68,3.68a1,1,0,0,0,1.42,0A1,1,0,0,0,21.71,20.29ZM11,18a7,7,0,1,1,7-7A7,7,0,0,1,11,18Z"/></svg><input type="search" class="bfq" placeholder="Search {{ appName }} pages" aria-label="Search {{ appName }} pages" autocomplete="off" value="{{ q }}" onChange="{{ onQ }}"><sc-if value="{{ hasQ }}" hint-placeholder-val="{{ false }}"><button type="button" class="bfx" aria-label="Clear search" onClick="{{ clearQ }}"><svg class="i gf" viewBox="0 0 24 24" aria-hidden="true"><path d="M13.41,12l4.3-4.29a1,1,0,1,0-1.42-1.42L12,10.59,7.71,6.29A1,1,0,0,0,6.29,7.71L10.59,12l-4.3,4.29a1,1,0,0,0,0,1.42,1,1,0,0,0,1.42,0L12,13.41l4.29,4.3a1,1,0,0,0,1.42,0,1,1,0,0,0,0-1.42Z"/></svg></button></sc-if></label><span class="brg" role="radiogroup" aria-label="Show"><button type="button" role="radio" class="{{ tabAll.cls }}" aria-checked="{{ tabAll.sel }}" onClick="{{ tabAll.pick }}">All <em>{{ total }}</em></button><button type="button" role="radio" class="{{ tabBm.cls }}" aria-checked="{{ tabBm.sel }}" onClick="{{ tabBm.pick }}">Bookmarked <em>{{ count }}</em></button></span></div>
+<sc-if value="{{ full }}" hint-placeholder-val="{{ false }}"><div class="bal" role="status"><svg class="i gf" viewBox="0 0 24 24" aria-hidden="true"><path d="M12,16a1,1,0,1,0,1,1A1,1,0,0,0,12,16Zm10.67,1.47-8.05-14a3,3,0,0,0-5.24,0l-8,14A3,3,0,0,0,3.94,22H20.06a3,3,0,0,0,2.61-4.53Zm-1.73,2a1,1,0,0,1-.88.51H3.94a1,1,0,0,1-.88-.51,1,1,0,0,1,0-1l8-14a1,1,0,0,1,1.78,0l8.05,14A1,1,0,0,1,20.94,19.49ZM12,8a1,1,0,0,0-1,1v4a1,1,0,0,0,2,0V9A1,1,0,0,0,12,8Z"/></svg><span><b>The dock is full</b>{{ appName }} can keep {{ cap }} bookmarks in the dock. Remove one to add another.</span></div></sc-if>
+<div class="bls" role="tree" aria-label="{{ appName }} pages"><sc-for list="{{ rows }}" as="r" hint-placeholder-count="8"><div class="{{ r.cls }}" role="treeitem" aria-level="{{ r.level }}" aria-expanded="{{ r.expStr }}" aria-selected="false"><sc-if value="{{ r.isSub }}" hint-placeholder-val="{{ false }}"><span class="bin2" aria-hidden="true"></span></sc-if><sc-if value="{{ r.canExp }}" hint-placeholder-val="{{ false }}"><button type="button" class="bch" aria-label="{{ r.expLabel }}" onClick="{{ r.expand }}"><sc-if value="{{ r.isOpen }}" hint-placeholder-val="{{ false }}"><svg class="i gf" viewBox="0 0 24 24" aria-hidden="true"><path d="M17,9.17a1,1,0,0,0-1.41,0L12,12.71,8.46,9.17a1,1,0,0,0-1.41,0,1,1,0,0,0,0,1.42l4.24,4.24a1,1,0,0,0,1.42,0L17,10.59A1,1,0,0,0,17,9.17Z"/></svg></sc-if><sc-if value="{{ r.isClosed }}" hint-placeholder-val="{{ true }}"><svg class="i gf" viewBox="0 0 24 24" aria-hidden="true"><path d="M14.83,11.29,10.59,7.05a1,1,0,0,0-1.42,0,1,1,0,0,0,0,1.41L12.71,12,9.17,15.54a1,1,0,0,0,0,1.41,1,1,0,0,0,.71.29,1,1,0,0,0,.71-.29l4.24-4.24A1,1,0,0,0,14.83,11.29Z"/></svg></sc-if></button></sc-if><sc-if value="{{ r.noExp }}" hint-placeholder-val="{{ true }}"><span class="bchs" aria-hidden="true"></span></sc-if><button type="button" class="brm" aria-pressed="{{ r.pressed }}" aria-disabled="{{ r.disStr }}" aria-label="{{ r.aria }}" onClick="{{ r.toggle }}"><span class="brt"><sc-if value="{{ r.i_chart }}" hint-placeholder-val="{{ false }}"><svg class="i gf" viewBox="-0.5 0 24 24" aria-hidden="true"><path d="M7,16a1.5,1.5,0,0,0,1.5-1.5.77.77,0,0,0,0-.15l2.79-2.79.23,0,.23,0,1.61,1.61s0,.05,0,.08a1.5,1.5,0,1,0,3,0v-.08L20,9.5h0A1.5,1.5,0,1,0,18.5,8a.77.77,0,0,0,0,.15l-3.61,3.61h-.16L13,10a1.49,1.49,0,0,0-3,0L7,13H7a1.5,1.5,0,0,0,0,3Zm13.5,4H3.5V3a1,1,0,0,0-2,0V21a1,1,0,0,0,1,1h18a1,1,0,0,0,0-2Z"/></svg></sc-if><sc-if value="{{ r.i_doc }}" hint-placeholder-val="{{ false }}"><svg class="i gf" viewBox="0 0 24 24" aria-hidden="true"><path d="M9,10h1a1,1,0,0,0,0-2H9a1,1,0,0,0,0,2Zm0,2a1,1,0,0,0,0,2h6a1,1,0,0,0,0-2ZM20,8.94a1.31,1.31,0,0,0-.06-.27l0-.09a1.07,1.07,0,0,0-.19-.28h0l-6-6h0a1.07,1.07,0,0,0-.28-.19.32.32,0,0,0-.09,0A.88.88,0,0,0,13.05,2H7A3,3,0,0,0,4,5V19a3,3,0,0,0,3,3H17a3,3,0,0,0,3-3V9S20,9,20,8.94ZM14,5.41,16.59,8H15a1,1,0,0,1-1-1ZM18,19a1,1,0,0,1-1,1H7a1,1,0,0,1-1-1V5A1,1,0,0,1,7,4h5V7a3,3,0,0,0,3,3h3Zm-3-3H9a1,1,0,0,0,0,2h6a1,1,0,0,0,0-2Z"/></svg></sc-if><sc-if value="{{ r.i_cube }}" hint-placeholder-val="{{ false }}"><svg class="i gf" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.47,7.37s0,0,0-.08l-.06-.15a.71.71,0,0,0-.07-.09.94.94,0,0,0-.09-.12l-.09-.07L20,6.78l-7.5-4.63a1,1,0,0,0-1.06,0L4,6.78l-.09.08-.09.07a.94.94,0,0,0-.09.12.71.71,0,0,0-.07.09l-.06.15s0,0,0,.08a1.15,1.15,0,0,0,0,.26v8.74a1,1,0,0,0,.47.85l7.5,4.63h0a.47.47,0,0,0,.15.06s.05,0,.08,0a.86.86,0,0,0,.52,0s.05,0,.08,0a.47.47,0,0,0,.15-.06h0L20,17.22a1,1,0,0,0,.47-.85V7.63A1.15,1.15,0,0,0,20.47,7.37ZM11,19.21l-5.5-3.4V9.43L11,12.82Zm1-8.12L6.4,7.63,12,4.18l5.6,3.45Zm6.5,4.72L13,19.21V12.82l5.5-3.39Z"/></svg></sc-if><sc-if value="{{ r.i_bell }}" hint-placeholder-val="{{ false }}"><svg class="i msi" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg></sc-if><sc-if value="{{ r.i_list }}" hint-placeholder-val="{{ false }}"><svg class="i msi" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6h11M9 12h11M9 18h11"/><circle cx="4.5" cy="6" r="1"/><circle cx="4.5" cy="12" r="1"/><circle cx="4.5" cy="18" r="1"/></svg></sc-if><sc-if value="{{ r.i_clock }}" hint-placeholder-val="{{ false }}"><svg class="i msi" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></sc-if></span><span class="brn"><b><sc-if value="{{ r.hasCtx }}" hint-placeholder-val="{{ false }}"><span class="bctx">{{ r.ctx }} ›</span></sc-if><em class="bln">{{ r.pre }}<mark>{{ r.mid }}</mark>{{ r.post }}</em></b><span>{{ r.desc }}</span></span><span class="brs">{{ r.state }}</span><span class="brk"><sc-if value="{{ r.on }}" hint-placeholder-val="{{ false }}"><svg class="i gf" viewBox="0 0 24 24" aria-hidden="true"><path d="M16,2H8C6.3,2,5,3.3,5,5v16c0,0.2,0,0.3,0.1,0.5C5.4,22,6,22.1,6.5,21.9l5.5-3.2l5.5,3.2C17.7,22,17.8,22,18,22c0.6,0,1-0.4,1-1V5C19,3.3,17.7,2,16,2z"/></svg></sc-if><sc-if value="{{ r.notOn }}" hint-placeholder-val="{{ true }}"><svg class="i gf" viewBox="0 0 24 24" aria-hidden="true"><path d="M16,2H8A3,3,0,0,0,5,5V21a1,1,0,0,0,.5.87,1,1,0,0,0,1,0L12,18.69l5.5,3.18A1,1,0,0,0,18,22a1,1,0,0,0,.5-.13A1,1,0,0,0,19,21V5A3,3,0,0,0,16,2Zm1,17.27-4.5-2.6a1,1,0,0,0-1,0L7,19.27V5A1,1,0,0,1,8,4h8a1,1,0,0,1,1,1Z"/></svg></sc-if></span></button></div></sc-for>
+<sc-if value="{{ noneLeft }}" hint-placeholder-val="{{ false }}"><div class="bem"><svg class="i gf" viewBox="0 0 24 24" aria-hidden="true"><path d="M16,2H8A3,3,0,0,0,5,5V21a1,1,0,0,0,.5.87,1,1,0,0,0,1,0L12,18.69l5.5,3.18A1,1,0,0,0,18,22a1,1,0,0,0,.5-.13A1,1,0,0,0,19,21V5A3,3,0,0,0,16,2Zm1,17.27-4.5-2.6a1,1,0,0,0-1,0L7,19.27V5A1,1,0,0,1,8,4h8a1,1,0,0,1,1,1Z"/></svg><span><b>No {{ appName }} bookmarks yet</b>Switch to All and bookmark a page or a sub page.</span></div></sc-if><sc-if value="{{ noMatch }}" hint-placeholder-val="{{ false }}"><div class="bem"><svg class="i gf" viewBox="0 0 24 24" aria-hidden="true"><path d="M21.71,20.29,18,16.61A9,9,0,1,0,16.61,18l3.68,3.68a1,1,0,0,0,1.42,0A1,1,0,0,0,21.71,20.29ZM11,18a7,7,0,1,1,7-7A7,7,0,0,1,11,18Z"/></svg><span><b>No pages match “{{ q }}”</b>Try another name, or <button type="button" class="bfc" onClick="{{ clearQ }}">clear the search</button>.</span></div></sc-if></div>
+<footer class="bpf"><span class="bcap" aria-label="{{ count }} of {{ cap }} bookmarks in the dock"><span class="bpp"><sc-for list="{{ pips }}" as="p" hint-placeholder-count="6"><i class="{{ p.cls }}"></i></sc-for></span>{{ count }} of {{ cap }} in the dock</span>
+<a href="AppsPin.dc.html" class="bml" title="Opens Bookmarks (S11 · DockPagesView) for {{ appName }}">Manage bookmarks<svg class="i gf" viewBox="0 0 24 24" aria-hidden="true"><path d="M18,10.82a1,1,0,0,0-1,1V19a1,1,0,0,1-1,1H5a1,1,0,0,1-1-1V8A1,1,0,0,1,5,7h7.18a1,1,0,0,0,0-2H5A3,3,0,0,0,2,8V19a3,3,0,0,0,3,3H16a3,3,0,0,0,3-3V11.82A1,1,0,0,0,18,10.82Zm3.92-8.2a1,1,0,0,0-.54-.54A1,1,0,0,0,21,2H15a1,1,0,0,0,0,2h3.59L8.29,14.29a1,1,0,0,0,0,1.42,1,1,0,0,0,1.42,0L20,5.41V9a1,1,0,0,0,2,0V3A1,1,0,0,0,21.92,2.62Z"/></svg></a></footer>
+<div class="bkh"><span><kbd>↑</kbd> <kbd>↓</kbd> move</span><span><kbd>←</kbd> <kbd>→</kbd> collapse, expand</span><span><kbd>Enter</kbd> bookmark</span><span><kbd>Esc</kbd> close</span></div></div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"anchored":{"editor":null},"app":{"editor":null},"bm":{"editor":null},"onToggle":{"editor":null},"onClose":{"editor":null},"limit":{"editor":"int","default":6,"min":1,"max":12},"$preview":{"width":492,"height":500}}'>
+class Component extends DCLogic {
+// DockBookmarkAdd (R07, R10, R12): popover of the dock '+' slot. The shared state comes from props: app (an app id, useActiveApp),
+// bm (useBookmarks), onToggle, onClose. The popover keeps only its view: filter, search, the open page and the row just added.
+// Without onToggle (on its own board) it keeps the bookmarks too, so the board works on its own.
+constructor(props) { super(props); this.state = { filter: 'all', q: '', last: null, exp: null }; }
+componentWillUnmount() { clearTimeout(this._t); }
+
+
+
+
+
+
+
+
+
+
+apps() {
+const P = (id, n, ic, bi, dk, d, route, more) => Object.assign({ id, n, ic, bi, dk, d, route, iconName: n }, more);
+return {
+monitoring: { name: 'Monitoring', icon: 'mon', ac: '#58cfec', bg: '#1d353f', sub: 'Grafana · 6 pages', home: 'Home', pages: [
+P('dash', 'Dashboards', 'r0', 'dash', 'chart', 'Browse, search and organise dashboards', '/dashboards', { iconName: 'Apps', subs: [
+  P('pl', 'Playlists', 't0', 'pl', 'pl', 'Rotate dashboards on a TV or kiosk screen', '/playlists'),
+  P('snap', 'Snapshots', 't1', 'dash', 'list', 'Saved copies of a dashboard at one moment', '/dashboard/snapshots'),
+  P('lp', 'Library panels', 't2', 'lp', 'lp', 'Panels you reuse across several dashboards', '/library-panels'),
+  P('pub', 'Shared dashboards', 't3', 'dash', 'list', 'Dashboards open through a public link', '/dashboard/public'),
+  P('del', 'Recently deleted', 't4', 'dash', 'clock', 'Bring back dashboards that were removed', '/dashboard/recently-deleted')] }),
+P('explore', 'Explore', 'r1', 'explore', 'ex', 'Query and inspect your data without a dashboard', '/explore', { iconName: 'Compass', subs: [] }),
+P('drill', 'Drilldown', 'r2', 'drill', 'drill', 'Metrics, logs, traces and profiles without writing queries', '/drilldown', { subs: [
+  P('metrics', 'Metrics', 'r2', 'drill', 'drill', 'Browse metrics without PromQL', '/a/grafana-metricsdrilldown-app/drilldown'),
+  P('logs', 'Logs', 'r2', 'drill', 'drill', 'Browse logs without LogQL', '/a/grafana-lokiexplore-app/explore'),
+  P('traces', 'Traces', 'r2', 'drill', 'drill', 'Browse traces without TraceQL', '/a/grafana-exploretraces-app/explore'),
+  P('profiles', 'Profiles', 'r2', 'drill', 'drill', 'Browse profiles without queries', '/a/grafana-pyroscope-app/explore')] }),
+P('alert', 'Alerting', 'r3', 'alert', 'alert', 'Alert rules, contact points and notification history', '/alerting', { iconName: 'Bell', subs: [
+  P('rules', 'Alert rules', 'r3', 'list', 'bell', 'Rules that decide when an alert fires', '/alerting/list'),
+  P('cp', 'Contact points', 'r3', 'alert', 'alert', 'Where notifications go', '/alerting/notifications'),
+  P('pol', 'Notification policies', 'r3', 'alert', 'alert', 'How alerts are routed', '/alerting/routes'),
+  P('sil', 'Silences', 'r3', 'alert', 'alert', 'Muted notifications', '/alerting/silences'),
+  P('grp', 'Active notifications', 'r3', 'alert', 'alert', 'Alerts that are firing now', '/alerting/groups'),
+  P('set', 'Settings', 'r5', 'admin', 'admin', 'Alertmanager settings', '/alerting/admin')] }),
+P('conn', 'Connections', 'r4', 'conn', 'conn', 'Data sources and plugins', '/connections', { iconName: 'Plug', subs: [
+  P('add', 'Add new connection', 'r4', 'conn', 'conn', 'Connect a new data source', '/connections/add-new-connection'),
+  P('ds', 'Data sources', 'r4', 'conn', 'conn', 'Data sources you have connected', '/connections/datasources')] }),
+P('admin', 'Administration', 'r5', 'admin', 'admin', 'Users, teams, plugins and server settings', '/admin', { iconName: 'Cog', adm: true, groups: [
+  { n: 'General', subs: [P('prefs', 'Default preferences', 'a0', 'admin', 'admin', 'Theme, home dashboard and timezone', '/org'),
+    P('stats', 'Statistics and licensing', 'a1', 'admin', 'admin', 'Usage numbers and license details', '/admin/upgrading'),
+    P('settings', 'Settings', 'a2', 'admin', 'admin', 'Server configuration', '/admin/settings'),
+    P('orgs', 'Organizations', 'a3', 'admin', 'admin', 'Create and switch organizations', '/admin/orgs'),
+    P('migrate', 'Migrate to Grafana Cloud', 'a4', 'admin', 'admin', 'Move this instance to the cloud', '/admin/migrate-to-cloud'),
+    P('prov', 'Provisioning', 'a5', 'admin', 'admin', 'Resources managed from files or Git', '/admin/provisioning')] },
+  { n: 'Plugins and data', subs: [P('plugins', 'Plugins', 'r5', 'admin', 'admin', 'Install and update plugins', '/plugins'),
+    P('corr', 'Correlations', 'r5', 'admin', 'admin', 'Links between data sources', '/datasources/correlations')] },
+  { n: 'Access', subs: [P('users', 'Users', 'r5', 'admin', 'admin', 'Everyone who can sign in', '/admin/users'),
+    P('teams', 'Teams', 'r5', 'admin', 'admin', 'Groups of users', '/org/teams'),
+    P('sa', 'Service accounts', 'r5', 'admin', 'admin', 'Accounts for tools and scripts', '/org/serviceaccounts'),
+    P('auth', 'Authentication', 'r5', 'admin', 'admin', 'Sign-in providers', '/admin/authentication')] }] })] },
+management: { name: 'Management', icon: 'mgmt', ac: '#e0b46a', bg: '#2f2819', sub: 'Production line · 3 pages', home: 'Overview', lc: { v: '0.1.0', st: 'enabled', upd: '0.1.1', d: 'Production line overview, reports and 3D view.', places: true, manage: { since: '28 October',
+health: 'OK', healthAt: '09:14', init: 'Accepted', initAt: '28 Oct', setup: 'Valid', migr: 'Up to date', needs: '>=13.0.0 <14', orbit: '>=1.0.0 <2',
+prev: '0.0.9', updNote: '28 Oct, checks passed by themselves', checked: 'Today 09:14', lastRun: 'Last run today 09:14', checks: [
+{ st: 'ok', t: 'Enabled for this organisation', d: 'On since 28 October.', src: 'GET /api/plugins/acme-management-app/settings' },
+{ st: 'ok', t: 'App loads without error', d: 'Health check answered in 120 ms.', src: 'GET /api/plugins/acme-management-app/health' },
+{ st: 'ok', t: 'Manifest ui block', d: 'accent, show and 3 pages are valid.', src: 'ui.json' },
+{ st: 'ok', t: 'Accent is readable', d: '#e0b46a on the tile meets 4.5:1.' },
+{ st: 'warn', t: 'Pages', d: '3D view has a warning. See the Pages table.', fix: 'Show' }] } }, pages: [
+P('overview', 'Overview', 'chart', 'overview', 'chart', 'Production line overview', '/a/acme-management-app/overview', { iconName: 'Chart', who: 'Viewer', check: 'ok', subs: [
+  P('line', 'Line status', 'chart', 'overview', 'chart', 'Live status of each station on the line', '/a/acme-management-app/overview/line-status'),
+  P('shifts', 'Shifts', 'clock', 'clock', 'clock', 'Output and stops per shift', '/a/acme-management-app/overview/shifts'),
+  P('alarms', 'Alarms', 'bell', 'alert', 'alert', 'Open alarms on the line', '/a/acme-management-app/overview/alarms')] }),
+P('reports', 'Reports', 'doc', 'reports', 'doc', 'Shift and production reports', '/a/acme-management-app/reports', { iconName: 'Document', who: 'Viewer', check: 'ok', subs: [
+  P('daily', 'Daily', 'doc', 'reports', 'doc', 'Yesterday per station', '/a/acme-management-app/reports/daily'),
+  P('weekly', 'Weekly', 'doc', 'reports', 'doc', 'This week against the plan', '/a/acme-management-app/reports/weekly'),
+  P('monthly', 'Monthly', 'doc', 'reports', 'doc', 'Month summary for managers', '/a/acme-management-app/reports/monthly'),
+  P('export', 'Export', 'list', 'list', 'list', 'Download reports as CSV or PDF', '/a/acme-management-app/reports/export')] }),
+P('cube', '3D view', 'cube', 'cube', 'cube', 'Machines in the plant model', '/a/acme-management-app/3d-view', { iconName: 'Cube', who: 'Editor', check: 'warn', subs: [], checks: [
+{ st: 'ok', t: 'Route responds', d: 'The app renders a page at this path.', src: '/a/acme-management-app/3d-view' },
+{ st: 'ok', t: 'In the nav tree for you', d: 'Listed under plugin-page-acme-management-app.' },
+{ st: 'ok', t: 'Who can open', d: 'Editor and above. 2 Viewers in this org cannot see it.' },
+{ st: 'warn', t: 'Manifest page entry', d: 'No description, so the card shows the name only.', src: 'ui.pages.3d-view.description', fix: 'Open manifest draft' }] })] },
+maintenance: { name: 'Maintenance', icon: 'mnt', ac: '#5794f2', bg: '#17233b', sub: 'Work orders · 2 pages', isNew: true, home: 'Work orders', lc: { v: '0.3.2', st: 'enabled', note: 'enabled 09:10', at: 'Today 09:10', d: 'Work orders, machine downtime and service history.',
+update: {"checks": [{"st": "ok", "t": "Grafana version and compatibility", "d": "The app needs >=13.0.0 <14. This Grafana is 13.3.0.", "src": "grafanaDependency"}, {"st": "ok", "t": "Orbit API version", "d": "The app needs Orbit >=1.0.0 <2. This server runs Orbit 1.0.0.", "src": "requires.orbit"}, {"st": "ok", "t": "Plugin loaded", "d": "Grafana loaded acme-maintenance-app v0.4.0 after the restart."}, {"st": "ok", "t": "Signature", "d": "[SIGNATURE STATUS]. Grafana's loader checked it under this server's signature policy."}, {"st": "ok", "t": "Dependencies", "d": "No plugin dependencies are declared in plugin.json."}, {"st": "ok", "t": "Manifest", "d": "Valid. 2 pages and 6 sub pages are registered (1 new)."}], "last": "Rechecked 07:05", "run": "Run again"} }, pages: [
+P('orders', 'Work orders', 'list', 'list', 'list', 'Open, planned and closed work orders', '/a/acme-maintenance-app/orders', { iconName: 'List', kind: 'List', subs: [
+  P('open', 'Open', 'list', 'list', 'list', 'Work orders not closed yet', '/a/acme-maintenance-app/orders/open'),
+  P('planned', 'Planned', 'clock', 'clock', 'clock', 'Planned maintenance by date', '/a/acme-maintenance-app/orders/planned'),
+  P('closed', 'Closed', 'doc', 'doc', 'doc', 'Closed work orders', '/a/acme-maintenance-app/orders/closed')] }),
+P('downtime', 'Downtime', 'clock', 'clock', 'clock', 'Downtime minutes by cause and machine', '/a/acme-maintenance-app/downtime', { iconName: 'Clock', kind: 'Dashboard', subs: [
+  P('cause', 'By cause', 'chart', 'overview', 'chart', 'Downtime minutes by cause', '/a/acme-maintenance-app/downtime/by-cause'),
+  P('machine', 'By machine', 'cube', 'cube', 'cube', 'Downtime minutes by machine', '/a/acme-maintenance-app/downtime/by-machine')] })] },
+quality: { name: 'Quality', inSelector: false, enabled: false, ac: '#73bf69', bg: '#1b2a1d', sub: 'Review required', home: 'Inspections', pages: [],
+lc: { v: '1.0.1', st: 'review', step: 2, n: 4, d: 'Inspection results and defect tracking.',
+review: {"checks": [{"st": "ok", "t": "Grafana version and compatibility", "d": "The app needs >=13.0.0 <14. This Grafana is 13.3.0.", "src": "grafanaDependency"}, {"st": "ok", "t": "Orbit API version", "d": "The app needs Orbit >=1.0.0 <2. This server runs Orbit 1.0.0.", "src": "requires.orbit"}, {"st": "ok", "t": "Plugin loaded", "d": "Grafana discovered and loaded acme-quality-app v1.0.1 after the restart.", "src": "GET /api/plugins/acme-quality-app/settings"}, {"st": "ok", "t": "Signature", "d": "[SIGNATURE STATUS]. Grafana's loader checked it under this server's signature policy."}, {"st": "ok", "t": "Dependencies", "d": "No plugin dependencies are declared in plugin.json."}, {"st": "idle", "t": "App health", "d": "Runs after Enable. Grafana answers the health check only for an enabled app; this app has no backend, so nothing will run."}, {"st": "ok", "t": "Self-test: manifest and routes", "d": "The ui block is valid. 4 pages are registered."}, {"st": "warn", "t": "Self-test: sample query", "d": "Skipped with a warning: no data source is connected yet. It runs again in Validate."}], "last": "Finished 09:12", "run": "Run again"} } },
+energy: { name: 'Energy', inSelector: false, enabled: false, ac: '#f2cc0c', bg: '#2e2a14', sub: 'No pages yet', home: 'Setup', pages: [],
+lc: { v: '0.2.0', st: 'setupwip', step: 3, n: 2, note: 'discovered 08:52', d: 'Power use per machine and per shift.',
+setup: {"checks": [{"st": "idle", "t": "Required fields", "d": "Not run yet."}, {"st": "idle", "t": "Permissions", "d": "Not run yet."}, {"st": "idle", "t": "Connections", "d": "Not run yet."}, {"st": "idle", "t": "App prerequisites", "d": "Not run yet."}]} } },
+safety: { name: 'Safety', inSelector: false, enabled: false, ac: '#c9cdd3', bg: '#262a31', sub: 'Not initialized', home: 'Home', pages: [],
+lc: { v: '0.4.0', st: 'notinit', step: 1, n: 3, note: 'discovered 09:05', d: 'Incident reports and safety walks.' } }
+};
+}
+
+mockItems() {
+const A = this.apps(); const out = [];
+Object.keys(A).forEach((a) => A[a].pages.forEach((g) => {
+const subs = g.groups ? [].concat(...g.groups.map((x) => x.subs.map((s) => Object.assign({ grp: x.n }, s)))) : g.subs;
+out.push(Object.assign({}, g, { key: a + '/' + g.n, app: a, parent: null, nSubs: subs.length }));
+subs.forEach((s) => out.push(Object.assign({}, s, { key: a + '/' + g.n + '/' + s.n, app: a, parent: g.n, grp: s.grp || '', nSubs: 0 }))); }));
+return out;
+}
+mockBookmarks() {
+return { 'monitoring/Dashboards/Playlists': true, 'monitoring/Dashboards/Library panels': true, 'monitoring/Explore': true, 'monitoring/Administration/Settings': true,
+'management/Overview/Line status': true, 'management/Reports/Weekly': true, 'maintenance/Work orders/Open': true, 'maintenance/Downtime': true };
+}
+
+mockHidden() {
+return { 'monitoring/Administration/Settings': true };
+}
+
+renderVals() {
+const p = this.props; const CAP = +p.limit || 6; const A = this.apps();
+const id = A[p.app] ? p.app : 'management'; const app = A[id]; const pre = id + '/';
+const bm = (p.onToggle ? p.bm : this.state.bm || p.bm) || this.mockBookmarks(); const hidden = p.hidden || this.mockHidden();
+const ICONS = ['chart', 'doc', 'cube', 'list', 'clock', 'bell'];
+const icon = (o, ic) => { const k = ICONS.indexOf(ic) >= 0 ? ic : 'list'; ICONS.forEach((x) => { o['i_' + x] = k === x; }); return o; };
+// shortcut: Monitoring's own rail icons (r0-r5, t0-t4, a0-a5) show as the list icon here; draw them when the prototype needs it
+const PAGES = app.pages.map((x) => [x.n, x.ic, x.d || '', x.groups ? [].concat(...x.groups.map((g) => g.subs)) : x.subs]);
+const { filter, last, q } = this.state; const exp = this.state.exp || (PAGES[0] ? { [PAGES[0][0]]: true } : {});
+const qq = (q || '').trim().toLowerCase();
+// a bookmark key is "app/Page" or "app/Page/Sub page" (tools/s22/mock.js); the app home is not bookmarkable
+const isOn = (k) => !!bm[pre + k]; const count = Object.keys(bm).filter((k) => bm[k] && !hidden[k] && k.indexOf(pre) === 0).length; const full = count >= CAP;
+const flip = (k) => { if (p.onToggle) p.onToggle(pre + k); else this.setState({ bm: Object.assign({}, bm, { [pre + k]: !bm[pre + k] }) }); };
+const add = (k) => { if (isOn(k) || full) return; flip(k); this.setState({ last: k });
+clearTimeout(this._t); this._t = setTimeout(() => this.setState({ last: null }), 1300); };
+const remove = (k) => { flip(k); this.setState({ last: null }); };
+const match = (k, text) => (filter === 'all' || isOn(k)) && (!qq || text.toLowerCase().indexOf(qq) >= 0);
+// Tree like Grafana's NestedFolderList: the chevron expands a page, sub pages are indented one level. While searching or showing
+// Bookmarked the list is flat and a sub page carries its page name, like the folder picker's search.
+const flat = !!qq || filter === 'bm';
+const row = (k, l, ic, d, parent, parentShown, nSubs) => { const on = isOn(k); const dis = !on && full; const at = qq ? l.toLowerCase().indexOf(qq) : -1;
+const canExp = !flat && !parent && nSubs > 0; const isOpen = canExp && !!exp[l];
+return icon({ label: l, desc: d, pre: at >= 0 ? l.slice(0, at) : l, mid: at >= 0 ? l.slice(at, at + qq.length) : '', post: at >= 0 ? l.slice(at + qq.length) : '', on, notOn: !on,
+hasCtx: !!parent && !parentShown, ctx: parent || '', isSub: !!parent && parentShown, level: parent && parentShown ? '2' : '1',
+canExp, noExp: !canExp, isOpen, isClosed: !isOpen, expStr: canExp ? (isOpen ? 'true' : 'false') : 'false',
+expLabel: (isOpen ? 'Collapse ' : 'Expand ') + l, expand: () => this.setState({ exp: isOpen ? {} : { [l]: true } }),
+cls: 'brw' + (parent && parentShown ? ' sub' : '') + (on ? ' on' : '') + (dis ? ' dis' : '') + (k === last ? ' fresh' : ''), pressed: on ? 'true' : 'false', disStr: dis ? 'true' : 'false',
+state: on ? (hidden[pre + k] ? 'Bookmarked' : 'In dock') : '', aria: (on ? 'Remove ' : 'Add ') + (parent ? parent + ' › ' : '') + l + (on ? ' from' : ' to') + ' the dock bookmarks',
+toggle: () => (on ? remove(k) : add(k)) }, ic); };
+const rows = []; let total = 0;
+PAGES.forEach(([g, gic, gd, subs]) => { total += 1 + subs.length;
+const pageShown = match(g, g + ' ' + gd);
+if (pageShown) rows.push(row(g, g, gic, [gd, subs.length ? subs.length + ' sub pages' : ''].filter(Boolean).join(' · '), null, false, subs.length));
+if (flat || (pageShown && !!exp[g])) subs.forEach(({ n: l, ic, d }) => { const k = g + '/' + l; if (match(k, g + ' ' + l + ' ' + d)) rows.push(row(k, l, ic, d, g, pageShown && !flat, 0)); }); });
+const pips = []; for (let i = 0; i < CAP; i++) pips.push({ cls: i < count ? (last && i === count - 1 ? 'pnw' : 'on') : '' });
+const tab = (t) => ({ cls: filter === t ? 'sel' : '', sel: filter === t ? 'true' : 'false', pick: () => this.setState({ filter: t }) });
+const vars = '--mac:' + app.ac + ';--mbg:' + app.ac + '1a;--mbd:' + app.ac + '47;--mhv:' + app.ac + '38';
+const close = () => { if (p.onClose) p.onClose(); };
+return {
+// one hole for the whole style: an attribute that starts and ends with a hole is read as a single path by the canvas
+popStyle: vars + (p.anchored ? '' : ';position:relative;left:auto;right:auto;bottom:auto;transform:none;margin:16px'),
+appName: app.name, initial: app.name[0], tileStyle: 'background:' + app.bg + ';color:' + app.ac,
+glyph: !!app.icon, noGlyph: !app.icon, i_mon: app.icon === 'mon', i_mgmt: app.icon === 'mgmt', i_mnt: app.icon === 'mnt',
+close, key: (e) => { if (e && e.key === 'Escape') { if (e.preventDefault) e.preventDefault(); close(); } },
+rows, total, noneLeft: !qq && filter === 'bm' && count === 0, noMatch: !!qq && rows.length === 0, q: q || '', hasQ: !!q,
+onQ: (e) => this.setState({ q: e && e.target ? e.target.value : '' }), clearQ: () => this.setState({ q: '' }),
+tabAll: tab('all'), tabBm: tab('bm'), full, cap: CAP, count, pips
+};
+}
+}
+</script>
+</body>
+</html>

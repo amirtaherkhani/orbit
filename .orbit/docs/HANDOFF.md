@@ -11,7 +11,7 @@ A fork of Grafana OSS (`github.com/amirtaherkhani/orbit`, public) for a producti
 | Area | Status |
 | --- | --- |
 | Architecture (`ARCHITECTURE.md`) | ✔ Written and checked against Grafana v13.3.0; cited files compared with v13.3.1 (51 of 52 identical, one line number moved) |
-| Design canvas, 36 boards (claude.ai) | ✔ Done for this phase; source in `.orbit/design/`, live version in `.orbit/artifacts.json` |
+| Design canvas, 59 boards on six pages (claude.ai) | ✔ Done for this phase; source in `.orbit/design/`, live version in `.orbit/artifacts.json` |
 | Architecture map (claude.ai) | ✔ Current to revision note 85 (version `1795095482-b6a7`); source in `.orbit/map/` |
 | Repository rules, skills, hooks, CI | ✔ In `orbit` (PR #1, #2); guard has 69 passing tests; `orbit-ci / guards` ran green on PR #1 and #2 |
 | Branch model | One product branch `orbit` (revision 85); Grafana releases come in by `update/<tag>` pull requests with a merge commit |

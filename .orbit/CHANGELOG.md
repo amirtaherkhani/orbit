@@ -6,6 +6,9 @@ Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Release names:
 ## [Unreleased]
 
 ### Added
+- Design canvas: R12 · Component catalog and `.orbit/design/components.json`, one contract per shared component (props, states, events and keys, data), rendered by `lc_components` onto R12, R06–R11 and the R03 naming table.
+- Design canvas: board S22 Menu flow (Home, Menu, Apps, Page with a state switcher), a flow link on S04, S06, S08, S11 and S20, and its row in R03; for review before any product code.
+- Design canvas: shared component boards C01–C20 mounted by every screen, board S23 · Prototype (the shell loads every view in place), and six canvas pages; for review before any product code.
 - Project files: architecture docs, design boards and builders, architecture map, guard scripts, agent rules and skills, CI workflows.
 
 ### Changed
