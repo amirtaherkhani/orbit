@@ -7,9 +7,10 @@
    "h": 1460,
    "title": "S15 \u00b7 AppManageView: manage app",
    "w": 1440,
-   "x": 7800,
-   "y": 41056,
-   "is_interactive": true
+   "x": 6080,
+   "y": 3960,
+   "is_interactive": true,
+   "page": "screens"
   },
   "AppsAdd.dc.html": {
    "expand": "fill",
@@ -17,8 +18,9 @@
    "h": 1360,
    "title": "S12 \u00b7 AppsView: all apps",
    "w": 1440,
-   "x": 1560,
-   "y": 41056
+   "x": 0,
+   "y": 3960,
+   "page": "screens"
   },
   "AppsPin.dc.html": {
    "expand": "fill",
@@ -26,88 +28,99 @@
    "title": "S11 \u00b7 DockPagesView: bookmark pages",
    "w": 1440,
    "x": 0,
-   "y": 51006,
-   "is_interactive": true
+   "y": 7400,
+   "is_interactive": true,
+   "page": "screens"
   },
   "AppsProtocol.dc.html": {
    "expand": "fill",
    "h": 1670,
    "title": "S13 \u00b7 AppManifest: ui block draft (spec)",
    "w": 1440,
-   "x": 9360,
-   "y": 41056
+   "x": 7600,
+   "y": 3960,
+   "page": "screens"
   },
   "DockDashboard.dc.html": {
    "expand": "fill",
    "h": 900,
    "title": "S03 \u00b7 Dashboard: AppShell + Grafana dashboard sample",
    "w": 1440,
-   "x": 4680,
-   "y": 11500
+   "x": 1520,
+   "y": 0,
+   "page": "screens"
   },
   "DockHome.dc.html": {
    "expand": "fill",
    "h": 900,
    "title": "S01 \u00b7 Home: AppShell + Grafana home sample",
    "w": 1440,
-   "x": 3120,
-   "y": 11500
+   "x": 0,
+   "y": 0,
+   "page": "screens"
   },
   "DockMenu.dc.html": {
    "expand": "fill",
    "h": 900,
    "title": "S02 \u00b7 MenuSheet: open, section without sub pages",
    "w": 1440,
-   "x": 3120,
-   "y": 33568
+   "x": 0,
+   "y": 1320,
+   "page": "screens"
   },
   "DockUser.dc.html": {
    "expand": "fill",
    "h": 900,
    "title": "S04 \u00b7 UserMenu: open",
    "w": 1440,
-   "x": 6240,
-   "y": 37548
+   "x": 4560,
+   "y": 2640,
+   "page": "screens"
   },
   "ExtAdd.dc.html": {
    "expand": "fill",
    "h": 900,
    "title": "S08 \u00b7 AddMenu: open",
    "w": 1440,
-   "x": 4680,
-   "y": 37548
+   "x": 3040,
+   "y": 2640,
+   "page": "screens"
   },
   "ExtSheet.dc.html": {
    "expand": "fill",
    "h": 900,
    "title": "S07 \u00b7 MenuSheet: sub page tiles (Dashboards)",
    "w": 1440,
-   "x": 4680,
-   "y": 33568
+   "x": 1520,
+   "y": 1320,
+   "page": "screens"
   },
   "ExtSheetAdmin.dc.html": {
    "expand": "fill",
    "h": 900,
    "title": "S10 \u00b7 MenuSheet: group tabs (Administration)",
    "w": 1440,
-   "x": 6240,
-   "y": 33568
+   "x": 3040,
+   "y": 1320,
+   "page": "screens"
   },
   "ExtSheetSwitch.dc.html": {
    "expand": "fill",
    "h": 900,
    "title": "S14 \u00b7 MenuSheet: app dropdown open",
    "w": 1440,
-   "x": 3120,
-   "y": 37548
+   "x": 1520,
+   "y": 2640,
+   "page": "screens"
   },
   "ExtSwitch.dc.html": {
    "expand": "fill",
    "h": 900,
    "title": "S06 \u00b7 AppSwitcher: open",
    "w": 1440,
-   "x": 1560,
-   "y": 37548
+   "x": 0,
+   "y": 2640,
+   "page": "screens"
   },
   "RefChanges.dc.html": {
    "expand": "fill",
@@ -115,79 +128,89 @@
    "title": "R01 \u00b7 Change list",
    "w": 1440,
    "x": 0,
-   "y": 0
+   "y": 0,
+   "page": "overview"
   },
   "RefNew.dc.html": {
    "expand": "fill",
    "h": 7090,
    "title": "R02 \u00b7 New features (not in Grafana)",
    "w": 1440,
-   "x": 1560,
-   "y": 0
+   "x": 1520,
+   "y": 0,
+   "page": "overview"
   },
   "RefScope.dc.html": {
    "expand": "fill",
    "h": 8010,
    "title": "R03 \u00b7 Scope map and naming",
    "w": 1440,
-   "x": 3120,
-   "y": 0
+   "x": 3040,
+   "y": 0,
+   "page": "overview"
   },
   "RefTokens.dc.html": {
    "expand": "fill",
    "h": 4410,
    "title": "R04 \u00b7 Tokens",
    "w": 1440,
-   "x": 4680,
-   "y": 0
+   "x": 0,
+   "y": 0,
+   "page": "foundations"
   },
   "RefFoundations.dc.html": {
    "expand": "fill",
    "h": 2980,
    "title": "R05 \u00b7 Foundations",
    "w": 1440,
-   "x": 6240,
-   "y": 0
+   "x": 1520,
+   "y": 0,
+   "page": "foundations"
   },
   "RefFrame.dc.html": {
    "expand": "fill",
    "h": 4130,
    "title": "R06 \u00b7 AppShell: frame, TopBar, AppBreadcrumb, UserAvatar",
    "w": 1440,
-   "x": 0,
-   "y": 11500
+   "x": 1520,
+   "y": 0,
+   "page": "components"
   },
   "RefDock.dc.html": {
    "expand": "fill",
    "h": 2460,
    "title": "R07 \u00b7 Dock",
    "w": 1440,
-   "x": 0,
-   "y": 33568
+   "x": 4560,
+   "y": 0,
+   "page": "components"
   },
   "RefSheet.dc.html": {
    "expand": "fill",
    "h": 3900,
    "title": "R08 \u00b7 MenuSheet anatomy",
    "w": 1440,
-   "x": 1560,
-   "y": 33568
+   "x": 6080,
+   "y": 0,
+   "page": "components"
   },
   "RefOverlays.dc.html": {
    "expand": "fill",
    "h": 3370,
    "title": "R09 \u00b7 Overlays: MenuSheet, AppSwitcher, UserMenu, AddMenu",
    "w": 1440,
-   "x": 0,
-   "y": 37548
+   "x": 7600,
+   "y": 0,
+   "page": "components"
   },
   "RefApps.dc.html": {
    "expand": "fill",
    "h": 9870,
    "title": "R10 \u00b7 Apps, app lifecycle and bookmarks",
    "w": 1440,
-   "x": 0,
-   "y": 41056
+   "x": 9120,
+   "y": 0,
+   "page": "components"
   },
   "PageSpec.dc.html": {
    "expand": "fill",
@@ -195,286 +218,322 @@
    "title": "P01 \u00b7 Page contract",
    "w": 1440,
    "x": 0,
-   "y": 53386
+   "y": 0,
+   "page": "patterns"
   },
   "PageStates.dc.html": {
    "expand": "fill",
    "h": 1026,
    "title": "P02 \u00b7 Page states",
    "w": 1440,
-   "x": 1560,
-   "y": 53386
+   "x": 1520,
+   "y": 0,
+   "page": "patterns"
   },
   "PageShell.dc.html": {
    "expand": "fill",
    "h": 1610,
    "title": "P03 \u00b7 Page template: Standard",
    "w": 1440,
-   "x": 3120,
-   "y": 53386
+   "x": 3040,
+   "y": 0,
+   "page": "patterns"
   },
   "PageDashboard.dc.html": {
    "expand": "fill",
    "h": 1710,
    "title": "P04 \u00b7 Page template: Dashboard (Canvas)",
    "w": 1440,
-   "x": 4680,
-   "y": 53386
+   "x": 4560,
+   "y": 0,
+   "page": "patterns"
   },
   "PageSettings.dc.html": {
    "expand": "fill",
    "h": 1918,
    "title": "P05 \u00b7 Page template: Settings and Admin",
    "w": 1440,
-   "x": 6240,
-   "y": 53386
+   "x": 6080,
+   "y": 0,
+   "page": "patterns"
   },
   "PageList.dc.html": {
    "expand": "fill",
    "h": 1620,
    "title": "P06 \u00b7 Page template: List",
    "w": 1440,
-   "x": 7800,
-   "y": 53386
+   "x": 7600,
+   "y": 0,
+   "page": "patterns"
   },
   "AppSetup.dc.html": {
    "expand": "fill",
    "h": 3020,
    "title": "S16 \u00b7 AppLifecycleView: setup, validate, enable, migrate",
    "w": 1440,
-   "x": 4680,
-   "y": 41056
+   "x": 3040,
+   "y": 3960,
+   "page": "screens"
   },
   "AddAppFlow.dc.html": {
    "expand": "fill",
    "h": 1940,
    "title": "S18 \u00b7 AppLifecycleView: initialize and review",
    "w": 1440,
-   "x": 3120,
-   "y": 41056
+   "x": 1520,
+   "y": 3960,
+   "page": "screens"
   },
   "DockAppPages.dc.html": {
    "expand": "fill",
    "h": 900,
    "title": "S19 \u00b7 MenuSheet: pages of the selected app",
    "w": 1440,
-   "x": 7800,
-   "y": 33568,
-   "is_interactive": true
+   "x": 4560,
+   "y": 1320,
+   "is_interactive": true,
+   "page": "screens"
   },
   "DockBookmarkAdd.dc.html": {
    "expand": "fill",
    "h": 900,
    "title": "S20 \u00b7 DockBookmarkAdd: add a bookmark from the dock",
    "w": 1440,
-   "x": 9360,
-   "y": 33568,
-   "is_interactive": true
+   "x": 6080,
+   "y": 1320,
+   "is_interactive": true,
+   "page": "screens"
   },
   "RefBreadcrumb.dc.html": {
    "expand": "fill",
    "h": 2060,
    "title": "R11 \u00b7 AppBreadcrumb: component",
    "w": 1440,
-   "x": 1560,
-   "y": 11500
+   "x": 3040,
+   "y": 0,
+   "page": "components"
   },
   "PageDetail.dc.html": {
    "expand": "fill",
    "h": 1600,
    "title": "P07 \u00b7 Page template: Detail with info panel",
    "w": 1440,
-   "x": 9360,
-   "y": 53386
+   "x": 9120,
+   "y": 0,
+   "page": "patterns"
   },
   "AppUpdate.dc.html": {
    "expand": "fill",
    "h": 1920,
    "title": "S21 \u00b7 AppLifecycleView: after an update",
    "w": 1440,
-   "x": 6240,
-   "y": 41056
+   "x": 4560,
+   "y": 3960,
+   "page": "screens"
   },
   "DockMenuFlow.dc.html": {
    "expand": "fill",
    "h": 900,
    "title": "S22 \u00b7 MenuSheet: menu flow",
    "w": 1440,
-   "x": 10920,
-   "y": 33568,
-   "is_interactive": true
+   "x": 7600,
+   "y": 1320,
+   "is_interactive": true,
+   "page": "screens"
   },
   "RefComponents.dc.html": {
    "expand": "fill",
    "h": 11420,
    "title": "R12 \u00b7 Component catalog",
    "w": 1440,
-   "x": 7800,
-   "y": 0
+   "x": 0,
+   "y": 0,
+   "page": "components"
   },
   "CmpDock.dc.html": {
    "h": 80,
    "title": "C01 \u00b7 Dock: component",
    "w": 820,
-   "x": 6240,
-   "y": 11500
+   "x": 0,
+   "y": 11840,
+   "page": "components"
   },
   "CmpTopBar.dc.html": {
    "h": 76,
    "title": "C02 \u00b7 TopBar: component",
    "w": 1412,
-   "x": 6240,
-   "y": 29360
+   "x": 900,
+   "y": 11840,
+   "page": "components"
   },
   "CmpUserMenu.dc.html": {
    "h": 400,
    "title": "C03 \u00b7 UserMenu: component",
    "w": 320,
-   "x": 6240,
-   "y": 29520
+   "x": 2392,
+   "y": 11840,
+   "page": "components"
   },
   "CmpAddMenu.dc.html": {
    "h": 300,
    "title": "C04 \u00b7 AddMenu: component",
    "w": 320,
-   "x": 6640,
-   "y": 29520
+   "x": 2792,
+   "y": 11840,
+   "page": "components"
   },
   "CmpAppSwitcher.dc.html": {
    "h": 330,
    "title": "C05 \u00b7 AppSwitcher: component",
    "w": 440,
-   "x": 7040,
-   "y": 19140
+   "x": 3192,
+   "y": 11840,
+   "page": "components"
   },
   "CmpMenuSheet.dc.html": {
    "h": 500,
    "title": "C06 \u00b7 MenuSheet: component",
    "w": 1112,
-   "x": 6240,
-   "y": 15710,
-   "is_interactive": true
+   "x": 3712,
+   "y": 11840,
+   "is_interactive": true,
+   "page": "components"
   },
   "CmpBookmarkAdd.dc.html": {
    "h": 500,
    "title": "C07 \u00b7 DockBookmarkAdd: component",
    "w": 492,
-   "x": 7560,
-   "y": 19140,
-   "is_interactive": true
+   "x": 4904,
+   "y": 11840,
+   "is_interactive": true,
+   "page": "components"
   },
   "CmpDockPages.dc.html": {
    "h": 660,
    "title": "C08 \u00b7 DockPagesView: component",
    "w": 1440,
-   "x": 8160,
-   "y": 24280,
-   "is_interactive": true
+   "x": 0,
+   "y": 12760,
+   "is_interactive": true,
+   "page": "components"
   },
   "CmpPageCard.dc.html": {
    "h": 380,
    "title": "C09 \u00b7 PageCard: component",
    "w": 472,
-   "x": 6240,
-   "y": 24280,
-   "is_interactive": true
+   "x": 1520,
+   "y": 12760,
+   "is_interactive": true,
+   "page": "components"
   },
   "CmpPagePanel.dc.html": {
    "h": 780,
    "title": "C10 \u00b7 PagePanel: component",
    "w": 432,
-   "x": 6800,
-   "y": 24280,
-   "is_interactive": true
+   "x": 2072,
+   "y": 12760,
+   "is_interactive": true,
+   "page": "components"
   },
   "CmpDockPreview.dc.html": {
    "h": 670,
    "title": "C11 \u00b7 DockPreview: component",
    "w": 432,
-   "x": 9680,
-   "y": 24280,
-   "is_interactive": true
+   "x": 2584,
+   "y": 12760,
+   "is_interactive": true,
+   "page": "components"
   },
   "CmpAppsView.dc.html": {
    "h": 1240,
    "title": "C12 \u00b7 AppsView: component",
    "w": 1440,
-   "x": 10200,
-   "y": 20980,
-   "is_interactive": true
+   "x": 0,
+   "y": 13960,
+   "is_interactive": true,
+   "page": "components"
   },
   "CmpAppCard.dc.html": {
    "h": 260,
    "title": "C13 \u00b7 AppCard: component",
    "w": 332,
-   "x": 11720,
-   "y": 20980,
-   "is_interactive": true
+   "x": 1520,
+   "y": 13960,
+   "is_interactive": true,
+   "page": "components"
   },
   "CmpAppPreview.dc.html": {
    "h": 970,
    "title": "C14 \u00b7 AppPreviewPanel: component",
    "w": 392,
-   "x": 7320,
-   "y": 25140,
-   "is_interactive": true
+   "x": 1932,
+   "y": 13960,
+   "is_interactive": true,
+   "page": "components"
   },
   "CmpStatusChip.dc.html": {
    "h": 60,
    "title": "C15 \u00b7 StatusChip and AppStatus: component",
    "w": 240,
-   "x": 7800,
-   "y": 25140,
-   "is_interactive": true
+   "x": 2404,
+   "y": 13960,
+   "is_interactive": true,
+   "page": "components"
   },
   "CmpLcButton.dc.html": {
    "h": 60,
    "title": "C16 \u00b7 LifecycleActionButton: component",
    "w": 220,
-   "x": 7800,
-   "y": 26190,
-   "is_interactive": true
+   "x": 2724,
+   "y": 13960,
+   "is_interactive": true,
+   "page": "components"
   },
   "CmpAppManage.dc.html": {
    "h": 1180,
    "title": "C17 \u00b7 AppManageView: component",
    "w": 1440,
-   "x": 8160,
-   "y": 19720,
-   "is_interactive": true
+   "x": 3024,
+   "y": 13960,
+   "is_interactive": true,
+   "page": "components"
   },
   "CmpChecksList.dc.html": {
    "h": 470,
    "title": "C18 \u00b7 ChecksList: component",
    "w": 652,
-   "x": 6240,
-   "y": 19720,
-   "is_interactive": true
+   "x": 4544,
+   "y": 13960,
+   "is_interactive": true,
+   "page": "components"
   },
   "CmpVersionInfo.dc.html": {
    "h": 450,
    "title": "C19 \u00b7 AppVersionInfo: component",
    "w": 392,
-   "x": 7000,
-   "y": 19720,
-   "is_interactive": true
+   "x": 5276,
+   "y": 13960,
+   "is_interactive": true,
+   "page": "components"
   },
   "CmpLifecycle.dc.html": {
    "h": 1900,
    "title": "C20 \u00b7 AppLifecycleView: component",
    "w": 1440,
-   "x": 11720,
-   "y": 22300,
-   "is_interactive": true
+   "x": 5748,
+   "y": 13960,
+   "is_interactive": true,
+   "page": "components"
   },
   "Prototype.dc.html": {
    "expand": "fill",
    "h": 1400,
    "title": "S23 \u00b7 Prototype: the shell with every view",
    "w": 1440,
-   "x": 12480,
-   "y": 33568,
-   "is_interactive": true
+   "x": 0,
+   "y": 0,
+   "is_interactive": true,
+   "page": "prototype"
   }
  },
  "createdOnFiles": {
@@ -483,64 +542,97 @@
  },
  "designSystems": [],
  "launch": {
-  "view": "canvas"
+  "view": "canvas",
+  "page": "overview"
  },
  "notes": {
-  "r1": {
+  "overview1": {
    "kind": "title1",
-   "maxW": 9240,
-   "text": "1 \u00b7 Start here: what changes, what is new, scope, tokens, foundations (R01\u2013R05; R12 lists every component; R03 explains every ID and tag)",
-   "w": 240,
    "x": 0,
-   "y": -300
+   "y": -300,
+   "maxW": 4480,
+   "text": "Start here: what changes, what is new, scope and naming (R01\u2013R03; R03 explains every ID and tag)",
+   "page": "overview"
   },
-  "r2": {
+  "foundations1": {
    "kind": "title1",
-   "maxW": 6120,
-   "text": "2 \u00b7 Shell and top bar: frame and breadcrumb specs, then the screens that use them (R06, R11 \u2192 S01, S03)",
-   "w": 240,
    "x": 0,
-   "y": 7220
+   "y": -300,
+   "maxW": 2960,
+   "text": "Tokens and foundations (R04, R05)",
+   "page": "foundations"
   },
-  "r3": {
+  "components1": {
    "kind": "title1",
-   "maxW": 12360,
-   "text": "3 \u00b7 Dock and MenuSheet: spec, then each sheet state, the selected app's pages and the add-bookmark popover, then the whole menu flow (R07, R08 \u2192 S02, S07, S10, S19, S20, S22)",
-   "w": 240,
    "x": 0,
-   "y": 33268
+   "y": -300,
+   "maxW": 10560,
+   "text": "Specs: the component catalog (R12), then the shell, breadcrumb, dock, MenuSheet, overlays and apps specs (R06\u2013R11)",
+   "page": "components"
   },
-  "r4": {
+  "components2": {
    "kind": "title1",
-   "maxW": 7680,
-   "text": "4 \u00b7 Overlays: switching apps, adding, user menu (R09 \u2192 S06, S14, S08, S04). Compare S06 with S14",
-   "w": 240,
    "x": 0,
-   "y": 37238
+   "y": 11540,
+   "maxW": 5396,
+   "text": "Shell components: Dock, TopBar, UserMenu, AddMenu, AppSwitcher, MenuSheet, DockBookmarkAdd (C01\u2013C07)",
+   "page": "components"
   },
-  "r5": {
+  "components3": {
    "kind": "title1",
-   "maxW": 9240,
-   "text": "5 \u00b7 App lifecycle in flow order: spec, all apps with their status, initialize and review, setup to enable, after an update, manage, manifest (R10 \u2192 S12, S18, S16, S21, S15, S13)",
-   "w": 240,
    "x": 0,
-   "y": 40756
+   "y": 12460,
+   "maxW": 3016,
+   "text": "Bookmarks components: DockPagesView and its parts (C08\u2013C11)",
+   "page": "components"
   },
-  "r6": {
+  "components4": {
    "kind": "title1",
-   "maxW": 1440,
-   "text": "6 \u00b7 Bookmarks: bookmark an app's pages and sub pages; the dock shows the active app's bookmarks (S11, spec in R10 and R07)",
-   "w": 240,
    "x": 0,
-   "y": 49236
+   "y": 13660,
+   "maxW": 7188,
+   "text": "Apps and lifecycle components: AppsView, AppManageView, AppLifecycleView and their parts (C12\u2013C20)",
+   "page": "components"
   },
-  "r7": {
+  "patterns1": {
    "kind": "title1",
-   "maxW": 9240,
-   "text": "7 \u00b7 Page templates: Grafana content inside the custom shell (P01\u2013P07)",
-   "w": 240,
    "x": 0,
-   "y": 53086
+   "y": -300,
+   "maxW": 10560,
+   "text": "Page templates: Grafana content inside the custom shell (P01\u2013P07)",
+   "page": "patterns"
+  },
+  "screens1": {
+   "kind": "title1",
+   "x": 0,
+   "y": -300,
+   "maxW": 2960,
+   "text": "Shell and top bar: the screens that use the frame and breadcrumb (S01, S03)",
+   "page": "screens"
+  },
+  "screens2": {
+   "kind": "title1",
+   "x": 0,
+   "y": 1020,
+   "maxW": 9040,
+   "text": "Dock and MenuSheet: each sheet state, the selected app's pages, the add-bookmark popover, then the whole menu flow (S02, S07, S10, S19, S20, S22)",
+   "page": "screens"
+  },
+  "screens3": {
+   "kind": "title1",
+   "x": 0,
+   "y": 2340,
+   "maxW": 6000,
+   "text": "Overlays: switching apps, adding, user menu (S06, S14, S08, S04). Compare S06 with S14",
+   "page": "screens"
+  },
+  "screens4": {
+   "kind": "title1",
+   "x": 0,
+   "y": 3660,
+   "maxW": 9040,
+   "text": "App lifecycle in flow order: all apps with their status, initialize and review, setup to enable, after an update, manage, manifest (S12, S18, S16, S21, S15, S13)",
+   "page": "screens"
   }
  },
  "order": [
@@ -604,6 +696,31 @@
   "PageList.dc.html",
   "PageDetail.dc.html"
  ],
- "pages": [],
+ "pages": [
+  {
+   "id": "overview",
+   "name": "1 \u00b7 Overview and docs"
+  },
+  {
+   "id": "foundations",
+   "name": "2 \u00b7 Foundations"
+  },
+  {
+   "id": "components",
+   "name": "3 \u00b7 Components"
+  },
+  {
+   "id": "patterns",
+   "name": "4 \u00b7 Patterns and templates"
+  },
+  {
+   "id": "screens",
+   "name": "5 \u00b7 Screens by feature"
+  },
+  {
+   "id": "prototype",
+   "name": "6 \u00b7 Prototype"
+  }
+ ],
  "title": "Grafana UI Redesign Prototype"
 }
