@@ -33,17 +33,17 @@ pickApp(id) {
 if (id === this.state.app) { this.setState({ apps: false }); return; }
 clearTimeout(this.loadTimer);
 // Monitoring is Grafana's own app: it never shows the loading state (N6)
-this.setState({ app: id, apps: false, loading: id !== 'monitoring' });
+this.setState({ app: id, apps: false, switcher: false, loading: id !== 'monitoring' });
 if (id !== 'monitoring') this.loadTimer = setTimeout(() => this.setState({ loading: false }), 650);
 }
 renderVals() {
 const A = this.apps(); const { viewer, menu, apps, opened, app, loading, bm, hidden, adding, fresh, view, viewApp, lcMode, switcher } = this.state; const cur = A[app];
-const DK = ['chart', 'doc', 'cube', 'list', 'clock', 'bell', 'pl', 'lp', 'ex'];
+const DK = ['chart', 'doc', 'cube', 'list', 'clock', 'bell', 'pl', 'lp', 'ex', 'dash', 'drill', 'alert', 'conn', 'admin'];
 const dockBms = [];
 cur.pages.filter((x) => !(viewer && x.adm)).forEach((x) => {
 const inDock = (k) => bm[k] && !hidden[k];
-if (inDock(app + '/' + x.n)) dockBms.push({ label: x.n, icon: x.dk || x.ic, fresh: fresh === app + '/' + x.n });
-(x.groups ? [].concat(...x.groups.map((g) => g.subs)) : x.subs).forEach((t) => { const k = app + '/' + x.n + '/' + t.n; if (inDock(k)) dockBms.push({ label: x.n + ' › ' + t.n, icon: t.dk || t.ic, fresh: fresh === k }); });
+if (inDock(app + '/' + x.n)) dockBms.push({ label: x.n, icon: x.dk || x.ic, fresh: fresh === app + '/' + x.n, app, page: x.n });
+(x.groups ? [].concat(...x.groups.map((g) => g.subs)) : x.subs).forEach((t) => { const k = app + '/' + x.n + '/' + t.n; if (inDock(k)) dockBms.push({ label: x.n + ' › ' + t.n, icon: t.dk || t.ic, fresh: fresh === k, app, page: x.n, sub: t.n }); });
 });
 dockBms.forEach((b) => { if (DK.indexOf(b.icon) < 0) b.icon = 'list'; });
 const crumb = opened ? { a: A[opened.app].name, p: opened.page, s: opened.sub || '' } : { a: '', p: '', s: '' };
@@ -62,7 +62,9 @@ openedDesc: opened ? crumb.a + ' · ' + crumb.p + (crumb.s ? ' · ' + crumb.s : 
 vHome: view === 'home', vDash: view === 'dashboard', vApps: view === 'apps', vManage: view === 'manage', vLife: view === 'lifecycle', vBm: view === 'bookmarks', vPage: view === 'page',
 viewApp, lcMode, dockSel: { home: 'home', dashboard: 'dashboards', bookmarks: 'bookmarks', apps: 'apps', manage: 'apps', lifecycle: 'apps' }[view] || 'none',
 viewCrumb: { dashboard: 'Dashboards', apps: 'Apps', manage: 'Apps', lifecycle: 'Apps', bookmarks: 'Bookmarks' }[view] || '', viewSub: view === 'manage' || view === 'lifecycle' ? A[viewApp].name : '', hasViewSub: view === 'manage' || view === 'lifecycle',
-navigate: (k) => this.go({ home: 'home', dashboards: 'dashboard', bookmarks: 'bookmarks' }[k] || 'home'), appsPage: () => this.go('apps'),
+// the dock's bookmarks open their page and Alerting opens Grafana's Alerting page, from every view
+navigate: (k, b) => (k === 'bookmark' && b ? this.openPage(b.app, b.page, b.sub) : k === 'alerting' ? this.openPage('monitoring', 'Alerting')
+: this.go({ home: 'home', dashboards: 'dashboard', starred: 'dashboard', bookmarks: 'bookmarks' }[k] || 'home')), appsPage: () => this.go('apps'),
 manage: (id) => this.go('manage', id), step: (id) => this.go('lifecycle', id), toggleSwitcher: () => this.toggleSwitcher()
 };
 }

@@ -28,7 +28,9 @@ VIEWS=(hole('vDash','false')+dash+'</sc-if>'
 k=s.index('</main>'); s=s[:k]+VIEWS+s[k:]
 # 2. The dock routes: its items open views, the app button opens C05 AppSwitcher, whose Apps row opens the Apps page
 one('selected="none" open-overlay="{{ dockOverlay }}"','selected="{{ dockSel }}" open-overlay="{{ dockOverlay }}"')
-one('on-apps="{{ toggleApps }}" on-key="{{ sheetKey }}"','on-apps="{{ toggleSwitcher }}" on-apps-page="{{ appsPage }}" on-navigate="{{ navigate }}" on-key="{{ sheetKey }}"')
+one('on-apps="{{ toggleApps }}" on-key="{{ sheetKey }}"','on-apps="{{ toggleSwitcher }}" on-apps-page="{{ appsPage }}" on-pick-app="{{ pickApp }}" on-navigate="{{ navigate }}" on-key="{{ sheetKey }}"')
+# the dock stays at the bottom centre of the window on every view, also on views taller than the board (owner, 2026-11-22)
+i=s.index('<dc-import name="CmpDock"'); j=s.index('</dc-import>',i)+12; s=s[:i]+'<div class="s23dk">'+s[i:j]+'</div>'+s[j:]
 # 3. Title, stylesheet (S22's, plus the rules of the screens whose views it shows: S03, S11, S12, S15, S16, S18, S21), logic
 s=re.sub(r'<title>[^<]*</title>','<title>Prototype</title>',s,count=1)
 css=lambda t: t[t.index('<style>',t.index('<helmet>'))+7:t.index('</style>',t.index('<helmet>'))]
@@ -38,6 +40,7 @@ for f in ['DockDashboard','AppsPin','AppsAdd','AppManage','AppSetup','AddAppFlow
     for r in split(css(open(P+f+'.dc.html').read()))[0]:
         sel=r[:r.index('{')].strip() if '{' in r else ''
         if sel and sel not in have: have.add(sel); add+=r  # the first board that has a selector gives its rule
+add+='.s23dk{position:fixed;left:0;right:0;bottom:18px;display:flex;justify-content:center;z-index:20;pointer-events:none}.s23dk>*{pointer-events:auto}main.mn{padding-bottom:96px}'
 i=s.index('</style>',s.index('<helmet>')); s=s[:i]+add+s[i:]
 MOCK=re.sub(r'^//.*$','',open(T+'mock.js').read(),flags=re.M)
 a=s.index('class Component extends DCLogic'); z=s.index('</script>',a)
