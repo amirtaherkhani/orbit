@@ -466,6 +466,15 @@
    "x": 11720,
    "y": 22300,
    "is_interactive": true
+  },
+  "Prototype.dc.html": {
+   "expand": "fill",
+   "h": 1400,
+   "title": "S23 \u00b7 Prototype: the shell with every view",
+   "w": 1440,
+   "x": 12480,
+   "y": 33568,
+   "is_interactive": true
   }
  },
  "createdOnFiles": {
@@ -573,6 +582,7 @@
   "DockAppPages.dc.html",
   "DockBookmarkAdd.dc.html",
   "DockMenuFlow.dc.html",
+  "Prototype.dc.html",
   "RefOverlays.dc.html",
   "ExtSwitch.dc.html",
   "ExtSheetSwitch.dc.html",

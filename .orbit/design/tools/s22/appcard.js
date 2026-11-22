@@ -12,7 +12,9 @@ enabled: on, notEnabled: !on, upd: lc.upd || '', hasUpd: !!lc.upd, places: !!lc.
 // in the grid the card fills its cell, so a row of cards ends level
 rootStyle: p.embedded ? 'height:100%' : "width:300px;margin:16px;color:#eceef1;font:400 14px/22px 'Inter','Helvetica','Arial',sans-serif",
 tile: 'display:grid;place-items:center;flex:none;width:40px;height:40px;border-radius:10px;background:' + a.bg + ';color:' + a.ac,
-select: () => { if (p.onSelect) p.onSelect(id); else this.setState({ sel: !sel }); } };
+select: () => { if (p.onSelect) p.onSelect(id); else this.setState({ sel: !sel }); },
+// onManage and onStep (the prototype): Manage and the lifecycle button open their views in place
+manage: p.onManage ? (e) => { if (e && e.preventDefault) e.preventDefault(); p.onManage(id); } : undefined, stepTo: p.onStep ? () => p.onStep(id) : undefined };
 ['management', 'maintenance', 'quality', 'energy', 'safety'].forEach((k) => { v['i_' + k] = k === id; });
 return v;
 }

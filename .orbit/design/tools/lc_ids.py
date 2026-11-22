@@ -13,7 +13,7 @@ tag = lambda c, t: f'<span class="rtg {c}">{t}</span>'
 
 IDS = [
     ('R', 'Reference board: the spec a screen follows', 'R01–R12', 'R10 · Apps, app lifecycle and bookmarks', 'Design canvas'),
-    ('S', 'Screen board: one state of one view', 'S01–S22 (no S05, S09, S17)', 'S16 · AppLifecycleView: setup, validate, enable, migrate', 'Design canvas'),
+    ('S', 'Screen board: one state of one view', 'S01–S23 (no S05, S09, S17)', 'S16 · AppLifecycleView: setup, validate, enable, migrate', 'Design canvas'),
     ('P', 'Page template board', 'P01–P07', 'P07 · Page template: Detail with info panel', 'Design canvas, last row'),
     ('C', 'Component board: one shared component (R12), mounted by screens with dc-import', 'C01–C20', 'C01 · Dock: component', 'Design canvas, Components'),
     ('SM', 'Seam: a point where the fork touches Grafana', 'SM01–SM14', 'SM01 · the import in RoutesWrapper.tsx', 'ARCHITECTURE.md 6, .orbit/seams.json'),
