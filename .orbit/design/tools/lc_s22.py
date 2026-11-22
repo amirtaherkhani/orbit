@@ -44,6 +44,8 @@ adm=open(ROOT+'pre_lifecycle/ExtSheetAdmin.dc.html').read(); adm=adm[adm.index('
 atl=re.findall(r'<span class="tl">(<svg.*?</svg>)</span>\s*<b>([^<]+)</b>',adm,flags=re.S)[:6]
 assert [x[1] for x in atl]==['Default preferences','Statistics and licensing','Settings','Organizations','Migrate to Grafana Cloud','Provisioning'],atl
 add_icons('t','a',[x[0] for x in atl])
+# sub pages without an icon of their own (Drilldown, Alerting, Connections, Plugins and data) show their section's rail icon
+add_icons('t','r',[x[0] for x in rail])
 
 # 2. Tiles: a click opens the page, arrows move focus (N9); the grid takes the keys
 one('onClick="{{ t.focus }}"','id="{{ t.id }}" onFocus="{{ t.focus }}" onClick="{{ t.open }}"')

@@ -30,7 +30,7 @@ k=s.index('</main>'); s=s[:k]+VIEWS+s[k:]
 one('selected="none" open-overlay="{{ dockOverlay }}"','selected="{{ dockSel }}" open-overlay="{{ dockOverlay }}"')
 one('on-apps="{{ toggleSwitcher }}" on-pick-app="{{ pickApp }}" on-key="{{ sheetKey }}"','on-apps="{{ toggleSwitcher }}" on-apps-page="{{ appsPage }}" on-pick-app="{{ pickApp }}" on-navigate="{{ navigate }}" on-key="{{ sheetKey }}"')
 # the dock stays at the bottom centre of the window on every view, also on views taller than the board (owner, 2026-11-22)
-i=s.index('<dc-import name="CmpDock"'); j=s.index('</dc-import>',i)+12; s=s[:i]+'<div class="s23dk">'+s[i:j]+'</div>'+s[j:]
+one('<div class="dkh"><dc-import name="CmpDock"','<div class="s23dk"><dc-import name="CmpDock"')  # S22's host div (lc_compose) becomes S23's
 # 3. Title, stylesheet (S22's, plus the rules of the screens whose views it shows: S03, S11, S12, S15, S16, S18, S21), logic
 s=re.sub(r'<title>[^<]*</title>','<title>Prototype</title>',s,count=1)
 css=lambda t: t[t.index('<style>',t.index('<helmet>'))+7:t.index('</style>',t.index('<helmet>'))]

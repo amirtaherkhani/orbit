@@ -20,3 +20,9 @@ Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Release names:
 - `clean-worktrees.mjs` lists worktrees whose exact commit was merged on GitHub and removes them with `--apply` (the guard asks); session start points to it when a worktree's branch is gone.
 - The guard follows `cd` and `pushd` inside a shell command, so a write such as `cd .orbit/design && … > project/x` is judged from `.orbit/design`.
 - Work branches are pushed and their pull requests into `orbit` opened without asking, once every check passes; PR titles are checked by the guard. Tags, releases, settings and merges still need the owner.
+
+### Fixed
+- Design canvas: the dock sits at the bottom centre again on every screen and page board; a host div around the C01 Dock import carries its placement (`lc_compose.py`).
+- Design canvas: every menu tile has an icon again (Drilldown, Alerting, Connections, Plugins and data sub pages show their section's icon); the build fails when a page has no tile icon.
+- Design canvas: the C07 bookmark popover footer shows a short "In dock 2/6" above the progress pips, with Manage bookmarks on the right.
+- Design canvas: R07 and R12 document the dock Starred button: it opens Grafana's starred dashboards list, `/dashboards?starred`.

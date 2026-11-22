@@ -257,7 +257,7 @@ kbd{font:500 12px/18px 'Inter','Helvetica','Arial',sans-serif;padding:2px 6px;bo
 .brw{position:relative;gap:4px;padding:2px 8px 2px 4px}.brm{flex:1;min-width:0;display:flex;align-items:center;gap:12px;padding:4px 0;text-align:left;border-radius:4px}.brm:focus-visible{outline:2px solid var(--mac);outline-offset:2px}
 .bch{width:24px;height:24px;flex:none;display:grid;place-items:center;border-radius:4px;color:#9fa7b3}.bch .i{width:16px;height:16px}.bch:hover{background:var(--mhv);color:var(--mac)}.bchs{width:24px;flex:none}.bin2{width:16px;flex:none}
 .brw.sub .brt{width:26px;height:26px}.brw.sub .brt .i{width:14px;height:14px}.brw.sub .brn b{font-size:13px}.bctx{color:#8d939c;font-weight:400;margin-right:4px}.brw:not(.sub) .brn b{font-weight:600}
-</style>
+.dkh{align-self:center;margin-top:auto;position:sticky;bottom:18px;z-index:5;display:flex;justify-content:center}</style>
 </helmet>
 <div class="a"><div class="s">
 <dc-import name="CmpTopBar" link-href="DockMenuFlow.dc.html" link-label="Flow: S22 · Menu flow" hint-size="1412px,64px"></dc-import>
@@ -269,7 +269,7 @@ kbd{font:500 12px/18px 'Inter','Helvetica','Arial',sans-serif;padding:2px 6px;bo
 <section class="pn" style="grid-column:span 3"><div class="pt">OEE</div><div class="sv">82%</div></section>
 <section class="pn" style="grid-column:span 3"><div class="pt">Scrap</div><div class="sv">1.4%</div></section>
 <section class="pn" style="grid-column:span 12"><div class="pt">Shifts</div><table class="tb"><thead><tr><th>Shift</th><th>Lead</th><th>Output</th><th>Stops</th><th>Stop minutes</th><th>OEE</th></tr></thead><tbody><tr><td>Early · 06:00–14:00</td><td>R. Karimi</td><td>1,284</td><td>3</td><td>22</td><td>82%</td></tr><tr><td>Late · 14:00–22:00</td><td>S. Moradi</td><td>1,197</td><td>5</td><td>41</td><td>76%</td></tr><tr><td>Night · 22:00–06:00</td><td>A. Rahimi</td><td>1,050</td><td>2</td><td>15</td><td>79%</td></tr></tbody></table></section>
-</main><dc-import name="CmpDock" active-app="{{ dockApp }}" bookmarks="{{ dockBms }}" selected="none" open-overlay="{{ dockOverlay }}" loading="{{ loading }}" bm="{{ bm }}" on-add-bookmark="{{ toggleAdd }}" on-toggle-bookmark="{{ toggleBm }}" on-key="{{ sheetKey }}" hint-size="760px,58px"></dc-import></div></div></div>
+</main><div class="dkh"><dc-import name="CmpDock" active-app="{{ dockApp }}" bookmarks="{{ dockBms }}" selected="none" open-overlay="{{ dockOverlay }}" loading="{{ loading }}" bm="{{ bm }}" on-add-bookmark="{{ toggleAdd }}" on-toggle-bookmark="{{ toggleBm }}" on-key="{{ sheetKey }}" hint-size="760px,58px"></dc-import></div></div></div></div>
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":900}}'>
 class Component extends DCLogic {
