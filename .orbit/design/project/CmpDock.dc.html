@@ -29,6 +29,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;text-a
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props='{"activeApp":{"editor":null},"bookmarks":{"editor":null},"selected":{"editor":"enum","options":["home","dashboards","bookmarks","starred","alerting","apps","menu","none"],"default":"home"},"openOverlay":{"editor":"enum","options":["none","apps","menu","bookmark"],"default":"none"},"bm":{"editor":null},"onToggleBookmark":{"editor":null},"onAppsPage":{"editor":null},"onPickApp":{"editor":null},"loading":{"editor":"boolean","default":false},"menuId":{"editor":null},"onNavigate":{"editor":null},"onApps":{"editor":null},"onMenu":{"editor":null},"onAddBookmark":{"editor":null},"onKey":{"editor":null},"$preview":{"width":800,"height":80}}'>
 class Component extends DCLogic {
+constructor(props) { super(props); this.state = {}; }
 // Dock (R07, R12). The '+' slot opens C07 DockBookmarkAdd (openOverlay 'bookmark'), the workspace button C05 AppSwitcher. Every value comes from props; the defaults are mock data (Monitoring and three of its bookmarks) so the board shows a dock on its own.
 renderVals() {
 const p = this.props;
@@ -36,15 +37,17 @@ const app = p.activeApp || { name: 'Monitoring', icon: 'mon', ac: '#58cfec', bg:
 const ic = app.icon || (app.glyph ? 'mon' : '');
 const bms = p.bookmarks || [{ label: 'Playlists', icon: 'pl' }, { label: 'Library panels', icon: 'lp' }, { label: 'Explore', icon: 'ex' }];
 const active = p.selected === undefined ? 'home' : p.selected;
+// without onApps (a board with no page state) the workspace button opens and closes C05 AppSwitcher itself
+const own = typeof p.onApps !== 'function'; const appsOn = own && this.state.sw !== undefined ? this.state.sw : p.openOverlay === 'apps';
 const call = (f, a, b) => () => { if (typeof f === 'function') f(a, b); };
 const ICONS = ['chart', 'doc', 'cube', 'bell', 'list', 'clock', 'pl', 'lp', 'ex', 'dash', 'drill', 'alert', 'conn', 'admin'];
 const v = { appName: app.name, initial: app.name[0], glyph: !!ic, noGlyph: !ic, i_mon: ic === 'mon', i_mgmt: ic === 'mgmt', i_mnt: ic === 'mnt', tileStyle: 'background:' + app.bg + ';color:' + app.ac,
 dockVars: '--mac:' + app.ac + ';--mbg:' + app.ac + '1a;--mbd:' + app.ac + '47;--mhv:' + app.ac + '38',
 loading: !!p.loading, ready: !p.loading, loadingStr: p.loading ? 'true' : 'false',
-appsOpen: p.openOverlay === 'apps', appsStr: p.openOverlay === 'apps' ? 'true' : 'false', wsCls: active === 'apps' ? 'n ws on' : 'n ws', wsCur: active === 'apps' ? 'page' : 'false', wsStyle: p.openOverlay === 'apps' ? 'background:#262a31' : '', menuStr: p.openOverlay === 'menu' ? 'true' : 'false', menuCls: p.openOverlay === 'menu' || active === 'menu' ? 'n on' : 'n', menuId: p.menuId || 'dock-menu',
+appsOpen: appsOn, appsStr: appsOn ? 'true' : 'false', wsCls: active === 'apps' ? 'n ws on' : 'n ws', wsCur: active === 'apps' ? 'page' : 'false', wsStyle: appsOn ? 'background:#262a31' : '', menuStr: p.openOverlay === 'menu' ? 'true' : 'false', menuCls: p.openOverlay === 'menu' || active === 'menu' ? 'n on' : 'n', menuId: p.menuId || 'dock-menu',
 bmOpen: p.openOverlay === 'bookmark', bmStr: p.openOverlay === 'bookmark' ? 'true' : 'false', slotCls: p.openOverlay === 'bookmark' ? 'n slot opn' : 'n slot',
-appId: app.id || 'monitoring', appsPage: p.onAppsPage, pickApp: p.onPickApp, bmSet: p.bm, bmToggle: p.onToggleBookmark,
-apps: call(p.onApps), menu: call(p.onMenu), addBm: call(p.onAddBookmark), key: (e) => { if (typeof p.onKey === 'function') p.onKey(e); },
+appId: app.id || 'monitoring', appsPage: p.onAppsPage, pickApp: p.onPickApp || (own ? () => this.setState({ sw: false }) : undefined), bmSet: p.bm, bmToggle: p.onToggleBookmark,
+apps: own ? () => this.setState({ sw: !appsOn }) : call(p.onApps), menu: call(p.onMenu), addBm: call(p.onAddBookmark), key: (e) => { if (typeof p.onKey === 'function') p.onKey(e); },
 bms: bms.map((b) => { const o = { label: b.label, cls: b.fresh ? 'n bland' : 'n', open: call(p.onNavigate, 'bookmark', b) }; ICONS.forEach((k) => { o['i_' + k] = (ICONS.indexOf(b.icon) >= 0 ? b.icon : 'list') === k; }); return o; }) };
 ['home', 'dashboards', 'bookmarks', 'starred', 'alerting'].forEach((k) => { v['on_' + k] = active === k; v['off_' + k] = active !== k; v['go_' + k] = call(p.onNavigate, k); });
 return v;

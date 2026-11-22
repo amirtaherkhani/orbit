@@ -137,7 +137,7 @@ s=s[:i]+('<dc-import name="CmpMenuSheet" anchored="true" app="{{ app }}" bm="{{ 
          'on-pick-app="{{ pickApp }}" on-toggle="{{ toggleBm }}" on-open="{{ openPage }}" on-close="{{ closeMenu }}" on-toggle-apps="{{ toggleApps }}" hint-size="1080px,470px"></dc-import>')+s[j:]
 i=s.index('<nav class="dk"'); j=s.index('</nav>',i)+6
 s=s[:i]+('<dc-import name="CmpDock" active-app="{{ dockApp }}" bookmarks="{{ dockBms }}" selected="none" open-overlay="{{ dockOverlay }}" loading="{{ loading }}" '
-         'bm="{{ bm }}" on-add-bookmark="{{ toggleAdd }}" on-toggle-bookmark="{{ toggleBm }}" menu-id="s22-menu" on-menu="{{ toggleMenu }}" on-apps="{{ toggleApps }}" on-key="{{ sheetKey }}" hint-size="760px,58px"></dc-import>')+s[j:]
+         'bm="{{ bm }}" on-add-bookmark="{{ toggleAdd }}" on-toggle-bookmark="{{ toggleBm }}" menu-id="s22-menu" on-menu="{{ toggleMenu }}" on-apps="{{ toggleSwitcher }}" on-pick-app="{{ pickApp }}" on-key="{{ sheetKey }}" hint-size="760px,58px"></dc-import>')+s[j:]
 a=s.index('class Component extends DCLogic'); b=s.index('</script>',a)
 s=s[:a]+logic('logic.js')+s[b:]
 open(P+OUT,'w').write(s)
