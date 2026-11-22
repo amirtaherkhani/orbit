@@ -16,7 +16,7 @@ Grafana stays as shipped. Everything we add lives in our own folders, under one 
 | Seam allow-list | `.orbit/seams.json` |
 | Version, changelog, compatibility | `.orbit/VERSION`, `.orbit/CHANGELOG.md`, `.orbit/COMPAT.md` |
 | Docs | `.orbit/docs/` (`ARCHITECTURE.md`, `HANDOFF.md`, runbooks). Never Grafana's `docs/` |
-| Design boards (source of the claude.ai design canvas) | `.orbit/design/project/` (36 `*.dc.html` + `canvas.json`), builders in `.orbit/design/tools/`, base files in `.orbit/design/pre_lifecycle/` |
+| Design boards (source of the claude.ai design canvas) | `.orbit/design/project/` (59 `*.dc.html` on six canvas pages + `canvas.json`), builders in `.orbit/design/tools/`, base files in `.orbit/design/pre_lifecycle/` |
 | Architecture map (source of its artifact) | `.orbit/map/` |
 | Exact copies of the live artifacts | `.orbit/published/`, indexed in `.orbit/artifacts.json` |
 | Agent files of ours | `.claude/rules/orbit-*.md`, `.claude/skills/orbit-*/`, `.claude/settings.json`, and `AGENTS.md` + `CLAUDE.md` (`@AGENTS.md`) inside our folders |
@@ -39,7 +39,7 @@ Grafana stays as shipped. Everything we add lives in our own folders, under one 
 
 ## IDs used in docs, boards and commits
 
-Each ID is unique. Boards: `R01`-`R11` reference, `S01`-`S21` screens, `P01`-`P07` page templates. Seams `SM01`-`SM14`, risks `RK01`-`RK24`, decisions `OD1`-`OD35`, triggers `T1`-`T6`, layers `L1`-`L7`. `S11` is always a board, `SM11` always a seam. Board R03 explains every ID and tag.
+Each ID is unique. Boards: `R01`-`R12` reference, `C01`-`C20` components, `S01`-`S23` screens, `P01`-`P07` page templates. Seams `SM01`-`SM14`, risks `RK01`-`RK24`, decisions `OD1`-`OD35`, triggers `T1`-`T6`, layers `L1`-`L7`. `S11` is always a board, `SM11` always a seam. Board R03 explains every ID and tag.
 
 ## Layers (frontend)
 

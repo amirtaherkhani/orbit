@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Dock preview</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Roboto+Mono:wght@400&family=Antonio:wght@600&display=swap" rel="stylesheet"><style>
+body{margin:0}html,body{background:#050609}*{box-sizing:border-box}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;text-align:left}
+.a{min-height:1580px;padding:14px;background:#050609;color:#eceef1;font:400 14px/22px 'Inter','Helvetica','Arial',sans-serif}
+.i{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}.mu{color:#9fa7b3;font-size:12px}
+.tl{display:grid;place-items:center;flex:none}
+kbd{font:500 12px/18px 'Inter','Helvetica','Arial',sans-serif;padding:2px 6px;border-radius:4px;border:1px solid rgba(204,204,220,.2);background:#23262c;color:#c9cdd3}
+.pv{display:flex;flex-direction:column;gap:14px;padding:18px;border-radius:6px;background:#181b1f;border:1px solid rgba(204,204,220,.12);min-width:0}
+.pv h4{margin:0;font:500 12px/18px 'Inter','Helvetica','Arial',sans-serif;letter-spacing:.0125em;text-transform:none;color:#9fa7b3}
+.mini{border:1px solid rgba(204,204,220,.12);border-radius:6px;background:#101216;padding:10px;display:flex;flex-direction:column;gap:2px}
+.mini .mr2{display:flex;align-items:center;gap:10px;min-height:34px;padding:0 8px;border-radius:0 6px 6px 0;font:500 14px/22px 'Inter','Helvetica','Arial',sans-serif;color:#c9cdd3;position:relative}
+.mini .mr2.cur{background:#1d353f;color:#dcdcdc}.mini .mr2.cur::before{content:"";position:absolute;left:0;top:0;bottom:0;width:2px;background:#58cfec}
+.mini .mr2 .tl{width:22px;height:22px;border-radius:6px}.mini .mr2 .tl .i{width:12px;height:12px}
+.nw{margin-left:auto;font:500 12px/18px 'Inter','Helvetica','Arial',sans-serif;color:#07181d;background:#58cfec;border-radius:4px;padding:2px 6px}.tl{display:grid;place-items:center;flex:none}.mini .mr2 b{font-weight:500}.nw{margin-left:auto;font:500 12px/18px 'Inter','Helvetica','Arial',sans-serif;color:#07181d;background:#58cfec;border-radius:4px;padding:2px 6px}.i.gf{fill:currentColor;stroke:none}@keyframes clkb{50%{opacity:.25}}.n,.rn,.wi,.mzo,.mini .mr2{cursor:pointer;transition:background-color .12s,color .12s}.n:not(.on):hover,.n:not(.on):focus-visible,.rn:not(.on):hover,.rn:not(.on):focus-visible,.wi:not(.cur):hover,.wi:not(.cur):focus-visible,.mzo:not(.cur):hover,.mzo:not(.cur):focus-visible,.mini .mr2:not(.cur):hover,.mini .mr2:not(.cur):focus-visible{position:relative;background:var(--bg,var(--hbg));color:var(--htx);border-radius:0 6px 6px 0;outline:0}.n:not(.on):hover::before,.n:not(.on):focus-visible::before,.rn:not(.on):hover::before,.rn:not(.on):focus-visible::before,.wi:not(.cur):hover::before,.wi:not(.cur):focus-visible::before,.mzo:not(.cur):hover::before,.mzo:not(.cur):focus-visible::before,.mini .mr2:not(.cur):hover::before,.mini .mr2:not(.cur):focus-visible::before{content:"";position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--ac,var(--hac))}.pvh{display:flex;align-items:baseline;justify-content:space-between;gap:8px}.pvh h4{margin:0}.pvs{max-height:420px;overflow-y:auto;overscroll-behavior:contain;display:flex;flex-direction:column;gap:12px;padding:2px 6px 14px 0;scrollbar-width:thin;scrollbar-color:#3a3e46 transparent;-webkit-mask-image:linear-gradient(to bottom,#000 calc(100% - 28px),transparent);mask-image:linear-gradient(to bottom,#000 calc(100% - 28px),transparent)}.pvs::-webkit-scrollbar{width:6px}.pvs::-webkit-scrollbar-thumb{background:#3a3e46;border-radius:3px}.pvs:focus-visible{outline:2px solid #6e9fff;outline-offset:2px;border-radius:6px}.pgg{display:flex;flex-direction:column;gap:6px}.pgh{position:sticky;top:0;z-index:1;display:flex;align-items:center;gap:8px;padding:4px 2px;background:#181b1f}.pgh i{width:8px;height:8px;border-radius:2px;flex:none}.pgh b{font:500 13px/18px 'Inter','Helvetica','Arial',sans-serif;color:#eceef1}.pgc{margin-left:auto;font:400 12px/18px 'Inter','Helvetica','Arial',sans-serif;color:#8d939c}.pgt{padding:0 6px;border-radius:4px;background:#14313a;color:#58cfec;font:500 11px/18px 'Inter','Helvetica','Arial',sans-serif}.ph3{margin:0;font:500 16px/22px Inter,Helvetica,Arial,sans-serif;color:#fff}.pvh{display:flex;align-items:flex-end;justify-content:space-between;gap:12px}.dpv .dpg{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px;align-content:start;max-height:300px}.dpv .dpg .pgg{min-width:0}.dpv .pgh{position:static}.dpv{padding:16px}.dpv .pvh{flex-direction:column;align-items:flex-start;gap:2px}.dpv .dpg{grid-template-columns:1fr;max-height:520px}.dpv .pgh{position:sticky}/*userhover*/button[aria-label="User menu"]{transition:background-color .12s}button[aria-label="User menu"]:hover,button[aria-label="User menu"]:focus-visible{background:rgba(204,204,220,.08)!important;outline:0}/*s11edit: edit icon, Edit bookmark tab, App combobox*/
+.ach .ced{margin-left:auto;width:32px;height:28px;border-radius:4px;display:grid;place-items:center;color:#9fa7b3;flex:none;opacity:.75;transition:background-color .12s,color .12s,opacity .12s}
+/*s11compact: shorter cards, eye/open/edit/bookmark icon row, app group headers*/
+.ac{gap:8px;padding:12px 12px 10px}
+.a{min-height:900px}
+/*s11scroll: header and filters stay, cards and the right column scroll inside the page*/.s11sc{height:var(--s11h,486px);align-items:stretch!important;min-height:0}
+/*s11subpages: sub pages inside the page card, each with its own bookmark*/.lc>div{align-items:start}
+.mlb{min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.mpp{color:#8d939c;font-weight:400}
+/*slothover: add slot hover = darker shade of the app accent, solid accent border, accent icon*/.dk .n.slot:not(.on):not(.opn):hover,.dk .n.slot:not(.on):not(.opn):focus-visible,.dk .mods .n.slot:not(.on):not(.opn):hover,.dk .mods .n.slot:not(.on):not(.opn):focus-visible,.dk .mods .n.slot.hv{background:color-mix(in srgb,var(--mac,#6e9fff) 38%,#0b0c0e);border:1px solid var(--mac,#6e9fff);color:var(--mac,#6e9fff);border-radius:6px}
+</style>
+</helmet>
+<section class="pv dpv" aria-label="Dock preview" style="{{ rootStyle }}"><div class="pvh"><div><h3 class="ph3">Dock preview</h3><span class="mu">Bookmarks per app, as they appear in the dock</span></div><span class="mu">{{ dpSummary }}</span></div><div class="pvs dpg" tabindex="0" role="region" aria-label="Dock preview for all apps, scrolls"><sc-for list="{{ dpGroups }}" as="g" hint-placeholder-count="4"><section class="pgg" aria-label="{{ g.name }} bookmarks"><div class="pgh"><i style="{{ g.dot }}"></i><b>{{ g.name }}</b><sc-if value="{{ g.isThis }}" hint-placeholder-val="{{ false }}"><span class="pgt">This app</span></sc-if><span class="pgc">{{ g.count }}</span></div><div class="mini"><sc-for list="{{ g.items }}" as="m" hint-placeholder-count="3"><div class="{{ m.cls }}" title="{{ m.path }}"><span class="tl" style="{{ m.tile }}"><sc-if value="{{ m.i_dash }}" hint-placeholder-val="{{ false }}"><svg class="i gf" viewBox="0 0 24 24" aria-hidden="true"><path d="M10,13H3a1,1,0,0,0-1,1v7a1,1,0,0,0,1,1h7a1,1,0,0,0,1-1V14A1,1,0,0,0,10,13ZM9,20H4V15H9ZM21,2H14a1,1,0,0,0-1,1v7a1,1,0,0,0,1,1h7a1,1,0,0,0,1-1V3A1,1,0,0,0,21,2ZM20,9H15V4h5Zm1,4H14a1,1,0,0,0-1,1v7a1,1,0,0,0,1,1h7a1,1,0,0,0,1-1V14A1,1,0,0,0,21,13Zm-1,7H15V15h5ZM10,2H3A1,1,0,0,0,2,3v7a1,1,0,0,0,1,1h7a1,1,0,0,0,1-1V3A1,1,0,0,0,10,2ZM9,9H4V4H9Z"/></svg></sc-if><sc-if value="{{ m.i_alert }}" hint-placeholder-val="{{ false }}"><svg class="i gf" viewBox="0 0 24 24" aria-hidden="true"><path d="M18,13.18V10a6,6,0,0,0-5-5.91V3a1,1,0,0,0-2,0V4.09A6,6,0,0,0,6,10v3.18A3,3,0,0,0,4,16v2a1,1,0,0,0,1,1H8.14a4,4,0,0,0,7.72,0H19a1,1,0,0,0,1-1V16A3,3,0,0,0,18,13.18ZM8,10a4,4,0,0,1,8,0v3H8Zm4,10a2,2,0,0,1-1.72-1h3.44A2,2,0,0,1,12,20Zm6-3H6V16a1,1,0,0,1,1-1H17a1,1,0,0,1,1,1Z"/></svg></sc-if><sc-if value="{{ m.i_explore }}" hint-placeholder-val="{{ false }}"><svg class="i gf" viewBox="0 0 24 24" aria-hidden="true"><path d="M12,2A10,10,0,1,0,22,12,10,10,0,0,0,12,2Zm1,17.93V19a1,1,0,0,0-2,0v.93A8,8,0,0,1,4.07,13H5a1,1,0,0,0,0-2H4.07A8,8,0,0,1,11,4.07V5a1,1,0,0,0,2,0V4.07A8,8,0,0,1,19.93,11H19a1,1,0,0,0,0,2h.93A8,8,0,0,1,13,19.93ZM15.14,7.55l-5,2.12a1,1,0,0,0-.52.52l-2.12,5a1,1,0,0,0,.21,1.1,1,1,0,0,0,.7.3.93.93,0,0,0,.4-.09l5-2.12a1,1,0,0,0,.52-.52l2.12-5a1,1,0,0,0-1.31-1.31Zm-2.49,5.1-2.28,1,1-2.28,2.28-1Z"/></svg></sc-if><sc-if value="{{ m.i_admin }}" hint-placeholder-val="{{ false }}"><svg class="i gf" viewBox="0 0 24 24" aria-hidden="true"><path d="M21.32,9.55l-1.89-.63.89-1.78A1,1,0,0,0,20.13,6L18,3.87a1,1,0,0,0-1.15-.19l-1.78.89-.63-1.89A1,1,0,0,0,13.5,2h-3a1,1,0,0,0-.95.68L8.92,4.57,7.14,3.68A1,1,0,0,0,6,3.87L3.87,6a1,1,0,0,0-.19,1.15l.89,1.78-1.89.63A1,1,0,0,0,2,10.5v3a1,1,0,0,0,.68.95l1.89.63-.89,1.78A1,1,0,0,0,3.87,18L6,20.13a1,1,0,0,0,1.15.19l1.78-.89.63,1.89a1,1,0,0,0,.95.68h3a1,1,0,0,0,.95-.68l.63-1.89,1.78.89A1,1,0,0,0,18,20.13L20.13,18a1,1,0,0,0,.19-1.15l-.89-1.78,1.89-.63A1,1,0,0,0,22,13.5v-3A1,1,0,0,0,21.32,9.55ZM20,12.78l-1.2.4A2,2,0,0,0,17.64,16l.57,1.14-1.1,1.1L16,17.64a2,2,0,0,0-2.79,1.16l-.4,1.2H11.22l-.4-1.2A2,2,0,0,0,8,17.64l-1.14.57-1.1-1.1L6.36,16A2,2,0,0,0,5.2,13.18L4,12.78V11.22l1.2-.4A2,2,0,0,0,6.36,8L5.79,6.89l1.1-1.1L8,6.36A2,2,0,0,0,10.82,5.2l.4-1.2h1.56l.4,1.2A2,2,0,0,0,16,6.36l1.14-.57,1.1,1.1L17.64,8a2,2,0,0,0,1.16,2.79l1.2.4ZM12,8a4,4,0,1,0,4,4A4,4,0,0,0,12,8Zm0,6a2,2,0,1,1,2-2A2,2,0,0,1,12,14Z"/></svg></sc-if><sc-if value="{{ m.i_overview }}" hint-placeholder-val="{{ false }}"><svg class="i gf" viewBox="-0.5 0 24 24" aria-hidden="true"><path d="M7,16a1.5,1.5,0,0,0,1.5-1.5.77.77,0,0,0,0-.15l2.79-2.79.23,0,.23,0,1.61,1.61s0,.05,0,.08a1.5,1.5,0,1,0,3,0v-.08L20,9.5h0A1.5,1.5,0,1,0,18.5,8a.77.77,0,0,0,0,.15l-3.61,3.61h-.16L13,10a1.49,1.49,0,0,0-3,0L7,13H7a1.5,1.5,0,0,0,0,3Zm13.5,4H3.5V3a1,1,0,0,0-2,0V21a1,1,0,0,0,1,1h18a1,1,0,0,0,0-2Z"/></svg></sc-if><sc-if value="{{ m.i_reports }}" hint-placeholder-val="{{ false }}"><svg class="i gf" viewBox="0 0 24 24" aria-hidden="true"><path d="M9,10h1a1,1,0,0,0,0-2H9a1,1,0,0,0,0,2Zm0,2a1,1,0,0,0,0,2h6a1,1,0,0,0,0-2ZM20,8.94a1.31,1.31,0,0,0-.06-.27l0-.09a1.07,1.07,0,0,0-.19-.28h0l-6-6h0a1.07,1.07,0,0,0-.28-.19.32.32,0,0,0-.09,0A.88.88,0,0,0,13.05,2H7A3,3,0,0,0,4,5V19a3,3,0,0,0,3,3H17a3,3,0,0,0,3-3V9S20,9,20,8.94ZM14,5.41,16.59,8H15a1,1,0,0,1-1-1ZM18,19a1,1,0,0,1-1,1H7a1,1,0,0,1-1-1V5A1,1,0,0,1,7,4h5V7a3,3,0,0,0,3,3h3Zm-3-3H9a1,1,0,0,0,0,2h6a1,1,0,0,0,0-2Z"/></svg></sc-if><sc-if value="{{ m.i_cube }}" hint-placeholder-val="{{ false }}"><svg class="i gf" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.47,7.37s0,0,0-.08l-.06-.15a.71.71,0,0,0-.07-.09.94.94,0,0,0-.09-.12l-.09-.07L20,6.78l-7.5-4.63a1,1,0,0,0-1.06,0L4,6.78l-.09.08-.09.07a.94.94,0,0,0-.09.12.71.71,0,0,0-.07.09l-.06.15s0,0,0,.08a1.15,1.15,0,0,0,0,.26v8.74a1,1,0,0,0,.47.85l7.5,4.63h0a.47.47,0,0,0,.15.06s.05,0,.08,0a.86.86,0,0,0,.52,0s.05,0,.08,0a.47.47,0,0,0,.15-.06h0L20,17.22a1,1,0,0,0,.47-.85V7.63A1.15,1.15,0,0,0,20.47,7.37ZM11,19.21l-5.5-3.4V9.43L11,12.82Zm1-8.12L6.4,7.63,12,4.18l5.6,3.45Zm6.5,4.72L13,19.21V12.82l5.5-3.39Z"/></svg></sc-if><sc-if value="{{ m.i_pl }}" hint-placeholder-val="{{ false }}"><svg class="i gf" viewBox="0 0 24 24" aria-hidden="true"><path d="M21,14H20V4h1a1,1,0,0,0,0-2H3A1,1,0,0,0,3,4H4V14H3a1,1,0,0,0,0,2h8v1.15l-4.55,3A1,1,0,0,0,7,22a.94.94,0,0,0,.55-.17L11,19.55V21a1,1,0,0,0,2,0V19.55l3.45,2.28A.94.94,0,0,0,17,22a1,1,0,0,0,.55-1.83l-4.55-3V16h8a1,1,0,0,0,0-2Zm-3,0H6V4H18ZM9.61,12.26a1.73,1.73,0,0,0,1.76,0l3-1.74a1.76,1.76,0,0,0,0-3l-3-1.74a1.73,1.73,0,0,0-1.76,0,1.71,1.71,0,0,0-.87,1.52v3.48A1.71,1.71,0,0,0,9.61,12.26Zm1.13-4.58L13,9l-2.28,1.32Z"/></svg></sc-if><sc-if value="{{ m.i_lp }}" hint-placeholder-val="{{ false }}"><svg class="i gf" viewBox="0 0 16 16" aria-hidden="true"><path d="M14.3 8.7H9.4a.7.7 0 00-.7.7v4.9a.7.7 0 00.7.7h4.9a.7.7 0 00.7-.7V9.4a.7.7 0 00-.7-.7zm-.7 4.9h-3.5v-3.5h3.5v3.5zM6.6 1H1.7a.7.7 0 00-.7.7v4.9a.7.7 0 00.7.7h4.9a.7.7 0 00.7-.7V1.7a.7.7 0 00-.7-.7zm-.7 4.9H2.4V2.4h3.5v3.5zm8 1.08a.42.42 0 01-.12-.08l-1.63-1.5a.31.31 0 01-.08-.22c0-.08.04-.16.1-.22.06-.06.14-.09.23-.1.09 0 .18.03.24.09l1.03.94V3.62c0-.26-.12-.5-.31-.69a1.1 1.1 0 00-.74-.28H9.35a.36.36 0 01-.25-.1.31.31 0 01-.1-.23c0-.08.04-.16.1-.22.07-.07.16-.1.25-.1h3.28c.46 0 .9.17 1.24.48.33.3.51.71.51 1.14V5.9l1.02-.94a.37.37 0 01.5 0c.03.03.06.06.07.1a.31.31 0 01-.08.35l-1.61 1.5a.35.35 0 01-.12.08.38.38 0 01-.26 0zM2.1 9.02l.12.08 1.63 1.5c.06.06.09.14.08.22 0 .08-.04.16-.1.22a.37.37 0 01-.48.02l-1.02-.95v2.27c0 .26.12.5.31.69.2.18.47.28.74.28h3.27c.1 0 .18.04.25.1.06.06.1.14.1.23s-.04.16-.1.22a.36.36 0 01-.25.1H3.37c-.46 0-.9-.17-1.24-.48s-.5-.71-.5-1.14V10.1l-1.03.94a.37.37 0 01-.5 0 .32.32 0 01-.07-.1.31.31 0 01.08-.35l1.61-1.5a.35.35 0 01.12-.08.38.38 0 01.26 0z" fill="currentColor"/></svg></sc-if><sc-if value="{{ m.i_list }}" hint-placeholder-val="{{ false }}"><svg class="i msi" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6h11M9 12h11M9 18h11"/><circle cx="4.5" cy="6" r="1"/><circle cx="4.5" cy="12" r="1"/><circle cx="4.5" cy="18" r="1"/></svg></sc-if><sc-if value="{{ m.i_clock }}" hint-placeholder-val="{{ false }}"><svg class="i msi" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></sc-if><sc-if value="{{ m.i_drill }}" hint-placeholder-val="{{ false }}"><svg class="i gf" viewBox="0 0 48 49" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M17.0044 5.21777C17.0044 3.56092 18.3476 2.21777 20.0044 2.21777H27.9148C29.5716 2.21777 30.9148 3.56092 30.9148 5.21777V9.12282L31.892 8.79869C32.8093 8.49441 33.7996 8.99139 34.1039 9.90874C34.4082 10.8261 33.9112 11.8164 32.9939 12.1207L30.9148 12.8103V19.2526L31.8924 18.9283C32.8098 18.6241 33.8001 19.121 34.1044 20.0384C34.4087 20.9557 33.9117 21.9461 32.9943 22.2503L30.9148 22.9401V28.9144C30.9148 29.4299 30.7819 29.9367 30.5291 30.3859L26.9845 36.6835C25.7386 38.9239 23.1565 38.741 21.8985 36.9123L17.5328 30.566C17.1887 30.0658 17.0044 29.4729 17.0044 28.8658V27.5542L16.0266 27.8785C15.1092 28.1828 14.1189 27.6858 13.8146 26.7685C13.5103 25.8511 14.0073 24.8608 14.9246 24.5565L17.0044 23.8667V17.4244L16.0261 17.7489C15.1087 18.0532 14.1184 17.5562 13.8141 16.6388C13.5098 15.7215 14.0068 14.7312 14.9242 14.4269L17.0044 13.7369V5.21777ZM21.0044 26.2274V28.3996C21.0044 28.5008 21.0351 28.5996 21.0925 28.683L23.8308 32.6636C24.0405 32.9684 24.497 32.9479 24.6785 32.6255L26.8505 28.7665C26.8926 28.6916 26.9148 28.6072 26.9148 28.5213V24.2669L21.0044 26.2274ZM26.9148 20.5794L21.0044 22.5399V16.0976L26.9148 14.1371V20.5794ZM26.9148 10.4496L21.0044 12.4101V6.71777C21.0044 6.44163 21.2283 6.21777 21.5044 6.21777H26.4148C26.6909 6.21777 26.9148 6.44163 26.9148 6.71777V10.4496Z"/> <path d="M42.3721 30.8303C42.8016 29.9645 42.4479 28.9144 41.5821 28.4849C40.7163 28.0554 39.6662 28.4091 39.2367 29.2749L35.448 36.9123C35.0185 37.7782 36.3722 38.8282 37.238 39.2577C38.1038 39.6872 38.1539 39.3335 38.5834 38.4677L42.3721 30.8303Z"/> <path d="M8.75767 29.296C8.32292 28.4328 7.27072 28.0855 6.40752 28.5202C5.54433 28.955 5.19701 30.0072 5.63176 30.8704L9.46537 38.482C9.90012 39.3452 10.9523 39.6925 11.8155 39.2577C12.6787 38.823 13.026 37.7708 12.5913 36.9076L8.75767 29.296Z"/> <path d="M10.3193 45.0314C10.3193 44.0649 11.1028 43.2814 12.0693 43.2814H36.1498C37.1163 43.2814 37.8998 44.0649 37.8998 45.0314C37.8998 45.9979 37.1163 46.7814 36.1498 46.7814H12.0693C11.1028 46.7814 10.3193 45.9979 10.3193 45.0314Z"/></svg></sc-if><sc-if value="{{ m.i_conn }}" hint-placeholder-val="{{ false }}"><svg class="i gf" viewBox="0 0 24 24" aria-hidden="true"><path d="M17,7A7.74,7.74,0,1,0,7,17,7.74,7.74,0,1,0,17,7Zm-1.6,1.6a6.12,6.12,0,0,1,.11,1.14,5.92,5.92,0,0,1-.16,1.34L12.91,8.66a5.92,5.92,0,0,1,1.34-.16A6.12,6.12,0,0,1,15.39,8.61ZM14.46,13A6,6,0,0,1,13,14.46L9.54,11A6,6,0,0,1,11,9.54Zm-8,1.46a5.75,5.75,0,1,1,8-8h-.25A7.76,7.76,0,0,0,6.5,14.25C6.5,14.33,6.51,14.42,6.51,14.5Zm2.1.89a6.12,6.12,0,0,1-.11-1.14,5.92,5.92,0,0,1,.16-1.34l2.43,2.43a5.92,5.92,0,0,1-1.34.16A6.12,6.12,0,0,1,8.61,15.39ZM14.25,20A5.77,5.77,0,0,1,9.5,17.49h.25A7.76,7.76,0,0,0,17.5,9.75c0-.08,0-.17,0-.25A5.75,5.75,0,0,1,14.25,20Z"/></svg></sc-if><sc-if value="{{ m.i_doc }}" hint-placeholder-val="{{ false }}"><svg class="i gf" viewBox="0 0 24 24" aria-hidden="true"><path d="M9,10h1a1,1,0,0,0,0-2H9a1,1,0,0,0,0,2Zm0,2a1,1,0,0,0,0,2h6a1,1,0,0,0,0-2ZM20,8.94a1.31,1.31,0,0,0-.06-.27l0-.09a1.07,1.07,0,0,0-.19-.28h0l-6-6h0a1.07,1.07,0,0,0-.28-.19.32.32,0,0,0-.09,0A.88.88,0,0,0,13.05,2H7A3,3,0,0,0,4,5V19a3,3,0,0,0,3,3H17a3,3,0,0,0,3-3V9S20,9,20,8.94ZM14,5.41,16.59,8H15a1,1,0,0,1-1-1ZM18,19a1,1,0,0,1-1,1H7a1,1,0,0,1-1-1V5A1,1,0,0,1,7,4h5V7a3,3,0,0,0,3,3h3Zm-3-3H9a1,1,0,0,0,0,2h6a1,1,0,0,0,0-2Z"/></svg></sc-if><sc-if value="{{ m.i_check }}" hint-placeholder-val="{{ false }}"><svg class="i gf" viewBox="0 0 24 24" aria-hidden="true"><path d="M14.72,8.79l-4.29,4.3L8.78,11.44a1,1,0,1,0-1.41,1.41l2.35,2.36a1,1,0,0,0,.71.29,1,1,0,0,0,.7-.29l5-5a1,1,0,0,0,0-1.42A1,1,0,0,0,14.72,8.79ZM12,2A10,10,0,1,0,22,12,10,10,0,0,0,12,2Zm0,18a8,8,0,1,1,8-8A8,8,0,0,1,12,20Z"/></svg></sc-if></span><span class="mlb"><sc-if value="{{ m.hasParent }}" hint-placeholder-val="{{ false }}"><span class="mpp">{{ m.parent }} › </span></sc-if>{{ m.label }}</span><sc-if value="{{ m.isNew }}" hint-placeholder-val="{{ false }}"><span class="nw">New</span></sc-if></div></sc-for></div></section></sc-for></div></section>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"embedded":{"editor":null},"bm":{"editor":null},"hidden":{"editor":null},"sel":{"editor":null},"$preview":{"width":432,"height":670}}'>
+class Component extends DCLogic {
+// DockPreview (R10, R12): what the dock shows, per app, from the same bookmarks as the page cards (S11). Props: bm, hidden, sel.
+
+
+
+
+
+
+
+
+
+
+apps() {
+const P = (id, n, ic, bi, dk, d, route, more) => Object.assign({ id, n, ic, bi, dk, d, route, iconName: n }, more);
+return {
+monitoring: { name: 'Monitoring', icon: 'mon', ac: '#58cfec', bg: '#1d353f', sub: 'Grafana · 6 pages', home: 'Home', pages: [
+P('dash', 'Dashboards', 'r0', 'dash', 'chart', 'Browse, search and organise dashboards', '/dashboards', { iconName: 'Apps', subs: [
+  P('pl', 'Playlists', 't0', 'pl', 'pl', 'Rotate dashboards on a TV or kiosk screen', '/playlists'),
+  P('snap', 'Snapshots', 't1', 'dash', 'list', 'Saved copies of a dashboard at one moment', '/dashboard/snapshots'),
+  P('lp', 'Library panels', 't2', 'lp', 'lp', 'Panels you reuse across several dashboards', '/library-panels'),
+  P('pub', 'Shared dashboards', 't3', 'dash', 'list', 'Dashboards open through a public link', '/dashboard/public'),
+  P('del', 'Recently deleted', 't4', 'dash', 'clock', 'Bring back dashboards that were removed', '/dashboard/recently-deleted')] }),
+P('explore', 'Explore', 'r1', 'explore', 'ex', 'Query and inspect your data without a dashboard', '/explore', { iconName: 'Compass', subs: [] }),
+P('drill', 'Drilldown', 'r2', 'drill', 'drill', 'Metrics, logs, traces and profiles without writing queries', '/drilldown', { subs: [
+  P('metrics', 'Metrics', 'r2', 'drill', 'drill', 'Browse metrics without PromQL', '/a/grafana-metricsdrilldown-app/drilldown'),
+  P('logs', 'Logs', 'r2', 'drill', 'drill', 'Browse logs without LogQL', '/a/grafana-lokiexplore-app/explore'),
+  P('traces', 'Traces', 'r2', 'drill', 'drill', 'Browse traces without TraceQL', '/a/grafana-exploretraces-app/explore'),
+  P('profiles', 'Profiles', 'r2', 'drill', 'drill', 'Browse profiles without queries', '/a/grafana-pyroscope-app/explore')] }),
+P('alert', 'Alerting', 'r3', 'alert', 'alert', 'Alert rules, contact points and notification history', '/alerting', { iconName: 'Bell', subs: [
+  P('rules', 'Alert rules', 'r3', 'list', 'bell', 'Rules that decide when an alert fires', '/alerting/list'),
+  P('cp', 'Contact points', 'r3', 'alert', 'alert', 'Where notifications go', '/alerting/notifications'),
+  P('pol', 'Notification policies', 'r3', 'alert', 'alert', 'How alerts are routed', '/alerting/routes'),
+  P('sil', 'Silences', 'r3', 'alert', 'alert', 'Muted notifications', '/alerting/silences'),
+  P('grp', 'Active notifications', 'r3', 'alert', 'alert', 'Alerts that are firing now', '/alerting/groups'),
+  P('set', 'Settings', 'r5', 'admin', 'admin', 'Alertmanager settings', '/alerting/admin')] }),
+P('conn', 'Connections', 'r4', 'conn', 'conn', 'Data sources and plugins', '/connections', { iconName: 'Plug', subs: [
+  P('add', 'Add new connection', 'r4', 'conn', 'conn', 'Connect a new data source', '/connections/add-new-connection'),
+  P('ds', 'Data sources', 'r4', 'conn', 'conn', 'Data sources you have connected', '/connections/datasources')] }),
+P('admin', 'Administration', 'r5', 'admin', 'admin', 'Users, teams, plugins and server settings', '/admin', { iconName: 'Cog', adm: true, groups: [
+  { n: 'General', subs: [P('prefs', 'Default preferences', 'a0', 'admin', 'admin', 'Theme, home dashboard and timezone', '/org'),
+    P('stats', 'Statistics and licensing', 'a1', 'admin', 'admin', 'Usage numbers and license details', '/admin/upgrading'),
+    P('settings', 'Settings', 'a2', 'admin', 'admin', 'Server configuration', '/admin/settings'),
+    P('orgs', 'Organizations', 'a3', 'admin', 'admin', 'Create and switch organizations', '/admin/orgs'),
+    P('migrate', 'Migrate to Grafana Cloud', 'a4', 'admin', 'admin', 'Move this instance to the cloud', '/admin/migrate-to-cloud'),
+    P('prov', 'Provisioning', 'a5', 'admin', 'admin', 'Resources managed from files or Git', '/admin/provisioning')] },
+  { n: 'Plugins and data', subs: [P('plugins', 'Plugins', 'r5', 'admin', 'admin', 'Install and update plugins', '/plugins'),
+    P('corr', 'Correlations', 'r5', 'admin', 'admin', 'Links between data sources', '/datasources/correlations')] },
+  { n: 'Access', subs: [P('users', 'Users', 'r5', 'admin', 'admin', 'Everyone who can sign in', '/admin/users'),
+    P('teams', 'Teams', 'r5', 'admin', 'admin', 'Groups of users', '/org/teams'),
+    P('sa', 'Service accounts', 'r5', 'admin', 'admin', 'Accounts for tools and scripts', '/org/serviceaccounts'),
+    P('auth', 'Authentication', 'r5', 'admin', 'admin', 'Sign-in providers', '/admin/authentication')] }] })] },
+management: { name: 'Management', icon: 'mgmt', ac: '#e0b46a', bg: '#2f2819', sub: 'Production line · 3 pages', home: 'Overview', lc: { v: '0.1.0', st: 'enabled', upd: '0.1.1', d: 'Production line overview, reports and 3D view.', places: true, manage: { since: '28 October',
+health: 'OK', healthAt: '09:14', init: 'Accepted', initAt: '28 Oct', setup: 'Valid', migr: 'Up to date', needs: '>=13.0.0 <14', orbit: '>=1.0.0 <2',
+prev: '0.0.9', updNote: '28 Oct, checks passed by themselves', checked: 'Today 09:14', lastRun: 'Last run today 09:14', checks: [
+{ st: 'ok', t: 'Enabled for this organisation', d: 'On since 28 October.', src: 'GET /api/plugins/acme-management-app/settings' },
+{ st: 'ok', t: 'App loads without error', d: 'Health check answered in 120 ms.', src: 'GET /api/plugins/acme-management-app/health' },
+{ st: 'ok', t: 'Manifest ui block', d: 'accent, show and 3 pages are valid.', src: 'ui.json' },
+{ st: 'ok', t: 'Accent is readable', d: '#e0b46a on the tile meets 4.5:1.' },
+{ st: 'warn', t: 'Pages', d: '3D view has a warning. See the Pages table.', fix: 'Show' }] } }, pages: [
+P('overview', 'Overview', 'chart', 'overview', 'chart', 'Production line overview', '/a/acme-management-app/overview', { iconName: 'Chart', who: 'Viewer', check: 'ok', subs: [
+  P('line', 'Line status', 'chart', 'overview', 'chart', 'Live status of each station on the line', '/a/acme-management-app/overview/line-status'),
+  P('shifts', 'Shifts', 'clock', 'clock', 'clock', 'Output and stops per shift', '/a/acme-management-app/overview/shifts'),
+  P('alarms', 'Alarms', 'bell', 'alert', 'alert', 'Open alarms on the line', '/a/acme-management-app/overview/alarms')] }),
+P('reports', 'Reports', 'doc', 'reports', 'doc', 'Shift and production reports', '/a/acme-management-app/reports', { iconName: 'Document', who: 'Viewer', check: 'ok', subs: [
+  P('daily', 'Daily', 'doc', 'reports', 'doc', 'Yesterday per station', '/a/acme-management-app/reports/daily'),
+  P('weekly', 'Weekly', 'doc', 'reports', 'doc', 'This week against the plan', '/a/acme-management-app/reports/weekly'),
+  P('monthly', 'Monthly', 'doc', 'reports', 'doc', 'Month summary for managers', '/a/acme-management-app/reports/monthly'),
+  P('export', 'Export', 'list', 'list', 'list', 'Download reports as CSV or PDF', '/a/acme-management-app/reports/export')] }),
+P('cube', '3D view', 'cube', 'cube', 'cube', 'Machines in the plant model', '/a/acme-management-app/3d-view', { iconName: 'Cube', who: 'Editor', check: 'warn', subs: [], checks: [
+{ st: 'ok', t: 'Route responds', d: 'The app renders a page at this path.', src: '/a/acme-management-app/3d-view' },
+{ st: 'ok', t: 'In the nav tree for you', d: 'Listed under plugin-page-acme-management-app.' },
+{ st: 'ok', t: 'Who can open', d: 'Editor and above. 2 Viewers in this org cannot see it.' },
+{ st: 'warn', t: 'Manifest page entry', d: 'No description, so the card shows the name only.', src: 'ui.pages.3d-view.description', fix: 'Open manifest draft' }] })] },
+maintenance: { name: 'Maintenance', icon: 'mnt', ac: '#5794f2', bg: '#17233b', sub: 'Work orders · 2 pages', isNew: true, home: 'Work orders', lc: { v: '0.3.2', st: 'enabled', note: 'enabled 09:10', at: 'Today 09:10', d: 'Work orders, machine downtime and service history.',
+update: {"checks": [{"st": "ok", "t": "Grafana version and compatibility", "d": "The app needs >=13.0.0 <14. This Grafana is 13.3.0.", "src": "grafanaDependency"}, {"st": "ok", "t": "Orbit API version", "d": "The app needs Orbit >=1.0.0 <2. This server runs Orbit 1.0.0.", "src": "requires.orbit"}, {"st": "ok", "t": "Plugin loaded", "d": "Grafana loaded acme-maintenance-app v0.4.0 after the restart."}, {"st": "ok", "t": "Signature", "d": "[SIGNATURE STATUS]. Grafana's loader checked it under this server's signature policy."}, {"st": "ok", "t": "Dependencies", "d": "No plugin dependencies are declared in plugin.json."}, {"st": "ok", "t": "Manifest", "d": "Valid. 2 pages and 6 sub pages are registered (1 new)."}], "last": "Rechecked 07:05", "run": "Run again"} }, pages: [
+P('orders', 'Work orders', 'list', 'list', 'list', 'Open, planned and closed work orders', '/a/acme-maintenance-app/orders', { iconName: 'List', kind: 'List', subs: [
+  P('open', 'Open', 'list', 'list', 'list', 'Work orders not closed yet', '/a/acme-maintenance-app/orders/open'),
+  P('planned', 'Planned', 'clock', 'clock', 'clock', 'Planned maintenance by date', '/a/acme-maintenance-app/orders/planned'),
+  P('closed', 'Closed', 'doc', 'doc', 'doc', 'Closed work orders', '/a/acme-maintenance-app/orders/closed')] }),
+P('downtime', 'Downtime', 'clock', 'clock', 'clock', 'Downtime minutes by cause and machine', '/a/acme-maintenance-app/downtime', { iconName: 'Clock', kind: 'Dashboard', subs: [
+  P('cause', 'By cause', 'chart', 'overview', 'chart', 'Downtime minutes by cause', '/a/acme-maintenance-app/downtime/by-cause'),
+  P('machine', 'By machine', 'cube', 'cube', 'cube', 'Downtime minutes by machine', '/a/acme-maintenance-app/downtime/by-machine')] })] },
+quality: { name: 'Quality', inSelector: false, enabled: false, ac: '#73bf69', bg: '#1b2a1d', sub: 'Review required', home: 'Inspections', pages: [],
+lc: { v: '1.0.1', st: 'review', step: 2, n: 4, d: 'Inspection results and defect tracking.',
+review: {"checks": [{"st": "ok", "t": "Grafana version and compatibility", "d": "The app needs >=13.0.0 <14. This Grafana is 13.3.0.", "src": "grafanaDependency"}, {"st": "ok", "t": "Orbit API version", "d": "The app needs Orbit >=1.0.0 <2. This server runs Orbit 1.0.0.", "src": "requires.orbit"}, {"st": "ok", "t": "Plugin loaded", "d": "Grafana discovered and loaded acme-quality-app v1.0.1 after the restart.", "src": "GET /api/plugins/acme-quality-app/settings"}, {"st": "ok", "t": "Signature", "d": "[SIGNATURE STATUS]. Grafana's loader checked it under this server's signature policy."}, {"st": "ok", "t": "Dependencies", "d": "No plugin dependencies are declared in plugin.json."}, {"st": "idle", "t": "App health", "d": "Runs after Enable. Grafana answers the health check only for an enabled app; this app has no backend, so nothing will run."}, {"st": "ok", "t": "Self-test: manifest and routes", "d": "The ui block is valid. 4 pages are registered."}, {"st": "warn", "t": "Self-test: sample query", "d": "Skipped with a warning: no data source is connected yet. It runs again in Validate."}], "last": "Finished 09:12", "run": "Run again"} } },
+energy: { name: 'Energy', inSelector: false, enabled: false, ac: '#f2cc0c', bg: '#2e2a14', sub: 'No pages yet', home: 'Setup', pages: [],
+lc: { v: '0.2.0', st: 'setupwip', step: 3, n: 2, note: 'discovered 08:52', d: 'Power use per machine and per shift.',
+setup: {"checks": [{"st": "idle", "t": "Required fields", "d": "Not run yet."}, {"st": "idle", "t": "Permissions", "d": "Not run yet."}, {"st": "idle", "t": "Connections", "d": "Not run yet."}, {"st": "idle", "t": "App prerequisites", "d": "Not run yet."}]} } },
+safety: { name: 'Safety', inSelector: false, enabled: false, ac: '#c9cdd3', bg: '#262a31', sub: 'Not initialized', home: 'Home', pages: [],
+lc: { v: '0.4.0', st: 'notinit', step: 1, n: 3, note: 'discovered 09:05', d: 'Incident reports and safety walks.' } }
+};
+}
+
+mockItems() {
+const A = this.apps(); const out = [];
+Object.keys(A).forEach((a) => A[a].pages.forEach((g) => {
+const subs = g.groups ? [].concat(...g.groups.map((x) => x.subs.map((s) => Object.assign({ grp: x.n }, s)))) : g.subs;
+out.push(Object.assign({}, g, { key: a + '/' + g.n, app: a, parent: null, nSubs: subs.length }));
+subs.forEach((s) => out.push(Object.assign({}, s, { key: a + '/' + g.n + '/' + s.n, app: a, parent: g.n, grp: s.grp || '', nSubs: 0 }))); }));
+return out;
+}
+mockBookmarks() {
+return { 'monitoring/Dashboards/Playlists': true, 'monitoring/Dashboards/Library panels': true, 'monitoring/Explore': true, 'monitoring/Administration/Settings': true,
+'management/Overview/Line status': true, 'management/Reports/Weekly': true, 'maintenance/Work orders/Open': true, 'maintenance/Downtime': true };
+}
+
+mockHidden() {
+return { 'monitoring/Administration/Settings': true };
+}
+
+renderVals() {
+const p = this.props; const A = this.apps(); const IT = this.mockItems();
+const bm = p.bm || this.mockBookmarks(); const hidden = p.hidden || this.mockHidden(); const sel = p.sel || '';
+const ICONS = ['dash', 'alert', 'explore', 'admin', 'overview', 'reports', 'cube', 'pl', 'lp', 'list', 'clock', 'check', 'drill', 'conn', 'doc'];
+const icon = (o, k) => { ICONS.forEach((x) => { o['i_' + x] = k === x; }); return o; };
+const dockOf = (k) => !!bm[k] && !hidden[k];
+const groups = Object.keys(A).map((k) => { const ap = A[k]; const its = IT.filter((x) => x.app === k && dockOf(x.key));
+const tile = 'display:grid;place-items:center;flex:none;width:22px;height:22px;border-radius:6px;background:' + ap.bg + ';color:' + ap.ac;
+return { name: ap.name, dot: 'background:' + ap.ac, isThis: k === 'monitoring', count: its.length + ' in the dock', empty: !its.length, notEmpty: its.length > 0,
+items: its.map((x) => icon({ isNew: x.key === 'monitoring/Explore', label: x.n, parent: x.parent || '', hasParent: !!x.parent,
+path: ap.name + ' › ' + (x.parent ? x.parent + ' › ' : '') + x.n, cls: 'mr2' + (x.key === sel ? ' cur' : ''), tile }, x.bi)) }; }).filter((g) => g.notEmpty);
+return { dpGroups: groups, dpSummary: IT.filter((x) => dockOf(x.key)).length + ' in docks', rootStyle: p.embedded ? '' : 'width:400px;margin:16px;color:#eceef1;font:400 14px/22px \'Inter\',\'Helvetica\',\'Arial\',sans-serif' };
+}
+}
+</script>
+</body>
+</html>
