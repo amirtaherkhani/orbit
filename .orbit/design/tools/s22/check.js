@@ -124,4 +124,11 @@ v = new LV({}).renderVals(); assert.ok(v.isReview && v.review.run === 'Run again
 v = new CL({ checks: v.review.checks, summary: true, lastRun: v.review.last, runLabel: v.review.run }).renderVals();
 assert.deepEqual(v.sums.map((x) => x.text), ['6 passed', '1 warning', '1 not available']); assert.ok(!v.runIcon && v.rows[5].icls === 'ci idle' && v.rows[5].label === 'Not run');
 assert.equal(new LV({ mode: 'setup' }).renderVals().setup.checks.filter((c) => c.st === 'idle').length, 4);
+// S23 prototype routing: the dock, the app switcher and the views' buttons open the views in place, one at a time
+t = page(); v = t.v(); assert.ok(v.vHome && v.dockSel === 'home');
+v.navigate('dashboards'); assert.ok(t.v().vDash && t.v().dockSel === 'dashboards'); t.v().navigate('bookmarks'); assert.ok(t.v().vBm);
+t.v().toggleSwitcher(); assert.equal(t.v().dockOverlay, 'apps'); t.v().appsPage(); v = t.v(); assert.ok(v.vApps && v.dockOverlay === 'none' && v.viewCrumb === 'Apps');
+v.manage('management'); v = t.v(); assert.ok(v.vManage && v.viewApp === 'management' && v.viewSub === 'Management');
+v.step('energy'); assert.ok(t.v().vLife && t.v().lcMode === 'setup'); t.v().step('quality'); assert.equal(t.v().lcMode, 'review');
+t.v().toggleMenu(); t.v().openPage('management', 'Reports', 'Daily'); flush(); assert.ok(t.v().vPage && !t.v().vLife && t.v().crumbSub === 'Daily');
 console.log('s22 logic ok');

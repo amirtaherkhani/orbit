@@ -12,6 +12,8 @@ const ACT = { init: 'a-init', review: 'a-review', setup: 'a-setup', migrate: 'a-
 const d = BY[p.status] || BY.notinit; const href = p.href === undefined ? d[2] : p.href;
 const st = 'flex:none;height:30px;min-height:30px;padding:0 12px;gap:6px;white-space:nowrap';
 return { isLink: !!href && !p.disabled, isBtn: !href && !p.disabled, isOff: !!p.disabled, href, label: p.label || d[1], cls: 'p lca ' + ACT[p.action || d[0]], linkStyle: (p.large ? '' : st + ';') + 'text-decoration:none', btnStyle: p.large ? '' : st,
-click: () => { if (p.onClick) p.onClick(); } };
+click: () => { if (p.onClick) p.onClick(); },
+// with onClick a link runs it in place (the prototype) instead of opening its board
+linkClick: p.onClick ? (e) => { if (e && e.preventDefault) e.preventDefault(); p.onClick(); } : undefined };
 }
 }

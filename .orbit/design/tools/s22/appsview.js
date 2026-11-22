@@ -9,7 +9,7 @@ const ids = Object.keys(A).filter((k) => A[k].lc); const en = (k) => A[k].lc.st 
 const ok = (k) => seg === 'all' || (seg === 'on' ? en(k) : !en(k));
 const segs = [['all', 'All', ids.length], ['on', 'Enabled', ids.filter(en).length], ['act', 'Needs action', ids.filter((k) => !en(k)).length]].map(([id, l, n]) => ({
 label: l + ' ' + n, cls: seg === id ? 'sgb on' : 'sgb', sel: seg === id ? 'true' : 'false', pick: () => this.setState({ seg: id }) }));
-const cards = ids.filter(ok).map((k) => ({ id: k, selected: k === sel, select: (x) => this.setState({ sel: x }) }));
+const cards = ids.filter(ok).map((k) => ({ id: k, selected: k === sel, select: (x) => this.setState({ sel: x }), manage: p.onManage, step: p.onStep }));
 return { segs, cards, sel, rootStyle: 'display:flex;flex-direction:column;gap:12px;min-width:0' + (p.embedded ? '' : ";padding:24px;color:#eceef1;font:400 14px/22px 'Inter','Helvetica','Arial',sans-serif") };
 }
 }
