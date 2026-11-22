@@ -40,7 +40,10 @@ for f in ['DockDashboard','AppsPin','AppsAdd','AppManage','AppSetup','AddAppFlow
     for r in split(css(open(P+f+'.dc.html').read()))[0]:
         sel=r[:r.index('{')].strip() if '{' in r else ''
         if sel and sel not in have: have.add(sel); add+=r  # the first board that has a selector gives its rule
-add+='.s23dk{position:fixed;left:0;right:0;bottom:18px;display:flex;justify-content:center;z-index:20;pointer-events:none}.s23dk>*{pointer-events:auto}main.mn{padding-bottom:96px}'
+# the canvas does not keep position:fixed in a board, so the shell is a frame of the board's height: main scrolls, the dock stays put
+add+=('.a{height:1400px;min-height:0;overflow:hidden;box-sizing:border-box}.a>.s{height:100%;min-height:0;box-sizing:border-box}.s>.r{min-height:0}'
+      'main.mn{min-height:0;overflow-y:auto;padding-bottom:96px;scrollbar-width:thin}'
+      '.s23dk{position:absolute;left:0;right:0;bottom:18px;display:flex;justify-content:center;z-index:20;pointer-events:none}.s23dk>*{pointer-events:auto}')
 i=s.index('</style>',s.index('<helmet>')); s=s[:i]+add+s[i:]
 MOCK=re.sub(r'^//.*$','',open(T+'mock.js').read(),flags=re.M)
 a=s.index('class Component extends DCLogic'); z=s.index('</script>',a)
