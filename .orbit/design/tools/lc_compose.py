@@ -177,6 +177,17 @@ for f,mode,guard in [('AddAppFlow','review','acme-quality-app · v1.0.1'),('AppS
 # The canvas reads an attribute that starts and ends with a hole as ONE path ("{{ a }};{{ b }}" -> undefined), while dcrender
 # interpolates it, so the local screenshots never show the bug (C07 was blank on the canvas). Fail the build instead.
 import glob
+# C01 centres itself with rules on its own .dk, which do not reach the <dc-import> host in the board's flex column, so the dock sat
+# at the left edge on the canvas. A host div carries the placement; S23 (lc_proto) turns it into its own .s23dk.
+DKH='.dkh{align-self:center;margin-top:auto;position:sticky;bottom:18px;z-index:5;display:flex;justify-content:center}'
+for g in glob.glob(P+'*.dc.html'):
+    f=_os.path.basename(g)[:-8]
+    if f in ('Prototype','RefDock') or f.startswith('Cmp'): continue
+    s=open(g).read()
+    if '<dc-import name="CmpDock"' not in s or 'class="dkh"' in s: continue
+    s=re.sub(r'<dc-import name="CmpDock"[^>]*></dc-import>',lambda m:'<div class="dkh">'+m.group(0)+'</div>',s)
+    k=s.index('</style>',s.index('<helmet>')); s=s[:k]+DKH+s[k:]
+    open(g,'w').write(s)
 bad=[(_os.path.basename(g),m) for g in glob.glob(P+'*.dc.html') for m in re.findall(r'[\w-]+="\{\{[^"]*\}\}[^"]*\{\{[^"]*\}\}"',open(g).read())]
 if bad: raise SystemExit(f'lc_compose: attribute with more than one hole that starts and ends with a hole; use one hole: {bad[:3]}')
 print('compose ok')
