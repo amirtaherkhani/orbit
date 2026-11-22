@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Lifecycle action button</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Roboto+Mono:wght@400&family=Antonio:wght@600&display=swap" rel="stylesheet"><style>
+body{margin:0}html,body{background:#050609}*{box-sizing:border-box}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;text-align:left}
+.p{display:inline-flex;align-items:center;gap:8px;min-height:36px;padding:0 14px;border-radius:6px;border:1px solid rgba(204,204,220,.12);background:#1f2227;color:#e2e4e8;font:500 14px/22px 'Inter','Helvetica','Arial',sans-serif}
+kbd{font:500 12px/18px 'Inter','Helvetica','Arial',sans-serif;padding:2px 6px;border-radius:4px;border:1px solid rgba(204,204,220,.2);background:#23262c;color:#c9cdd3}@keyframes clkb{50%{opacity:.25}}.p[disabled]{opacity:.45;cursor:not-allowed}/*lcbtn*/.p.lca{background:rgba(var(--lc),.10);border-color:rgba(var(--lc),.45);color:rgb(var(--lc))}.p.lca:hover,.p.lca:focus-visible{background:rgba(var(--lc),.20);border-color:rgb(var(--lc))}.p.lca[disabled]{background:transparent;border-color:rgba(var(--lc),.25);color:rgba(var(--lc),.7);opacity:1;cursor:not-allowed}.p.lca.a-init{--lc:110,159,255}.p.lca.a-review{--lc:251,173,55}.p.lca.a-setup{--lc:184,119,217}.p.lca.a-migrate{--lc:88,207,236}.p.lca.a-enable{--lc:115,191,105}.p.lca.a-fail{--lc:255,82,134}/*userhover*/button[aria-label="User menu"]{transition:background-color .12s}button[aria-label="User menu"]:hover,button[aria-label="User menu"]:focus-visible{background:rgba(204,204,220,.08)!important;outline:0}/*slothover: add slot hover = darker shade of the app accent, solid accent border, accent icon*/.dk .n.slot:not(.on):not(.opn):hover,.dk .n.slot:not(.on):not(.opn):focus-visible,.dk .mods .n.slot:not(.on):not(.opn):hover,.dk .mods .n.slot:not(.on):not(.opn):focus-visible,.dk .mods .n.slot.hv{background:color-mix(in srgb,var(--mac,#6e9fff) 38%,#0b0c0e);border:1px solid var(--mac,#6e9fff);color:var(--mac,#6e9fff);border-radius:6px}</style>
+</helmet>
+<span style="display:contents"><sc-if value="{{ isLink }}" hint-placeholder-val="{{ true }}"><a class="{{ cls }}" href="{{ href }}" style="{{ linkStyle }}" onClick="{{ linkClick }}">{{ label }}</a></sc-if><sc-if value="{{ isBtn }}" hint-placeholder-val="{{ false }}"><button type="button" class="{{ cls }}" style="{{ btnStyle }}" onClick="{{ click }}">{{ label }}</button></sc-if><sc-if value="{{ isOff }}" hint-placeholder-val="{{ false }}"><button type="button" class="{{ cls }}" style="{{ btnStyle }}" disabled>{{ label }}</button></sc-if></span>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"status":{"editor":"enum","options":["notinit","review","setup","setupwip","migrate","ready","failed"],"default":"notinit"},"action":{"editor":null},"label":{"editor":null},"href":{"editor":null},"disabled":{"editor":"boolean","default":false},"onClick":{"editor":null},"large":{"editor":null},"$preview":{"width":220,"height":60}}'>
+class Component extends DCLogic {
+// LifecycleActionButton (R10, R12): outline button for a lifecycle step, in the colour of its action type (lifecycle_kit.py ACT:
+// init, review, setup, migrate, enable, fail). Props: status (the step it acts on), or action, label and href; disabled; onClick.
+// A step with a view of its own is a link to that board; the others are buttons.
+// large: the page-header size (S15), not the 30 px card size.
+renderVals() {
+const p = this.props;
+const BY = { notinit: ['init', 'Initialize', ''], review: ['review', 'Review', 'AddAppFlow.dc.html'], setup: ['setup', 'Setup', 'AppSetup.dc.html'],
+setupwip: ['setup', 'Continue setup', 'AppSetup.dc.html'], migrate: ['migrate', 'Run migration', ''], ready: ['enable', 'Enable', ''], failed: ['fail', 'View details', ''] };
+// the action colours, spelled out so the board keeps their rules
+const ACT = { init: 'a-init', review: 'a-review', setup: 'a-setup', migrate: 'a-migrate', enable: 'a-enable', fail: 'a-fail' };
+const d = BY[p.status] || BY.notinit; const href = p.href === undefined ? d[2] : p.href;
+const st = 'flex:none;height:30px;min-height:30px;padding:0 12px;gap:6px;white-space:nowrap';
+return { isLink: !!href && !p.disabled, isBtn: !href && !p.disabled, isOff: !!p.disabled, href, label: p.label || d[1], cls: 'p lca ' + ACT[p.action || d[0]], linkStyle: (p.large ? '' : st + ';') + 'text-decoration:none', btnStyle: p.large ? '' : st,
+click: () => { if (p.onClick) p.onClick(); },
+// with onClick a link runs it in place (the prototype) instead of opening its board
+linkClick: p.onClick ? (e) => { if (e && e.preventDefault) e.preventDefault(); p.onClick(); } : undefined };
+}
+}
+</script>
+</body>
+</html>

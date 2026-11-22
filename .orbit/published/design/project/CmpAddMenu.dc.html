@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Add menu</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Roboto+Mono:wght@400&family=Antonio:wght@600&display=swap" rel="stylesheet"><style>
+body{margin:0}html,body{background:#050609}*{box-sizing:border-box}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;text-align:left}
+.i{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}.am{position:absolute;right:0;top:calc(100% + 8px);width:260px;padding:8px;border-radius:10px;background:#1b1f27;border:1px solid rgba(204,204,220,.12);box-shadow:0 24px 60px #000c;z-index:20;color:#eceef1}.am h4{margin:6px 10px;font:400 12px/18px 'Inter','Helvetica','Arial',sans-serif;color:#9fa7b3}.ai{display:flex;align-items:center;gap:12px;width:100%;padding:9px 10px;border-radius:6px;font-size:14px}.ai .i{width:16px;height:16px}.am hr{border:0;border-top:1px solid rgba(204,204,220,.12);margin:6px 0}.i.gf{fill:currentColor;stroke:none}@keyframes clkb{50%{opacity:.25}}.ic1{display:inline-flex;align-items:center;justify-content:center;line-height:0;flex:none}/*glasspop*/.wsm,.um,.am,.mzdd{-webkit-backdrop-filter:blur(20px) saturate(140%);backdrop-filter:blur(20px) saturate(140%)}.am{background:rgba(27,31,39,.62)}@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){.wsm,.um{background:#1e2127}.am{background:#1b1f27}.mzdd{background:#1b1e24}}/*userhover*/button[aria-label="User menu"]{transition:background-color .12s}button[aria-label="User menu"]:hover,button[aria-label="User menu"]:focus-visible{background:rgba(204,204,220,.08)!important;outline:0}/*slothover: add slot hover = darker shade of the app accent, solid accent border, accent icon*/.dk .n.slot:not(.on):not(.opn):hover,.dk .n.slot:not(.on):not(.opn):focus-visible,.dk .mods .n.slot:not(.on):not(.opn):hover,.dk .mods .n.slot:not(.on):not(.opn):focus-visible,.dk .mods .n.slot.hv{background:color-mix(in srgb,var(--mac,#6e9fff) 38%,#0b0c0e);border:1px solid var(--mac,#6e9fff);color:var(--mac,#6e9fff);border-radius:6px}
+</style>
+</helmet>
+<div class="am" role="menu" style="color:#eceef1;font:400 14px/22px 'Inter','Helvetica','Arial',sans-serif;{{ pos }}"><h4>Dashboards</h4><button type="button" role="menuitem" class="ai"><span class="ic1" style="color:#73bf69;display:flex"><svg class="i gf" viewBox="0 0 24 24" aria-hidden="true"><path d="M19,11H13V5a1,1,0,0,0-2,0v6H5a1,1,0,0,0,0,2h6v6a1,1,0,0,0,2,0V13h6a1,1,0,0,0,0-2Z"/></svg></span>New dashboard</button><button type="button" role="menuitem" class="ai"><span class="ic1" style="color:#73bf69;display:flex"><svg class="i gf" viewBox="0 0 24 24" aria-hidden="true"><path d="M19,11H13V5a1,1,0,0,0-2,0v6H5a1,1,0,0,0,0,2h6v6a1,1,0,0,0,2,0V13h6a1,1,0,0,0,0-2Z"/></svg></span>Import dashboard</button><hr><h4>Alerting</h4><button type="button" role="menuitem" class="ai"><span class="ic1" style="color:#b877d9;display:flex"><svg class="i gf" viewBox="0 0 24 24" aria-hidden="true"><path d="M19,11H13V5a1,1,0,0,0-2,0v6H5a1,1,0,0,0,0,2h6v6a1,1,0,0,0,2,0V13h6a1,1,0,0,0,0-2Z"/></svg></span>New alert rule</button></div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"anchored":{"editor":null},"$preview":{"width":320,"height":300}}'>
+class Component extends DCLogic {
+// Content is mock data until the real menu entries are wired. On its own board the menu lays out in place;
+// anchored (set by TopBar) keeps the position the overlay CSS gives it under its trigger.
+renderVals() { return { pos: this.props.anchored ? '' : 'position:relative;top:auto;right:auto;left:auto;margin:16px' }; }
+}
+</script>
+</body>
+</html>

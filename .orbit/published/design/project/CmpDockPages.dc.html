@@ -1,0 +1,357 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Bookmarks page</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Roboto+Mono:wght@400&family=Antonio:wght@600&display=swap" rel="stylesheet"><style>/*gtokens*/.pn:has(>.sv){display:flex;flex-direction:column}.pn>.sv{margin-top:auto}
+body{margin:0}html,body{background:#050609}*{box-sizing:border-box}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;text-align:left}
+.a{min-height:1580px;padding:14px;background:#050609;color:#eceef1;font:400 14px/22px 'Inter','Helvetica','Arial',sans-serif}
+.s{min-height:1552px;padding:12px 14px 14px;border-radius:40px;background:#181a1f;border:1px solid #252830;box-shadow:0 24px 60px #000a;display:flex;flex-direction:column;gap:12px}
+.t{display:flex;align-items:center;gap:10px;padding:4px 8px;flex-wrap:wrap}
+.p{display:inline-flex;align-items:center;gap:8px;min-height:36px;padding:0 14px;border-radius:6px;border:1px solid rgba(204,204,220,.12);background:#1f2227;color:#e2e4e8;font:500 14px/22px 'Inter','Helvetica','Arial',sans-serif}
+.w{background:#f2f2f2;color:#111}.m{background:#e0b46a;color:#1b1406}
+.o{width:36px;height:36px;border-radius:6px;border:1px solid rgba(204,204,220,.2);background:#23262c;display:grid;place-items:center}
+.r{display:flex;gap:14px;flex:1;position:relative;padding:16px;border-radius:32px;background:#090a0d;border:1px solid #14161b}.r{--ac:#58cfec}.r[data-app="management"]{--ac:#e0b46a}.r[data-app="maintenance"]{--ac:#5794f2}.r::before{content:"";position:absolute;left:-9px;top:16px;width:3px;height:36px;border-radius:3px;background:var(--ac)}
+.sb{width:270px;padding:18px 10px;display:flex;flex-direction:column;gap:6px}
+.sb h1{margin:8px 12px 18px;font-size:46px;line-height:1;font-weight:400}
+.n{display:flex;align-items:center;gap:12px;padding:9px 14px;border-radius:6px;color:#c9cdd3}
+.n.on{position:relative;background:#1d353f;color:#dcdcdc;border-radius:0 6px 6px 0}.n.on::before{content:"";position:absolute;left:0;top:0;bottom:0;width:2px;background:#58cfec}
+.i{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.mn{flex:1;display:grid;grid-template-columns:repeat(12,1fr);gap:12px;align-content:start}
+.c{background:linear-gradient(160deg,#171a20,#111317);border:1px solid #1d2026;border-radius:26px;padding:22px;min-width:0}
+.k{color:#8d939c;font-size:14px}
+.v{font-size:44px;line-height:1.1}
+.bar{height:6px;border-radius:9px;background:#23262d;margin:8px 0 18px}.bar i{display:block;height:100%;border-radius:9px;background:#eceef1}
+.row{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:10px;background:#101318;margin-top:8px}
+.av{width:40px;height:40px;border-radius:6px;background:#1b1f26;display:grid;place-items:center;font-size:12px;color:#c9cdd3}
+.t .p{background:#23262c;border-color:rgba(204,204,220,.2)}.t .w{background:#f2f2f2}.t .m{background:#e0b46a}.n.on::after{content:"›";margin-left:auto;width:22px;height:22px;border-radius:6px;background:#dcdcdc;display:grid;place-items:center}.g{background:radial-gradient(circle at 25% 0,#2b2316,#13161b 65%)}
+.pn{background:#181b1f;border:1px solid rgba(204,204,220,.12);border-radius:6px;padding:14px;min-width:0;font:400 14px/22px 'Inter','Helvetica','Arial',sans-serif;color:#ccccdc}
+.pt{font-size:14px;font-weight:500;color:#fff;margin-bottom:10px}.hd{font-weight:500;color:#fff;font-size:14px;margin-bottom:6px}
+.sv{font-size:38px;font-weight:500;text-align:center;margin-top:6px;line-height:1.2}.mu{color:#9fa7b3;font-size:12px}
+.rh{grid-column:span 12;font:500 16px/22px 'Inter','Helvetica','Arial',sans-serif;color:#fff;padding:6px 2px}
+.lk{color:#6ccfdc;font-size:14px}.lg{display:flex;gap:16px;font-size:12px;margin-top:8px}.lg i{display:inline-block;width:14px;height:3px;border-radius:2px;margin-right:6px;vertical-align:middle}
+.tb{width:100%;border-collapse:collapse}.tb th{font-weight:500;color:#fff;text-align:left;padding:8px 10px;border-bottom:1px solid rgba(204,204,220,.12);white-space:nowrap}.tb td{padding:8px 10px;border-bottom:1px solid rgba(204,204,220,.12)}
+.rw2{display:flex;align-items:center;gap:12px;padding:10px 0;border-top:1px solid rgba(204,204,220,.12)}.rw2 span{flex:1;min-width:0}
+.cs{padding:6px 14px 6px 46px;font-size:14px;color:#aeb4bd;border-radius:6px}
+.r{flex-direction:column}.mn{padding-bottom:0}
+.dk{position:sticky;bottom:18px;align-self:center;margin-top:auto;display:flex;align-items:center;gap:4px;padding:6px;border-radius:10px;background:#1b1e24;border:1px solid rgba(204,204,220,.12);box-shadow:0 18px 40px #000a;z-index:5}
+.dk .n{padding:10px 13px}.dk .n.on{padding:10px 18px}.dk .n.on::after{display:none}.dk i{width:1px;height:26px;background:#2c3037;margin:0 6px}
+.sh{position:absolute;left:50%;bottom:96px;transform:translateX(-50%);width:min(1240px,calc(100% - 40px));display:grid;grid-template-columns:repeat(5,1fr);gap:24px;padding:22px;border-radius:10px;background:#181a1f;border:1px solid rgba(204,204,220,.12);box-shadow:0 30px 80px #000c;z-index:6}
+.sh h3{margin:14px 0 8px;font:500 12px/18px 'Inter','Helvetica','Arial',sans-serif;letter-spacing:.0125em;text-transform:none;color:#9fa7b3}.sh>div>h3:first-child{margin-top:0}
+.si{display:block;width:100%;padding:8px 12px;border-radius:6px;color:#eceef1;font-size:14px}.si.on{position:relative;background:#1d353f;color:#dcdcdc;border-radius:0 6px 6px 0}
+.p.w{border-color:#f2f2f2}.p.m{border-color:#e0b46a}
+.sg{display:flex;padding:3px;gap:2px;border:1px solid rgba(204,204,220,.2);border-radius:6px;background:#1a1d22}.sgb{min-height:30px;padding:0 14px;border-radius:4px;color:#c9cdd3;font:500 14px/22px 'Inter','Helvetica','Arial',sans-serif}.sgb.on{background:#1d353f;color:#fff}
+.vs{display:inline-flex;border:1px solid rgba(204,204,220,.2);border-radius:6px;overflow:hidden;min-height:36px;font:500 14px/22px 'Inter','Helvetica','Arial',sans-serif}.vs span{display:flex;align-items:center;padding:0 10px;background:#23262c;color:#c9cdd3}.vs b{display:flex;align-items:center;padding:0 12px;font-weight:500;background:#1a1d22;color:#e2e4e8}
+.bg{display:inline-flex}.bg .p{border-radius:0;margin-left:-1px}.bg .p:first-child{border-radius:6px 0 0 6px;margin-left:0}.bg .p:last-child{border-radius:0 6px 6px 0}
+.dk .ws{gap:10px;padding:6px 12px;text-align:left}.dk .ws .i{color:#58cfec}
+.mods{display:flex;gap:2px;padding:3px;border-radius:6px;background:#221e16;border:1px solid #3a3223}.dk .mods .n{color:#e0b46a;padding:8px 11px}
+.slot{border:1px dashed rgba(204,204,220,.3);color:#9fa7b3}
+.wsm{position:absolute;left:0;bottom:calc(100% + 10px);width:400px;padding:8px;border-radius:10px;background:#1e2127;border:1px solid rgba(204,204,220,.12);box-shadow:0 24px 60px #000c;z-index:7;color:#eceef1}
+.wi{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:6px;width:100%}.wi.cur{position:relative;background:#1d353f;color:#dcdcdc;border-radius:0 6px 6px 0}.wi.cur::before{content:"";position:absolute;left:0;top:0;bottom:0;width:2px;background:#58cfec}.wi .i{color:#e0b46a}
+.bcr{grid-column:span 12}
+.cb{display:inline-flex;font:500 14px/22px 'Inter','Helvetica','Arial',sans-serif}
+.cb>*{display:flex;align-items:center;gap:8px;min-height:36px;padding:0 22px 0 24px;margin-left:-8px;background:#1d2026;color:#c9cdd3;clip-path:polygon(0 0,calc(100% - 10px) 0,100% 50%,calc(100% - 10px) 100%,0 100%,10px 50%)}
+.cb .i{width:14px;height:14px}
+.cb>:first-child{margin-left:0;padding-left:14px;border-radius:6px 0 0 6px;clip-path:polygon(0 0,calc(100% - 10px) 0,100% 50%,calc(100% - 10px) 100%,0 100%)}
+.cb>:last-child{background:#f2f2f2;color:#111;border-radius:0 6px 6px 0;padding-right:14px;clip-path:polygon(0 0,100% 0,100% 100%,0 100%,10px 50%)}
+.cb>.ap{background:#2a2e35;color:#eceef1}.cb>.ap.mg{background:#3a3223;color:#e0b46a}
+.addw{position:relative;display:inline-flex}
+@media(max-width:900px){.r{flex-direction:column}.sb{width:auto}.mn>*{grid-column:1/-1!important}}
+.dk .ws.on{padding:6px 12px}.dk .mods .n.on{background:#3a3223;color:#f3deb4}.dk .mods .n.on::before{background:#e0b46a}
+.sh2{position:absolute;left:50%;bottom:96px;transform:translateX(-50%);width:min(1240px,calc(100% - 40px));display:grid;grid-template-columns:292px 1fr;border-radius:10px;background:#181a1f;border:1px solid rgba(204,204,220,.12);box-shadow:0 30px 80px #000c;z-index:6;overflow:hidden;font:400 14px/22px 'Inter','Helvetica','Arial',sans-serif;color:#eceef1}
+.rl{padding:16px 10px 12px;border-right:1px solid rgba(204,204,220,.12);background:#14161a;display:flex;flex-direction:column;gap:2px}
+.sec{display:flex;align-items:center;justify-content:space-between;margin:14px 10px 6px;font:500 12px/18px 'Inter','Helvetica','Arial',sans-serif;letter-spacing:.0125em;text-transform:none;color:#9fa7b3}
+.rl>.sec:first-child{margin-top:0}
+.sec em{font-style:normal;letter-spacing:0;text-transform:none;font-weight:400;color:#8d939c}
+.rn{position:relative;display:flex;align-items:center;gap:12px;width:100%;min-height:40px;padding:0 12px;border-radius:0 6px 6px 0;color:#c9cdd3;font:500 14px/22px 'Inter','Helvetica','Arial',sans-serif}
+.rn .ct{margin-left:auto;color:#8d939c;font-size:12px;font-weight:400;display:flex;align-items:center;gap:6px}
+.rn.on{background:#1d353f;color:#dcdcdc}.rn.on::before{content:"";position:absolute;left:0;top:0;bottom:0;width:2px;background:#58cfec}.rn.on .ct{color:#58cfec}
+.rn.ap{min-height:52px;padding:0 12px 0 10px}.rn .tx{display:flex;flex-direction:column;line-height:1.25;min-width:0}.rn .tx small{font:400 12px/18px 'Inter','Helvetica','Arial',sans-serif;color:#8d939c}
+.rn.on.mg{background:#2d2618;color:#f3e3bd}.rn.on.mg::before{background:#e0b46a}.rn.on.mg .ct{color:#e0b46a}.rn.on.mg small{color:#c8b88f}
+.rn .ct>.i{width:16px;height:16px;color:#aeb4bd}.rn.on .ct>.i{color:#58cfec}.rn.on.mg .ct>.i{color:#e0b46a}
+.rl hr{border:0;border-top:1px solid rgba(204,204,220,.12);margin:10px 4px 4px}
+.tl{display:grid;place-items:center;flex:none}
+.pn2{padding:22px 24px 14px;display:flex;flex-direction:column;gap:18px;min-width:0}
+.ph{display:flex;align-items:center;gap:16px}
+.ph .bt{width:52px;height:52px;border-radius:6px}
+.ph h2{margin:0;font:400 28px/32px 'Inter','Helvetica','Arial',sans-serif;color:#eceef1}
+.ph p{margin:4px 0 0;color:#9fa7b3;font-size:14px}
+.ph .pth{display:flex;align-items:center;gap:6px;margin-bottom:4px;font:500 12px/18px 'Inter','Helvetica','Arial',sans-serif;color:#8d939c}
+.gr{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.cd{position:relative;display:flex;align-items:flex-start;gap:4px;padding:12px 8px 12px 12px;border-radius:6px;background:#1b1e24;border:1px solid rgba(204,204,220,.12);min-height:78px;min-width:0}
+.cd .lnk{display:flex;gap:12px;flex:1;min-width:0;text-align:left;align-items:flex-start}
+.cd .tl{width:36px;height:36px;border-radius:6px;background:#23262c;color:#c9cdd3}
+.cd b{display:block;font:500 14px/22px 'Inter','Helvetica','Arial',sans-serif;color:#eceef1}
+.cd small{display:block;margin-top:3px;font:400 12px/18px 'Inter','Helvetica','Arial',sans-serif;color:#9fa7b3}
+.cd.on{background:#1d353f;border-color:#1d353f}.cd.on::before{content:"";position:absolute;left:0;top:0;bottom:0;width:2px;background:#58cfec;border-radius:6px 0 0 6px}
+.cd.on .tl{background:#27505e;color:#58cfec}.cd.on small{color:#a9c4cc}
+.hr{display:inline-block;margin-top:6px;font:500 12px/18px 'Inter','Helvetica','Arial',sans-serif;letter-spacing:.0125em;text-transform:none;color:#58cfec}
+.pin{width:28px;height:28px;border-radius:6px;display:grid;place-items:center;color:#7c838d;flex:none}
+.pin .i{width:16px;height:16px}.pin.pd{color:#e0b46a}
+.gh{display:flex;align-items:center;gap:10px;margin:0 0 10px;font:500 12px/18px 'Inter','Helvetica','Arial',sans-serif;letter-spacing:.0125em;text-transform:none;color:#9fa7b3}
+.gh::after{content:"";flex:1;height:1px;background:#262a31}
+.gh b{font-weight:500;color:#8d939c;letter-spacing:0}
+.rcg{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.rc{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:6px;background:#14161a;border:1px solid rgba(204,204,220,.12);min-width:0;text-align:left}
+.rc .i{color:#8d939c;flex:none}.rc span{display:flex;flex-direction:column;min-width:0;line-height:1.3}.rc b{font:500 14px/22px 'Inter','Helvetica','Arial',sans-serif;color:#dcdcdc;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.rc small{font-size:12px;color:#8d939c}
+.hint{display:flex;gap:18px;align-items:center;padding-top:12px;margin-top:auto;border-top:1px solid rgba(204,204,220,.12);color:#8d939c;font-size:12px}
+kbd{font:500 12px/18px 'Inter','Helvetica','Arial',sans-serif;padding:2px 6px;border-radius:4px;border:1px solid rgba(204,204,220,.2);background:#23262c;color:#c9cdd3}
+.gcols{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.gcol{display:flex;flex-direction:column;gap:8px;min-width:0}
+.gcol .cd{min-height:64px;padding:10px 6px 10px 10px}
+.gcol .cd .tl{width:32px;height:32px}
+.gcol .cd small{margin-top:1px;font-size:12px}
+.cd.big{flex-direction:column;gap:12px;min-height:196px;padding:16px;border-color:#3a3223;background:#1c1912}
+.cd.big .top{display:flex;align-items:center;gap:12px}
+.cd.big .top .pin{margin-left:auto}
+.cd.big .tl{width:40px;height:40px;background:#2f2819;color:#e0b46a}
+.cd.big b{font-size:16px}
+.cd.big .chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:auto}
+.chip{display:inline-flex;align-items:center;min-height:26px;padding:0 10px;border-radius:9999px;border:1px dashed #5a4d33;color:#c8b88f;font:500 12px/18px 'Inter','Helvetica','Arial',sans-serif}
+.cd.big .lbl{font:500 12px/18px 'Inter','Helvetica','Arial',sans-serif;letter-spacing:.0125em;text-transform:none;color:#a89870}
+.p.am{background:#e0b46a;color:#1b1406;border-color:#e0b46a}
+.p.cy{background:#58cfec;color:#07181d;border-color:#58cfec}
+.p.gh2{background:transparent;border-color:rgba(204,204,220,.2)}
+/* apps view */
+.ac{position:relative;display:flex;flex-direction:column;gap:12px;padding:16px;border-radius:6px;background:#181b1f;border:1px solid rgba(204,204,220,.12);min-width:0}
+.ac.on{background:#1d353f;border-color:#1d353f}.ac.on::before{content:"";position:absolute;left:0;top:0;bottom:0;width:2px;background:#58cfec;border-radius:6px 0 0 6px}
+.ac .ach{display:flex;gap:12px;align-items:flex-start}
+.ac .ach>.tl .i{width:20px;height:20px}
+.ac .act{display:flex;flex-direction:column;align-items:flex-start;min-width:0}
+.ac .ach b{display:block;font:500 14px/22px 'Inter','Helvetica','Arial',sans-serif;color:#fff}
+.ac .ach small{display:block;font:400 12px/18px 'Inter','Helvetica','Arial',sans-serif;color:#8d939c}
+.ac.on .ach small{color:#a9c4cc}
+.ac .bd{margin:10px 0 0}
+.ac p{margin:0;min-height:39px;color:#aeb4bd;font:400 14px/22px 'Inter','Helvetica','Arial',sans-serif}.ac.on p{color:#c9dde3}
+.bd{display:inline-flex;align-items:center;gap:6px;min-height:24px;padding:0 8px;border-radius:4px;font:500 12px/18px 'Inter','Helvetica','Arial',sans-serif;white-space:nowrap}
+.bd.s-ad{background:#1c2b20;color:#73bf69}.bd.s-av{background:#262a31;color:#c9cdd3}.bd.s-ns{background:#2e2417;color:#ff9830}
+.mr{display:flex;gap:14px;flex-wrap:wrap;color:#8d939c;font:400 12px/18px 'Inter','Helvetica','Arial',sans-serif}.ac.on .mr{color:#a9c4cc}
+.mr span{display:inline-flex;align-items:center;gap:6px}
+.dt{display:inline-block;width:8px;height:8px;border-radius:100%;background:#73bf69}.dt.o{background:#ff9830}
+.acf{display:flex;gap:8px;align-items:center;margin-top:auto;padding-top:4px}
+.acf .k{font-size:12px}
+.acs{margin-left:auto;display:inline-flex;align-items:center;gap:12px}
+.ok-t{display:inline-flex;align-items:center;gap:6px;color:#9fa7b3;font:500 12px/18px 'Inter','Helvetica','Arial',sans-serif}.ok-t .i{width:14px;height:14px;color:#73bf69}
+.sw{position:relative;width:36px;height:20px;border-radius:9999px;background:#3a3e46;flex:none}
+.sw::after{content:"";position:absolute;top:2px;left:2px;width:16px;height:16px;border-radius:100%;background:#fff}
+.sw[aria-checked="true"]{background:#58cfec}.sw[aria-checked="true"]::after{left:18px;background:#07181d}
+.pv{display:flex;flex-direction:column;gap:14px;padding:18px;border-radius:6px;background:#181b1f;border:1px solid rgba(204,204,220,.12);min-width:0}
+.pv h4{margin:0;font:500 12px/18px 'Inter','Helvetica','Arial',sans-serif;letter-spacing:.0125em;text-transform:none;color:#9fa7b3}
+.tg{display:flex;align-items:center;gap:12px;padding:10px 0;border-top:1px solid rgba(204,204,220,.12)}.tg span.tx{flex:1;display:flex;flex-direction:column;line-height:1.3}.tg small{font-size:12px;color:#8d939c}
+.mini{border:1px solid rgba(204,204,220,.12);border-radius:6px;background:#101216;padding:10px;display:flex;flex-direction:column;gap:2px}
+.mini .mr2{display:flex;align-items:center;gap:10px;min-height:34px;padding:0 8px;border-radius:0 6px 6px 0;font:500 14px/22px 'Inter','Helvetica','Arial',sans-serif;color:#c9cdd3;position:relative}
+.mini .mr2.cur{background:#1d353f;color:#dcdcdc}.mini .mr2.cur::before{content:"";position:absolute;left:0;top:0;bottom:0;width:2px;background:#58cfec}
+.mini .mr2 .tl{width:22px;height:22px;border-radius:6px}.mini .mr2 .tl .i{width:12px;height:12px}
+.nw{margin-left:auto;font:500 12px/18px 'Inter','Helvetica','Arial',sans-serif;color:#07181d;background:#58cfec;border-radius:4px;padding:2px 6px}
+.mini .cap{font:500 12px/18px 'Inter','Helvetica','Arial',sans-serif;letter-spacing:.0125em;text-transform:none;color:#8d939c;margin:0 0 4px 2px}
+.help{display:flex;flex-direction:column;justify-content:flex-start;gap:8px;padding:16px;border-radius:6px;border:1px dashed rgba(204,204,220,.2);color:#9fa7b3;font:400 14px/22px 'Inter','Helvetica','Arial',sans-serif}
+.help b{color:#eceef1;font-weight:500;font-size:14px}
+.wi.add{border:1px dashed rgba(110,159,255,.25);border-radius:6px;margin:6px 0 0}.wi.add:not(.cur):hover,.wi.add:not(.cur):focus-visible{border-radius:6px;border-color:#6e9fff;background:rgba(61,113,217,.15);color:#fff}.wi.add:not(.cur):hover::before,.wi.add:not(.cur):focus-visible::before{content:none}.tl{display:grid;place-items:center;flex:none}.wi .tl .i{color:inherit;width:16px;height:16px}.bi .tl .i{width:16px;height:16px}.tg b{font:500 14px/22px 'Inter','Helvetica','Arial',sans-serif;color:#eceef1}.mini .mr2 b{font-weight:500}.nw{margin-left:auto;font:500 12px/18px 'Inter','Helvetica','Arial',sans-serif;color:#07181d;background:#58cfec;border-radius:4px;padding:2px 6px}.i.gf{fill:currentColor;stroke:none}/*clock*/.clk{display:inline-flex;flex-direction:column;align-items:stretch;gap:6px;margin:0 12px;font:600 46px/1 Antonio,'Inter','Helvetica','Arial',sans-serif;color:#f4f6f8;font-variant-numeric:tabular-nums;letter-spacing:.01em}.clk .ckd{display:inline-flex;align-items:baseline}.clk .ckc{margin:0 2px;position:relative;top:-3px;font-weight:400;color:#58cfec;text-shadow:0 0 14px #58cfec99;animation:clkb 2s steps(1) infinite}.clk .cku{margin-left:8px;font:500 14px/1 'Inter','Helvetica','Arial',sans-serif;letter-spacing:.02em;color:#8d939c}@keyframes clkb{50%{opacity:.25}}@media (prefers-reduced-motion:reduce){.clk .ckc{animation:none}}.clk .ckm{display:block;height:3px;border-radius:3px;background:#23262d;overflow:hidden}.clk .ckm i{display:block;height:100%;width:27%;border-radius:3px;background:linear-gradient(90deg,#58cfec,#5794f2)}/*polish*/.r{--hac:#58cfec;--hbg:#1d353f;--htx:#dcdcdc}.r[data-app="management"]{--hac:#e0b46a;--hbg:#2d2618;--htx:#f3e3bd}.r[data-app="maintenance"]{--hac:#5794f2;--hbg:#17233b;--htx:#dbe6fb}.n,.rn,.wi,.mzo,.mini .mr2{cursor:pointer;transition:background-color .12s,color .12s}.n:not(.on):hover,.n:not(.on):focus-visible,.rn:not(.on):hover,.rn:not(.on):focus-visible,.wi:not(.cur):hover,.wi:not(.cur):focus-visible,.mzo:not(.cur):hover,.mzo:not(.cur):focus-visible,.mini .mr2:not(.cur):hover,.mini .mr2:not(.cur):focus-visible{position:relative;background:var(--bg,var(--hbg));color:var(--htx);border-radius:0 6px 6px 0;outline:0}.n:not(.on):hover::before,.n:not(.on):focus-visible::before,.rn:not(.on):hover::before,.rn:not(.on):focus-visible::before,.wi:not(.cur):hover::before,.wi:not(.cur):focus-visible::before,.mzo:not(.cur):hover::before,.mzo:not(.cur):focus-visible::before,.mini .mr2:not(.cur):hover::before,.mini .mr2:not(.cur):focus-visible::before{content:"";position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--ac,var(--hac))}.rn:not(.on):hover .ct,.rn:not(.on):hover .ct>.i,.rn:not(.on):focus-visible .ct>.i{color:var(--hac)}.dk .mods .n:not(.on):hover,.dk .mods .n:not(.on):focus-visible{background:#3a3223;color:#f3deb4}.dk .mods .n:not(.on):hover::before,.dk .mods .n:not(.on):focus-visible::before{background:#e0b46a}.ic1{display:inline-flex;align-items:center;justify-content:center;line-height:0;flex:none}/*addstyle*/.dk{background:transparent;box-shadow:0 18px 40px #000a,inset 0 1px 0 rgba(255,255,255,.06)}.dk::before{content:"";position:absolute;inset:-1px;border-radius:inherit;background:rgba(27,30,36,.55);-webkit-backdrop-filter:blur(16px) saturate(140%);backdrop-filter:blur(16px) saturate(140%);z-index:-1;pointer-events:none}@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){.dk{background:#1b1e24}.dk::before{display:none}}.sh,.sh2,.sh3{background:rgba(24,26,31,.62);-webkit-backdrop-filter:blur(20px) saturate(140%);backdrop-filter:blur(20px) saturate(140%)}@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){.sh,.sh2,.sh3{background:#181a1f}}.dk .mods{background:rgba(61,113,217,.15);border:1px solid rgba(110,159,255,.25)}.dk .mods .n{color:#6e9fff}.dk .mods .n:not(.on):hover,.dk .mods .n:not(.on):focus-visible{background:rgba(61,113,217,.30);color:#fff}.dk .mods .n:not(.on):hover::before,.dk .mods .n:not(.on):focus-visible::before{background:#6e9fff}.dk .mods .n.on{background:rgba(61,113,217,.30);color:#fff}.dk .mods .n.on::before{background:#6e9fff}.dk .n.slot,.dk .mods .n.slot{color:#6e9fff;border:1px dashed rgba(110,159,255,.25);border-radius:6px}.dk .n.slot:not(.on):hover,.dk .n.slot:not(.on):focus-visible,.dk .mods .n.slot:not(.on):hover,.dk .mods .n.slot:not(.on):focus-visible{background:rgba(61,113,217,.30);color:#fff;border-color:#6e9fff;border-radius:6px}.dk .n.slot:not(.on):hover::before,.dk .n.slot:not(.on):focus-visible::before,.dk .mods .n.slot:not(.on):hover::before,.dk .mods .n.slot:not(.on):focus-visible::before{content:none}/*cardstatus*/.ac .ach>.bd{margin:0 0 0 auto;flex:none}.ac .mr{align-items:center}.ac .mr .sti{margin-left:auto;display:inline-flex;gap:6px}.stc,.mr .stc{display:grid;place-items:center;gap:0;padding:0;width:28px;height:28px;border-radius:6px;flex:none;line-height:0}.stc .i{display:block;width:18px;height:18px}.stc.dock{background:rgba(61,113,217,.15);color:#6e9fff;box-shadow:inset 0 0 0 1px rgba(110,159,255,.3)}.stc.menu{background:#14313a;color:#58cfec;box-shadow:inset 0 0 0 1px rgba(88,207,236,.3)}/*pintoggle*/.bd.pt{border:0;cursor:pointer;justify-content:center;width:32px;height:28px;min-height:28px;padding:0;transition:background-color .12s,color .12s}.bd.pt.s-ad:hover{background:#24392a}.bd.pt.s-av:hover{background:#30353d;color:#fff}.bd.pt:focus-visible{outline:2px solid #6e9fff;outline-offset:2px}/*cardbottom*/.ac .mr{margin-top:auto}.ac .mr+.acf{margin-top:0;padding-top:0}/*previewscroll*/.pvw{display:flex;flex-direction:column;gap:8px;min-height:0}.pvh{display:flex;align-items:baseline;justify-content:space-between;gap:8px}.pvh h4{margin:0}.pvs{max-height:420px;overflow-y:auto;overscroll-behavior:contain;display:flex;flex-direction:column;gap:12px;padding:2px 6px 14px 0;scrollbar-width:thin;scrollbar-color:#3a3e46 transparent;-webkit-mask-image:linear-gradient(to bottom,#000 calc(100% - 28px),transparent);mask-image:linear-gradient(to bottom,#000 calc(100% - 28px),transparent)}.pvs::-webkit-scrollbar{width:6px}.pvs::-webkit-scrollbar-thumb{background:#3a3e46;border-radius:3px}.pvs:focus-visible{outline:2px solid #6e9fff;outline-offset:2px;border-radius:6px}.pgg{display:flex;flex-direction:column;gap:6px}.pgh{position:sticky;top:0;z-index:1;display:flex;align-items:center;gap:8px;padding:4px 2px;background:#181b1f}.pgh i{width:8px;height:8px;border-radius:2px;flex:none}.pgh b{font:500 13px/18px 'Inter','Helvetica','Arial',sans-serif;color:#eceef1}.pgc{margin-left:auto;font:400 12px/18px 'Inter','Helvetica','Arial',sans-serif;color:#8d939c}.pgt{padding:0 6px;border-radius:4px;background:#14313a;color:#58cfec;font:500 11px/18px 'Inter','Helvetica','Arial',sans-serif}.mini.pge{border-style:dashed;background:transparent}.pgn{font:400 12px/18px 'Inter','Helvetica','Arial',sans-serif;color:#8d939c;padding:4px 6px}.pvn{margin:0;font:400 12px/18px 'Inter','Helvetica','Arial',sans-serif;color:#8d939c}/*s11split*/.lc{display:flex;flex-direction:column;gap:14px;min-width:0}.ph3{margin:0;font:500 16px/22px Inter,Helvetica,Arial,sans-serif;color:#fff}.pvh{display:flex;align-items:flex-end;justify-content:space-between;gap:12px}.dpv .dpg{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px;align-content:start;max-height:300px}.dpv .dpg .pgg{min-width:0}.dpv .pgh{position:static}.pgp{gap:16px}.pgp .psec{display:flex;flex-direction:column;gap:8px;padding-top:14px;border-top:1px solid rgba(204,204,220,.12)}.pgp .psh{display:flex;align-items:center;justify-content:space-between;gap:8px}.gin{display:flex;align-items:center;gap:10px;width:100%;min-height:32px;padding:0 10px;border-radius:6px;background:#111217;border:1px solid rgba(204,204,220,.2);color:#e2e4e8;font:400 14px/22px Inter,Helvetica,Arial,sans-serif;outline:0}.gin:focus{border-color:#58cfec}.gsl>span{flex:1;min-width:0}.gsl .cv{width:16px;height:16px;color:#9fa7b3;flex:none}.gsl>.i.gf{width:16px;height:16px;flex:none}.gsl.big{min-height:48px;padding:0 12px}.gsl.big b{display:block;font-weight:500;color:#fff;line-height:20px}.gsl.big small{display:block;font-size:12px;line-height:16px;color:#8d939c}.pid{display:flex;gap:12px;align-items:flex-start}.pid .pnm{font:500 16px/22px Inter,Helvetica,Arial,sans-serif;color:#fff}.pid p{margin:2px 0 8px;color:#9fa7b3;font-size:13px;line-height:20px}.pst{display:flex;gap:6px;flex-wrap:wrap}.chp{font:500 12px/18px Inter,Helvetica,Arial,sans-serif;padding:2px 8px;border-radius:4px;background:#262a31;color:#c9cdd3}.pmd{display:grid;grid-template-columns:1fr 1fr;gap:10px 14px;margin:0}.pmd dt{font-size:12px;line-height:18px;color:#8d939c}.pmd dd{margin:0;color:#e2e4e8;font-size:14px;line-height:20px;display:flex;align-items:center;gap:6px}.pmd dd i{width:8px;height:8px;border-radius:50%;flex:none}.rob{display:inline-flex;align-items:center;gap:4px;font:500 12px/18px Inter,Helvetica,Arial,sans-serif;color:#9fa7b3;padding:1px 8px;border-radius:4px;background:#22252b}.rob.ed{background:#1d353f;color:#9ad9ea}.rob .lk{width:12px;height:12px}.ror{display:grid;grid-template-columns:118px 1fr;column-gap:10px;padding:6px 0}.ror+.ror{border-top:1px dashed rgba(204,204,220,.1)}.rok{display:flex;align-items:center;gap:6px;font-size:13px;color:#9fa7b3}.rok .lk{width:13px;height:13px;color:#6c727c;flex:none}.rov{color:#c9cdd3;font-size:14px;line-height:20px}.rov code{font:400 12px/18px "Roboto Mono",monospace;color:#c9cdd3;background:#111217;border:1px solid rgba(204,204,220,.12);border-radius:4px;padding:1px 6px}.ror small{grid-column:2;font-size:12px;line-height:18px;color:#7b818a}.pgp .tg{padding:8px 0}.pgp .psec>.tg:first-of-type{border-top:0}.fld{display:flex;flex-direction:column;gap:4px;min-width:0}.fld label{font:500 12px/18px Inter,Helvetica,Arial,sans-serif;color:#c9cdd3}.fld small{font-size:12px;line-height:18px;color:#7b818a}.fr2{display:grid;grid-template-columns:1fr 1fr;gap:10px}.pft{display:flex;gap:8px;align-items:center;padding-top:14px;border-top:1px solid rgba(204,204,220,.12)}.p.rs{padding:0 10px;color:#9fa7b3;border-color:transparent}/*s11tabs: mirrors @grafana/ui TabsBar + Tab*/.gtb{display:flex;border-bottom:1px solid rgba(204,204,220,.12);overflow-x:auto}.gt{position:relative;display:inline-flex;align-items:center;gap:6px;height:40px;padding:8px 12px;color:rgba(204,204,220,.65);font:400 14px/22px 'Inter','Helvetica','Arial',sans-serif;white-space:nowrap;border-radius:2px 2px 0 0;cursor:pointer}.gt:hover{color:#ccccdc;background:rgba(204,204,220,.08)}.gt:hover::before{content:'';position:absolute;left:0;right:0;bottom:0;height:2px;border-radius:2px;background:rgba(204,204,220,.25)}.gt.on{color:#ccccdc;font-weight:500;background:transparent}.gt.on::before{content:'';position:absolute;left:0;right:0;bottom:0;height:2px;border-radius:2px;background-image:linear-gradient(270deg,#F55F3E 0%,#FF8833 100%)}.gt:focus-visible{outline:2px solid #6e9fff;outline-offset:-2px}.gtp{display:flex;flex-direction:column;gap:14px}.pgp .gtp>.psec:first-child{border-top:0;padding-top:0}.pgp .gtb{margin-bottom:-2px}.dpv{padding:16px}.dpv .pvh{flex-direction:column;align-items:flex-start;gap:2px}.dpv .dpg{grid-template-columns:1fr;max-height:520px}.dpv .pgh{position:sticky}/*s11stack*/.rcol{display:flex;flex-direction:column;gap:14px;min-width:0}.rcol .dpv .dpg{max-height:260px}.rcol .dpv .pvh{flex-direction:row;align-items:flex-end}/*bmaccent: bookmarks group in the active app accent*/.dk{--mac:#58cfec;--mbg:rgba(88,207,236,.10);--mbd:rgba(88,207,236,.28);--mhv:rgba(88,207,236,.22)}.dk .mods{background:var(--mbg);border:1px solid var(--mbd)}.dk .mods .n{color:var(--mac)}.dk .mods .n:not(.on):hover,.dk .mods .n:not(.on):focus-visible,.mods .n:not(.on):focus-visible{background:var(--mhv);color:#fff}.dk .mods .n:not(.on):hover::before,.dk .mods .n:not(.on):focus-visible::before{background:var(--mac)}.dk .mods .n.on{background:var(--mhv);color:#fff}.dk .mods .n.on::before{background:var(--mac)}.dk .n.slot,.dk .mods .n.slot{color:var(--mac);border-color:var(--mbd)}.dk .mods .rf-hov{background:var(--mhv);color:#fff}.dk .mods .rf-hov::before{background:var(--mac)}.dbsk{background:linear-gradient(90deg,var(--mbg),var(--mhv),var(--mbg))!important;background-size:200% 100%!important}/*userhover*/button[aria-label="User menu"]{transition:background-color .12s}button[aria-label="User menu"]:hover,button[aria-label="User menu"]:focus-visible{background:rgba(204,204,220,.08)!important;outline:0}/*s11edit: edit icon, Edit bookmark tab, App combobox*/
+.ach .ced{margin-left:auto;width:32px;height:28px;border-radius:4px;display:grid;place-items:center;color:#9fa7b3;flex:none;opacity:.75;transition:background-color .12s,color .12s,opacity .12s}.ach .ced .i{width:16px;height:16px}.ac:hover .ced,.ac.on .ced,.ced:focus-visible{opacity:1}.ced:hover{background:rgba(204,204,220,.1);color:#fff}.ac.edt .ced-e{background:var(--ac);color:#14161b;opacity:1}
+.ach .ced+.bd{margin-left:4px}.ach .bd{margin-top:0}
+/*s11compact: shorter cards, eye/open/edit/bookmark icon row, app group headers*/
+.ac{gap:8px;padding:12px 12px 10px}.ac .ach{gap:10px;align-items:center}.ac .ach>.tl{width:32px!important;height:32px!important;border-radius:8px!important}.ac .ach>.tl .i{width:16px;height:16px}
+.ac .act{flex:1;min-width:0}.ac .act b,.ac .act small{max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ac{cursor:pointer}.ac:not(.on):hover{border-color:rgba(204,204,220,.28);background:#1c1f24}.acti{display:inline-flex;align-items:center;gap:2px;flex:none}.acti .ced{margin:0;width:28px;height:28px}.acti .ced .i{width:16px;height:16px}.acti .bd.pt{margin-left:4px!important}
+.ac .mr{margin-top:0;gap:10px;flex-wrap:nowrap}.ac .mr .dsc{flex:1;min-width:0;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#aeb4bd;font-size:13px}.ac.on .mr .dsc{color:#c9dde3}
+.ac .mr .sti{gap:4px;align-items:center}.ac .stc{width:24px;height:24px}.ac .stc .i{width:14px;height:14px}.sbc{font-size:12px;color:#8d939c;margin-right:4px;white-space:nowrap}
+.agh{grid-column:span 2;display:flex;align-items:center;gap:10px;padding:6px 6px 6px 10px;margin-top:6px;border-left:2px solid var(--ac);border-radius:0 6px 6px 0;background:#14161a}.agh:first-child{margin-top:0}
+.agt{display:grid;place-items:center;width:24px;height:24px;border-radius:6px;background:var(--bg);color:var(--ac);font:600 12px/1 Inter,sans-serif;flex:none}
+.agn{flex:1;display:flex;align-items:baseline;gap:10px;min-width:0}.agn b{font:500 14px/22px Inter,sans-serif;color:#fff}.agn small{font-size:12px;color:#8d939c;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.aop{display:inline-flex;align-items:center;gap:6px;height:28px;padding:0 10px;border-radius:6px;border:1px solid rgba(204,204,220,.2);color:#ccccdc;font:500 12px/18px Inter,sans-serif;white-space:nowrap}.aop:hover{border-color:var(--ac);color:#fff;background:var(--bg)}.aop .i{width:14px;height:14px}
+.ac.on{background:var(--bg);border-color:var(--bg)}.ac.on::before{background:var(--ac)}
+.appf{display:flex;align-items:center;gap:8px}.appl{font:500 12px/18px Inter,sans-serif;color:#9fa7b3}.appw{position:relative}.appc{width:220px;cursor:pointer;text-align:left}.appc .cv{width:16px;height:16px;color:#9fa7b3;margin-left:auto}.appv{display:inline-flex;align-items:center;gap:8px}.appv i,.appm i{width:8px;height:8px;border-radius:50%;flex:none}
+.appm{position:absolute;top:calc(100% + 4px);left:0;width:260px;padding:4px;border-radius:6px;background:rgba(30,33,39,.62);-webkit-backdrop-filter:blur(20px) saturate(140%);backdrop-filter:blur(20px) saturate(140%);border:1px solid rgba(204,204,220,.14);box-shadow:0 18px 40px #000c;z-index:40;display:flex;flex-direction:column}
+.appm button{display:flex;align-items:center;gap:8px;height:32px;padding:0 8px;border-radius:4px;color:#ccccdc;font:400 14px/22px Inter,sans-serif;text-align:left}.appm button span{flex:1}.appm button small{color:#8d939c;font-size:12px}.appm button .i{width:14px;height:14px;color:#58cfec}.appm button:hover{background:rgba(204,204,220,.08);color:#fff}.appm button.sel{color:#fff}.appm button.dis{opacity:.45;cursor:not-allowed}.appm button.dis:hover{background:none}
+.btin{flex-wrap:wrap;gap:6px;padding:4px 8px;min-height:34px}.btag{display:inline-flex;align-items:center;gap:4px;font:500 12px/18px Inter,sans-serif;padding:1px 8px;border-radius:9px;color:#fff;white-space:nowrap}.btag button{color:#fff;opacity:.75;padding:0 0 0 2px;font-size:13px;line-height:1}.btag button:hover{opacity:1}.btph{color:#8d939c;font-size:14px}
+.btsug{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-top:6px;font-size:12px;color:#8d939c}.btag.ghost{background:transparent;border:1px dashed rgba(204,204,220,.3);color:#c9cdd3;cursor:pointer}.btag.ghost:hover{border-color:#c9cdd3;color:#fff}
+.kv2{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;margin-top:4px;padding:8px 10px;border-radius:6px;background:#111217;border:1px solid rgba(204,204,220,.12);font-size:12px;color:#9fa7b3}.kv2 code{font:400 12px/18px 'Roboto Mono',monospace;color:#c9cdd3}
+.sw[aria-checked="true"]{background:var(--ac,#58cfec)}.sw[aria-disabled="true"]{opacity:.4;cursor:not-allowed}
+.pft .p .i{width:14px;height:14px}.pft .p{white-space:nowrap}
+.a{min-height:900px}.s{min-height:872px}
+/*s11scroll: header and filters stay, cards and the right column scroll inside the page*/.s11sc{height:var(--s11h,486px);align-items:stretch!important;min-height:0}.s11sc>.lc{overflow-y:auto;overscroll-behavior:contain;padding:0 8px 24px 0;scrollbar-gutter:stable;scrollbar-width:thin;scrollbar-color:rgba(204,204,220,.25) transparent;-webkit-mask-image:linear-gradient(#000 calc(100% - 28px),transparent);mask-image:linear-gradient(#000 calc(100% - 28px),transparent)}.s11sc>.rcol{overflow-y:auto;overscroll-behavior:contain;padding:0 6px 24px 0;scrollbar-width:thin;scrollbar-color:rgba(204,204,220,.25) transparent}.s11sc .agh{position:sticky;top:0;z-index:3;background:#14161a;box-shadow:0 -12px 0 #0b0c0e}.s11sc .agh:first-child{box-shadow:none}
+/*s11subpages: sub pages inside the page card, each with its own bookmark*/.lc>div{align-items:start}
+.sbt{display:flex;align-items:center;gap:6px;align-self:flex-start;height:24px;padding:0 6px 0 2px;border-radius:4px;color:#aeb4bd;font:500 12px/18px Inter,sans-serif}.sbt .cv{width:16px;height:16px;transform:rotate(-90deg);transition:transform .15s}.sbt[aria-expanded="true"] .cv{transform:none}button.sbt:hover{background:rgba(204,204,220,.08);color:#fff}.sbn0{color:#6e737c;padding-left:6px;font-weight:400}
+.sbl{list-style:none;margin:-2px 0 0;padding:4px 0 0;display:flex;flex-direction:column;gap:2px;border-top:1px solid rgba(204,204,220,.1)}.sbr{display:flex;align-items:center;gap:8px;min-height:34px;padding:2px 4px 2px 8px;border-radius:4px;cursor:pointer;position:relative}.sbr:hover{background:rgba(204,204,220,.06)}.sbr.on{background:rgba(204,204,220,.1)}.sbr.on::before{content:"";position:absolute;left:0;top:4px;bottom:4px;width:2px;border-radius:1px;background:var(--ac)}
+.sbr .tl .i{width:12px;height:12px}.sbx{flex:1;min-width:0;display:flex;align-items:baseline;gap:8px}.sbx b{font:500 13px/18px Inter,sans-serif;color:#dfe2e6;white-space:nowrap}.sbx small{font:400 12px/18px 'Roboto Mono',monospace;color:#7d838c;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sbr .ced{width:26px;height:26px;opacity:0;margin:0}.sbr:hover .ced,.sbr.on .ced,.sbr .ced:focus-visible{opacity:1}.sbr .ced .i{width:14px;height:14px}.sbr .stc{width:22px;height:22px}.sbr .stc .i{width:13px;height:13px}.sbr .bd.pt{min-height:22px;padding:0 5px;margin:0 0 0 2px}.sbr .bd.pt .i{width:13px;height:13px}
+.pgp .big>span{min-width:0;flex:1}.pgp .big small{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sbg{font:500 11px/16px Inter,sans-serif;color:#8d939c;padding:8px 8px 2px;letter-spacing:.02em}.sbg:first-child{padding-top:2px}
+.mlb{min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.mpp{color:#8d939c;font-weight:400}
+/*slothover: add slot hover = darker shade of the app accent, solid accent border, accent icon*/.dk .n.slot:not(.on):not(.opn):hover,.dk .n.slot:not(.on):not(.opn):focus-visible,.dk .mods .n.slot:not(.on):not(.opn):hover,.dk .mods .n.slot:not(.on):not(.opn):focus-visible,.dk .mods .n.slot.hv{background:color-mix(in srgb,var(--mac,#6e9fff) 38%,#0b0c0e);border:1px solid var(--mac,#6e9fff);color:var(--mac,#6e9fff);border-radius:6px}
+</style>
+</helmet>
+<div style="{{ rootStyle }}"><section style="grid-column:span 12;display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap"><div><h2 style="margin:0;font:400 28px/32px 'Inter','Helvetica','Arial',sans-serif;color:#eceef1">Bookmarks</h2><p style="margin:6px 0 0;color:#9fa7b3;font:400 14px/22px 'Inter','Helvetica','Arial',sans-serif">Bookmark the pages and sub pages you use most. The dock shows the bookmarks of the active app; the Bookmarks button lists all of them. The app home is always in the dock, so it is not a bookmark.</p></div><div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap"><div class="appf"><span class="appl">App</span><div class="appw"><button type="button" class="gin gsl appc" role="combobox" aria-haspopup="listbox" aria-expanded="{{ appOpenStr }}" aria-label="Filter by app" onClick="{{ toggleApp }}"><sc-if value="{{ appIsAll }}" hint-placeholder-val="{{ true }}"><span>All apps</span></sc-if><sc-if value="{{ appNotAll }}" hint-placeholder-val="{{ false }}"><span class="appv"><i style="{{ appDot }}"></i>{{ appLabel }}</span></sc-if><svg class="i gf cv" viewBox="0 0 24 24" aria-hidden="true"><path d="M17,9.17a1,1,0,0,0-1.41,0L12,12.71,8.46,9.17a1,1,0,0,0-1.41,0,1,1,0,0,0,0,1.42l4.24,4.24a1,1,0,0,0,1.42,0L17,10.59A1,1,0,0,0,17,9.17Z"/></svg></button><sc-if value="{{ appOpen }}" hint-placeholder-val="{{ false }}"><div class="appm" role="listbox" aria-label="Apps"><sc-for list="{{ appOpts }}" as="o" hint-placeholder-count="6"><button type="button" role="option" class="{{ o.cls }}" aria-selected="{{ o.sel }}" aria-disabled="{{ o.dis }}" onClick="{{ o.pick }}"><i style="{{ o.dot }}"></i><span>{{ o.name }}</span><small>{{ o.count }}</small><sc-if value="{{ o.isSel }}" hint-placeholder-val="{{ false }}"><svg class="i gf" viewBox="0 0 24 24" aria-hidden="true"><path d="M18.71,7.21a1,1,0,0,0-1.42,0L9.84,14.67,6.71,11.53A1,1,0,1,0,5.29,13l3.84,3.84a1,1,0,0,0,1.42,0l8.16-8.16A1,1,0,0,0,18.71,7.21Z"/></svg></sc-if></button></sc-for></div></sc-if></div></div><div class="sg" role="tablist" aria-label="Filter pages"><sc-for list="{{ segs }}" as="g" hint-placeholder-count="3"><button type="button" class="{{ g.cls }}" role="tab" aria-selected="{{ g.sel }}" onClick="{{ g.pick }}">{{ g.label }}</button></sc-for></div><button type="button" class="p" aria-label="Search pages" style="min-width:230px;justify-content:flex-start;color:#9fa7b3;font-weight:400"><svg class="i gf" viewBox="0 0 24 24" aria-hidden="true"><path d="M21.71,20.29,18,16.61A9,9,0,1,0,16.61,18l3.68,3.68a1,1,0,0,0,1.42,0A1,1,0,0,0,21.71,20.29ZM11,18a7,7,0,1,1,7-7A7,7,0,0,1,11,18Z"/></svg>Search pages…</button></div></section><div class="s11sc" style="grid-column:span 12;display:grid;grid-template-columns:minmax(0,1fr) 400px;gap:14px;align-items:start"><div class="lc"><div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;align-content:start"><sc-for list="{{ items }}" as="c" hint-placeholder-count="12"><sc-if value="{{ c.isHead }}" hint-placeholder-val="{{ false }}"><div class="agh" style="{{ c.vars }}"><span class="agt">{{ c.initial }}</span><span class="agn"><b>{{ c.name }}</b><small>{{ c.meta }}</small></span><button type="button" class="aop" title="Opens {{ c.home }}, the home page of {{ c.name }}" aria-label="Open {{ c.name }} at its home page, {{ c.home }}">Open {{ c.name }} <svg class="i gf" viewBox="0 0 24 24" aria-hidden="true"><path d="M18,10.82a1,1,0,0,0-1,1V19a1,1,0,0,1-1,1H5a1,1,0,0,1-1-1V8A1,1,0,0,1,5,7h7.18a1,1,0,0,0,0-2H5A3,3,0,0,0,2,8V19a3,3,0,0,0,3,3H16a3,3,0,0,0,3-3V11.82A1,1,0,0,0,18,10.82Zm3.92-8.2a1,1,0,0,0-.54-.54A1,1,0,0,0,21,2H15a1,1,0,0,0,0,2h3.59L8.29,14.29a1,1,0,0,0,0,1.42,1,1,0,0,0,1.42,0L20,5.41V9a1,1,0,0,0,2,0V3A1,1,0,0,0,21.92,2.62Z"/></svg></button></div></sc-if><sc-if value="{{ c.isCard }}" hint-placeholder-val="{{ true }}"><dc-import name="CmpPageCard" embedded="true" page="{{ c.key }}" bm="{{ c.bm }}" hidden="{{ c.hidden }}" sel="{{ c.sel }}" tab="{{ c.tab }}" seg="{{ c.seg }}" expanded="{{ c.expanded }}" on-toggle="{{ c.toggleBm }}" on-select="{{ c.select }}" on-expand="{{ c.expand }}" hint-size="100%,140px"></dc-import></sc-if></sc-for><sc-if value="{{ noCards }}" hint-placeholder-val="{{ false }}"><div class="help" style="grid-column:span 2"><b>No pages here</b><span>{{ noCardsMsg }}</span></div></sc-if><div class="help" style="grid-column:span 2"><b>Not in the list?</b><span>Pages and sub pages come from the menu. Anything that is not in the menu cannot be bookmarked. The app home is always in the dock, and tabs inside a page are part of that page.</span></div></div></div><div class="rcol"><dc-import name="CmpPagePanel" embedded="true" sel="{{ sel }}" tab="{{ tab }}" bm="{{ bm }}" hidden="{{ hidden }}" show-name="{{ showName }}" on-tab="{{ setTab }}" on-toggle="{{ toggleBm }}" on-toggle-dock="{{ toggleDock }}" on-toggle-name="{{ toggleName }}" hint-size="400px,640px"></dc-import><dc-import name="CmpDockPreview" embedded="true" bm="{{ bm }}" hidden="{{ hidden }}" sel="{{ sel }}" hint-size="400px,300px"></dc-import></div></div></div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"embedded":{"editor":null},"bm":{"editor":null},"hidden":{"editor":null},"onToggle":{"editor":null},"onToggleDock":{"editor":null},"$preview":{"width":1440,"height":660}}'>
+class Component extends DCLogic {
+// DockPagesView (R10, R12): the bookmarks page (/bookmarks, S11). It mounts C09 PageCard per page, C10 PagePanel and C11 DockPreview.
+// Shared state from props: bm, hidden (useBookmarks) with onToggle(key) and onToggleDock(key). The view keeps its own state: app
+// filter, All / Bookmarked / Available, the selected item and its tab, open expanders and "Always show the name".
+// Without the callbacks (on its own board) it keeps the bookmarks too.
+constructor(props) {
+super(props);
+this.state = { tab: 'details', sel: 'monitoring/Explore', app: 'all', seg: 'all', appOpen: false, open: { 'monitoring/Dashboards': true }, showName: {} };
+// a click outside an open card closes its sub page list (PageCard contract)
+if (typeof document !== 'undefined') { if (window.__s11off) window.__s11off();
+const h = (e) => { const hit = e.target && e.target.closest ? e.target.closest('article[data-cid]') : null; const keep = hit ? hit.getAttribute('data-cid') : null;
+const n = Object.assign({}, this.state.open); let ch = false;
+document.querySelectorAll('article.opn[data-cid]').forEach((el) => { const k = el.getAttribute('data-cid'); if (k !== keep) { n[k] = false; ch = true; } });
+if (ch) this.setState({ open: n }); };
+document.addEventListener('click', h, true); window.__s11off = () => document.removeEventListener('click', h, true); }
+}
+
+
+
+
+
+
+
+
+
+
+apps() {
+const P = (id, n, ic, bi, dk, d, route, more) => Object.assign({ id, n, ic, bi, dk, d, route, iconName: n }, more);
+return {
+monitoring: { name: 'Monitoring', icon: 'mon', ac: '#58cfec', bg: '#1d353f', sub: 'Grafana · 6 pages', home: 'Home', pages: [
+P('dash', 'Dashboards', 'r0', 'dash', 'chart', 'Browse, search and organise dashboards', '/dashboards', { iconName: 'Apps', subs: [
+  P('pl', 'Playlists', 't0', 'pl', 'pl', 'Rotate dashboards on a TV or kiosk screen', '/playlists'),
+  P('snap', 'Snapshots', 't1', 'dash', 'list', 'Saved copies of a dashboard at one moment', '/dashboard/snapshots'),
+  P('lp', 'Library panels', 't2', 'lp', 'lp', 'Panels you reuse across several dashboards', '/library-panels'),
+  P('pub', 'Shared dashboards', 't3', 'dash', 'list', 'Dashboards open through a public link', '/dashboard/public'),
+  P('del', 'Recently deleted', 't4', 'dash', 'clock', 'Bring back dashboards that were removed', '/dashboard/recently-deleted')] }),
+P('explore', 'Explore', 'r1', 'explore', 'ex', 'Query and inspect your data without a dashboard', '/explore', { iconName: 'Compass', subs: [] }),
+P('drill', 'Drilldown', 'r2', 'drill', 'drill', 'Metrics, logs, traces and profiles without writing queries', '/drilldown', { subs: [
+  P('metrics', 'Metrics', 'r2', 'drill', 'drill', 'Browse metrics without PromQL', '/a/grafana-metricsdrilldown-app/drilldown'),
+  P('logs', 'Logs', 'r2', 'drill', 'drill', 'Browse logs without LogQL', '/a/grafana-lokiexplore-app/explore'),
+  P('traces', 'Traces', 'r2', 'drill', 'drill', 'Browse traces without TraceQL', '/a/grafana-exploretraces-app/explore'),
+  P('profiles', 'Profiles', 'r2', 'drill', 'drill', 'Browse profiles without queries', '/a/grafana-pyroscope-app/explore')] }),
+P('alert', 'Alerting', 'r3', 'alert', 'alert', 'Alert rules, contact points and notification history', '/alerting', { iconName: 'Bell', subs: [
+  P('rules', 'Alert rules', 'r3', 'list', 'bell', 'Rules that decide when an alert fires', '/alerting/list'),
+  P('cp', 'Contact points', 'r3', 'alert', 'alert', 'Where notifications go', '/alerting/notifications'),
+  P('pol', 'Notification policies', 'r3', 'alert', 'alert', 'How alerts are routed', '/alerting/routes'),
+  P('sil', 'Silences', 'r3', 'alert', 'alert', 'Muted notifications', '/alerting/silences'),
+  P('grp', 'Active notifications', 'r3', 'alert', 'alert', 'Alerts that are firing now', '/alerting/groups'),
+  P('set', 'Settings', 'r5', 'admin', 'admin', 'Alertmanager settings', '/alerting/admin')] }),
+P('conn', 'Connections', 'r4', 'conn', 'conn', 'Data sources and plugins', '/connections', { iconName: 'Plug', subs: [
+  P('add', 'Add new connection', 'r4', 'conn', 'conn', 'Connect a new data source', '/connections/add-new-connection'),
+  P('ds', 'Data sources', 'r4', 'conn', 'conn', 'Data sources you have connected', '/connections/datasources')] }),
+P('admin', 'Administration', 'r5', 'admin', 'admin', 'Users, teams, plugins and server settings', '/admin', { iconName: 'Cog', adm: true, groups: [
+  { n: 'General', subs: [P('prefs', 'Default preferences', 'a0', 'admin', 'admin', 'Theme, home dashboard and timezone', '/org'),
+    P('stats', 'Statistics and licensing', 'a1', 'admin', 'admin', 'Usage numbers and license details', '/admin/upgrading'),
+    P('settings', 'Settings', 'a2', 'admin', 'admin', 'Server configuration', '/admin/settings'),
+    P('orgs', 'Organizations', 'a3', 'admin', 'admin', 'Create and switch organizations', '/admin/orgs'),
+    P('migrate', 'Migrate to Grafana Cloud', 'a4', 'admin', 'admin', 'Move this instance to the cloud', '/admin/migrate-to-cloud'),
+    P('prov', 'Provisioning', 'a5', 'admin', 'admin', 'Resources managed from files or Git', '/admin/provisioning')] },
+  { n: 'Plugins and data', subs: [P('plugins', 'Plugins', 'r5', 'admin', 'admin', 'Install and update plugins', '/plugins'),
+    P('corr', 'Correlations', 'r5', 'admin', 'admin', 'Links between data sources', '/datasources/correlations')] },
+  { n: 'Access', subs: [P('users', 'Users', 'r5', 'admin', 'admin', 'Everyone who can sign in', '/admin/users'),
+    P('teams', 'Teams', 'r5', 'admin', 'admin', 'Groups of users', '/org/teams'),
+    P('sa', 'Service accounts', 'r5', 'admin', 'admin', 'Accounts for tools and scripts', '/org/serviceaccounts'),
+    P('auth', 'Authentication', 'r5', 'admin', 'admin', 'Sign-in providers', '/admin/authentication')] }] })] },
+management: { name: 'Management', icon: 'mgmt', ac: '#e0b46a', bg: '#2f2819', sub: 'Production line · 3 pages', home: 'Overview', lc: { v: '0.1.0', st: 'enabled', upd: '0.1.1', d: 'Production line overview, reports and 3D view.', places: true, manage: { since: '28 October',
+health: 'OK', healthAt: '09:14', init: 'Accepted', initAt: '28 Oct', setup: 'Valid', migr: 'Up to date', needs: '>=13.0.0 <14', orbit: '>=1.0.0 <2',
+prev: '0.0.9', updNote: '28 Oct, checks passed by themselves', checked: 'Today 09:14', lastRun: 'Last run today 09:14', checks: [
+{ st: 'ok', t: 'Enabled for this organisation', d: 'On since 28 October.', src: 'GET /api/plugins/acme-management-app/settings' },
+{ st: 'ok', t: 'App loads without error', d: 'Health check answered in 120 ms.', src: 'GET /api/plugins/acme-management-app/health' },
+{ st: 'ok', t: 'Manifest ui block', d: 'accent, show and 3 pages are valid.', src: 'ui.json' },
+{ st: 'ok', t: 'Accent is readable', d: '#e0b46a on the tile meets 4.5:1.' },
+{ st: 'warn', t: 'Pages', d: '3D view has a warning. See the Pages table.', fix: 'Show' }] } }, pages: [
+P('overview', 'Overview', 'chart', 'overview', 'chart', 'Production line overview', '/a/acme-management-app/overview', { iconName: 'Chart', who: 'Viewer', check: 'ok', subs: [
+  P('line', 'Line status', 'chart', 'overview', 'chart', 'Live status of each station on the line', '/a/acme-management-app/overview/line-status'),
+  P('shifts', 'Shifts', 'clock', 'clock', 'clock', 'Output and stops per shift', '/a/acme-management-app/overview/shifts'),
+  P('alarms', 'Alarms', 'bell', 'alert', 'alert', 'Open alarms on the line', '/a/acme-management-app/overview/alarms')] }),
+P('reports', 'Reports', 'doc', 'reports', 'doc', 'Shift and production reports', '/a/acme-management-app/reports', { iconName: 'Document', who: 'Viewer', check: 'ok', subs: [
+  P('daily', 'Daily', 'doc', 'reports', 'doc', 'Yesterday per station', '/a/acme-management-app/reports/daily'),
+  P('weekly', 'Weekly', 'doc', 'reports', 'doc', 'This week against the plan', '/a/acme-management-app/reports/weekly'),
+  P('monthly', 'Monthly', 'doc', 'reports', 'doc', 'Month summary for managers', '/a/acme-management-app/reports/monthly'),
+  P('export', 'Export', 'list', 'list', 'list', 'Download reports as CSV or PDF', '/a/acme-management-app/reports/export')] }),
+P('cube', '3D view', 'cube', 'cube', 'cube', 'Machines in the plant model', '/a/acme-management-app/3d-view', { iconName: 'Cube', who: 'Editor', check: 'warn', subs: [], checks: [
+{ st: 'ok', t: 'Route responds', d: 'The app renders a page at this path.', src: '/a/acme-management-app/3d-view' },
+{ st: 'ok', t: 'In the nav tree for you', d: 'Listed under plugin-page-acme-management-app.' },
+{ st: 'ok', t: 'Who can open', d: 'Editor and above. 2 Viewers in this org cannot see it.' },
+{ st: 'warn', t: 'Manifest page entry', d: 'No description, so the card shows the name only.', src: 'ui.pages.3d-view.description', fix: 'Open manifest draft' }] })] },
+maintenance: { name: 'Maintenance', icon: 'mnt', ac: '#5794f2', bg: '#17233b', sub: 'Work orders · 2 pages', isNew: true, home: 'Work orders', lc: { v: '0.3.2', st: 'enabled', note: 'enabled 09:10', at: 'Today 09:10', d: 'Work orders, machine downtime and service history.',
+update: {"checks": [{"st": "ok", "t": "Grafana version and compatibility", "d": "The app needs >=13.0.0 <14. This Grafana is 13.3.0.", "src": "grafanaDependency"}, {"st": "ok", "t": "Orbit API version", "d": "The app needs Orbit >=1.0.0 <2. This server runs Orbit 1.0.0.", "src": "requires.orbit"}, {"st": "ok", "t": "Plugin loaded", "d": "Grafana loaded acme-maintenance-app v0.4.0 after the restart."}, {"st": "ok", "t": "Signature", "d": "[SIGNATURE STATUS]. Grafana's loader checked it under this server's signature policy."}, {"st": "ok", "t": "Dependencies", "d": "No plugin dependencies are declared in plugin.json."}, {"st": "ok", "t": "Manifest", "d": "Valid. 2 pages and 6 sub pages are registered (1 new)."}], "last": "Rechecked 07:05", "run": "Run again"} }, pages: [
+P('orders', 'Work orders', 'list', 'list', 'list', 'Open, planned and closed work orders', '/a/acme-maintenance-app/orders', { iconName: 'List', kind: 'List', subs: [
+  P('open', 'Open', 'list', 'list', 'list', 'Work orders not closed yet', '/a/acme-maintenance-app/orders/open'),
+  P('planned', 'Planned', 'clock', 'clock', 'clock', 'Planned maintenance by date', '/a/acme-maintenance-app/orders/planned'),
+  P('closed', 'Closed', 'doc', 'doc', 'doc', 'Closed work orders', '/a/acme-maintenance-app/orders/closed')] }),
+P('downtime', 'Downtime', 'clock', 'clock', 'clock', 'Downtime minutes by cause and machine', '/a/acme-maintenance-app/downtime', { iconName: 'Clock', kind: 'Dashboard', subs: [
+  P('cause', 'By cause', 'chart', 'overview', 'chart', 'Downtime minutes by cause', '/a/acme-maintenance-app/downtime/by-cause'),
+  P('machine', 'By machine', 'cube', 'cube', 'cube', 'Downtime minutes by machine', '/a/acme-maintenance-app/downtime/by-machine')] })] },
+quality: { name: 'Quality', inSelector: false, enabled: false, ac: '#73bf69', bg: '#1b2a1d', sub: 'Review required', home: 'Inspections', pages: [],
+lc: { v: '1.0.1', st: 'review', step: 2, n: 4, d: 'Inspection results and defect tracking.',
+review: {"checks": [{"st": "ok", "t": "Grafana version and compatibility", "d": "The app needs >=13.0.0 <14. This Grafana is 13.3.0.", "src": "grafanaDependency"}, {"st": "ok", "t": "Orbit API version", "d": "The app needs Orbit >=1.0.0 <2. This server runs Orbit 1.0.0.", "src": "requires.orbit"}, {"st": "ok", "t": "Plugin loaded", "d": "Grafana discovered and loaded acme-quality-app v1.0.1 after the restart.", "src": "GET /api/plugins/acme-quality-app/settings"}, {"st": "ok", "t": "Signature", "d": "[SIGNATURE STATUS]. Grafana's loader checked it under this server's signature policy."}, {"st": "ok", "t": "Dependencies", "d": "No plugin dependencies are declared in plugin.json."}, {"st": "idle", "t": "App health", "d": "Runs after Enable. Grafana answers the health check only for an enabled app; this app has no backend, so nothing will run."}, {"st": "ok", "t": "Self-test: manifest and routes", "d": "The ui block is valid. 4 pages are registered."}, {"st": "warn", "t": "Self-test: sample query", "d": "Skipped with a warning: no data source is connected yet. It runs again in Validate."}], "last": "Finished 09:12", "run": "Run again"} } },
+energy: { name: 'Energy', inSelector: false, enabled: false, ac: '#f2cc0c', bg: '#2e2a14', sub: 'No pages yet', home: 'Setup', pages: [],
+lc: { v: '0.2.0', st: 'setupwip', step: 3, n: 2, note: 'discovered 08:52', d: 'Power use per machine and per shift.',
+setup: {"checks": [{"st": "idle", "t": "Required fields", "d": "Not run yet."}, {"st": "idle", "t": "Permissions", "d": "Not run yet."}, {"st": "idle", "t": "Connections", "d": "Not run yet."}, {"st": "idle", "t": "App prerequisites", "d": "Not run yet."}]} } },
+safety: { name: 'Safety', inSelector: false, enabled: false, ac: '#c9cdd3', bg: '#262a31', sub: 'Not initialized', home: 'Home', pages: [],
+lc: { v: '0.4.0', st: 'notinit', step: 1, n: 3, note: 'discovered 09:05', d: 'Incident reports and safety walks.' } }
+};
+}
+
+mockItems() {
+const A = this.apps(); const out = [];
+Object.keys(A).forEach((a) => A[a].pages.forEach((g) => {
+const subs = g.groups ? [].concat(...g.groups.map((x) => x.subs.map((s) => Object.assign({ grp: x.n }, s)))) : g.subs;
+out.push(Object.assign({}, g, { key: a + '/' + g.n, app: a, parent: null, nSubs: subs.length }));
+subs.forEach((s) => out.push(Object.assign({}, s, { key: a + '/' + g.n + '/' + s.n, app: a, parent: g.n, grp: s.grp || '', nSubs: 0 }))); }));
+return out;
+}
+mockBookmarks() {
+return { 'monitoring/Dashboards/Playlists': true, 'monitoring/Dashboards/Library panels': true, 'monitoring/Explore': true, 'monitoring/Administration/Settings': true,
+'management/Overview/Line status': true, 'management/Reports/Weekly': true, 'maintenance/Work orders/Open': true, 'maintenance/Downtime': true };
+}
+
+mockHidden() {
+return { 'monitoring/Administration/Settings': true };
+}
+
+renderVals() {
+const p = this.props; const st = this.state; const A = this.apps(); const IT = this.mockItems();
+const bm = (p.onToggle ? p.bm : st.bm || p.bm) || this.mockBookmarks();
+const hidden = (p.onToggleDock ? p.hidden : st.hidden || p.hidden) || this.mockHidden();
+const { tab, sel, app, seg, appOpen, open, showName } = st;
+const on = (k) => !!bm[k]; const dockOf = (k) => on(k) && !hidden[k];
+const toggleBm = (k) => (p.onToggle ? p.onToggle(k) : this.setState({ bm: Object.assign({}, bm, { [k]: !bm[k] }) }));
+const toggleDock = (k) => (p.onToggleDock ? p.onToggleDock(k) : this.setState({ hidden: Object.assign({}, hidden, { [k]: !hidden[k] }) }));
+const toggleName = (k) => this.setState({ showName: Object.assign({}, showName, { [k]: !showName[k] }) });
+const select = (k, t) => this.setState({ sel: k, tab: t }); const setTab = (t) => this.setState({ tab: t });
+const segOk = (k) => seg === 'all' || (seg === 'bm' ? on(k) : !on(k));
+const subsOf = (g) => IT.filter((x) => x.app === g.app && x.parent === g.n);
+const isOpenOf = (g) => subsOf(g).length > 0 && (g.key in open ? !!open[g.key] : (seg !== 'all' && subsOf(g).some((s) => segOk(s.key))));
+const pages = IT.filter((x) => !x.parent && (app === 'all' || x.app === app));
+const cards = pages.filter((g) => segOk(g.key) || subsOf(g).some((s) => segOk(s.key))).map((g) => ({ isHead: false, isCard: true, appKey: g.app, key: g.key,
+expanded: isOpenOf(g), bm, hidden, sel, tab, seg, toggleBm, select, expand: () => this.setState({ open: Object.assign({}, open, { [g.key]: !isOpenOf(g) }) }) }));
+const items = [];
+Object.keys(A).forEach((k) => { const cs = cards.filter((c) => c.appKey === k); if (!cs.length) return; const ap = A[k];
+const ps = IT.filter((x) => x.app === k && !x.parent); const subsN = IT.filter((x) => x.app === k && x.parent).length;
+const bmN = IT.filter((x) => x.app === k && on(x.key)).length; const dockN = IT.filter((x) => x.app === k && dockOf(x.key)).length;
+items.push({ isHead: true, isCard: false, name: ap.name, initial: ap.name[0], home: ap.home, vars: '--ac:' + ap.ac + ';--bg:' + ap.bg,
+meta: ps.length + (ps.length === 1 ? ' page' : ' pages') + ' · ' + subsN + ' sub pages · ' + bmN + ' bookmarked · ' + dockN + ' of 6 in the dock' });
+cs.forEach((c) => items.push(c)); });
+const inApp = IT.filter((x) => app === 'all' || x.app === app); const cnt = (f) => inApp.filter(f).length;
+const segs = [['all', 'All', cnt(() => true)], ['bm', 'Bookmarked', cnt((x) => on(x.key))], ['av', 'Available', cnt((x) => !on(x.key))]].map(([id, l, n]) => ({
+label: l + ' ' + n, cls: seg === id ? 'sgb on' : 'sgb', sel: seg === id ? 'true' : 'false', pick: () => this.setState({ seg: id }) }));
+const appOpts = [['all', 'All apps', null]].concat(Object.keys(A).map((k) => [k, A[k].name, A[k].ac])).map(([k, n, c]) => { const dis = k !== 'all' && A[k].enabled === false; const isSel = app === k;
+const np = k === 'all' ? IT.filter((x) => !x.parent).length : IT.filter((x) => x.app === k && !x.parent).length;
+return { name: n, count: dis ? 'Not enabled' : np + (np === 1 ? ' page' : ' pages'), dot: c ? 'background:' + c : 'background:transparent;box-shadow:inset 0 0 0 1px #8d939c', isSel,
+sel: isSel ? 'true' : 'false', dis: dis ? 'true' : 'false', cls: (isSel ? 'sel' : '') + (dis ? ' dis' : ''), pick: () => { if (!dis) this.setState({ app: k, appOpen: false }); } }; });
+return { items, cards, noCards: cards.length === 0, noCardsMsg: seg === 'bm' ? 'Nothing in this app is bookmarked yet. Switch to All or Available.' : 'Every page and sub page of this app is bookmarked.',
+segs, appOpts, appOpen, appOpenStr: appOpen ? 'true' : 'false', toggleApp: () => this.setState({ appOpen: !appOpen }),
+appIsAll: app === 'all', appNotAll: app !== 'all', appLabel: app === 'all' ? 'All apps' : A[app].name, appDot: app === 'all' ? '' : 'background:' + A[app].ac,
+bm, hidden, sel, tab, showName, toggleBm, toggleDock, toggleName, setTab,
+rootStyle: 'display:flex;flex-direction:column;gap:12px;min-width:0' + (p.embedded ? '' : ';padding:24px;color:#eceef1;font:400 14px/22px \'Inter\',\'Helvetica\',\'Arial\',sans-serif') };
+}
+}
+</script>
+</body>
+</html>
