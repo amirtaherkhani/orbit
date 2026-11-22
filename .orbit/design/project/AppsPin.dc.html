@@ -226,34 +226,34 @@ P('dash', 'Dashboards', 'r0', 'dash', 'chart', 'Browse, search and organise dash
   P('pub', 'Shared dashboards', 't3', 'dash', 'list', 'Dashboards open through a public link', '/dashboard/public'),
   P('del', 'Recently deleted', 't4', 'dash', 'clock', 'Bring back dashboards that were removed', '/dashboard/recently-deleted')] }),
 P('explore', 'Explore', 'r1', 'explore', 'ex', 'Query and inspect your data without a dashboard', '/explore', { iconName: 'Compass', subs: [] }),
-P('drill', 'Drilldown', 'r2', 'drill', 'list', 'Metrics, logs, traces and profiles without writing queries', '/drilldown', { subs: [
-  P('metrics', 'Metrics', 'r2', 'drill', 'list', 'Browse metrics without PromQL', '/a/grafana-metricsdrilldown-app/drilldown'),
-  P('logs', 'Logs', 'r2', 'drill', 'list', 'Browse logs without LogQL', '/a/grafana-lokiexplore-app/explore'),
-  P('traces', 'Traces', 'r2', 'drill', 'list', 'Browse traces without TraceQL', '/a/grafana-exploretraces-app/explore'),
-  P('profiles', 'Profiles', 'r2', 'drill', 'list', 'Browse profiles without queries', '/a/grafana-pyroscope-app/explore')] }),
-P('alert', 'Alerting', 'r3', 'alert', 'bell', 'Alert rules, contact points and notification history', '/alerting', { iconName: 'Bell', subs: [
+P('drill', 'Drilldown', 'r2', 'drill', 'drill', 'Metrics, logs, traces and profiles without writing queries', '/drilldown', { subs: [
+  P('metrics', 'Metrics', 'r2', 'drill', 'drill', 'Browse metrics without PromQL', '/a/grafana-metricsdrilldown-app/drilldown'),
+  P('logs', 'Logs', 'r2', 'drill', 'drill', 'Browse logs without LogQL', '/a/grafana-lokiexplore-app/explore'),
+  P('traces', 'Traces', 'r2', 'drill', 'drill', 'Browse traces without TraceQL', '/a/grafana-exploretraces-app/explore'),
+  P('profiles', 'Profiles', 'r2', 'drill', 'drill', 'Browse profiles without queries', '/a/grafana-pyroscope-app/explore')] }),
+P('alert', 'Alerting', 'r3', 'alert', 'alert', 'Alert rules, contact points and notification history', '/alerting', { iconName: 'Bell', subs: [
   P('rules', 'Alert rules', 'r3', 'list', 'bell', 'Rules that decide when an alert fires', '/alerting/list'),
-  P('cp', 'Contact points', 'r3', 'alert', 'bell', 'Where notifications go', '/alerting/notifications'),
-  P('pol', 'Notification policies', 'r3', 'alert', 'bell', 'How alerts are routed', '/alerting/routes'),
-  P('sil', 'Silences', 'r3', 'alert', 'bell', 'Muted notifications', '/alerting/silences'),
-  P('grp', 'Active notifications', 'r3', 'alert', 'bell', 'Alerts that are firing now', '/alerting/groups'),
-  P('set', 'Settings', 'r5', 'admin', 'list', 'Alertmanager settings', '/alerting/admin')] }),
-P('conn', 'Connections', 'r4', 'conn', 'list', 'Data sources and plugins', '/connections', { iconName: 'Plug', subs: [
-  P('add', 'Add new connection', 'r4', 'conn', 'list', 'Connect a new data source', '/connections/add-new-connection'),
-  P('ds', 'Data sources', 'r4', 'conn', 'list', 'Data sources you have connected', '/connections/datasources')] }),
-P('admin', 'Administration', 'r5', 'admin', 'list', 'Users, teams, plugins and server settings', '/admin', { iconName: 'Cog', adm: true, groups: [
-  { n: 'General', subs: [P('prefs', 'Default preferences', 'a0', 'admin', 'list', 'Theme, home dashboard and timezone', '/org'),
-    P('stats', 'Statistics and licensing', 'a1', 'admin', 'list', 'Usage numbers and license details', '/admin/upgrading'),
-    P('settings', 'Settings', 'a2', 'admin', 'list', 'Server configuration', '/admin/settings'),
-    P('orgs', 'Organizations', 'a3', 'admin', 'list', 'Create and switch organizations', '/admin/orgs'),
-    P('migrate', 'Migrate to Grafana Cloud', 'a4', 'admin', 'list', 'Move this instance to the cloud', '/admin/migrate-to-cloud'),
-    P('prov', 'Provisioning', 'a5', 'admin', 'list', 'Resources managed from files or Git', '/admin/provisioning')] },
-  { n: 'Plugins and data', subs: [P('plugins', 'Plugins', 'r5', 'admin', 'list', 'Install and update plugins', '/plugins'),
-    P('corr', 'Correlations', 'r5', 'admin', 'list', 'Links between data sources', '/datasources/correlations')] },
-  { n: 'Access', subs: [P('users', 'Users', 'r5', 'admin', 'list', 'Everyone who can sign in', '/admin/users'),
-    P('teams', 'Teams', 'r5', 'admin', 'list', 'Groups of users', '/org/teams'),
-    P('sa', 'Service accounts', 'r5', 'admin', 'list', 'Accounts for tools and scripts', '/org/serviceaccounts'),
-    P('auth', 'Authentication', 'r5', 'admin', 'list', 'Sign-in providers', '/admin/authentication')] }] })] },
+  P('cp', 'Contact points', 'r3', 'alert', 'alert', 'Where notifications go', '/alerting/notifications'),
+  P('pol', 'Notification policies', 'r3', 'alert', 'alert', 'How alerts are routed', '/alerting/routes'),
+  P('sil', 'Silences', 'r3', 'alert', 'alert', 'Muted notifications', '/alerting/silences'),
+  P('grp', 'Active notifications', 'r3', 'alert', 'alert', 'Alerts that are firing now', '/alerting/groups'),
+  P('set', 'Settings', 'r5', 'admin', 'admin', 'Alertmanager settings', '/alerting/admin')] }),
+P('conn', 'Connections', 'r4', 'conn', 'conn', 'Data sources and plugins', '/connections', { iconName: 'Plug', subs: [
+  P('add', 'Add new connection', 'r4', 'conn', 'conn', 'Connect a new data source', '/connections/add-new-connection'),
+  P('ds', 'Data sources', 'r4', 'conn', 'conn', 'Data sources you have connected', '/connections/datasources')] }),
+P('admin', 'Administration', 'r5', 'admin', 'admin', 'Users, teams, plugins and server settings', '/admin', { iconName: 'Cog', adm: true, groups: [
+  { n: 'General', subs: [P('prefs', 'Default preferences', 'a0', 'admin', 'admin', 'Theme, home dashboard and timezone', '/org'),
+    P('stats', 'Statistics and licensing', 'a1', 'admin', 'admin', 'Usage numbers and license details', '/admin/upgrading'),
+    P('settings', 'Settings', 'a2', 'admin', 'admin', 'Server configuration', '/admin/settings'),
+    P('orgs', 'Organizations', 'a3', 'admin', 'admin', 'Create and switch organizations', '/admin/orgs'),
+    P('migrate', 'Migrate to Grafana Cloud', 'a4', 'admin', 'admin', 'Move this instance to the cloud', '/admin/migrate-to-cloud'),
+    P('prov', 'Provisioning', 'a5', 'admin', 'admin', 'Resources managed from files or Git', '/admin/provisioning')] },
+  { n: 'Plugins and data', subs: [P('plugins', 'Plugins', 'r5', 'admin', 'admin', 'Install and update plugins', '/plugins'),
+    P('corr', 'Correlations', 'r5', 'admin', 'admin', 'Links between data sources', '/datasources/correlations')] },
+  { n: 'Access', subs: [P('users', 'Users', 'r5', 'admin', 'admin', 'Everyone who can sign in', '/admin/users'),
+    P('teams', 'Teams', 'r5', 'admin', 'admin', 'Groups of users', '/org/teams'),
+    P('sa', 'Service accounts', 'r5', 'admin', 'admin', 'Accounts for tools and scripts', '/org/serviceaccounts'),
+    P('auth', 'Authentication', 'r5', 'admin', 'admin', 'Sign-in providers', '/admin/authentication')] }] })] },
 management: { name: 'Management', icon: 'mgmt', ac: '#e0b46a', bg: '#2f2819', sub: 'Production line · 3 pages', home: 'Overview', lc: { v: '0.1.0', st: 'enabled', upd: '0.1.1', d: 'Production line overview, reports and 3D view.', places: true, manage: { since: '28 October',
 health: 'OK', healthAt: '09:14', init: 'Accepted', initAt: '28 Oct', setup: 'Valid', migr: 'Up to date', needs: '>=13.0.0 <14', orbit: '>=1.0.0 <2',
 prev: '0.0.9', updNote: '28 Oct, checks passed by themselves', checked: 'Today 09:14', lastRun: 'Last run today 09:14', checks: [
@@ -265,7 +265,7 @@ prev: '0.0.9', updNote: '28 Oct, checks passed by themselves', checked: 'Today 0
 P('overview', 'Overview', 'chart', 'overview', 'chart', 'Production line overview', '/a/acme-management-app/overview', { iconName: 'Chart', who: 'Viewer', check: 'ok', subs: [
   P('line', 'Line status', 'chart', 'overview', 'chart', 'Live status of each station on the line', '/a/acme-management-app/overview/line-status'),
   P('shifts', 'Shifts', 'clock', 'clock', 'clock', 'Output and stops per shift', '/a/acme-management-app/overview/shifts'),
-  P('alarms', 'Alarms', 'bell', 'alert', 'bell', 'Open alarms on the line', '/a/acme-management-app/overview/alarms')] }),
+  P('alarms', 'Alarms', 'bell', 'alert', 'alert', 'Open alarms on the line', '/a/acme-management-app/overview/alarms')] }),
 P('reports', 'Reports', 'doc', 'reports', 'doc', 'Shift and production reports', '/a/acme-management-app/reports', { iconName: 'Document', who: 'Viewer', check: 'ok', subs: [
   P('daily', 'Daily', 'doc', 'reports', 'doc', 'Yesterday per station', '/a/acme-management-app/reports/daily'),
   P('weekly', 'Weekly', 'doc', 'reports', 'doc', 'This week against the plan', '/a/acme-management-app/reports/weekly'),
@@ -337,17 +337,17 @@ pickApp(id) {
 if (id === this.state.app) { this.setState({ apps: false }); return; }
 clearTimeout(this.loadTimer);
 // Monitoring is Grafana's own app: it never shows the loading state (N6)
-this.setState({ app: id, apps: false, loading: id !== 'monitoring' });
+this.setState({ app: id, apps: false, switcher: false, loading: id !== 'monitoring' });
 if (id !== 'monitoring') this.loadTimer = setTimeout(() => this.setState({ loading: false }), 650);
 }
 renderVals() {
 const A = this.apps(); const { viewer, menu, apps, opened, app, loading, bm, hidden, adding, fresh, view, viewApp, lcMode, switcher } = this.state; const cur = A[app];
-const DK = ['chart', 'doc', 'cube', 'list', 'clock', 'bell', 'pl', 'lp', 'ex'];
+const DK = ['chart', 'doc', 'cube', 'list', 'clock', 'bell', 'pl', 'lp', 'ex', 'dash', 'drill', 'alert', 'conn', 'admin'];
 const dockBms = [];
 cur.pages.filter((x) => !(viewer && x.adm)).forEach((x) => {
 const inDock = (k) => bm[k] && !hidden[k];
-if (inDock(app + '/' + x.n)) dockBms.push({ label: x.n, icon: x.dk || x.ic, fresh: fresh === app + '/' + x.n });
-(x.groups ? [].concat(...x.groups.map((g) => g.subs)) : x.subs).forEach((t) => { const k = app + '/' + x.n + '/' + t.n; if (inDock(k)) dockBms.push({ label: x.n + ' › ' + t.n, icon: t.dk || t.ic, fresh: fresh === k }); });
+if (inDock(app + '/' + x.n)) dockBms.push({ label: x.n, icon: x.dk || x.ic, fresh: fresh === app + '/' + x.n, app, page: x.n });
+(x.groups ? [].concat(...x.groups.map((g) => g.subs)) : x.subs).forEach((t) => { const k = app + '/' + x.n + '/' + t.n; if (inDock(k)) dockBms.push({ label: x.n + ' › ' + t.n, icon: t.dk || t.ic, fresh: fresh === k, app, page: x.n, sub: t.n }); });
 });
 dockBms.forEach((b) => { if (DK.indexOf(b.icon) < 0) b.icon = 'list'; });
 const crumb = opened ? { a: A[opened.app].name, p: opened.page, s: opened.sub || '' } : { a: '', p: '', s: '' };
@@ -366,7 +366,9 @@ openedDesc: opened ? crumb.a + ' · ' + crumb.p + (crumb.s ? ' · ' + crumb.s : 
 vHome: view === 'home', vDash: view === 'dashboard', vApps: view === 'apps', vManage: view === 'manage', vLife: view === 'lifecycle', vBm: view === 'bookmarks', vPage: view === 'page',
 viewApp, lcMode, dockSel: { home: 'home', dashboard: 'dashboards', bookmarks: 'bookmarks', apps: 'apps', manage: 'apps', lifecycle: 'apps' }[view] || 'none',
 viewCrumb: { dashboard: 'Dashboards', apps: 'Apps', manage: 'Apps', lifecycle: 'Apps', bookmarks: 'Bookmarks' }[view] || '', viewSub: view === 'manage' || view === 'lifecycle' ? A[viewApp].name : '', hasViewSub: view === 'manage' || view === 'lifecycle',
-navigate: (k) => this.go({ home: 'home', dashboards: 'dashboard', bookmarks: 'bookmarks' }[k] || 'home'), appsPage: () => this.go('apps'),
+// the dock's bookmarks open their page and Alerting opens Grafana's Alerting page, from every view
+navigate: (k, b) => (k === 'bookmark' && b ? this.openPage(b.app, b.page, b.sub) : k === 'alerting' ? this.openPage('monitoring', 'Alerting')
+: this.go({ home: 'home', dashboards: 'dashboard', starred: 'dashboard', bookmarks: 'bookmarks' }[k] || 'home')), appsPage: () => this.go('apps'),
 manage: (id) => this.go('manage', id), step: (id) => this.go('lifecycle', id), toggleSwitcher: () => this.toggleSwitcher()
 };
 }

@@ -131,4 +131,10 @@ t.v().toggleSwitcher(); assert.equal(t.v().dockOverlay, 'apps'); t.v().appsPage(
 v.manage('management'); v = t.v(); assert.ok(v.vManage && v.viewApp === 'management' && v.viewSub === 'Management');
 v.step('energy'); assert.ok(t.v().vLife && t.v().lcMode === 'setup'); t.v().step('quality'); assert.equal(t.v().lcMode, 'review');
 t.v().toggleMenu(); t.v().openPage('management', 'Reports', 'Daily'); flush(); assert.ok(t.v().vPage && !t.v().vLife && t.v().crumbSub === 'Daily');
+// the switcher picks an app and the dock's bookmarks follow it; a dock bookmark opens its page from any view
+t = page(); assert.deepEqual(t.v().dockBms.map((b) => b.icon), ['pl', 'lp', 'ex']); t.v().toggleSwitcher(); t.c.pickApp('maintenance'); flush(); v = t.v();
+assert.ok(v.dockOverlay === 'none' && v.dockApp.id === 'maintenance' && v.dockBms.length && v.dockBms.every((b) => b.app === 'maintenance'));
+v.appsPage(); t.v().navigate('bookmark', t.v().dockBms[0]); v = t.v(); assert.ok(v.vPage && v.crumbApp === 'Maintenance', 'bookmark opens its page');
+t.v().navigate('alerting'); assert.ok(t.v().vPage && t.v().crumbPage === 'Alerting');
+t.c.pickApp('monitoring'); t.v().toggleBm('monitoring/Drilldown'); assert.equal(t.v().dockBms.find((b) => b.page === 'Drilldown').icon, 'drill', 'Grafana pages keep their own icon');
 console.log('s22 logic ok');
